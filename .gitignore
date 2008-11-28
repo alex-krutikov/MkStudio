@@ -9,6 +9,7 @@ Makefile
 *.o
 *.exe
 *.dll
+*.so
 *.a
 *.bak
 moc_*.cpp

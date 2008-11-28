@@ -158,17 +158,18 @@ int SerialPortPrivate::request( const QByteArray &request,
 //===================================================================
 QStringList SerialPortPrivate::queryComPorts()
 {
- QStringList sl;
- QString str;
- int i,fd;
+  QRegExp rx("^tty[A-Z].*");
+  QStringList sl;
+  QDir dir("/dev");
+  int fd;
   
- for(i=0;i<6;i++)
- {  str = QString("/dev/ttyS%1").arg(i);
+  foreach( QString str, dir.entryList(QDir::System, QDir::Name) )
+  { if( !rx.exactMatch( str ) ) continue;
+    str = "/dev/" + str;
     fd = ::open( str.toLocal8Bit(), O_RDONLY|O_NOCTTY );
     if( fd < 0 ) continue;
-    ::close( fd );
-    sl << str+QString("; COM%1").arg(i+1);
- }
- sl << "/dev/ttyUSB0;USB Serial";
- return sl;
+    ::close(fd);
+    sl << str + QString("; Serial Port");
+  }
+  return sl;
 }
