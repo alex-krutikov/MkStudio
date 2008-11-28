@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/html" >
+        <file>html/help.css</file>
+        <file>html/index.html</file>
+    </qresource>
+    <qresource prefix="/res" >
+        <file>res/conf.xml</file>
+    </qresource>
+
+</RCC>

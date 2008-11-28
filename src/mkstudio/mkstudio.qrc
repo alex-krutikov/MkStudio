@@ -1,0 +1,63 @@
+<RCC>
+    <qresource prefix="/html" >
+        <file>help/help.css</file>
+        <file>help/img/initdialog.png</file>
+        <file>help/img/mainwindow.png</file>
+        <file>help/img/mainwindow_modules.png</file>
+        <file>help/img/mainwindow_opros.png</file>
+        <file>help/img/mainwindow_slot.png</file>
+        <file>help/img/mainwindow_slot2.png</file>
+        <file>help/img/mainwindow_console.png</file>
+        <file>help/img/mainwindow_script.png</file>
+        <file>help/img/mainwindow_settings.png</file>
+        <file>help/img/mainwindow_assign.png</file>
+        <file>help/img/plot.png</file>
+        <file>help/img/slotdialog.png</file>
+        <file>help/index.html</file>
+        <file>help/mainwindow.html</file>
+        <file>help/system.html</file>
+        <file>help/project_run.html</file>
+        <file>help/project_set.html</file>
+    </qresource>
+    <qresource prefix="/icons" >
+        <file>res/box_into.png</file>
+        <file>res/box_out.png</file>
+        <file>res/brush4.png</file>
+        <file>res/cell_add_down.png</file>
+        <file>res/cell_add_right.png</file>
+        <file>res/cell_delete_left.png</file>
+        <file>res/cell_delete_up.png</file>
+        <file>res/column.png</file>
+        <file>res/column_add.png</file>
+        <file>res/column_delete.png</file>
+        <file>res/copy.png</file>
+        <file>res/cut.png</file>
+        <file>res/disk_blue.png</file>
+        <file>res/element_refresh.png</file>
+        <file>res/flag_green.png</file>
+        <file>res/folder.png</file>
+        <file>res/help2.png</file>
+        <file>res/media_play.png</file>
+        <file>res/media_play_green.png</file>
+        <file>res/media_stop.png</file>
+        <file>res/paste.png</file>
+        <file>res/pencil.png</file>
+        <file>res/preferences.png</file>
+        <file>res/redo.png</file>
+        <file>res/refresh.png</file>
+        <file>res/row.png</file>
+        <file>res/row_add.png</file>
+        <file>res/row_delete.png</file>
+        <file>res/table_selection_block.png</file>
+        <file>res/text_align_center.png</file>
+        <file>res/text_align_left.png</file>
+        <file>res/text_align_right.png</file>
+        <file>res/text_bold.png</file>
+        <file>res/text_italics.png</file>
+        <file>res/text_underlined.png</file>
+        <file>res/undo.png</file>
+    </qresource>
+    <qresource prefix="/tr" >
+        <file>qt_ru.qm</file>
+    </qresource>
+</RCC>

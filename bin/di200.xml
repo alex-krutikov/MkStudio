@@ -1,0 +1,130 @@
+<!DOCTYPE MKStudio>
+<MKStudio>
+  <Table ColumnCount="6" Labels="Канал;Дистретный&#xa;входы;Счетчики;Индивидуальный&#xa;сброс счетчиков;Глубина&#xa;фильтрации;Частота&#xa;( в 0.1 Гц )" RowCount="19" LabelsSize="126;100;100;100;100;100" >
+    <Item Column="0" Row="0" Text="1  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="0" Text="1/1/1" Font="align_center" Assign="1/1/1" />
+    <Item Column="2" Row="0" Text="1/3/1" Font="align_center" Assign="1/3/1" />
+    <Item Column="3" Row="0" Text="1/4/1" Font="align_center" Assign="1/4/1" />
+    <Item Column="4" Row="0" Text="1/5/1" Font="align_center" Assign="1/5/1" />
+    <Item Column="5" Row="0" Text="1/6/1" Font="align_center" Assign="1/6/1" />
+    <Item Column="0" Row="1" Text="2  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="1" Text="1/1/2" Font="align_center" Assign="1/1/2" />
+    <Item Column="2" Row="1" Text="1/3/2" Font="align_center" Assign="1/3/2" />
+    <Item Column="3" Row="1" Text="1/4/2" Font="align_center" Assign="1/4/2" />
+    <Item Column="4" Row="1" Text="1/5/2" Font="align_center" Assign="1/5/2" />
+    <Item Column="5" Row="1" Text="1/6/2" Font="align_center" Assign="1/6/2" />
+    <Item Column="0" Row="2" Text="3  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="2" Text="1/1/3" Font="align_center" Assign="1/1/3" />
+    <Item Column="2" Row="2" Text="1/3/3" Font="align_center" Assign="1/3/3" />
+    <Item Column="3" Row="2" Text="1/4/3" Font="align_center" Assign="1/4/3" />
+    <Item Column="4" Row="2" Text="1/5/3" Font="align_center" Assign="1/5/3" />
+    <Item Column="5" Row="2" Text="1/6/3" Font="align_center" Assign="1/6/3" />
+    <Item Column="0" Row="3" Text="4  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="3" Text="1/1/4" Font="align_center" Assign="1/1/4" />
+    <Item Column="2" Row="3" Text="1/3/4" Font="align_center" Assign="1/3/4" />
+    <Item Column="3" Row="3" Text="1/4/4" Font="align_center" Assign="1/4/4" />
+    <Item Column="4" Row="3" Text="1/5/4" Font="align_center" Assign="1/5/4" />
+    <Item Column="5" Row="3" Text="1/6/4" Font="align_center" Assign="1/6/4" />
+    <Item Column="0" Row="4" Text="5  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="4" Text="1/1/5" Font="align_center" Assign="1/1/5" />
+    <Item Column="2" Row="4" Text="1/3/5" Font="align_center" Assign="1/3/5" />
+    <Item Column="3" Row="4" Text="1/4/5" Font="align_center" Assign="1/4/5" />
+    <Item Column="4" Row="4" Text="1/5/5" Font="align_center" Assign="1/5/5" />
+    <Item Column="5" Row="4" Text="1/6/5" Font="align_center" Assign="1/6/5" />
+    <Item Column="0" Row="5" Text="6  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="5" Text="1/1/6" Font="align_center" Assign="1/1/6" />
+    <Item Column="2" Row="5" Text="1/3/6" Font="align_center" Assign="1/3/6" />
+    <Item Column="3" Row="5" Text="1/4/6" Font="align_center" Assign="1/4/6" />
+    <Item Column="4" Row="5" Text="1/5/6" Font="align_center" Assign="1/5/6" />
+    <Item Column="5" Row="5" Text="1/6/6" Font="align_center" Assign="1/6/6" />
+    <Item Column="0" Row="6" Text="7  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="6" Text="1/1/7" Font="align_center" Assign="1/1/7" />
+    <Item Column="2" Row="6" Text="1/3/7" Font="align_center" Assign="1/3/7" />
+    <Item Column="3" Row="6" Text="1/4/7" Font="align_center" Assign="1/4/7" />
+    <Item Column="4" Row="6" Text="1/5/7" Font="align_center" Assign="1/5/7" />
+    <Item Column="5" Row="6" Text="1/6/7" Font="align_center" Assign="1/6/7" />
+    <Item Column="0" Row="7" Text="8  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="7" Text="1/1/8" Font="align_center" Assign="1/1/8" />
+    <Item Column="2" Row="7" Text="1/3/8" Font="align_center" Assign="1/3/8" />
+    <Item Column="3" Row="7" Text="1/4/8" Font="align_center" Assign="1/4/8" />
+    <Item Column="4" Row="7" Text="1/5/8" Font="align_center" Assign="1/5/8" />
+    <Item Column="5" Row="7" Text="1/6/8" Font="align_center" Assign="1/6/8" />
+    <Item Column="0" Row="8" Text="9  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="8" Text="1/1/9" Font="align_center" Assign="1/1/9" />
+    <Item Column="2" Row="8" Text="1/3/9" Font="align_center" Assign="1/3/9" />
+    <Item Column="3" Row="8" Text="1/4/9" Font="align_center" Assign="1/4/9" />
+    <Item Column="4" Row="8" Text="1/5/9" Font="align_center" Assign="1/5/9" />
+    <Item Column="5" Row="8" Text="1/6/9" Font="align_center" Assign="1/6/9" />
+    <Item Column="0" Row="9" Text="10  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="9" Text="1/1/10" Font="align_center" Assign="1/1/10" />
+    <Item Column="2" Row="9" Text="1/3/10" Font="align_center" Assign="1/3/10" />
+    <Item Column="3" Row="9" Text="1/4/10" Font="align_center" Assign="1/4/10" />
+    <Item Column="4" Row="9" Text="1/5/10" Font="align_center" Assign="1/5/10" />
+    <Item Column="5" Row="9" Text="1/6/10" Font="align_center" Assign="1/6/10" />
+    <Item Column="0" Row="10" Text="11  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="10" Text="1/1/11" Font="align_center" Assign="1/1/11" />
+    <Item Column="2" Row="10" Text="1/3/11" Font="align_center" Assign="1/3/11" />
+    <Item Column="3" Row="10" Text="1/4/11" Font="align_center" Assign="1/4/11" />
+    <Item Column="4" Row="10" Text="1/5/11" Font="align_center" Assign="1/5/11" />
+    <Item Column="5" Row="10" Text="1/6/11" Font="align_center" Assign="1/6/11" />
+    <Item Column="0" Row="11" Text="12  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="11" Text="1/1/12" Font="align_center" Assign="1/1/12" />
+    <Item Column="2" Row="11" Text="1/3/12" Font="align_center" Assign="1/3/12" />
+    <Item Column="3" Row="11" Text="1/4/12" Font="align_center" Assign="1/4/12" />
+    <Item Column="4" Row="11" Text="1/5/12" Font="align_center" Assign="1/5/12" />
+    <Item Column="5" Row="11" Text="1/6/12" Font="align_center" Assign="1/6/12" />
+    <Item Column="0" Row="12" Text="13  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="12" Text="1/1/13" Font="align_center" Assign="1/1/13" />
+    <Item Column="2" Row="12" Text="1/3/13" Font="align_center" Assign="1/3/13" />
+    <Item Column="3" Row="12" Text="1/4/13" Font="align_center" Assign="1/4/13" />
+    <Item Column="4" Row="12" Text="1/5/13" Font="align_center" Assign="1/5/13" />
+    <Item Column="5" Row="12" Text="1/6/13" Font="align_center" Assign="1/6/13" />
+    <Item Column="0" Row="13" Text="14  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="13" Text="1/1/14" Font="align_center" Assign="1/1/14" />
+    <Item Column="2" Row="13" Text="1/3/14" Font="align_center" Assign="1/3/14" />
+    <Item Column="3" Row="13" Text="1/4/14" Font="align_center" Assign="1/4/14" />
+    <Item Column="4" Row="13" Text="1/5/14" Font="align_center" Assign="1/5/14" />
+    <Item Column="5" Row="13" Text="1/6/14" Font="align_center" Assign="1/6/14" />
+    <Item Column="0" Row="14" Text="15  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="14" Text="1/1/15" Font="align_center" Assign="1/1/15" />
+    <Item Column="2" Row="14" Text="1/3/15" Font="align_center" Assign="1/3/15" />
+    <Item Column="3" Row="14" Text="1/4/15" Font="align_center" Assign="1/4/15" />
+    <Item Column="4" Row="14" Text="1/5/15" Font="align_center" Assign="1/5/15" />
+    <Item Column="5" Row="14" Text="1/6/15" Font="align_center" Assign="1/6/15" />
+    <Item Column="0" Row="15" Text="16  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="15" Text="1/1/16" Font="align_center" Assign="1/1/16" />
+    <Item Column="2" Row="15" Text="1/3/16" Font="align_center" Assign="1/3/16" />
+    <Item Column="3" Row="15" Text="1/4/16" Font="align_center" Assign="1/4/16" />
+    <Item Column="4" Row="15" Text="1/5/16" Font="align_center" Assign="1/5/16" />
+    <Item Column="5" Row="15" Text="1/6/16" Font="align_center" Assign="1/6/16" />
+    <Item Column="0" Row="16" Text="" Font="" Assign="" />
+    <Item Column="1" Row="16" Text="" Font="" Assign="" />
+    <Item Column="2" Row="16" Text="" Font="" Assign="" />
+    <Item Column="3" Row="16" Text="" Font="" Assign="" />
+    <Item Column="4" Row="16" Text="" Font="" Assign="" />
+    <Item Column="5" Row="16" Text="" Font="" Assign="" />
+    <Item Column="0" Row="17" Text="Режим" Font="align_right" Assign="" />
+    <Item Column="1" Row="17" Text="1/2/1" Font="align_center" Assign="1/2/1" />
+    <Item Column="2" Row="17" Text="" Font="" Assign="" />
+    <Item Column="3" Row="17" Text="" Font="" Assign="" />
+    <Item Column="4" Row="17" Text="" Font="" Assign="" />
+    <Item Column="5" Row="17" Text="" Font="" Assign="" />
+    <Item Column="0" Row="18" Text="Понижение скорости" Font="align_right" Assign="" />
+    <Item Column="1" Row="18" Text="1/7/1" Font="align_center" Assign="1/7/1" />
+    <Item Column="2" Row="18" Text="" Font="" Assign="" />
+    <Item Column="3" Row="18" Text="" Font="" Assign="" />
+    <Item Column="4" Row="18" Text="" Font="" Assign="" />
+    <Item Column="5" Row="18" Text="" Font="" Assign="" />
+  </Table>
+  <MBConfig>
+    <Module Node="1" Desc="Дискретный ввод 16 каналов серия Урал " N="1" Name="DI200" >
+      <Slot Desc="Значения дискретных входов" Operation="readonly" Length="16" Type="bits" N="1" Addr="2" />
+      <Slot Desc="Режимы работы" Operation="readonly" Length="1" Type="bytes" N="2" Addr="4" />
+      <Slot Desc="Счетчики" Operation="readonly" Length="16" Type="dwords" N="3" Addr="5" />
+      <Slot Desc="Индивидуальный сброс счетчиков" Operation="readonly" Length="16" Type="bits" N="4" Addr="45" />
+      <Slot Desc="Глубина фильтрации" Operation="readonly" Length="16" Type="bytes" N="5" Addr="47" />
+      <Slot Desc="Частота (в 0.1 Гц)" Operation="readonly" Length="16" Type="dwords" N="6" Addr="57" />
+      <Slot Desc="Понижение скорости работы" Operation="readonly" Length="1" Type="words" N="7" Addr="97" />
+    </Module>
+  </MBConfig>
+</MKStudio>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="cp-1251"?>
+<!DOCTYPE MKStudio>
+<MKStudio>
+  <Table ColumnCount="2" Labels="Канал;Значение&#xa;[ 0 - 32767 ]" RowCount="4" LabelsSize="106;125" >
+    <Item Column="0" Row="0" Font="align_right" Text="1  " />
+    <Item Column="1" Format="unsigned" Row="0" Font="align_center" Text="1/1/1" Assign="1/1/1" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="1" Font="align_right" Text="2  " />
+    <Item Column="1" Format="unsigned" Row="1" Font="align_center" Text="1/1/2" Assign="1/1/2" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="2" Font="align_right" Text="3  " />
+    <Item Column="1" Format="unsigned" Row="2" Font="align_center" Text="1/1/3" Assign="1/1/3" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="3" Font="align_right" Text="4  " />
+    <Item Column="1" Format="unsigned" Row="3" Font="align_center" Text="1/1/4" Assign="1/1/4" BackgroundColor="#faebd7" />
+  </Table>
+  <MBConfig>
+    <Module Node="1" Desc="Имитатор датчика дифф. трансфор. (4 канала)" N="1" Name="PKD401" >
+      <Slot Desc="Значения" Operation="readwrite" Length="4" Type="words" N="1" Addr="2" />
+    </Module>
+  </MBConfig>
+</MKStudio>

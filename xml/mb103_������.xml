@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="cp-1251"?>
+<!DOCTYPE MKStudio>
+<MKStudio>
+  <Table ColumnCount="5" Labels=";;;;" RowCount="29" LabelsSize="225;113;100;100;100" >
+    <Item Column="0" Row="0" Font="bold;align_center" Text="Аналоговые входы" ForegroundColor="#aaffff" BackgroundColor="#550000" />
+    <Item Column="1" Row="0" Font="bold;align_center" Text="AI 1" ForegroundColor="#aaffff" BackgroundColor="#550000" />
+    <Item Column="2" Row="0" Font="bold;align_center" Text="AI 2" ForegroundColor="#aaffff" BackgroundColor="#550000" />
+    <Item Column="3" Row="0" Font="bold;align_center" Text="AI 3" ForegroundColor="#aaffff" BackgroundColor="#550000" />
+    <Item Column="4" Row="0" Font="bold;align_center" Text="Замкнут." ForegroundColor="#aaffff" BackgroundColor="#550000" />
+    <Item Column="0" Row="1" Font="italic;align_right" Text="код АЦП" />
+    <Item Column="1" Format="dec" Row="1" Font="italic;align_center" Text="1/17/1" Assign="1/17/1" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="1" Font="italic;align_center" Text="1/17/2" Assign="1/17/2" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="1" Font="italic;align_center" Text="1/17/3" Assign="1/17/3" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="1" Font="italic;align_center" Text="1/17/4" Assign="1/17/4" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="2" Font="align_right" Text="Напряжение на АЦП (мВ)" />
+    <Item Column="1" Row="2" Font="align_center" Text="1/6/13" Assign="1/6/13" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="2" Font="align_center" Text="1/6/14" Assign="1/6/14" BackgroundColor="#faebd7" />
+    <Item Column="3" Row="2" Font="align_center" Text="1/6/15" Assign="1/6/15" BackgroundColor="#faebd7" />
+    <Item Column="4" Row="2" />
+    <Item Column="0" Row="3" />
+    <Item Column="1" Row="3" />
+    <Item Column="2" Row="3" />
+    <Item Column="3" Row="3" />
+    <Item Column="4" Row="3" />
+    <Item Column="0" Row="4" Font="align_right" Text="Выбор источника AC" />
+    <Item Column="1" Format="dec" Row="4" SSSelector="Источник_AC" Font="align_center" Text="1/10/41" Assign="1/10/41" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="4" SSSelector="Источник_AC" Font="align_center" Text="1/10/42" Assign="1/10/42" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="4" SSSelector="Источник_AC" Font="align_center" Text="1/10/43" Assign="1/10/43" BackgroundColor="#faebd7" />
+    <Item Column="4" Row="4" />
+    <Item Column="0" Row="5" Font="align_right" Text="Амплитуда AC (мВ)" />
+    <Item Column="1" Row="5" Font="align_center" Text="1/15/1" Assign="1/15/1" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="5" Font="align_center" Text="1/15/2" Assign="1/15/2" BackgroundColor="#faebd7" />
+    <Item Column="3" Row="5" Font="align_center" Text="1/15/3" Assign="1/15/3" BackgroundColor="#faebd7" />
+    <Item Column="4" Row="5" />
+    <Item Column="0" Row="6" Font="align_right" Text="Частота AC (герц)" />
+    <Item Column="1" Row="6" Font="align_center" Text="1/15/5" Assign="1/15/5" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="6" Font="align_center" Text="1/15/6" Assign="1/15/6" BackgroundColor="#faebd7" />
+    <Item Column="3" Row="6" Font="align_center" Text="1/15/7" Assign="1/15/7" BackgroundColor="#faebd7" />
+    <Item Column="4" Row="6" />
+    <Item Column="0" Row="7" Font="align_right" Text="Сдвиг фаз AC (градус)" />
+    <Item Column="1" Row="7" Font="align_center" Text="1/15/9" Assign="1/15/9" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="7" Font="align_center" Text="1/15/10" Assign="1/15/10" BackgroundColor="#faebd7" />
+    <Item Column="3" Row="7" Font="align_center" Text="1/15/11" Assign="1/15/11" BackgroundColor="#faebd7" />
+    <Item Column="4" Row="7" />
+    <Item Column="0" Row="8" />
+    <Item Column="1" Row="8" />
+    <Item Column="2" Row="8" />
+    <Item Column="3" Row="8" />
+    <Item Column="4" Row="8" />
+    <Item Column="0" Row="9" Font="bold;align_center" Text="Дискретные выходы" ForegroundColor="#aaffff" BackgroundColor="#550000" />
+    <Item Column="1" Row="9" Font="bold;align_center" Text="DO 1" ForegroundColor="#aaffff" BackgroundColor="#550000" />
+    <Item Column="2" Row="9" Font="bold;align_center" Text="DO 2" ForegroundColor="#aaffff" BackgroundColor="#550000" />
+    <Item Column="3" Row="9" Font="bold;align_center" Text="DO 3" ForegroundColor="#aaffff" BackgroundColor="#550000" />
+    <Item Column="4" Row="9" Font="bold;align_center" Text="DO 4" ForegroundColor="#aaffff" BackgroundColor="#550000" />
+    <Item Column="0" Row="10" Font="underline" />
+    <Item Column="1" Row="10" />
+    <Item Column="2" Row="10" />
+    <Item Column="3" Row="10" />
+    <Item Column="4" Row="10" />
+    <Item Column="0" Row="11" Font="bold;align_right" Text="Состояние" />
+    <Item Column="1" Row="11" Font="bold;align_center" Text="1/3/1" Assign="1/3/1" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="11" Font="bold;align_center" Text="1/3/2" Assign="1/3/2" BackgroundColor="#faebd7" />
+    <Item Column="3" Row="11" Font="bold;align_center" Text="1/3/3" Assign="1/3/3" BackgroundColor="#faebd7" />
+    <Item Column="4" Row="11" Font="bold;align_center" Text="1/3/4" Assign="1/3/4" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="12" Font="align_right" Text="ШИМ (мс)" />
+    <Item Column="1" Row="12" Font="align_center" Text="1/10/21" Assign="1/10/21" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="12" Font="align_center" Text="1/10/22" Assign="1/10/22" BackgroundColor="#faebd7" />
+    <Item Column="3" Row="12" Font="align_center" Text="1/10/23" Assign="1/10/23" BackgroundColor="#faebd7" />
+    <Item Column="4" Row="12" Font="align_center" Text="1/10/24" Assign="1/10/24" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="13" Font="align_right" Text="ЧИМ период (мс)" />
+    <Item Column="1" Row="13" Font="align_center" Text="1/10/25" Assign="1/10/25" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="13" Font="align_center" Text="1/10/26" Assign="1/10/26" BackgroundColor="#faebd7" />
+    <Item Column="3" Row="13" Font="align_center" Text="1/10/27" Assign="1/10/27" BackgroundColor="#faebd7" />
+    <Item Column="4" Row="13" Font="align_center" Text="1/10/28" Assign="1/10/28" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="14" Font="align_right" Text="ЧИМ длительность (мс)" />
+    <Item Column="1" Row="14" Font="align_center" Text="1/10/29" Assign="1/10/29" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="14" Font="align_center" Text="1/10/30" Assign="1/10/30" BackgroundColor="#faebd7" />
+    <Item Column="3" Row="14" Font="align_center" Text="1/10/31" Assign="1/10/31" BackgroundColor="#faebd7" />
+    <Item Column="4" Row="14" Font="align_center" Text="1/10/32" Assign="1/10/32" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="15" Font="align_right" Text="Сброс триггера автоподхвата" />
+    <Item Column="1" Row="15" Font="align_center" Text="1/3/7" Assign="1/3/7" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="15" Font="align_center" Text="1/3/8" Assign="1/3/8" BackgroundColor="#faebd7" />
+    <Item Column="3" Row="15" Font="align_center" Text="1/3/9" Assign="1/3/9" BackgroundColor="#faebd7" />
+    <Item Column="4" Row="15" Font="align_center" Text="1/3/10" Assign="1/3/10" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="16" />
+    <Item Column="1" Row="16" />
+    <Item Column="2" Row="16" />
+    <Item Column="3" Row="16" Font="align_right" />
+    <Item Column="4" Row="16" />
+    <Item Column="0" Row="17" Font="align_right" Text="Время взаимоблокировки (мс)" />
+    <Item Column="1" Row="17" Font="align_center" Text="1/10/33" Assign="1/10/33" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="17" />
+    <Item Column="3" Format="dec" Row="17" Font="align_center" Text="1/10/34" Assign="1/10/34" BackgroundColor="#faebd7" />
+    <Item Column="4" Row="17" />
+    <Item Column="0" Row="18" />
+    <Item Column="1" Row="18" />
+    <Item Column="2" Row="18" />
+    <Item Column="3" Row="18" />
+    <Item Column="4" Row="18" />
+    <Item Column="0" Row="19" Font="bold;align_center" Text="Запись информационной базы" ForegroundColor="#aaffff" BackgroundColor="#550000" />
+    <Item Column="1" Row="19" ForegroundColor="#55aaff" BackgroundColor="#550000" />
+    <Item Column="2" Row="19" ForegroundColor="#55aaff" BackgroundColor="#550000" />
+    <Item Column="3" Row="19" ForegroundColor="#55aaff" BackgroundColor="#550000" />
+    <Item Column="4" Row="19" ForegroundColor="#55aaff" BackgroundColor="#550000" />
+    <Item Column="0" Row="20" />
+    <Item Column="1" Row="20" />
+    <Item Column="2" Row="20" />
+    <Item Column="3" Row="20" />
+    <Item Column="4" Row="20" />
+    <Item Column="0" Row="21" Font="bold;underline;align_right" Text="Запись базы во FRAM (90/105/75)" />
+    <Item Column="1" Format="unsigned" Row="21" Font="bold;underline;align_center" Text="1/1/3" Assign="1/1/3" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="21" Text="=90 - запись" />
+    <Item Column="3" Row="21" Text="=105 - чтение" />
+    <Item Column="4" Row="21" Text="=75 - сброс" />
+    <Item Column="0" Row="22" />
+    <Item Column="1" Row="22" />
+    <Item Column="2" Row="22" Text="=201 - 1 канал" />
+    <Item Column="3" Row="22" Text="=202 - 2 канал" />
+    <Item Column="4" Row="22" Text="=203 - 3 канал" />
+    <Item Column="0" Row="23" />
+    <Item Column="1" Row="23" />
+    <Item Column="2" Row="23" />
+    <Item Column="3" Row="23" />
+    <Item Column="4" Row="23" />
+    <Item Column="0" Row="24" Font="bold;align_center" Text="Служебная информация" ForegroundColor="#aaffff" BackgroundColor="#550000" />
+    <Item Column="1" Row="24" ForegroundColor="#55aaff" BackgroundColor="#550000" />
+    <Item Column="2" Row="24" ForegroundColor="#55aaff" BackgroundColor="#550000" />
+    <Item Column="3" Row="24" ForegroundColor="#55aaff" BackgroundColor="#550000" />
+    <Item Column="4" Row="24" ForegroundColor="#55aaff" BackgroundColor="#550000" />
+    <Item Column="0" Row="25" />
+    <Item Column="1" Row="25" />
+    <Item Column="2" Row="25" />
+    <Item Column="3" Row="25" />
+    <Item Column="4" Row="25" />
+    <Item Column="0" Row="26" Font="align_right" Text="температура модуля (I2C датчик)" />
+    <Item Column="1" Format="dec" Row="26" Font="align_center" Text="1/6/17" Assign="1/6/17" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="26" />
+    <Item Column="3" Row="26" />
+    <Item Column="4" Row="26" />
+    <Item Column="0" Row="27" Font="align_right" Text="температура на разъеме (I2C датчик)" />
+    <Item Column="1" Format="dec" Row="27" Font="align_center" Text="1/6/18" Assign="1/6/18" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="27" />
+    <Item Column="3" Row="27" />
+    <Item Column="4" Row="27" />
+    <Item Column="0" Row="28" Font="align_right" Text="коррекция кода АЦП" />
+    <Item Column="1" Format="dec" Row="28" Font="align_center" Text="1/17/5" Assign="1/17/5" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="28" />
+    <Item Column="3" Row="28" />
+    <Item Column="4" Row="28" />
+    <SettingsSheet>enum вкл_откл
+{ =0: откл
+  =1: вкл
+}
+
+enum ПИД_руч_авт
+{ =0: ручной
+  =1: автомат
+}
+
+enum ПИД_удар_безуд
+{ =0: безударный
+  =1: ударный
+}
+
+enum ПИД_дист_авт
+{ =0: нет
+  =1: да (см. источник)
+}
+
+enum ПИД_источник_дист_автомат
+{
+  =0: Д.вх. 1
+  =1: Д.вх. 2
+  =2: А.вх. 1 ниж. уст.
+  =3: А.вх. 2 ниж. уст.
+  =4: А.вх. 3 ниж. уст.
+  =5: А.вх. 4 ниж. уст.
+  =6: А.вх. 1 верх. уст.
+  =7: А.вх. 2 верх. уст.
+  =8: А.вх. 3 верх. уст.
+  =9: А.вх. 4 верх. уст.
+}
+
+enum ПИД_дист_вкл
+{ =0: нет
+  =1: да (см. источник)
+}
+
+enum ПИД_источник_дист_вкл
+{
+  =0: Д.вх. 2
+  =1: Д.вх. 1
+  =2: А.вх. 1 ниж. уст.
+  =3: А.вх. 2 ниж. уст.
+  =4: А.вх. 3 ниж. уст.
+  =5: А.вх. 4 ниж. уст.
+  =6: А.вх. 1 верх. уст.
+  =7: А.вх. 2 верх. уст.
+  =8: А.вх. 3 верх. уст.
+  =9: А.вх. 4 верх. уст.
+}
+
+enum ПИД_концевики
+{ =0: нет
+  =1: да (см. источник)
+}
+
+enum ПИД_конц_левый
+{
+  =0: Д.вх. 1
+  =1: Д.вх. 2
+  =2: А.Вх. 1 ниж. уст.
+  =3: А.Вх. 2 ниж. уст.
+  =4: А.Вх. 3 ниж. уст.
+  =5: А.Вх. 4 ниж. уст.
+  =6: А.Вх. 1 верх. уст.
+  =7: А.Вх. 2 верх. уст.
+  =8: А.Вх. 3 верх. уст.
+  =9: А.Вх. 4 верх. уст.
+}
+
+enum ПИД_конц_правый
+{
+  =0: Д.вх. 2
+  =1: Д.вх. 1
+  =2: А.Вх. 1 ниж. уст.
+  =3: А.Вх. 2 ниж. уст.
+  =4: А.Вх. 3 ниж. уст.
+  =5: А.Вх. 4 ниж. уст.
+  =6: А.Вх. 1 верх. уст.
+  =7: А.Вх. 2 верх. уст.
+  =8: А.Вх. 3 верх. уст.
+  =9: А.Вх. 4 верх. уст.
+}
+
+enum ПИД_реж_входа
+{ =0: прямой
+  =1: обратный
+}
+
+enum ПИД_источник_уставки
+{
+  =0:  знач. в базе
+  =1:  А.Вх.1
+  =2:  А.Вх.2
+  =3:  А.Вх.3
+  =4:  А.Вх.4
+  =5:  каскад
+  =11: циклограмма 1
+  =12: циклограмма 2
+  =13: циклограмма 3
+  =14: циклограмма 4
+  =15: циклограмма 5
+  =16: циклограмма 6
+  =17: циклограмма 7
+  =18: циклограмма 8
+  =20: лин.комб.входов
+}
+
+enum ПИД_источник_входа
+{
+  =0:  А.Вх.1
+  =1:  А.Вх.2
+  =2:  А.Вх.3
+  =3:  А.Вх.4
+}
+
+enum ПИД_источник_вх_возмущ
+{
+  =0:  знач. в базе
+  =1:  А.Вх.1
+  =2:  А.Вх.2
+  =3:  А.Вх.3
+  =4:  А.Вх.4
+}
+
+enum ПИД_приемник_выхода
+{
+  =0:  нет
+  =1:  А. Выход
+  =2:  ШИМ
+}
+
+enum ПИД_циклограмма_источник
+{
+  =0:   только из базы
+  =1:   Д.Вх. 1
+  =2:   Д.Вх. 2
+  =3:   А.Вх. 1 ниж. уст.
+  =4:   А.Вх. 2 ниж. уст.
+  =5:   А.Вх. 3 ниж. уст.
+  =6:   А.Вх. 4 ниж. уст.
+  =7:   А.Вх. 1 верх. уст.
+  =8:   А.Вх. 2 верх. уст.
+  =9:   А.Вх. 3 верх. уст.
+  =10:  А.Вх. 4 верх. уст.
+
+}
+
+enum АЦП_режим
+{ =0: 5000 мВ
+  =1: 2500 мВ
+  =2: 1250 мВ
+  =3: 625 мВ
+  =4: 312 мВ
+  =5: 156 мВ
+  =6: 78 мВ
+}
+
+enum Реж_коррекции
+{
+   =0: без коррекции
+   =1: ТС 3-х пр.
+   =2: компенсация ХС
+  =10: ТС 2-х пр.
+  =11: ТС 4-х пр.
+}
+
+enum Реж_изм_частоты
+{
+  =0: 1 сек
+  =1: 10 сек
+  =2: 0.1 сек
+}
+
+enum Тип_табл_КЛА
+{
+  =0: прямое
+  =1: обратное
+}
+
+enum Источник_AC
+{
+ =0:  нет
+ =11: амплит. вход 1
+ =12: частота вход 1
+ =13: фаза вход 1
+ =21: амплит. вход 2
+ =22: частота вход 2
+ =23: фаза вход 2
+ =31: амплит. вход 3
+ =32: частота вход 3
+ =33: фаза вход 3
+ =41: амплит. вход 4
+ =42: частота вход 4
+ =43: фаза вход 4
+}
+
+enum Индекс_таблицы_КЛА
+{
+  =0: нет
+  =1: КЛА 1
+  =2: КЛА 2
+  =3: КЛА 3
+  =4: КЛА 4
+  =5: КЛА 5
+  =6: КЛА 6
+  =7: КЛА 7
+  =8: КЛА 8
+  =33: квадрат.корень
+  =41: ТП тип ВР (A)
+  =42: ТП тип ПР (B)
+  =43: ТП тип ПП (S)
+  =44: ТП тип ХА (K)
+  =45: ТП тип ХК (L)
+  =46: ТП тип МК (M)
+  =61: ТР 1П
+  =62: ТР 5П
+  =63: ТР 10П
+  =64: ТР 50П
+  =65: ТР 100П
+  =66: ТР 500П
+  =67: ТР 1000П
+  =68: ТР 2500П
+  =69: ТР 46П
+  =70: ТР 300П
+  =71: ТР Pt-1
+  =72: ТР Pt-5
+  =73: ТР Pt-10
+  =74: ТР Pt-50
+  =75: ТР Pt-100
+  =76: ТР Pt-500
+  =77: ТР Pt-1000
+  =78: ТР Pt-2500
+  =81: ТР 10М
+  =82: ТР 50М
+  =83: ТР 100М
+  =84: ТР 500М
+  =85: ТР 53М
+  =86: ТР Cu-10
+  =87: ТР Cu-50
+  =88: ТР Cu-100
+  =89: ТР Cu-500
+  =120: изм. ~U 
+}
+
+enum ПИД_КЛА_уставки
+{
+  =0: нет
+  =1: КЛА 1
+  =2: КЛА 2
+  =3: КЛА 3
+  =4: КЛА 4
+  =5: КЛА 5
+  =6: КЛА 6
+  =7: КЛА 7
+  =8: КЛА 8
+}
+</SettingsSheet>
+  </Table>
+  <MBConfig>
+    <Module Node="1" N="1" Name="MB100" >
+      <Slot Desc="Настройки модуля" Length="4" Type="bytes" N="1" Addr="2" />
+      <Slot Desc="Статусы" Length="32" Type="bits" N="2" Addr="6" />
+      <Slot Desc="Биты" Length="32" Type="bits" N="3" Addr="A" />
+      <Slot Desc="Таблица блокировок" Length="128" Type="bits" N="4" Addr="E" />
+      <Slot Desc="настройки" Length="16" Type="bytes" N="5" Addr="1E" />
+      <Slot Desc="Значения аналоговых входов" Length="20" Type="floats" N="6" Addr="2E" />
+      <Slot Desc="Настроечные параметры аналоговых входов" Length="60" Type="floats" N="7" Addr="7E" />
+      <Slot Desc="Статусы в формате статуса параметра MWBridge" Length="16" Type="bytes" N="8" Addr="16E" />
+      <Slot Desc="Настроечные параметры байты" Length="32" Type="bytes" N="9" Addr="17E" />
+      <Slot Desc="Настроечные параметры слова" Length="48" Type="words" N="10" Addr="19E" />
+      <Slot Desc="ПИД" Length="32" Type="floats" N="11" Addr="1FE" />
+      <Slot Desc="Счетчики" Length="8" Type="dwords" N="12" Addr="27E" />
+      <Slot Desc="Таблица КЛА" Length="50" Type="floats" N="13" Addr="29E" />
+      <Slot Desc="отладочная информация" Length="32" Type="dwords" N="14" Addr="69E" />
+      <Slot Desc="измерение переменного напряжения" Length="12" Type="floats" N="15" Addr="71E" />
+      <Slot Desc="дополнительные параметры" Length="30" Type="floats" N="16" Addr="74E" />
+      <Slot Desc="дополнительные параметры" Length="10" Type="dwords" N="17" Addr="7C6" />
+    </Module>
+  </MBConfig>
+</MKStudio>

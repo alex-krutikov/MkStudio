@@ -1,0 +1,745 @@
+<ui version="4.0" >
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>707</width>
+    <height>633</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <layout class="QVBoxLayout" >
+    <property name="spacing" >
+     <number>0</number>
+    </property>
+    <property name="leftMargin" >
+     <number>0</number>
+    </property>
+    <property name="topMargin" >
+     <number>0</number>
+    </property>
+    <property name="rightMargin" >
+     <number>0</number>
+    </property>
+    <property name="bottomMargin" >
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="MKTable" name="tw" />
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>707</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu" >
+    <property name="title" >
+     <string>Файл</string>
+    </property>
+    <addaction name="action_new" />
+    <addaction name="action_load" />
+    <addaction name="action_save" />
+    <addaction name="action_save_as" />
+    <addaction name="separator" />
+    <addaction name="action_export_config" />
+    <addaction name="separator" />
+    <addaction name="action_values_save" />
+    <addaction name="action_values_load" />
+   </widget>
+   <widget class="QMenu" name="menu_2" >
+    <property name="title" >
+     <string>Таблица</string>
+    </property>
+    <widget class="QMenu" name="menu_3" >
+     <property name="title" >
+      <string>Размер</string>
+     </property>
+     <addaction name="action_tw_rows" />
+     <addaction name="action_tw_columns" />
+    </widget>
+    <widget class="QMenu" name="menu_4" >
+     <property name="title" >
+      <string>Вставить</string>
+     </property>
+     <addaction name="action_row_add" />
+     <addaction name="action_column_add" />
+     <addaction name="action_cell_add_right" />
+     <addaction name="action_cell_add_down" />
+    </widget>
+    <widget class="QMenu" name="menu_5" >
+     <property name="title" >
+      <string>Удалить</string>
+     </property>
+     <addaction name="action_row_delete" />
+     <addaction name="action_column_delete" />
+     <addaction name="action_cell_delete_left" />
+     <addaction name="action_cell_delete_up" />
+    </widget>
+    <addaction name="menu_3" />
+    <addaction name="menu_4" />
+    <addaction name="menu_5" />
+    <addaction name="separator" />
+    <addaction name="action_bold" />
+    <addaction name="action_italic" />
+    <addaction name="action_underline" />
+    <addaction name="action_align_left" />
+    <addaction name="action_align_center" />
+    <addaction name="action_align_right" />
+    <addaction name="action_foreground_color" />
+    <addaction name="action_background_color" />
+    <addaction name="separator" />
+    <addaction name="action_link" />
+   </widget>
+   <widget class="QMenu" name="menu_view" >
+    <property name="title" >
+     <string>Вид</string>
+    </property>
+    <addaction name="action_settings" />
+    <addaction name="action_united_graph" />
+    <addaction name="separator" />
+   </widget>
+   <widget class="QMenu" name="menu_6" >
+    <property name="title" >
+     <string>Правка</string>
+    </property>
+    <addaction name="action_undo" />
+    <addaction name="action_redo" />
+    <addaction name="separator" />
+    <addaction name="action_copy" />
+    <addaction name="action_cut" />
+    <addaction name="action_paste" />
+   </widget>
+   <widget class="QMenu" name="menu_7" >
+    <property name="title" >
+     <string>Помощь</string>
+    </property>
+    <addaction name="action_help" />
+    <addaction name="separator" />
+    <addaction name="action_help_about" />
+   </widget>
+   <widget class="QMenu" name="menu_8" >
+    <property name="title" >
+     <string>Команды</string>
+    </property>
+    <addaction name="action_play" />
+   </widget>
+   <addaction name="menu" />
+   <addaction name="menu_6" />
+   <addaction name="menu_view" />
+   <addaction name="menu_2" />
+   <addaction name="menu_8" />
+   <addaction name="menu_7" />
+  </widget>
+  <widget class="QStatusBar" name="statusbar" />
+  <widget class="QDockWidget" name="dw_console" >
+   <property name="windowTitle" >
+    <string>Сообщения</string>
+   </property>
+   <attribute name="dockWidgetArea" >
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents" >
+    <layout class="QVBoxLayout" >
+     <property name="spacing" >
+      <number>0</number>
+     </property>
+     <property name="leftMargin" >
+      <number>0</number>
+     </property>
+     <property name="topMargin" >
+      <number>0</number>
+     </property>
+     <property name="rightMargin" >
+      <number>0</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="ConsoleWidget" native="1" name="console" />
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dw_modules" >
+   <property name="windowTitle" >
+    <string>Конфигурация сети МК</string>
+   </property>
+   <attribute name="dockWidgetArea" >
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2" >
+    <layout class="QVBoxLayout" >
+     <property name="spacing" >
+      <number>0</number>
+     </property>
+     <property name="leftMargin" >
+      <number>0</number>
+     </property>
+     <property name="topMargin" >
+      <number>0</number>
+     </property>
+     <property name="rightMargin" >
+      <number>0</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="MBConfigWidget" native="1" name="mbconfigwidget" />
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QToolBar" name="tool_bar_1" >
+   <property name="windowTitle" >
+    <string>Панель инструментов</string>
+   </property>
+   <property name="orientation" >
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="toolButtonStyle" >
+    <enum>Qt::ToolButtonIconOnly</enum>
+   </property>
+   <attribute name="toolBarArea" >
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak" >
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_load" />
+   <addaction name="action_save" />
+   <addaction name="separator" />
+   <addaction name="action_play" />
+   <addaction name="separator" />
+   <addaction name="action_values_save" />
+   <addaction name="action_values_load" />
+   <addaction name="separator" />
+   <addaction name="action_copy" />
+   <addaction name="action_cut" />
+   <addaction name="action_paste" />
+   <addaction name="separator" />
+   <addaction name="action_link" />
+   <addaction name="separator" />
+   <addaction name="action_bold" />
+   <addaction name="action_italic" />
+   <addaction name="action_underline" />
+   <addaction name="action_align_left" />
+   <addaction name="action_align_center" />
+   <addaction name="action_align_right" />
+   <addaction name="action_foreground_color" />
+   <addaction name="action_background_color" />
+  </widget>
+  <widget class="QDockWidget" name="dw_opros" >
+   <property name="windowTitle" >
+    <string>Взаимодействие с МК</string>
+   </property>
+   <attribute name="dockWidgetArea" >
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_3" >
+    <layout class="QVBoxLayout" >
+     <property name="spacing" >
+      <number>0</number>
+     </property>
+     <property name="leftMargin" >
+      <number>0</number>
+     </property>
+     <property name="topMargin" >
+      <number>0</number>
+     </property>
+     <property name="rightMargin" >
+      <number>0</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="MBMasterWidget" native="1" name="mbmasterwidget" />
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QToolBar" name="tool_bar_2" >
+   <property name="windowTitle" >
+    <string>Вставка и удаление</string>
+   </property>
+   <attribute name="toolBarArea" >
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak" >
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_tw_rows" />
+   <addaction name="action_tw_columns" />
+   <addaction name="separator" />
+   <addaction name="action_row_add" />
+   <addaction name="action_column_add" />
+   <addaction name="separator" />
+   <addaction name="action_cell_add_right" />
+   <addaction name="action_cell_add_down" />
+   <addaction name="separator" />
+   <addaction name="action_row_delete" />
+   <addaction name="action_column_delete" />
+   <addaction name="separator" />
+   <addaction name="action_cell_delete_left" />
+   <addaction name="action_cell_delete_up" />
+  </widget>
+  <widget class="QDockWidget" name="dw_settingssheet" >
+   <property name="windowTitle" >
+    <string>Дополнения</string>
+   </property>
+   <attribute name="dockWidgetArea" >
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_8" >
+    <layout class="QVBoxLayout" >
+     <property name="spacing" >
+      <number>0</number>
+     </property>
+     <property name="leftMargin" >
+      <number>0</number>
+     </property>
+     <property name="topMargin" >
+      <number>0</number>
+     </property>
+     <property name="rightMargin" >
+      <number>0</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QTextEdit" name="te_settingssheet" />
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <action name="action_load" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/folder.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Загрузить проект</string>
+   </property>
+   <property name="toolTip" >
+    <string>Загрузить проект</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="action_save" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/disk_blue.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Сохранить проект</string>
+   </property>
+   <property name="toolTip" >
+    <string>Сохранить проект</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="action_play" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/media_play.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Пуск</string>
+   </property>
+   <property name="toolTip" >
+    <string>Запустить информационное взаимодействие</string>
+   </property>
+  </action>
+  <action name="action_tw_rows" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/row.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Строки</string>
+   </property>
+   <property name="toolTip" >
+    <string>Количество строк</string>
+   </property>
+  </action>
+  <action name="action_tw_columns" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/column.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Столбцы</string>
+   </property>
+   <property name="toolTip" >
+    <string>Количество столбцов</string>
+   </property>
+  </action>
+  <action name="action_link" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/refresh.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Привязка</string>
+   </property>
+   <property name="toolTip" >
+    <string>Привязка ячейки к опросу [F4]</string>
+   </property>
+   <property name="shortcut" >
+    <string>F4</string>
+   </property>
+  </action>
+  <action name="action_bold" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/text_bold.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Выделение</string>
+   </property>
+   <property name="toolTip" >
+    <string>Шрифт: Выделение</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+B</string>
+   </property>
+  </action>
+  <action name="action_align_left" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/text_align_left.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Влево</string>
+   </property>
+   <property name="toolTip" >
+    <string>Выравнивание влево</string>
+   </property>
+   <property name="shortcut" >
+    <string>Alt+L</string>
+   </property>
+  </action>
+  <action name="action_align_center" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/text_align_center.png</iconset>
+   </property>
+   <property name="text" >
+    <string>По центру</string>
+   </property>
+   <property name="toolTip" >
+    <string>Выравнивание по центру</string>
+   </property>
+   <property name="shortcut" >
+    <string>Alt+C</string>
+   </property>
+  </action>
+  <action name="action_align_right" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/text_align_right.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Вправо</string>
+   </property>
+   <property name="toolTip" >
+    <string>Выравнивание вправо</string>
+   </property>
+   <property name="shortcut" >
+    <string>Alt+R</string>
+   </property>
+  </action>
+  <action name="action_underline" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/text_underlined.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Подчеркивание</string>
+   </property>
+   <property name="toolTip" >
+    <string>Шрифт: Подчеркивание</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+U</string>
+   </property>
+  </action>
+  <action name="action_save_as" >
+   <property name="text" >
+    <string>Сохранить проект как...</string>
+   </property>
+  </action>
+  <action name="action_new" >
+   <property name="text" >
+    <string>Новый проект</string>
+   </property>
+  </action>
+  <action name="action_settings" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/preferences.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Настройки</string>
+   </property>
+  </action>
+  <action name="action_row_add" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/row_add.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Строку</string>
+   </property>
+   <property name="toolTip" >
+    <string>Вставить строку</string>
+   </property>
+  </action>
+  <action name="action_column_add" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/column_add.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Столбец</string>
+   </property>
+   <property name="toolTip" >
+    <string>Вставить столбец</string>
+   </property>
+  </action>
+  <action name="action_cell_add_right" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/cell_add_right.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Ячейку со сдвигом вправо</string>
+   </property>
+   <property name="toolTip" >
+    <string>Вставить ячейку со сдвигом вправо</string>
+   </property>
+  </action>
+  <action name="action_cell_add_down" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/cell_add_down.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Ячейку со сдвигом вниз</string>
+   </property>
+   <property name="toolTip" >
+    <string>Вставить ячейку со сдвигом вниз</string>
+   </property>
+  </action>
+  <action name="action_row_delete" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/row_delete.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Строку</string>
+   </property>
+   <property name="toolTip" >
+    <string>Удалить строку</string>
+   </property>
+  </action>
+  <action name="action_column_delete" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/column_delete.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Столбец</string>
+   </property>
+   <property name="toolTip" >
+    <string>Удалить столбец</string>
+   </property>
+  </action>
+  <action name="action_cell_delete_left" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/cell_delete_left.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Ячейку со сдвигом влево</string>
+   </property>
+   <property name="toolTip" >
+    <string>Удалить ячейку со сдвигом влево</string>
+   </property>
+  </action>
+  <action name="action_cell_delete_up" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/cell_delete_up.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Ячейку со сдвигом вверх</string>
+   </property>
+   <property name="toolTip" >
+    <string>Удалить ячейку со сдвигом вверх</string>
+   </property>
+  </action>
+  <action name="action_cells_span" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/table_selection_block.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Объединить ячейки</string>
+   </property>
+   <property name="iconText" >
+    <string>Объединить ячейки</string>
+   </property>
+   <property name="toolTip" >
+    <string>Объединить ячейки</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+J</string>
+   </property>
+  </action>
+  <action name="action_italic" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/text_italics.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Наклон</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+I</string>
+   </property>
+  </action>
+  <action name="action_copy" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/copy.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Копировать</string>
+   </property>
+  </action>
+  <action name="action_cut" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/cut.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Вырезать</string>
+   </property>
+  </action>
+  <action name="action_paste" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/paste.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Вставить</string>
+   </property>
+  </action>
+  <action name="action_background_color" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/brush4.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Цвет фона</string>
+   </property>
+   <property name="shortcut" >
+    <string>Alt+B</string>
+   </property>
+  </action>
+  <action name="action_foreground_color" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/pencil.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Цвет текста</string>
+   </property>
+   <property name="shortcut" >
+    <string>Alt+F</string>
+   </property>
+  </action>
+  <action name="action_undo" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/undo.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Отмена</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="action_redo" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/redo.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Повтор</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+Y</string>
+   </property>
+  </action>
+  <action name="action_values_save" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/box_out.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Сохранить значения параметров</string>
+   </property>
+  </action>
+  <action name="action_values_load" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/box_into.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Загрузить значения параметров</string>
+   </property>
+  </action>
+  <action name="action_help" >
+   <property name="icon" >
+    <iconset resource="../mkstudio.qrc" >:/icons/res/help2.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Руководство</string>
+   </property>
+   <property name="shortcut" >
+    <string>F1</string>
+   </property>
+  </action>
+  <action name="action_help_about" >
+   <property name="text" >
+    <string>О программе</string>
+   </property>
+  </action>
+  <action name="action_united_graph" >
+   <property name="text" >
+    <string>Объединенный график</string>
+   </property>
+  </action>
+  <action name="action_export_config" >
+   <property name="text" >
+    <string>Записать конфигурацию</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MKTable</class>
+   <extends>QTableWidget</extends>
+   <header>mktable.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ConsoleWidget</class>
+   <extends>QWidget</extends>
+   <header>consolewidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MBConfigWidget</class>
+   <extends>QWidget</extends>
+   <header>mbconfigwidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MBMasterWidget</class>
+   <extends>QWidget</extends>
+   <header>mbmasterwidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../mkstudio.qrc" />
+ </resources>
+ <connections/>
+</ui>

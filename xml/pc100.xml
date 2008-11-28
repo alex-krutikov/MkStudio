@@ -1,0 +1,1127 @@
+<!DOCTYPE MKStudio>
+<MKStudio>
+  <Table ColumnCount="6" Labels=";;;;;" RowCount="181" LabelsSize="287;153;140;141;147;137" >
+    <Item Column="0" Row="0" Font="bold;underline;align_right" Text="Дискретные Входы" />
+    <Item Column="1" Row="0" Font="align_center" Text="Состояние" />
+    <Item Column="2" Row="0" Font="align_center" Text="Счетчик" />
+    <Item Column="3" Row="0" Font="align_center" Text="Частота" />
+    <Item Column="4" Row="0" Font="align_center" Text="Окно фильтрации" />
+    <Item Column="5" Row="0" Font="align_center" Text="Эксп. фильтр" />
+    <Item Column="0" Row="1" Font="align_right" Text="1" />
+    <Item Column="1" Row="1" Font="bold;align_center" Text="1/2/1" Assign="1/2/1" />
+    <Item Column="2" Row="1" Font="align_center" Text="1/5/1" Assign="1/5/1" />
+    <Item Column="3" Row="1" Font="align_center" Text="1/6/1" Assign="1/6/1" />
+    <Item Column="4" Row="1" Font="align_center" Text="1/7/1" Assign="1/7/1" />
+    <Item Column="5" Row="1" Font="align_center" Text="1/8/1" Assign="1/8/1" />
+    <Item Column="0" Row="2" Font="align_right" Text="2" />
+    <Item Column="1" Row="2" Font="bold;align_center" Text="1/2/2" Assign="1/2/2" />
+    <Item Column="2" Row="2" Font="align_center" Text="1/5/2" Assign="1/5/2" />
+    <Item Column="3" Row="2" Font="align_center" Text="1/6/2" Assign="1/6/2" />
+    <Item Column="4" Row="2" Font="align_center" Text="1/7/2" Assign="1/7/2" />
+    <Item Column="5" Row="2" Font="align_center" Text="1/8/2" Assign="1/8/2" />
+    <Item Column="0" Row="3" Font="align_right" Text="3" />
+    <Item Column="1" Row="3" Font="bold;align_center" Text="1/2/3" Assign="1/2/3" />
+    <Item Column="2" Row="3" Font="align_center" Text="1/5/3" Assign="1/5/3" />
+    <Item Column="3" Row="3" Font="align_center" Text="1/6/3" Assign="1/6/3" />
+    <Item Column="4" Row="3" Font="align_center" Text="1/7/3" Assign="1/7/3" />
+    <Item Column="5" Row="3" Font="align_center" Text="1/8/3" Assign="1/8/3" />
+    <Item Column="0" Row="4" Font="align_right" Text="4" />
+    <Item Column="1" Row="4" Font="bold;align_center" Text="1/2/4" Assign="1/2/4" />
+    <Item Column="2" Row="4" Font="align_center" Text="1/5/4" Assign="1/5/4" />
+    <Item Column="3" Row="4" Font="align_center" Text="1/6/4" Assign="1/6/4" />
+    <Item Column="4" Row="4" Font="align_center" Text="1/7/4" Assign="1/7/4" />
+    <Item Column="5" Row="4" Font="align_center" Text="1/8/4" Assign="1/8/4" />
+    <Item Column="0" Row="5" Font="align_right" Text="5" />
+    <Item Column="1" Row="5" Font="bold;align_center" Text="1/2/5" Assign="1/2/5" />
+    <Item Column="2" Row="5" Font="align_center" Text="1/5/5" Assign="1/5/5" />
+    <Item Column="3" Row="5" Font="align_center" Text="1/6/5" Assign="1/6/5" />
+    <Item Column="4" Row="5" Font="align_center" Text="1/7/5" Assign="1/7/5" />
+    <Item Column="5" Row="5" Font="align_center" Text="1/8/5" Assign="1/8/5" />
+    <Item Column="0" Row="6" />
+    <Item Column="1" Row="6" />
+    <Item Column="2" Row="6" />
+    <Item Column="3" Row="6" />
+    <Item Column="4" Row="6" />
+    <Item Column="5" Row="6" />
+    <Item Column="0" Row="7" Font="bold;underline;align_right" Text="Дискретные Выходы" />
+    <Item Column="1" Row="7" Font="align_center" Text="Состояние" />
+    <Item Column="2" Row="7" Font="align_center" Text="ШИМ" />
+    <Item Column="3" Row="7" Font="align_center" Text="Период ЧИМ" />
+    <Item Column="4" Row="7" Font="align_center" Text="Длительность ЧИМ" />
+    <Item Column="5" Row="7" Font="align_center" Text="Счет времени ЧИМ" />
+    <Item Column="0" Row="8" Font="align_right" Text="1" />
+    <Item Column="1" Row="8" Font="bold;align_center" Text="1/3/1" Assign="1/3/1" />
+    <Item Column="2" Row="8" Font="align_center" Text="1/9/1" Assign="1/9/1" />
+    <Item Column="3" Row="8" Font="align_center" Text="1/10/1" Assign="1/10/1" />
+    <Item Column="4" Row="8" Font="align_center" Text="1/11/1" Assign="1/11/1" />
+    <Item Column="5" Row="8" Font="align_center" Text="1/13/1" Assign="1/13/1" />
+    <Item Column="0" Row="9" />
+    <Item Column="1" Row="9" />
+    <Item Column="2" Row="9" />
+    <Item Column="3" Row="9" />
+    <Item Column="4" Row="9" />
+    <Item Column="5" Row="9" />
+    <Item Column="0" Row="10" Font="bold;underline;align_right" Text="Настройки в ППЗУ" />
+    <Item Column="1" Row="10" />
+    <Item Column="2" Row="10" />
+    <Item Column="3" Row="10" />
+    <Item Column="4" Row="10" />
+    <Item Column="5" Row="10" />
+    <Item Column="0" Row="11" Font="align_right" Text="Чтение/Запись/Стирание/САлго - 105/90/75/85" />
+    <Item Column="1" Row="11" Font="underline;align_center" Text="1/1/3" Assign="1/1/3" />
+    <Item Column="2" Row="11" Font="align_right" Text="Кол-во записей" />
+    <Item Column="3" Row="11" Font="align_center" Text="1/12/1" Assign="1/12/1" />
+    <Item Column="4" Row="11" Font="align_right" Text="Очистка счетчиков" />
+    <Item Column="5" Row="11" Font="align_center" Text="1/1/1" Assign="1/1/1" />
+    <Item Column="0" Row="12" Font="align_right" Text="Автомат. запись базы (#0 - минуты)" />
+    <Item Column="1" Row="12" Font="align_center" Text="1/1/4" Assign="1/1/4" />
+    <Item Column="2" Row="12" />
+    <Item Column="3" Row="12" />
+    <Item Column="4" Row="12" Font="align_right" Text="Период измер. частоты" />
+    <Item Column="5" Row="12" Font="align_center" Text="1/4/1" Assign="1/4/1" />
+    <Item Column="0" Row="13" Font="bold;align_right" Text="Настройки интерфейсов (jumperless)" />
+    <Item Column="1" Row="13" Font="align_center" Text="Скорость, бод" />
+    <Item Column="2" Row="13" Font="align_center" Text="Тайм-аут, мсек" />
+    <Item Column="3" Row="13" />
+    <Item Column="4" Row="13" />
+    <Item Column="5" Row="13" />
+    <Item Column="0" Row="14" Font="align_right" Text="Интерфейс 1" />
+    <Item Column="1" Format="dec" Row="14" Font="align_center" Text="1/32/1" Assign="1/32/1" />
+    <Item Column="2" Format="dec" Row="14" Font="align_center" Text="1/32/2" Assign="1/32/2" />
+    <Item Column="3" Row="14" />
+    <Item Column="4" Row="14" />
+    <Item Column="5" Row="14" />
+    <Item Column="0" Row="15" Font="align_right" Text="Интерфейс 2" />
+    <Item Column="1" Format="dec" Row="15" Font="align_center" Text="1/32/5" Assign="1/32/5" />
+    <Item Column="2" Format="dec" Row="15" Font="align_center" Text="1/32/6" Assign="1/32/6" />
+    <Item Column="3" Row="15" />
+    <Item Column="4" Row="15" />
+    <Item Column="5" Row="15" />
+    <Item Column="0" Row="16" Font="align_right" Text="Интерфейс 3" />
+    <Item Column="1" Format="dec" Row="16" Font="align_center" Text="1/32/9" Assign="1/32/9" />
+    <Item Column="2" Format="dec" Row="16" Font="align_center" Text="1/32/10" Assign="1/32/10" />
+    <Item Column="3" Row="16" />
+    <Item Column="4" Row="16" />
+    <Item Column="5" Row="16" />
+    <Item Column="0" Row="17" Font="bold;align_right" Text="Маршрутизация пакетов MODBUS" />
+    <Item Column="1" Row="17" Font="align_center" Text="Состояние" />
+    <Item Column="2" Row="17" />
+    <Item Column="3" Row="17" />
+    <Item Column="4" Row="17" />
+    <Item Column="5" Row="17" />
+    <Item Column="0" Row="18" Font="align_right" Text="Узлы по алгоблочной программе / все (0/1)" />
+    <Item Column="1" Row="18" Font="align_center" Text="1/14/1" Assign="1/14/1" />
+    <Item Column="2" Row="18" />
+    <Item Column="3" Row="18" Font="align_center" Text="Начальный узел" />
+    <Item Column="4" Row="18" Font="align_center" Text="Конечный узел" />
+    <Item Column="5" Row="18" Font="align_center" Text="Смещение адреса" />
+    <Item Column="0" Row="19" Font="align_right" Text="Таблица на интерфейсе 1 откл / вкл (0/1)" />
+    <Item Column="1" Row="19" Font="align_center" Text="1/14/2" Assign="1/14/2" />
+    <Item Column="2" Row="19" Font="align_right" Text="Таблица 1" />
+    <Item Column="3" Row="19" Font="align_center" Text="1/15/1" Assign="1/15/1" />
+    <Item Column="4" Row="19" Font="align_center" Text="1/15/2" Assign="1/15/2" />
+    <Item Column="5" Row="19" Font="align_center" Text="1/15/3" Assign="1/15/3" />
+    <Item Column="0" Row="20" />
+    <Item Column="1" Row="20" />
+    <Item Column="2" Row="20" />
+    <Item Column="3" Row="20" Font="align_center" Text="1/15/4" Assign="1/15/4" />
+    <Item Column="4" Row="20" Font="align_center" Text="1/15/5" Assign="1/15/5" />
+    <Item Column="5" Row="20" Font="align_center" Text="1/15/6" Assign="1/15/6" />
+    <Item Column="0" Row="21" />
+    <Item Column="1" Row="21" />
+    <Item Column="2" Row="21" />
+    <Item Column="3" Row="21" Font="align_center" Text="1/15/7" Assign="1/15/7" />
+    <Item Column="4" Row="21" Font="align_center" Text="1/15/8" Assign="1/15/8" />
+    <Item Column="5" Row="21" Font="align_center" Text="1/15/9" Assign="1/15/9" />
+    <Item Column="0" Row="22" />
+    <Item Column="1" Row="22" />
+    <Item Column="2" Row="22" />
+    <Item Column="3" Row="22" Font="align_center" Text="1/15/10" Assign="1/15/10" />
+    <Item Column="4" Row="22" Font="align_center" Text="1/15/11" Assign="1/15/11" />
+    <Item Column="5" Row="22" Font="align_center" Text="1/15/12" Assign="1/15/12" />
+    <Item Column="0" Row="23" />
+    <Item Column="1" Row="23" />
+    <Item Column="2" Row="23" />
+    <Item Column="3" Row="23" Font="align_center" Text="1/15/13" Assign="1/15/13" />
+    <Item Column="4" Row="23" Font="align_center" Text="1/15/14" Assign="1/15/14" />
+    <Item Column="5" Row="23" Font="align_center" Text="1/15/15" Assign="1/15/15" />
+    <Item Column="0" Row="24" />
+    <Item Column="1" Row="24" />
+    <Item Column="2" Row="24" />
+    <Item Column="3" Row="24" Font="align_center" Text="1/15/16" Assign="1/15/16" />
+    <Item Column="4" Row="24" Font="align_center" Text="1/15/17" Assign="1/15/17" />
+    <Item Column="5" Row="24" Font="align_center" Text="1/15/18" Assign="1/15/18" />
+    <Item Column="0" Row="25" />
+    <Item Column="1" Row="25" />
+    <Item Column="2" Row="25" />
+    <Item Column="3" Row="25" Font="align_center" Text="1/15/19" Assign="1/15/19" />
+    <Item Column="4" Row="25" Font="align_center" Text="1/15/20" Assign="1/15/20" />
+    <Item Column="5" Row="25" Font="align_center" Text="1/15/21" Assign="1/15/21" />
+    <Item Column="0" Row="26" />
+    <Item Column="1" Row="26" />
+    <Item Column="2" Row="26" />
+    <Item Column="3" Row="26" Font="align_center" Text="1/15/22" Assign="1/15/22" />
+    <Item Column="4" Row="26" Font="align_center" Text="1/15/23" Assign="1/15/23" />
+    <Item Column="5" Row="26" Font="align_center" Text="1/15/24" Assign="1/15/24" />
+    <Item Column="0" Row="27" Font="align_right" Text="Таблица на интерфейсе 2 откл / вкл (0/1)" />
+    <Item Column="1" Row="27" Font="align_center" Text="1/14/3" Assign="1/14/3" />
+    <Item Column="2" Row="27" Font="align_right" Text="Таблица 2" />
+    <Item Column="3" Row="27" Font="align_center" Text="1/16/1" Assign="1/16/1" />
+    <Item Column="4" Row="27" Font="align_center" Text="1/16/2" Assign="1/16/2" />
+    <Item Column="5" Row="27" Font="align_center" Text="1/16/3" Assign="1/16/3" />
+    <Item Column="0" Row="28" />
+    <Item Column="1" Row="28" />
+    <Item Column="2" Row="28" />
+    <Item Column="3" Row="28" Font="align_center" Text="1/16/4" Assign="1/16/4" />
+    <Item Column="4" Row="28" Font="align_center" Text="1/16/5" Assign="1/16/5" />
+    <Item Column="5" Row="28" Font="align_center" Text="1/16/6" Assign="1/16/6" />
+    <Item Column="0" Row="29" />
+    <Item Column="1" Row="29" />
+    <Item Column="2" Row="29" />
+    <Item Column="3" Row="29" Font="align_center" Text="1/16/7" Assign="1/16/7" />
+    <Item Column="4" Row="29" Font="align_center" Text="1/16/8" Assign="1/16/8" />
+    <Item Column="5" Row="29" Font="align_center" Text="1/16/9" Assign="1/16/9" />
+    <Item Column="0" Row="30" />
+    <Item Column="1" Row="30" />
+    <Item Column="2" Row="30" />
+    <Item Column="3" Row="30" Font="align_center" Text="1/16/10" Assign="1/16/10" />
+    <Item Column="4" Row="30" Font="align_center" Text="1/16/11" Assign="1/16/11" />
+    <Item Column="5" Row="30" Font="align_center" Text="1/16/12" Assign="1/16/12" />
+    <Item Column="0" Row="31" />
+    <Item Column="1" Row="31" />
+    <Item Column="2" Row="31" />
+    <Item Column="3" Row="31" Font="align_center" Text="1/16/13" Assign="1/16/13" />
+    <Item Column="4" Row="31" Font="align_center" Text="1/16/14" Assign="1/16/14" />
+    <Item Column="5" Row="31" Font="align_center" Text="1/16/15" Assign="1/16/15" />
+    <Item Column="0" Row="32" />
+    <Item Column="1" Row="32" />
+    <Item Column="2" Row="32" />
+    <Item Column="3" Row="32" Font="align_center" Text="1/16/16" Assign="1/16/16" />
+    <Item Column="4" Row="32" Font="align_center" Text="1/16/17" Assign="1/16/17" />
+    <Item Column="5" Row="32" Font="align_center" Text="1/16/18" Assign="1/16/18" />
+    <Item Column="0" Row="33" />
+    <Item Column="1" Row="33" />
+    <Item Column="2" Row="33" />
+    <Item Column="3" Row="33" Font="align_center" Text="1/16/19" Assign="1/16/19" />
+    <Item Column="4" Row="33" Font="align_center" Text="1/16/20" Assign="1/16/20" />
+    <Item Column="5" Row="33" Font="align_center" Text="1/16/21" Assign="1/16/21" />
+    <Item Column="0" Row="34" />
+    <Item Column="1" Row="34" />
+    <Item Column="2" Row="34" />
+    <Item Column="3" Row="34" Font="align_center" Text="1/16/22" Assign="1/16/22" />
+    <Item Column="4" Row="34" Font="align_center" Text="1/16/23" Assign="1/16/23" />
+    <Item Column="5" Row="34" Font="align_center" Text="1/16/24" Assign="1/16/24" />
+    <Item Column="0" Row="35" Font="align_right" Text="Таблица на интерфейсе 3 откл / вкл (0/1)" />
+    <Item Column="1" Row="35" Font="align_center" Text="1/14/4" Assign="1/14/4" />
+    <Item Column="2" Row="35" Font="align_right" Text="Таблица 3" />
+    <Item Column="3" Row="35" Font="align_center" Text="1/17/1" Assign="1/17/1" />
+    <Item Column="4" Row="35" Font="align_center" Text="1/17/2" Assign="1/17/2" />
+    <Item Column="5" Row="35" Font="align_center" Text="1/17/3" Assign="1/17/3" />
+    <Item Column="0" Row="36" />
+    <Item Column="1" Row="36" />
+    <Item Column="2" Row="36" />
+    <Item Column="3" Row="36" Font="align_center" Text="1/17/4" Assign="1/17/4" />
+    <Item Column="4" Row="36" Font="align_center" Text="1/17/5" Assign="1/17/5" />
+    <Item Column="5" Row="36" Font="align_center" Text="1/17/6" Assign="1/17/6" />
+    <Item Column="0" Row="37" />
+    <Item Column="1" Row="37" />
+    <Item Column="2" Row="37" />
+    <Item Column="3" Row="37" Font="align_center" Text="1/17/7" Assign="1/17/7" />
+    <Item Column="4" Row="37" Font="align_center" Text="1/17/8" Assign="1/17/8" />
+    <Item Column="5" Row="37" Font="align_center" Text="1/17/9" Assign="1/17/9" />
+    <Item Column="0" Row="38" />
+    <Item Column="1" Row="38" />
+    <Item Column="2" Row="38" />
+    <Item Column="3" Row="38" Font="align_center" Text="1/17/10" Assign="1/17/10" />
+    <Item Column="4" Row="38" Font="align_center" Text="1/17/11" Assign="1/17/11" />
+    <Item Column="5" Row="38" Font="align_center" Text="1/17/12" Assign="1/17/12" />
+    <Item Column="0" Row="39" />
+    <Item Column="1" Row="39" />
+    <Item Column="2" Row="39" />
+    <Item Column="3" Row="39" Font="align_center" Text="1/17/13" Assign="1/17/13" />
+    <Item Column="4" Row="39" Font="align_center" Text="1/17/14" Assign="1/17/14" />
+    <Item Column="5" Row="39" Font="align_center" Text="1/17/15" Assign="1/17/15" />
+    <Item Column="0" Row="40" />
+    <Item Column="1" Row="40" />
+    <Item Column="2" Row="40" />
+    <Item Column="3" Row="40" Font="align_center" Text="1/17/16" Assign="1/17/16" />
+    <Item Column="4" Row="40" Font="align_center" Text="1/17/17" Assign="1/17/17" />
+    <Item Column="5" Row="40" Font="align_center" Text="1/17/18" Assign="1/17/18" />
+    <Item Column="0" Row="41" />
+    <Item Column="1" Row="41" />
+    <Item Column="2" Row="41" />
+    <Item Column="3" Row="41" Font="align_center" Text="1/17/19" Assign="1/17/19" />
+    <Item Column="4" Row="41" Font="align_center" Text="1/17/20" Assign="1/17/20" />
+    <Item Column="5" Row="41" Font="align_center" Text="1/17/21" Assign="1/17/21" />
+    <Item Column="0" Row="42" />
+    <Item Column="1" Row="42" />
+    <Item Column="2" Row="42" />
+    <Item Column="3" Row="42" Font="align_center" Text="1/17/22" Assign="1/17/22" />
+    <Item Column="4" Row="42" Font="align_center" Text="1/17/23" Assign="1/17/23" />
+    <Item Column="5" Row="42" Font="align_center" Text="1/17/24" Assign="1/17/24" />
+    <Item Column="0" Row="43" />
+    <Item Column="1" Row="43" />
+    <Item Column="2" Row="43" />
+    <Item Column="3" Row="43" />
+    <Item Column="4" Row="43" />
+    <Item Column="5" Row="43" />
+    <Item Column="0" Row="44" Font="bold;underline;align_right" Text="Времена выполнения, мксек" />
+    <Item Column="1" Row="44" Font="align_center" Text="Минимум" />
+    <Item Column="2" Row="44" Font="align_center" Text="Среднее" />
+    <Item Column="3" Row="44" Font="align_center" Text="Максимум" />
+    <Item Column="4" Row="44" Font="bold;underline;align_right" Text="Статистика" />
+    <Item Column="5" Row="44" />
+    <Item Column="0" Row="45" Font="align_right" Text="Timer IRQ" />
+    <Item Column="1" Row="45" Font="align_center" Text="1/18/17" Assign="1/18/17" />
+    <Item Column="2" Row="45" Font="align_center" Text="1/18/33" Assign="1/18/33" />
+    <Item Column="3" Row="45" Font="align_center" Text="1/18/49" Assign="1/18/49" />
+    <Item Column="4" Row="45" Font="align_right" Text="Запросы" />
+    <Item Column="5" Row="45" Font="align_center" Text="1/18/1" Assign="1/18/1" />
+    <Item Column="0" Row="46" Font="align_right" Text="USART IRQ" />
+    <Item Column="1" Row="46" Font="align_center" Text="1/18/18" Assign="1/18/18" />
+    <Item Column="2" Row="46" Font="align_center" Text="1/18/34" Assign="1/18/34" />
+    <Item Column="3" Row="46" Font="align_center" Text="1/18/50" Assign="1/18/50" />
+    <Item Column="4" Row="46" Font="align_right" Text="Ответы" />
+    <Item Column="5" Row="46" Font="align_center" Text="1/18/2" Assign="1/18/2" />
+    <Item Column="0" Row="47" Font="align_right" Text="Поллинг USB IRQ" />
+    <Item Column="1" Row="47" Font="align_center" Text="1/18/19" Assign="1/18/19" />
+    <Item Column="2" Row="47" Font="align_center" Text="1/18/35" Assign="1/18/35" />
+    <Item Column="3" Row="47" Font="align_center" Text="1/18/51" Assign="1/18/51" />
+    <Item Column="4" Row="47" Font="align_right" Text="Ошибки Frame" />
+    <Item Column="5" Row="47" Font="align_center" Text="1/18/3" Assign="1/18/3" />
+    <Item Column="0" Row="48" Font="align_right" Text="SPI IRQ" />
+    <Item Column="1" Row="48" Font="align_center" Text="1/18/20" Assign="1/18/20" />
+    <Item Column="2" Row="48" Font="align_center" Text="1/18/36" Assign="1/18/36" />
+    <Item Column="3" Row="48" Font="align_center" Text="1/18/52" Assign="1/18/52" />
+    <Item Column="4" Row="48" Font="align_right" Text="Ошибки Overrun" />
+    <Item Column="5" Row="48" Font="align_center" Text="1/18/4" Assign="1/18/4" />
+    <Item Column="0" Row="49" Font="align_right" Text="I2C IRQ" />
+    <Item Column="1" Row="49" Font="align_center" Text="1/18/21" Assign="1/18/21" />
+    <Item Column="2" Row="49" Font="align_center" Text="1/18/37" Assign="1/18/37" />
+    <Item Column="3" Row="49" Font="align_center" Text="1/18/53" Assign="1/18/53" />
+    <Item Column="4" Row="49" Font="align_right" Text="Ошибки CRC" />
+    <Item Column="5" Row="49" Font="align_center" Text="1/18/5" Assign="1/18/5" />
+    <Item Column="0" Row="50" Font="align_right" Text="Зарезервировано" />
+    <Item Column="1" Row="50" Font="align_center" Text="1/18/22" Assign="1/18/22" />
+    <Item Column="2" Row="50" Font="align_center" Text="1/18/38" Assign="1/18/38" />
+    <Item Column="3" Row="50" Font="align_center" Text="1/18/54" Assign="1/18/54" />
+    <Item Column="4" Row="50" Font="align_right" Text="Ошибки Sequence" />
+    <Item Column="5" Row="50" Font="align_center" Text="1/18/6" Assign="1/18/6" />
+    <Item Column="0" Row="51" Font="align_right" Text="Интерфейсный IRQ" />
+    <Item Column="1" Row="51" Font="align_center" Text="1/18/23" Assign="1/18/23" />
+    <Item Column="2" Row="51" Font="align_center" Text="1/18/39" Assign="1/18/39" />
+    <Item Column="3" Row="51" Font="align_center" Text="1/18/55" Assign="1/18/55" />
+    <Item Column="4" Row="51" Font="align_right" Text="Ошибки Reply" />
+    <Item Column="5" Row="51" Font="align_center" Text="1/18/7" Assign="1/18/7" />
+    <Item Column="0" Row="52" Font="align_right" Text="Автомат ESR ввод завершен на базовом" />
+    <Item Column="1" Row="52" Font="align_center" Text="1/18/24" Assign="1/18/24" />
+    <Item Column="2" Row="52" Font="align_center" Text="1/18/40" Assign="1/18/40" />
+    <Item Column="3" Row="52" Font="align_center" Text="1/18/56" Assign="1/18/56" />
+    <Item Column="4" Row="52" Font="align_right" Text="Ошибки SignatureTO" />
+    <Item Column="5" Row="52" Font="align_center" Text="1/18/8" Assign="1/18/8" />
+    <Item Column="0" Row="53" Font="align_right" Text="Автомат ESR вывод завершен" />
+    <Item Column="1" Row="53" Font="align_center" Text="1/18/25" Assign="1/18/25" />
+    <Item Column="2" Row="53" Font="align_center" Text="1/18/41" Assign="1/18/41" />
+    <Item Column="3" Row="53" Font="align_center" Text="1/18/57" Assign="1/18/57" />
+    <Item Column="4" Row="53" Font="align_right" Text="Ошибки Signature" />
+    <Item Column="5" Row="53" Font="align_center" Text="1/18/9" Assign="1/18/9" />
+    <Item Column="0" Row="54" Font="align_right" Text="Автомат ESR ввод завершен" />
+    <Item Column="1" Row="54" Font="align_center" Text="1/18/26" Assign="1/18/26" />
+    <Item Column="2" Row="54" Font="align_center" Text="1/18/42" Assign="1/18/42" />
+    <Item Column="3" Row="54" Font="align_center" Text="1/18/58" Assign="1/18/58" />
+    <Item Column="4" Row="54" Font="align_right" Text="Ошибки TO" />
+    <Item Column="5" Row="54" Font="align_center" Text="1/18/10" Assign="1/18/10" />
+    <Item Column="0" Row="55" Font="align_right" Text="Автомат ESR вывод завершен на базовом" />
+    <Item Column="1" Row="55" Font="align_center" Text="1/18/27" Assign="1/18/27" />
+    <Item Column="2" Row="55" Font="align_center" Text="1/18/43" Assign="1/18/43" />
+    <Item Column="3" Row="55" Font="align_center" Text="1/18/59" Assign="1/18/59" />
+    <Item Column="4" Row="55" Font="align_right" Text="Время работы модуля" />
+    <Item Column="5" Row="55" Font="align_center" Text="1/18/11" Assign="1/18/11" />
+    <Item Column="0" Row="56" Font="align_right" Text="Зарезервировано" />
+    <Item Column="1" Row="56" Font="align_center" Text="1/18/28" Assign="1/18/28" />
+    <Item Column="2" Row="56" Font="align_center" Text="1/18/44" Assign="1/18/44" />
+    <Item Column="3" Row="56" Font="align_center" Text="1/18/60" Assign="1/18/60" />
+    <Item Column="4" Row="56" Font="align_right" Text="Время от пред.старта" />
+    <Item Column="5" Row="56" Font="align_center" Text="1/18/12" Assign="1/18/12" />
+    <Item Column="0" Row="57" Font="align_right" Text="Зарезервировано" />
+    <Item Column="1" Row="57" Font="align_center" Text="1/18/29" Assign="1/18/29" />
+    <Item Column="2" Row="57" Font="align_center" Text="1/18/45" Assign="1/18/45" />
+    <Item Column="3" Row="57" Font="align_center" Text="1/18/61" Assign="1/18/61" />
+    <Item Column="4" Row="57" Font="align_right" Text="Время от тек.старта" />
+    <Item Column="5" Row="57" Font="align_center" Text="1/18/13" Assign="1/18/13" />
+    <Item Column="0" Row="58" Font="align_right" Text="Алгоблоки" />
+    <Item Column="1" Row="58" Font="align_center" Text="1/18/30" Assign="1/18/30" />
+    <Item Column="2" Row="58" Font="align_center" Text="1/18/46" Assign="1/18/46" />
+    <Item Column="3" Row="58" Font="align_center" Text="1/18/62" Assign="1/18/62" />
+    <Item Column="4" Row="58" Font="align_right" Text="Кол-во рестартов" />
+    <Item Column="5" Row="58" Font="align_center" Text="1/18/14" Assign="1/18/14" />
+    <Item Column="0" Row="59" Font="align_right" Text="Основной цикл" />
+    <Item Column="1" Row="59" Font="align_center" Text="1/18/31" Assign="1/18/31" />
+    <Item Column="2" Row="59" Font="align_center" Text="1/18/47" Assign="1/18/47" />
+    <Item Column="3" Row="59" Font="align_center" Text="1/18/63" Assign="1/18/63" />
+    <Item Column="4" Row="59" Font="align_right" Text="Кол-во записей в ППЗУ" />
+    <Item Column="5" Row="59" Font="align_center" Text="1/18/15" Assign="1/18/15" />
+    <Item Column="0" Row="60" Font="align_right" Text="Стабильность таймера (=10000 - стабилен)" />
+    <Item Column="1" Row="60" Font="align_center" Text="1/18/32" Assign="1/18/32" />
+    <Item Column="2" Row="60" Font="align_center" Text="1/18/48" Assign="1/18/48" />
+    <Item Column="3" Row="60" Font="align_center" Text="1/18/64" Assign="1/18/64" />
+    <Item Column="4" Row="60" Font="align_right" Text="Отладочный счетчик" />
+    <Item Column="5" Row="60" Font="align_center" Text="1/18/16" Assign="1/18/16" />
+    <Item Column="0" Row="61" />
+    <Item Column="1" Row="61" />
+    <Item Column="2" Row="61" />
+    <Item Column="3" Row="61" />
+    <Item Column="4" Row="61" />
+    <Item Column="5" Row="61" />
+    <Item Column="0" Row="62" Font="bold;underline;align_right" Text="Использование динамической памяти" />
+    <Item Column="1" Row="62" Font="align_center" Text="Всего" />
+    <Item Column="2" Row="62" Font="align_center" Text="Остаток" />
+    <Item Column="3" Row="62" Font="align_center" Text="Кол-во элементов" />
+    <Item Column="4" Row="62" />
+    <Item Column="5" Row="62" />
+    <Item Column="0" Row="63" Font="align_right" Text="байт" />
+    <Item Column="1" Row="63" Font="align_center" Text="1/19/1" Assign="1/19/1" />
+    <Item Column="2" Row="63" Font="align_center" Text="1/19/2" Assign="1/19/2" />
+    <Item Column="3" Row="63" Font="align_center" Text="1/19/3" Assign="1/19/3" />
+    <Item Column="4" Row="63" />
+    <Item Column="5" Row="63" />
+    <Item Column="0" Row="64" />
+    <Item Column="1" Row="64" />
+    <Item Column="2" Row="64" />
+    <Item Column="3" Row="64" />
+    <Item Column="4" Row="64" />
+    <Item Column="5" Row="64" />
+    <Item Column="0" Row="65" Font="bold;underline;align_right" Text="Остатки стеков" />
+    <Item Column="1" Row="65" Font="align_center" Text="Основной" />
+    <Item Column="2" Row="65" Font="align_center" Text="IRQ" />
+    <Item Column="3" Row="65" Font="align_center" Text="FIQ" />
+    <Item Column="4" Row="65" Font="align_center" Text="SVC" />
+    <Item Column="5" Row="65" />
+    <Item Column="0" Row="66" Font="align_right" Text="байт" />
+    <Item Column="1" Row="66" Font="align_center" Text="1/20/1" Assign="1/20/1" />
+    <Item Column="2" Row="66" Font="align_center" Text="1/20/2" Assign="1/20/2" />
+    <Item Column="3" Row="66" Font="align_center" Text="1/20/3" Assign="1/20/3" />
+    <Item Column="4" Row="66" Font="align_center" Text="1/20/4" Assign="1/20/4" />
+    <Item Column="5" Row="66" />
+    <Item Column="0" Row="67" />
+    <Item Column="1" Row="67" />
+    <Item Column="2" Row="67" />
+    <Item Column="3" Row="67" />
+    <Item Column="4" Row="67" />
+    <Item Column="5" Row="67" />
+    <Item Column="0" Row="68" Font="bold;underline;align_right" Text="Статистика Интерфейсов" />
+    <Item Column="1" Row="68" Font="align_center" Text="USB" />
+    <Item Column="2" Row="68" Font="align_center" Text="RS485/232/DCL # 1" />
+    <Item Column="3" Row="68" Font="align_center" Text="RS485 # 2" />
+    <Item Column="4" Row="68" Font="align_center" Text="RS485 # 3" />
+    <Item Column="5" Row="68" Font="align_center" Text="I2C" />
+    <Item Column="0" Row="69" Font="align_right" Text="Принято пакетов всего" />
+    <Item Column="1" Row="69" Font="align_center" Text="1/21/1" Assign="1/21/1" />
+    <Item Column="2" Row="69" Font="align_center" Text="1/21/17" Assign="1/21/17" />
+    <Item Column="3" Row="69" Font="align_center" Text="1/21/33" Assign="1/21/33" />
+    <Item Column="4" Row="69" Font="align_center" Text="1/21/49" Assign="1/21/49" />
+    <Item Column="5" Row="69" Font="align_center" Text="1/21/65" Assign="1/21/65" />
+    <Item Column="0" Row="70" Font="align_right" Text="Принято пакетов без ошибок" />
+    <Item Column="1" Row="70" Font="align_center" Text="1/21/2" Assign="1/21/2" />
+    <Item Column="2" Row="70" Font="align_center" Text="1/21/18" Assign="1/21/18" />
+    <Item Column="3" Row="70" Font="align_center" Text="1/21/34" Assign="1/21/34" />
+    <Item Column="4" Row="70" Font="align_center" Text="1/21/50" Assign="1/21/50" />
+    <Item Column="5" Row="70" Font="align_center" Text="1/21/66" Assign="1/21/66" />
+    <Item Column="0" Row="71" Font="align_right" Text="Принято байт всего" />
+    <Item Column="1" Row="71" Font="align_center" Text="1/21/3" Assign="1/21/3" />
+    <Item Column="2" Row="71" Font="align_center" Text="1/21/19" Assign="1/21/19" />
+    <Item Column="3" Row="71" Font="align_center" Text="1/21/35" Assign="1/21/35" />
+    <Item Column="4" Row="71" Font="align_center" Text="1/21/51" Assign="1/21/51" />
+    <Item Column="5" Row="71" Font="align_center" Text="1/21/67" Assign="1/21/67" />
+    <Item Column="0" Row="72" Font="align_right" Text="Ошибки аппаратуры запуска приема" />
+    <Item Column="1" Row="72" Font="align_center" Text="1/21/4" Assign="1/21/4" />
+    <Item Column="2" Row="72" Font="align_center" Text="1/21/20" Assign="1/21/20" />
+    <Item Column="3" Row="72" Font="align_center" Text="1/21/36" Assign="1/21/36" />
+    <Item Column="4" Row="72" Font="align_center" Text="1/21/52" Assign="1/21/52" />
+    <Item Column="5" Row="72" Font="align_center" Text="1/21/68" Assign="1/21/68" />
+    <Item Column="0" Row="73" Font="align_right" Text="Ошибки Frame" />
+    <Item Column="1" Row="73" Font="align_center" Text="1/21/5" Assign="1/21/5" />
+    <Item Column="2" Row="73" Font="align_center" Text="1/21/21" Assign="1/21/21" />
+    <Item Column="3" Row="73" Font="align_center" Text="1/21/37" Assign="1/21/37" />
+    <Item Column="4" Row="73" Font="align_center" Text="1/21/53" Assign="1/21/53" />
+    <Item Column="5" Row="73" Font="align_center" Text="1/21/69" Assign="1/21/69" />
+    <Item Column="0" Row="74" Font="align_right" Text="Ошибки Overrun" />
+    <Item Column="1" Row="74" Font="align_center" Text="1/21/6" Assign="1/21/6" />
+    <Item Column="2" Row="74" Font="align_center" Text="1/21/22" Assign="1/21/22" />
+    <Item Column="3" Row="74" Font="align_center" Text="1/21/38" Assign="1/21/38" />
+    <Item Column="4" Row="74" Font="align_center" Text="1/21/54" Assign="1/21/54" />
+    <Item Column="5" Row="74" Font="align_center" Text="1/21/70" Assign="1/21/70" />
+    <Item Column="0" Row="75" Font="align_right" Text="Ошибки Parity" />
+    <Item Column="1" Row="75" Font="align_center" Text="1/21/7" Assign="1/21/7" />
+    <Item Column="2" Row="75" Font="align_center" Text="1/21/23" Assign="1/21/23" />
+    <Item Column="3" Row="75" Font="align_center" Text="1/21/39" Assign="1/21/39" />
+    <Item Column="4" Row="75" Font="align_center" Text="1/21/55" Assign="1/21/55" />
+    <Item Column="5" Row="75" Font="align_center" Text="1/21/71" Assign="1/21/71" />
+    <Item Column="0" Row="76" Font="align_right" Text="Ошибки Overflow" />
+    <Item Column="1" Row="76" Font="align_center" Text="1/21/8" Assign="1/21/8" />
+    <Item Column="2" Row="76" Font="align_center" Text="1/21/24" Assign="1/21/24" />
+    <Item Column="3" Row="76" Font="align_center" Text="1/21/40" Assign="1/21/40" />
+    <Item Column="4" Row="76" Font="align_center" Text="1/21/56" Assign="1/21/56" />
+    <Item Column="5" Row="76" Font="align_center" Text="1/21/72" Assign="1/21/72" />
+    <Item Column="0" Row="77" Font="align_right" Text="Ошибки тайм-аута" />
+    <Item Column="1" Row="77" Font="align_center" Text="1/21/9" Assign="1/21/9" />
+    <Item Column="2" Row="77" Font="align_center" Text="1/21/25" Assign="1/21/25" />
+    <Item Column="3" Row="77" Font="align_center" Text="1/21/41" Assign="1/21/41" />
+    <Item Column="4" Row="77" Font="align_center" Text="1/21/57" Assign="1/21/57" />
+    <Item Column="5" Row="77" Font="align_center" Text="1/21/73" Assign="1/21/73" />
+    <Item Column="0" Row="78" Font="align_right" Text="Ошибки CRC" />
+    <Item Column="1" Row="78" Font="align_center" Text="1/21/10" Assign="1/21/10" />
+    <Item Column="2" Row="78" Font="align_center" Text="1/21/26" Assign="1/21/26" />
+    <Item Column="3" Row="78" Font="align_center" Text="1/21/42" Assign="1/21/42" />
+    <Item Column="4" Row="78" Font="align_center" Text="1/21/58" Assign="1/21/58" />
+    <Item Column="5" Row="78" Font="align_center" Text="1/21/74" Assign="1/21/74" />
+    <Item Column="0" Row="79" Font="align_right" Text="Ошибки формирования пакета" />
+    <Item Column="1" Row="79" Font="align_center" Text="1/21/11" Assign="1/21/11" />
+    <Item Column="2" Row="79" Font="align_center" Text="1/21/27" Assign="1/21/27" />
+    <Item Column="3" Row="79" Font="align_center" Text="1/21/43" Assign="1/21/43" />
+    <Item Column="4" Row="79" Font="align_center" Text="1/21/59" Assign="1/21/59" />
+    <Item Column="5" Row="79" Font="align_center" Text="1/21/75" Assign="1/21/75" />
+    <Item Column="0" Row="80" Font="align_right" Text="Передано пакетов всего" />
+    <Item Column="1" Row="80" Font="align_center" Text="1/21/12" Assign="1/21/12" />
+    <Item Column="2" Row="80" Font="align_center" Text="1/21/28" Assign="1/21/28" />
+    <Item Column="3" Row="80" Font="align_center" Text="1/21/44" Assign="1/21/44" />
+    <Item Column="4" Row="80" Font="align_center" Text="1/21/60" Assign="1/21/60" />
+    <Item Column="5" Row="80" Font="align_center" Text="1/21/76" Assign="1/21/76" />
+    <Item Column="0" Row="81" Font="align_right" Text="Передано пакетов без ошибок" />
+    <Item Column="1" Row="81" Font="align_center" Text="1/21/13" Assign="1/21/13" />
+    <Item Column="2" Row="81" Font="align_center" Text="1/21/29" Assign="1/21/29" />
+    <Item Column="3" Row="81" Font="align_center" Text="1/21/45" Assign="1/21/45" />
+    <Item Column="4" Row="81" Font="align_center" Text="1/21/61" Assign="1/21/61" />
+    <Item Column="5" Row="81" Font="align_center" Text="1/21/77" Assign="1/21/77" />
+    <Item Column="0" Row="82" Font="align_right" Text="Передано байт всего" />
+    <Item Column="1" Row="82" Font="align_center" Text="1/21/14" Assign="1/21/14" />
+    <Item Column="2" Row="82" Font="align_center" Text="1/21/30" Assign="1/21/30" />
+    <Item Column="3" Row="82" Font="align_center" Text="1/21/46" Assign="1/21/46" />
+    <Item Column="4" Row="82" Font="align_center" Text="1/21/62" Assign="1/21/62" />
+    <Item Column="5" Row="82" Font="align_center" Text="1/21/78" Assign="1/21/78" />
+    <Item Column="0" Row="83" Font="align_right" Text="Ошибки аппаратуры запуска передачи" />
+    <Item Column="1" Row="83" Font="align_center" Text="1/21/15" Assign="1/21/15" />
+    <Item Column="2" Row="83" Font="align_center" Text="1/21/31" Assign="1/21/31" />
+    <Item Column="3" Row="83" Font="align_center" Text="1/21/47" Assign="1/21/47" />
+    <Item Column="4" Row="83" Font="align_center" Text="1/21/63" Assign="1/21/63" />
+    <Item Column="5" Row="83" Font="align_center" Text="1/21/79" Assign="1/21/79" />
+    <Item Column="0" Row="84" Font="align_right" Text="Зарезервировано" />
+    <Item Column="1" Row="84" Font="align_center" Text="1/21/16" Assign="1/21/16" />
+    <Item Column="2" Row="84" Font="align_center" Text="1/21/32" Assign="1/21/32" />
+    <Item Column="3" Row="84" Font="align_center" Text="1/21/48" Assign="1/21/48" />
+    <Item Column="4" Row="84" Font="align_center" Text="1/21/64" Assign="1/21/64" />
+    <Item Column="5" Row="84" Font="align_center" Text="1/21/80" Assign="1/21/80" />
+    <Item Column="0" Row="85" />
+    <Item Column="1" Row="85" Font="align_center" Text="DBGU" />
+    <Item Column="2" Row="85" Font="align_center" Text="SPI" />
+    <Item Column="3" Row="85" />
+    <Item Column="4" Row="85" />
+    <Item Column="5" Row="85" />
+    <Item Column="0" Row="86" Font="align_right" Text="Принято пакетов всего" />
+    <Item Column="1" Row="86" Font="align_center" Text="1/21/81" Assign="1/21/81" />
+    <Item Column="2" Row="86" Font="align_center" Text="1/21/97" Assign="1/21/97" />
+    <Item Column="3" Row="86" />
+    <Item Column="4" Row="86" />
+    <Item Column="5" Row="86" />
+    <Item Column="0" Row="87" Font="align_right" Text="Принято пакетов без ошибок" />
+    <Item Column="1" Row="87" Font="align_center" Text="1/21/82" Assign="1/21/82" />
+    <Item Column="2" Row="87" Font="align_center" Text="1/21/98" Assign="1/21/98" />
+    <Item Column="3" Row="87" />
+    <Item Column="4" Row="87" />
+    <Item Column="5" Row="87" />
+    <Item Column="0" Row="88" Font="align_right" Text="Принято байт всего" />
+    <Item Column="1" Row="88" Font="align_center" Text="1/21/83" Assign="1/21/83" />
+    <Item Column="2" Row="88" Font="align_center" Text="1/21/99" Assign="1/21/99" />
+    <Item Column="3" Row="88" />
+    <Item Column="4" Row="88" />
+    <Item Column="5" Row="88" />
+    <Item Column="0" Row="89" Font="align_right" Text="Ошибки аппаратуры запуска приема" />
+    <Item Column="1" Row="89" Font="align_center" Text="1/21/84" Assign="1/21/84" />
+    <Item Column="2" Row="89" Font="align_center" Text="1/21/100" Assign="1/21/100" />
+    <Item Column="3" Row="89" />
+    <Item Column="4" Row="89" />
+    <Item Column="5" Row="89" />
+    <Item Column="0" Row="90" Font="align_right" Text="Ошибки Frame" />
+    <Item Column="1" Row="90" Font="align_center" Text="1/21/85" Assign="1/21/85" />
+    <Item Column="2" Row="90" Font="align_center" Text="1/21/101" Assign="1/21/101" />
+    <Item Column="3" Row="90" />
+    <Item Column="4" Row="90" />
+    <Item Column="5" Row="90" />
+    <Item Column="0" Row="91" Font="align_right" Text="Ошибки Overrun" />
+    <Item Column="1" Row="91" Font="align_center" Text="1/21/86" Assign="1/21/86" />
+    <Item Column="2" Row="91" Font="align_center" Text="1/21/102" Assign="1/21/102" />
+    <Item Column="3" Row="91" />
+    <Item Column="4" Row="91" />
+    <Item Column="5" Row="91" />
+    <Item Column="0" Row="92" Font="align_right" Text="Ошибки Parity" />
+    <Item Column="1" Row="92" Font="align_center" Text="1/21/87" Assign="1/21/87" />
+    <Item Column="2" Row="92" Font="align_center" Text="1/21/103" Assign="1/21/103" />
+    <Item Column="3" Row="92" />
+    <Item Column="4" Row="92" />
+    <Item Column="5" Row="92" />
+    <Item Column="0" Row="93" Font="align_right" Text="Ошибки Overflow" />
+    <Item Column="1" Row="93" Font="align_center" Text="1/21/88" Assign="1/21/88" />
+    <Item Column="2" Row="93" Font="align_center" Text="1/21/104" Assign="1/21/104" />
+    <Item Column="3" Row="93" />
+    <Item Column="4" Row="93" />
+    <Item Column="5" Row="93" />
+    <Item Column="0" Row="94" Font="align_right" Text="Ошибки тайм-аута" />
+    <Item Column="1" Row="94" Font="align_center" Text="1/21/89" Assign="1/21/89" />
+    <Item Column="2" Row="94" Font="align_center" Text="1/21/105" Assign="1/21/105" />
+    <Item Column="3" Row="94" />
+    <Item Column="4" Row="94" />
+    <Item Column="5" Row="94" />
+    <Item Column="0" Row="95" Font="align_right" Text="Ошибки CRC" />
+    <Item Column="1" Row="95" Font="align_center" Text="1/21/90" Assign="1/21/90" />
+    <Item Column="2" Row="95" Font="align_center" Text="1/21/106" Assign="1/21/106" />
+    <Item Column="3" Row="95" />
+    <Item Column="4" Row="95" />
+    <Item Column="5" Row="95" />
+    <Item Column="0" Row="96" Font="align_right" Text="Ошибки формирования пакета" />
+    <Item Column="1" Row="96" Font="align_center" Text="1/21/91" Assign="1/21/91" />
+    <Item Column="2" Row="96" Font="align_center" Text="1/21/107" Assign="1/21/107" />
+    <Item Column="3" Row="96" />
+    <Item Column="4" Row="96" />
+    <Item Column="5" Row="96" />
+    <Item Column="0" Row="97" Font="align_right" Text="Передано пакетов всего" />
+    <Item Column="1" Row="97" Font="align_center" Text="1/21/92" Assign="1/21/92" />
+    <Item Column="2" Row="97" Font="align_center" Text="1/21/108" Assign="1/21/108" />
+    <Item Column="3" Row="97" />
+    <Item Column="4" Row="97" />
+    <Item Column="5" Row="97" />
+    <Item Column="0" Row="98" Font="align_right" Text="Передано пакетов без ошибок" />
+    <Item Column="1" Row="98" Font="align_center" Text="1/21/93" Assign="1/21/93" />
+    <Item Column="2" Row="98" Font="align_center" Text="1/21/109" Assign="1/21/109" />
+    <Item Column="3" Row="98" />
+    <Item Column="4" Row="98" />
+    <Item Column="5" Row="98" />
+    <Item Column="0" Row="99" Font="align_right" Text="Передано байт всего" />
+    <Item Column="1" Row="99" Font="align_center" Text="1/21/94" Assign="1/21/94" />
+    <Item Column="2" Row="99" Font="align_center" Text="1/21/110" Assign="1/21/110" />
+    <Item Column="3" Row="99" />
+    <Item Column="4" Row="99" />
+    <Item Column="5" Row="99" />
+    <Item Column="0" Row="100" Font="align_right" Text="Ошибки аппаратуры запуска передачи" />
+    <Item Column="1" Row="100" Font="align_center" Text="1/21/95" Assign="1/21/95" />
+    <Item Column="2" Row="100" Font="align_center" Text="1/21/111" Assign="1/21/111" />
+    <Item Column="3" Row="100" />
+    <Item Column="4" Row="100" />
+    <Item Column="5" Row="100" />
+    <Item Column="0" Row="101" Font="align_right" Text="Зарезервировано" />
+    <Item Column="1" Row="101" Font="align_center" Text="1/21/96" Assign="1/21/96" />
+    <Item Column="2" Row="101" Font="align_center" Text="1/21/112" Assign="1/21/112" />
+    <Item Column="3" Row="101" />
+    <Item Column="4" Row="101" />
+    <Item Column="5" Row="101" />
+    <Item Column="0" Row="102" />
+    <Item Column="1" Row="102" />
+    <Item Column="2" Row="102" />
+    <Item Column="3" Row="102" />
+    <Item Column="4" Row="102" />
+    <Item Column="5" Row="102" />
+    <Item Column="0" Row="103" Font="bold;underline;align_right" Text="Статистика Автоматов" />
+    <Item Column="1" Row="103" Font="align_center" Text="0" />
+    <Item Column="2" Row="103" Font="align_center" Text="1" />
+    <Item Column="3" Row="103" Font="align_center" Text="2" />
+    <Item Column="4" Row="103" Font="align_center" Text="3" />
+    <Item Column="5" Row="103" Font="align_center" Text="4" />
+    <Item Column="0" Row="104" Font="align_right" Text="Системные ошибки на приеме" />
+    <Item Column="1" Row="104" Font="align_center" Text="1/22/1" Assign="1/22/1" />
+    <Item Column="2" Row="104" Font="align_center" Text="1/22/5" Assign="1/22/5" />
+    <Item Column="3" Row="104" Font="align_center" Text="1/22/9" Assign="1/22/9" />
+    <Item Column="4" Row="104" Font="align_center" Text="1/22/13" Assign="1/22/13" />
+    <Item Column="5" Row="104" Font="align_center" Text="1/22/17" Assign="1/22/17" />
+    <Item Column="0" Row="105" Font="align_right" Text="Системные ошибки на передаче" />
+    <Item Column="1" Row="105" Font="align_center" Text="1/22/2" Assign="1/22/2" />
+    <Item Column="2" Row="105" Font="align_center" Text="1/22/6" Assign="1/22/6" />
+    <Item Column="3" Row="105" Font="align_center" Text="1/22/10" Assign="1/22/10" />
+    <Item Column="4" Row="105" Font="align_center" Text="1/22/14" Assign="1/22/14" />
+    <Item Column="5" Row="105" Font="align_center" Text="1/22/18" Assign="1/22/18" />
+    <Item Column="0" Row="106" Font="align_right" Text="Коллизии" />
+    <Item Column="1" Row="106" Font="align_center" Text="1/22/3" Assign="1/22/3" />
+    <Item Column="2" Row="106" Font="align_center" Text="1/22/7" Assign="1/22/7" />
+    <Item Column="3" Row="106" Font="align_center" Text="1/22/11" Assign="1/22/11" />
+    <Item Column="4" Row="106" Font="align_center" Text="1/22/15" Assign="1/22/15" />
+    <Item Column="5" Row="106" Font="align_center" Text="1/22/19" Assign="1/22/19" />
+    <Item Column="0" Row="107" Font="align_right" Text="Переполнение очередей" />
+    <Item Column="1" Row="107" Font="align_center" Text="1/22/4" Assign="1/22/4" />
+    <Item Column="2" Row="107" Font="align_center" Text="1/22/8" Assign="1/22/8" />
+    <Item Column="3" Row="107" Font="align_center" Text="1/22/12" Assign="1/22/12" />
+    <Item Column="4" Row="107" Font="align_center" Text="1/22/16" Assign="1/22/16" />
+    <Item Column="5" Row="107" Font="align_center" Text="1/22/20" Assign="1/22/20" />
+    <Item Column="0" Row="108" />
+    <Item Column="1" Row="108" Font="align_center" Text="5" />
+    <Item Column="2" Row="108" Font="align_center" Text="6" />
+    <Item Column="3" Row="108" Font="align_center" Text="7" />
+    <Item Column="4" Row="108" Font="align_center" Text="8" />
+    <Item Column="5" Row="108" Font="align_center" Text="9" />
+    <Item Column="0" Row="109" Font="align_right" Text="Системные ошибки на приеме" />
+    <Item Column="1" Row="109" Font="align_center" Text="1/22/21" Assign="1/22/21" />
+    <Item Column="2" Row="109" Font="align_center" Text="1/22/25" Assign="1/22/25" />
+    <Item Column="3" Row="109" Font="align_center" Text="1/22/29" Assign="1/22/29" />
+    <Item Column="4" Row="109" Font="align_center" Text="1/22/33" Assign="1/22/33" />
+    <Item Column="5" Row="109" Font="align_center" Text="1/22/37" Assign="1/22/37" />
+    <Item Column="0" Row="110" Font="align_right" Text="Системные ошибки на передаче" />
+    <Item Column="1" Row="110" Font="align_center" Text="1/22/22" Assign="1/22/22" />
+    <Item Column="2" Row="110" Font="align_center" Text="1/22/26" Assign="1/22/26" />
+    <Item Column="3" Row="110" Font="align_center" Text="1/22/30" Assign="1/22/30" />
+    <Item Column="4" Row="110" Font="align_center" Text="1/22/34" Assign="1/22/34" />
+    <Item Column="5" Row="110" Font="align_center" Text="1/22/38" Assign="1/22/38" />
+    <Item Column="0" Row="111" Font="align_right" Text="Коллизии" />
+    <Item Column="1" Row="111" Font="align_center" Text="1/22/23" Assign="1/22/23" />
+    <Item Column="2" Row="111" Font="align_center" Text="1/22/27" Assign="1/22/27" />
+    <Item Column="3" Row="111" Font="align_center" Text="1/22/31" Assign="1/22/31" />
+    <Item Column="4" Row="111" Font="align_center" Text="1/22/35" Assign="1/22/35" />
+    <Item Column="5" Row="111" Font="align_center" Text="1/22/39" Assign="1/22/39" />
+    <Item Column="0" Row="112" Font="align_right" Text="Переполнение очередей" />
+    <Item Column="1" Row="112" Font="align_center" Text="1/22/24" Assign="1/22/24" />
+    <Item Column="2" Row="112" Font="align_center" Text="1/22/28" Assign="1/22/28" />
+    <Item Column="3" Row="112" Font="align_center" Text="1/22/32" Assign="1/22/32" />
+    <Item Column="4" Row="112" Font="align_center" Text="1/22/36" Assign="1/22/36" />
+    <Item Column="5" Row="112" Font="align_center" Text="1/22/40" Assign="1/22/40" />
+    <Item Column="0" Row="113" />
+    <Item Column="1" Row="113" Font="align_center" Text="10" />
+    <Item Column="2" Row="113" Font="align_center" Text="11" />
+    <Item Column="3" Row="113" />
+    <Item Column="4" Row="113" />
+    <Item Column="5" Row="113" />
+    <Item Column="0" Row="114" Font="align_right" Text="Системные ошибки на приеме" />
+    <Item Column="1" Row="114" Font="align_center" Text="1/22/41" Assign="1/22/41" />
+    <Item Column="2" Row="114" Font="align_center" Text="1/22/45" Assign="1/22/45" />
+    <Item Column="3" Row="114" />
+    <Item Column="4" Row="114" />
+    <Item Column="5" Row="114" />
+    <Item Column="0" Row="115" Font="align_right" Text="Системные ошибки на передаче" />
+    <Item Column="1" Row="115" Font="align_center" Text="1/22/42" Assign="1/22/42" />
+    <Item Column="2" Row="115" Font="align_center" Text="1/22/46" Assign="1/22/46" />
+    <Item Column="3" Row="115" />
+    <Item Column="4" Row="115" />
+    <Item Column="5" Row="115" />
+    <Item Column="0" Row="116" Font="align_right" Text="Коллизии" />
+    <Item Column="1" Row="116" Font="align_center" Text="1/22/43" Assign="1/22/43" />
+    <Item Column="2" Row="116" Font="align_center" Text="1/22/47" Assign="1/22/47" />
+    <Item Column="3" Row="116" />
+    <Item Column="4" Row="116" />
+    <Item Column="5" Row="116" />
+    <Item Column="0" Row="117" Font="align_right" Text="Переполнение очередей" />
+    <Item Column="1" Row="117" Font="align_center" Text="1/22/44" Assign="1/22/44" />
+    <Item Column="2" Row="117" Font="align_center" Text="1/22/48" Assign="1/22/48" />
+    <Item Column="3" Row="117" />
+    <Item Column="4" Row="117" />
+    <Item Column="5" Row="117" />
+    <Item Column="0" Row="118" />
+    <Item Column="1" Row="118" />
+    <Item Column="2" Row="118" />
+    <Item Column="3" Row="118" />
+    <Item Column="4" Row="118" />
+    <Item Column="5" Row="118" />
+    <Item Column="0" Row="119" Font="bold;underline;align_right" Text="Периферийный процессор (MEGA8)" />
+    <Item Column="1" Row="119" Font="align_center" Text="Конфигурация" />
+    <Item Column="2" Row="119" Font="align_center" />
+    <Item Column="3" Row="119" Font="align_center" Text="Статистика" />
+    <Item Column="4" Row="119" />
+    <Item Column="5" Row="119" Text="Доп.Статистика" />
+    <Item Column="0" Row="120" Font="align_right" Text="Режим" />
+    <Item Column="1" Row="120" Font="align_center" Text="1/23/1" Assign="1/23/1" />
+    <Item Column="2" Row="120" Font="align_right" Text="Кол-во сбросов" />
+    <Item Column="3" Row="120" Font="align_center" Text="1/24/1" Assign="1/24/1" />
+    <Item Column="4" Row="120" Font="align_right" Text="Тактов на цикл / 32" />
+    <Item Column="5" Format="unsigned" Row="120" Font="align_center" Text="1/25/1" Assign="1/25/1" />
+    <Item Column="0" Row="121" Font="align_right" Text="Текущая конфигурация" />
+    <Item Column="1" Row="121" Font="align_center" Text="1/23/2" Assign="1/23/2" />
+    <Item Column="2" Row="121" Font="align_right" Text="Время работы" />
+    <Item Column="3" Row="121" Font="align_center" Text="1/28/1" Assign="1/28/1" />
+    <Item Column="4" Row="121" Font="align_right" Text="Использ. тактов / 32" />
+    <Item Column="5" Format="unsigned" Row="121" Font="align_center" Text="1/25/2" Assign="1/25/2" />
+    <Item Column="0" Row="122" />
+    <Item Column="1" Row="122" />
+    <Item Column="2" Row="122" Font="align_right" Text="Ошибки перекрытия" />
+    <Item Column="3" Row="122" Font="align_center" Text="1/24/4" Assign="1/24/4" />
+    <Item Column="4" Row="122" Font="align_right" Text="Скорость обмена (б/с)" />
+    <Item Column="5" Row="122" Font="align_center" Text="1/26/1" Assign="1/26/1" />
+    <Item Column="0" Row="123" />
+    <Item Column="1" Row="123" />
+    <Item Column="2" Row="123" Font="align_right" Text="Ошибки прерываний" />
+    <Item Column="3" Row="123" Font="align_center" Text="1/24/5" Assign="1/24/5" />
+    <Item Column="4" Row="123" Font="align_right" Text="Запросы" />
+    <Item Column="5" Row="123" Font="align_center" Text="1/27/1" Assign="1/27/1" />
+    <Item Column="0" Row="124" />
+    <Item Column="1" Row="124" />
+    <Item Column="2" Row="124" Font="align_right" Text="Минимальный стек" />
+    <Item Column="3" Row="124" Font="align_center" Text="1/24/6" Assign="1/24/6" />
+    <Item Column="4" Row="124" Font="align_right" Text="Запросы OK" />
+    <Item Column="5" Row="124" Font="align_center" Text="1/27/2" Assign="1/27/2" />
+    <Item Column="0" Row="125" />
+    <Item Column="1" Row="125" />
+    <Item Column="2" Row="125" Font="align_right" Text="Мин.стек за вр.раб." />
+    <Item Column="3" Row="125" Font="align_center" Text="1/24/7" Assign="1/24/7" />
+    <Item Column="4" Row="125" Font="align_right" Text="Ответы OK" />
+    <Item Column="5" Row="125" Font="align_center" Text="1/27/3" Assign="1/27/3" />
+    <Item Column="0" Row="126" />
+    <Item Column="1" Row="126" />
+    <Item Column="2" Row="126" Font="align_right" Text="Ошибки EEPROM" />
+    <Item Column="3" Row="126" Font="align_center" Text="1/24/8" Assign="1/24/8" />
+    <Item Column="4" Row="126" Font="align_right" Text="Передано (байт)" />
+    <Item Column="5" Row="126" Font="align_center" Text="1/27/4" Assign="1/27/4" />
+    <Item Column="0" Row="127" />
+    <Item Column="1" Row="127" />
+    <Item Column="2" Row="127" />
+    <Item Column="3" Row="127" />
+    <Item Column="4" Row="127" />
+    <Item Column="5" Row="127" />
+    <Item Column="0" Row="128" Font="bold;underline;align_right" Text="Алгоблочная программа" />
+    <Item Column="1" Row="128" Font="align_center" Text="Размер в FLASH" />
+    <Item Column="2" Row="128" Font="align_center" Text="Размер в ОЗУ" />
+    <Item Column="3" Row="128" Font="align_center" Text="Макс.пакет по USB" />
+    <Item Column="4" Row="128" Font="align_center" Text="Очередь MODBUS" />
+    <Item Column="5" Row="128" Font="align_center" Text="Размер в ППЗУ" />
+    <Item Column="0" Row="129" Font="align_right" Text="Системные параметры " />
+    <Item Column="1" Row="129" Font="align_center" Text="1/29/1" Assign="1/29/1" />
+    <Item Column="2" Row="129" Font="align_center" Text="1/29/2" Assign="1/29/2" />
+    <Item Column="3" Row="129" Font="align_center" Text="1/30/5" Assign="1/30/5" />
+    <Item Column="4" Row="129" Font="align_center" Text="1/30/6" Assign="1/30/6" />
+    <Item Column="5" Row="129" Font="align_center" Text="1/29/4" Assign="1/29/4" />
+    <Item Column="0" Row="130" Font="bold;align_right" Text="Данные Алгоблочной программы" />
+    <Item Column="1" Row="130" />
+    <Item Column="2" Row="130" />
+    <Item Column="3" Row="130" />
+    <Item Column="4" Row="130" />
+    <Item Column="5" Row="130" />
+    <Item Column="0" Row="131" Font="align_right" Text="Параметры в ППЗУ" />
+    <Item Column="1" Row="131" Font="align_center" Text="1/31/1" Assign="1/31/1" />
+    <Item Column="2" Row="131" Font="align_center" Text="1/31/51" Assign="1/31/51" />
+    <Item Column="3" Row="131" Font="align_center" Text="1/31/101" Assign="1/31/101" />
+    <Item Column="4" Row="131" Font="align_center" Text="1/31/151" Assign="1/31/151" />
+    <Item Column="5" Row="131" Font="align_center" Text="1/31/201" Assign="1/31/201" />
+    <Item Column="0" Row="132" />
+    <Item Column="1" Row="132" Font="align_center" Text="1/31/2" Assign="1/31/2" />
+    <Item Column="2" Row="132" Font="align_center" Text="1/31/52" Assign="1/31/52" />
+    <Item Column="3" Row="132" Font="align_center" Text="1/31/102" Assign="1/31/102" />
+    <Item Column="4" Row="132" Font="align_center" Text="1/31/152" Assign="1/31/152" />
+    <Item Column="5" Row="132" Font="align_center" Text="1/31/202" Assign="1/31/202" />
+    <Item Column="0" Row="133" />
+    <Item Column="1" Row="133" Font="align_center" Text="1/31/3" Assign="1/31/3" />
+    <Item Column="2" Row="133" Font="align_center" Text="1/31/53" Assign="1/31/53" />
+    <Item Column="3" Row="133" Font="align_center" Text="1/31/103" Assign="1/31/103" />
+    <Item Column="4" Row="133" Font="align_center" Text="1/31/153" Assign="1/31/153" />
+    <Item Column="5" Row="133" Font="align_center" Text="1/31/203" Assign="1/31/203" />
+    <Item Column="0" Row="134" />
+    <Item Column="1" Row="134" Font="align_center" Text="1/31/4" Assign="1/31/4" />
+    <Item Column="2" Row="134" Font="align_center" Text="1/31/54" Assign="1/31/54" />
+    <Item Column="3" Row="134" Font="align_center" Text="1/31/104" Assign="1/31/104" />
+    <Item Column="4" Row="134" Font="align_center" Text="1/31/154" Assign="1/31/154" />
+    <Item Column="5" Row="134" Font="align_center" Text="1/31/204" Assign="1/31/204" />
+    <Item Column="0" Row="135" />
+    <Item Column="1" Row="135" Font="align_center" Text="1/31/5" Assign="1/31/5" />
+    <Item Column="2" Row="135" Font="align_center" Text="1/31/55" Assign="1/31/55" />
+    <Item Column="3" Row="135" Font="align_center" Text="1/31/105" Assign="1/31/105" />
+    <Item Column="4" Row="135" Font="align_center" Text="1/31/155" Assign="1/31/155" />
+    <Item Column="5" Row="135" Font="align_center" Text="1/31/205" Assign="1/31/205" />
+    <Item Column="0" Row="136" />
+    <Item Column="1" Row="136" Font="align_center" Text="1/31/6" Assign="1/31/6" />
+    <Item Column="2" Row="136" Font="align_center" Text="1/31/56" Assign="1/31/56" />
+    <Item Column="3" Row="136" Font="align_center" Text="1/31/106" Assign="1/31/106" />
+    <Item Column="4" Row="136" Font="align_center" Text="1/31/156" Assign="1/31/156" />
+    <Item Column="5" Row="136" Font="align_center" Text="1/31/206" Assign="1/31/206" />
+    <Item Column="0" Row="137" />
+    <Item Column="1" Row="137" Font="align_center" Text="1/31/7" Assign="1/31/7" />
+    <Item Column="2" Row="137" Font="align_center" Text="1/31/57" Assign="1/31/57" />
+    <Item Column="3" Row="137" Font="align_center" Text="1/31/107" Assign="1/31/107" />
+    <Item Column="4" Row="137" Font="align_center" Text="1/31/157" Assign="1/31/157" />
+    <Item Column="5" Row="137" Font="align_center" Text="1/31/207" Assign="1/31/207" />
+    <Item Column="0" Row="138" />
+    <Item Column="1" Row="138" Font="align_center" Text="1/31/8" Assign="1/31/8" />
+    <Item Column="2" Row="138" Font="align_center" Text="1/31/58" Assign="1/31/58" />
+    <Item Column="3" Row="138" Font="align_center" Text="1/31/108" Assign="1/31/108" />
+    <Item Column="4" Row="138" Font="align_center" Text="1/31/158" Assign="1/31/158" />
+    <Item Column="5" Row="138" Font="align_center" Text="1/31/208" Assign="1/31/208" />
+    <Item Column="0" Row="139" />
+    <Item Column="1" Row="139" Font="align_center" Text="1/31/9" Assign="1/31/9" />
+    <Item Column="2" Row="139" Font="align_center" Text="1/31/59" Assign="1/31/59" />
+    <Item Column="3" Row="139" Font="align_center" Text="1/31/109" Assign="1/31/109" />
+    <Item Column="4" Row="139" Font="align_center" Text="1/31/159" Assign="1/31/159" />
+    <Item Column="5" Row="139" Font="align_center" Text="1/31/209" Assign="1/31/209" />
+    <Item Column="0" Row="140" />
+    <Item Column="1" Row="140" Font="align_center" Text="1/31/10" Assign="1/31/10" />
+    <Item Column="2" Row="140" Font="align_center" Text="1/31/60" Assign="1/31/60" />
+    <Item Column="3" Row="140" Font="align_center" Text="1/31/110" Assign="1/31/110" />
+    <Item Column="4" Row="140" Font="align_center" Text="1/31/160" Assign="1/31/160" />
+    <Item Column="5" Row="140" Font="align_center" Text="1/31/210" Assign="1/31/210" />
+    <Item Column="0" Row="141" />
+    <Item Column="1" Row="141" Font="align_center" Text="1/31/11" Assign="1/31/11" />
+    <Item Column="2" Row="141" Font="align_center" Text="1/31/61" Assign="1/31/61" />
+    <Item Column="3" Row="141" Font="align_center" Text="1/31/111" Assign="1/31/111" />
+    <Item Column="4" Row="141" Font="align_center" Text="1/31/161" Assign="1/31/161" />
+    <Item Column="5" Row="141" Font="align_center" Text="1/31/211" Assign="1/31/211" />
+    <Item Column="0" Row="142" />
+    <Item Column="1" Row="142" Font="align_center" Text="1/31/12" Assign="1/31/12" />
+    <Item Column="2" Row="142" Font="align_center" Text="1/31/62" Assign="1/31/62" />
+    <Item Column="3" Row="142" Font="align_center" Text="1/31/112" Assign="1/31/112" />
+    <Item Column="4" Row="142" Font="align_center" Text="1/31/162" Assign="1/31/162" />
+    <Item Column="5" Row="142" Font="align_center" Text="1/31/212" Assign="1/31/212" />
+    <Item Column="0" Row="143" />
+    <Item Column="1" Row="143" Font="align_center" Text="1/31/13" Assign="1/31/13" />
+    <Item Column="2" Row="143" Font="align_center" Text="1/31/63" Assign="1/31/63" />
+    <Item Column="3" Row="143" Font="align_center" Text="1/31/113" Assign="1/31/113" />
+    <Item Column="4" Row="143" Font="align_center" Text="1/31/163" Assign="1/31/163" />
+    <Item Column="5" Row="143" Font="align_center" Text="1/31/213" Assign="1/31/213" />
+    <Item Column="0" Row="144" />
+    <Item Column="1" Row="144" Font="align_center" Text="1/31/14" Assign="1/31/14" />
+    <Item Column="2" Row="144" Font="align_center" Text="1/31/64" Assign="1/31/64" />
+    <Item Column="3" Row="144" Font="align_center" Text="1/31/114" Assign="1/31/114" />
+    <Item Column="4" Row="144" Font="align_center" Text="1/31/164" Assign="1/31/164" />
+    <Item Column="5" Row="144" Font="align_center" Text="1/31/214" Assign="1/31/214" />
+    <Item Column="0" Row="145" />
+    <Item Column="1" Row="145" Font="align_center" Text="1/31/15" Assign="1/31/15" />
+    <Item Column="2" Row="145" Font="align_center" Text="1/31/65" Assign="1/31/65" />
+    <Item Column="3" Row="145" Font="align_center" Text="1/31/115" Assign="1/31/115" />
+    <Item Column="4" Row="145" Font="align_center" Text="1/31/165" Assign="1/31/165" />
+    <Item Column="5" Row="145" Font="align_center" Text="1/31/215" Assign="1/31/215" />
+    <Item Column="0" Row="146" />
+    <Item Column="1" Row="146" Font="align_center" Text="1/31/16" Assign="1/31/16" />
+    <Item Column="2" Row="146" Font="align_center" Text="1/31/66" Assign="1/31/66" />
+    <Item Column="3" Row="146" Font="align_center" Text="1/31/116" Assign="1/31/116" />
+    <Item Column="4" Row="146" Font="align_center" Text="1/31/166" Assign="1/31/166" />
+    <Item Column="5" Row="146" Font="align_center" Text="1/31/216" Assign="1/31/216" />
+    <Item Column="0" Row="147" />
+    <Item Column="1" Row="147" Font="align_center" Text="1/31/17" Assign="1/31/17" />
+    <Item Column="2" Row="147" Font="align_center" Text="1/31/67" Assign="1/31/67" />
+    <Item Column="3" Row="147" Font="align_center" Text="1/31/117" Assign="1/31/117" />
+    <Item Column="4" Row="147" Font="align_center" Text="1/31/167" Assign="1/31/167" />
+    <Item Column="5" Row="147" Font="align_center" Text="1/31/217" Assign="1/31/217" />
+    <Item Column="0" Row="148" />
+    <Item Column="1" Row="148" Font="align_center" Text="1/31/18" Assign="1/31/18" />
+    <Item Column="2" Row="148" Font="align_center" Text="1/31/68" Assign="1/31/68" />
+    <Item Column="3" Row="148" Font="align_center" Text="1/31/118" Assign="1/31/118" />
+    <Item Column="4" Row="148" Font="align_center" Text="1/31/168" Assign="1/31/168" />
+    <Item Column="5" Row="148" Font="align_center" Text="1/31/218" Assign="1/31/218" />
+    <Item Column="0" Row="149" />
+    <Item Column="1" Row="149" Font="align_center" Text="1/31/19" Assign="1/31/19" />
+    <Item Column="2" Row="149" Font="align_center" Text="1/31/69" Assign="1/31/69" />
+    <Item Column="3" Row="149" Font="align_center" Text="1/31/119" Assign="1/31/119" />
+    <Item Column="4" Row="149" Font="align_center" Text="1/31/169" Assign="1/31/169" />
+    <Item Column="5" Row="149" Font="align_center" Text="1/31/219" Assign="1/31/219" />
+    <Item Column="0" Row="150" />
+    <Item Column="1" Row="150" Font="align_center" Text="1/31/20" Assign="1/31/20" />
+    <Item Column="2" Row="150" Font="align_center" Text="1/31/70" Assign="1/31/70" />
+    <Item Column="3" Row="150" Font="align_center" Text="1/31/120" Assign="1/31/120" />
+    <Item Column="4" Row="150" Font="align_center" Text="1/31/170" Assign="1/31/170" />
+    <Item Column="5" Row="150" Font="align_center" Text="1/31/220" Assign="1/31/220" />
+    <Item Column="0" Row="151" />
+    <Item Column="1" Row="151" Font="align_center" Text="1/31/21" Assign="1/31/21" />
+    <Item Column="2" Row="151" Font="align_center" Text="1/31/71" Assign="1/31/71" />
+    <Item Column="3" Row="151" Font="align_center" Text="1/31/121" Assign="1/31/121" />
+    <Item Column="4" Row="151" Font="align_center" Text="1/31/171" Assign="1/31/171" />
+    <Item Column="5" Row="151" Font="align_center" Text="1/31/221" Assign="1/31/221" />
+    <Item Column="0" Row="152" />
+    <Item Column="1" Row="152" Font="align_center" Text="1/31/22" Assign="1/31/22" />
+    <Item Column="2" Row="152" Font="align_center" Text="1/31/72" Assign="1/31/72" />
+    <Item Column="3" Row="152" Font="align_center" Text="1/31/122" Assign="1/31/122" />
+    <Item Column="4" Row="152" Font="align_center" Text="1/31/172" Assign="1/31/172" />
+    <Item Column="5" Row="152" Font="align_center" Text="1/31/222" Assign="1/31/222" />
+    <Item Column="0" Row="153" />
+    <Item Column="1" Row="153" Font="align_center" Text="1/31/23" Assign="1/31/23" />
+    <Item Column="2" Row="153" Font="align_center" Text="1/31/73" Assign="1/31/73" />
+    <Item Column="3" Row="153" Font="align_center" Text="1/31/123" Assign="1/31/123" />
+    <Item Column="4" Row="153" Font="align_center" Text="1/31/173" Assign="1/31/173" />
+    <Item Column="5" Row="153" Font="align_center" Text="1/31/223" Assign="1/31/223" />
+    <Item Column="0" Row="154" />
+    <Item Column="1" Row="154" Font="align_center" Text="1/31/24" Assign="1/31/24" />
+    <Item Column="2" Row="154" Font="align_center" Text="1/31/74" Assign="1/31/74" />
+    <Item Column="3" Row="154" Font="align_center" Text="1/31/124" Assign="1/31/124" />
+    <Item Column="4" Row="154" Font="align_center" Text="1/31/174" Assign="1/31/174" />
+    <Item Column="5" Row="154" Font="align_center" Text="1/31/224" Assign="1/31/224" />
+    <Item Column="0" Row="155" />
+    <Item Column="1" Row="155" Font="align_center" Text="1/31/25" Assign="1/31/25" />
+    <Item Column="2" Row="155" Font="align_center" Text="1/31/75" Assign="1/31/75" />
+    <Item Column="3" Row="155" Font="align_center" Text="1/31/125" Assign="1/31/125" />
+    <Item Column="4" Row="155" Font="align_center" Text="1/31/175" Assign="1/31/175" />
+    <Item Column="5" Row="155" Font="align_center" Text="1/31/225" Assign="1/31/225" />
+    <Item Column="0" Row="156" />
+    <Item Column="1" Row="156" Font="align_center" Text="1/31/26" Assign="1/31/26" />
+    <Item Column="2" Row="156" Font="align_center" Text="1/31/76" Assign="1/31/76" />
+    <Item Column="3" Row="156" Font="align_center" Text="1/31/126" Assign="1/31/126" />
+    <Item Column="4" Row="156" Font="align_center" Text="1/31/176" Assign="1/31/176" />
+    <Item Column="5" Row="156" Font="align_center" Text="1/31/226" Assign="1/31/226" />
+    <Item Column="0" Row="157" />
+    <Item Column="1" Row="157" Font="align_center" Text="1/31/27" Assign="1/31/27" />
+    <Item Column="2" Row="157" Font="align_center" Text="1/31/77" Assign="1/31/77" />
+    <Item Column="3" Row="157" Font="align_center" Text="1/31/127" Assign="1/31/127" />
+    <Item Column="4" Row="157" Font="align_center" Text="1/31/177" Assign="1/31/177" />
+    <Item Column="5" Row="157" Font="align_center" Text="1/31/227" Assign="1/31/227" />
+    <Item Column="0" Row="158" />
+    <Item Column="1" Row="158" Font="align_center" Text="1/31/28" Assign="1/31/28" />
+    <Item Column="2" Row="158" Font="align_center" Text="1/31/78" Assign="1/31/78" />
+    <Item Column="3" Row="158" Font="align_center" Text="1/31/128" Assign="1/31/128" />
+    <Item Column="4" Row="158" Font="align_center" Text="1/31/178" Assign="1/31/178" />
+    <Item Column="5" Row="158" Font="align_center" Text="1/31/228" Assign="1/31/228" />
+    <Item Column="0" Row="159" />
+    <Item Column="1" Row="159" Font="align_center" Text="1/31/29" Assign="1/31/29" />
+    <Item Column="2" Row="159" Font="align_center" Text="1/31/79" Assign="1/31/79" />
+    <Item Column="3" Row="159" Font="align_center" Text="1/31/129" Assign="1/31/129" />
+    <Item Column="4" Row="159" Font="align_center" Text="1/31/179" Assign="1/31/179" />
+    <Item Column="5" Row="159" Font="align_center" Text="1/31/229" Assign="1/31/229" />
+    <Item Column="0" Row="160" />
+    <Item Column="1" Row="160" Font="align_center" Text="1/31/30" Assign="1/31/30" />
+    <Item Column="2" Row="160" Font="align_center" Text="1/31/80" Assign="1/31/80" />
+    <Item Column="3" Row="160" Font="align_center" Text="1/31/130" Assign="1/31/130" />
+    <Item Column="4" Row="160" Font="align_center" Text="1/31/180" Assign="1/31/180" />
+    <Item Column="5" Row="160" Font="align_center" Text="1/31/230" Assign="1/31/230" />
+    <Item Column="0" Row="161" />
+    <Item Column="1" Row="161" Font="align_center" Text="1/31/31" Assign="1/31/31" />
+    <Item Column="2" Row="161" Font="align_center" Text="1/31/81" Assign="1/31/81" />
+    <Item Column="3" Row="161" Font="align_center" Text="1/31/131" Assign="1/31/131" />
+    <Item Column="4" Row="161" Font="align_center" Text="1/31/181" Assign="1/31/181" />
+    <Item Column="5" Row="161" Font="align_center" Text="1/31/231" Assign="1/31/231" />
+    <Item Column="0" Row="162" />
+    <Item Column="1" Row="162" Font="align_center" Text="1/31/32" Assign="1/31/32" />
+    <Item Column="2" Row="162" Font="align_center" Text="1/31/82" Assign="1/31/82" />
+    <Item Column="3" Row="162" Font="align_center" Text="1/31/132" Assign="1/31/132" />
+    <Item Column="4" Row="162" Font="align_center" Text="1/31/182" Assign="1/31/182" />
+    <Item Column="5" Row="162" Font="align_center" Text="1/31/232" Assign="1/31/232" />
+    <Item Column="0" Row="163" />
+    <Item Column="1" Row="163" Font="align_center" Text="1/31/33" Assign="1/31/33" />
+    <Item Column="2" Row="163" Font="align_center" Text="1/31/83" Assign="1/31/83" />
+    <Item Column="3" Row="163" Font="align_center" Text="1/31/133" Assign="1/31/133" />
+    <Item Column="4" Row="163" Font="align_center" Text="1/31/183" Assign="1/31/183" />
+    <Item Column="5" Row="163" Font="align_center" Text="1/31/233" Assign="1/31/233" />
+    <Item Column="0" Row="164" />
+    <Item Column="1" Row="164" Font="align_center" Text="1/31/34" Assign="1/31/34" />
+    <Item Column="2" Row="164" Font="align_center" Text="1/31/84" Assign="1/31/84" />
+    <Item Column="3" Row="164" Font="align_center" Text="1/31/134" Assign="1/31/134" />
+    <Item Column="4" Row="164" Font="align_center" Text="1/31/184" Assign="1/31/184" />
+    <Item Column="5" Row="164" Font="align_center" Text="1/31/234" Assign="1/31/234" />
+    <Item Column="0" Row="165" />
+    <Item Column="1" Row="165" Font="align_center" Text="1/31/35" Assign="1/31/35" />
+    <Item Column="2" Row="165" Font="align_center" Text="1/31/85" Assign="1/31/85" />
+    <Item Column="3" Row="165" Font="align_center" Text="1/31/135" Assign="1/31/135" />
+    <Item Column="4" Row="165" Font="align_center" Text="1/31/185" Assign="1/31/185" />
+    <Item Column="5" Row="165" Font="align_center" Text="1/31/235" Assign="1/31/235" />
+    <Item Column="0" Row="166" />
+    <Item Column="1" Row="166" Font="align_center" Text="1/31/36" Assign="1/31/36" />
+    <Item Column="2" Row="166" Font="align_center" Text="1/31/86" Assign="1/31/86" />
+    <Item Column="3" Row="166" Font="align_center" Text="1/31/136" Assign="1/31/136" />
+    <Item Column="4" Row="166" Font="align_center" Text="1/31/186" Assign="1/31/186" />
+    <Item Column="5" Row="166" Font="align_center" Text="1/31/236" Assign="1/31/236" />
+    <Item Column="0" Row="167" />
+    <Item Column="1" Row="167" Font="align_center" Text="1/31/37" Assign="1/31/37" />
+    <Item Column="2" Row="167" Font="align_center" Text="1/31/87" Assign="1/31/87" />
+    <Item Column="3" Row="167" Font="align_center" Text="1/31/137" Assign="1/31/137" />
+    <Item Column="4" Row="167" Font="align_center" Text="1/31/187" Assign="1/31/187" />
+    <Item Column="5" Row="167" Font="align_center" Text="1/31/237" Assign="1/31/237" />
+    <Item Column="0" Row="168" />
+    <Item Column="1" Row="168" Font="align_center" Text="1/31/38" Assign="1/31/38" />
+    <Item Column="2" Row="168" Font="align_center" Text="1/31/88" Assign="1/31/88" />
+    <Item Column="3" Row="168" Font="align_center" Text="1/31/138" Assign="1/31/138" />
+    <Item Column="4" Row="168" Font="align_center" Text="1/31/188" Assign="1/31/188" />
+    <Item Column="5" Row="168" Font="align_center" Text="1/31/238" Assign="1/31/238" />
+    <Item Column="0" Row="169" />
+    <Item Column="1" Row="169" Font="align_center" Text="1/31/39" Assign="1/31/39" />
+    <Item Column="2" Row="169" Font="align_center" Text="1/31/89" Assign="1/31/89" />
+    <Item Column="3" Row="169" Font="align_center" Text="1/31/139" Assign="1/31/139" />
+    <Item Column="4" Row="169" Font="align_center" Text="1/31/189" Assign="1/31/189" />
+    <Item Column="5" Row="169" Font="align_center" Text="1/31/239" Assign="1/31/239" />
+    <Item Column="0" Row="170" />
+    <Item Column="1" Row="170" Font="align_center" Text="1/31/40" Assign="1/31/40" />
+    <Item Column="2" Row="170" Font="align_center" Text="1/31/90" Assign="1/31/90" />
+    <Item Column="3" Row="170" Font="align_center" Text="1/31/140" Assign="1/31/140" />
+    <Item Column="4" Row="170" Font="align_center" Text="1/31/190" Assign="1/31/190" />
+    <Item Column="5" Row="170" Font="align_center" Text="1/31/240" Assign="1/31/240" />
+    <Item Column="0" Row="171" />
+    <Item Column="1" Row="171" Font="align_center" Text="1/31/41" Assign="1/31/41" />
+    <Item Column="2" Row="171" Font="align_center" Text="1/31/91" Assign="1/31/91" />
+    <Item Column="3" Row="171" Font="align_center" Text="1/31/141" Assign="1/31/141" />
+    <Item Column="4" Row="171" Font="align_center" Text="1/31/191" Assign="1/31/191" />
+    <Item Column="5" Row="171" Font="align_center" Text="1/31/241" Assign="1/31/241" />
+    <Item Column="0" Row="172" />
+    <Item Column="1" Row="172" Font="align_center" Text="1/31/42" Assign="1/31/42" />
+    <Item Column="2" Row="172" Font="align_center" Text="1/31/92" Assign="1/31/92" />
+    <Item Column="3" Row="172" Font="align_center" Text="1/31/142" Assign="1/31/142" />
+    <Item Column="4" Row="172" Font="align_center" Text="1/31/192" Assign="1/31/192" />
+    <Item Column="5" Row="172" Font="align_center" Text="1/31/242" Assign="1/31/242" />
+    <Item Column="0" Row="173" />
+    <Item Column="1" Row="173" Font="align_center" Text="1/31/43" Assign="1/31/43" />
+    <Item Column="2" Row="173" Font="align_center" Text="1/31/93" Assign="1/31/93" />
+    <Item Column="3" Row="173" Font="align_center" Text="1/31/143" Assign="1/31/143" />
+    <Item Column="4" Row="173" Font="align_center" Text="1/31/193" Assign="1/31/193" />
+    <Item Column="5" Row="173" Font="align_center" Text="1/31/243" Assign="1/31/243" />
+    <Item Column="0" Row="174" />
+    <Item Column="1" Row="174" Font="align_center" Text="1/31/44" Assign="1/31/44" />
+    <Item Column="2" Row="174" Font="align_center" Text="1/31/94" Assign="1/31/94" />
+    <Item Column="3" Row="174" Font="align_center" Text="1/31/144" Assign="1/31/144" />
+    <Item Column="4" Row="174" Font="align_center" Text="1/31/194" Assign="1/31/194" />
+    <Item Column="5" Row="174" Font="align_center" Text="1/31/244" Assign="1/31/244" />
+    <Item Column="0" Row="175" />
+    <Item Column="1" Row="175" Font="align_center" Text="1/31/45" Assign="1/31/45" />
+    <Item Column="2" Row="175" Font="align_center" Text="1/31/95" Assign="1/31/95" />
+    <Item Column="3" Row="175" Font="align_center" Text="1/31/145" Assign="1/31/145" />
+    <Item Column="4" Row="175" Font="align_center" Text="1/31/195" Assign="1/31/195" />
+    <Item Column="5" Row="175" Font="align_center" Text="1/31/245" Assign="1/31/245" />
+    <Item Column="0" Row="176" />
+    <Item Column="1" Row="176" Font="align_center" Text="1/31/46" Assign="1/31/46" />
+    <Item Column="2" Row="176" Font="align_center" Text="1/31/96" Assign="1/31/96" />
+    <Item Column="3" Row="176" Font="align_center" Text="1/31/146" Assign="1/31/146" />
+    <Item Column="4" Row="176" Font="align_center" Text="1/31/196" Assign="1/31/196" />
+    <Item Column="5" Row="176" Font="align_center" Text="1/31/246" Assign="1/31/246" />
+    <Item Column="0" Row="177" />
+    <Item Column="1" Row="177" Font="align_center" Text="1/31/47" Assign="1/31/47" />
+    <Item Column="2" Row="177" Font="align_center" Text="1/31/97" Assign="1/31/97" />
+    <Item Column="3" Row="177" Font="align_center" Text="1/31/147" Assign="1/31/147" />
+    <Item Column="4" Row="177" Font="align_center" Text="1/31/197" Assign="1/31/197" />
+    <Item Column="5" Row="177" Font="align_center" Text="1/31/247" Assign="1/31/247" />
+    <Item Column="0" Row="178" />
+    <Item Column="1" Row="178" Font="align_center" Text="1/31/48" Assign="1/31/48" />
+    <Item Column="2" Row="178" Font="align_center" Text="1/31/98" Assign="1/31/98" />
+    <Item Column="3" Row="178" Font="align_center" Text="1/31/148" Assign="1/31/148" />
+    <Item Column="4" Row="178" Font="align_center" Text="1/31/198" Assign="1/31/198" />
+    <Item Column="5" Row="178" Font="align_center" Text="1/31/248" Assign="1/31/248" />
+    <Item Column="0" Row="179" />
+    <Item Column="1" Row="179" Font="align_center" Text="1/31/49" Assign="1/31/49" />
+    <Item Column="2" Row="179" Font="align_center" Text="1/31/99" Assign="1/31/99" />
+    <Item Column="3" Row="179" Font="align_center" Text="1/31/149" Assign="1/31/149" />
+    <Item Column="4" Row="179" Font="align_center" Text="1/31/199" Assign="1/31/199" />
+    <Item Column="5" Row="179" Font="align_center" Text="1/31/249" Assign="1/31/249" />
+    <Item Column="0" Row="180" />
+    <Item Column="1" Row="180" Font="align_center" Text="1/31/50" Assign="1/31/50" />
+    <Item Column="2" Row="180" Font="align_center" Text="1/31/100" Assign="1/31/100" />
+    <Item Column="3" Row="180" Font="align_center" Text="1/31/150" Assign="1/31/150" />
+    <Item Column="4" Row="180" Font="align_center" Text="1/31/200" Assign="1/31/200" />
+    <Item Column="5" Row="180" Font="align_center" Text="1/31/250" Assign="1/31/250" />
+  </Table>
+  <MBConfig>
+    <Module Node="1" Desc="" N="1" Name="PC100" >
+      <Slot Desc="Режимы работы и Настройки модуля" Operation="readwrite" Length="4" Type="bytes" N="1" Addr="2" />
+      <Slot Desc="Биты дискретных входов" Operation="readonly" Length="8" Type="bits" N="2" Addr="6" />
+      <Slot Desc="Биты дискретных выходов" Operation="readwrite" Length="8" Type="bits" N="3" Addr="7" />
+      <Slot Desc="Режим измерения частоты импульсов дискретных входов" Operation="readwrite" Length="1" Type="bytes" N="4" Addr="8" />
+      <Slot Desc="Счетчик импульсов дискретных входов" Operation="readonly" Length="8" Type="dwords" N="5" Addr="200" />
+      <Slot Desc="Частота импульсов дискретных входов" Operation="readonly" Length="8" Type="floats" N="6" Addr="220" />
+      <Slot Desc="Ширина окна фильтрации (в мс) дискретных входов" Operation="readwrite" Length="8" Type="words" N="7" Addr="240" />
+      <Slot Desc="Постоянная времени (в мс) экспотенциального фильтра" Operation="readwrite" Length="8" Type="words" N="8" Addr="250" />
+      <Slot Desc="Длительность импульса ШИМ (в мс) дискретных выходов" Operation="readwrite" Length="8" Type="words" N="9" Addr="260" />
+      <Slot Desc="Период ЧИМ (в мс) дискретных выходов" Operation="readwrite" Length="8" Type="words" N="10" Addr="270" />
+      <Slot Desc="Длительность импульса ЧИМ  (в мс) дискретных выходов" Operation="readwrite" Length="8" Type="words" N="11" Addr="280" />
+      <Slot Desc="Кол-во записей базы в ППЗУ" Operation="readonly" Length="1" Type="words" N="12" Addr="294" />
+      <Slot Desc="Счетчик времени ЧИМ (в мс) дискретных выходов" Operation="readonly" Length="8" Type="dwords" N="13" Addr="296" />
+      <Slot Desc="Расширенные настройки" Operation="readwrite" Length="8" Type="bits" N="14" Addr="3" />
+      <Slot Desc="Таблица маршрутизации 1" Operation="readwrite" Length="24" Type="bytes" N="15" Addr="2B8" />
+      <Slot Desc="Таблица маршрутизации 2" Operation="readwrite" Length="24" Type="bytes" N="16" Addr="2D0" />
+      <Slot Desc="Таблица маршрутизации 3" Operation="readwrite" Length="24" Type="bytes" N="17" Addr="2E8" />
+      <Slot Desc="Статистика и Времена выполнения" Operation="readonly" Length="64" Type="dwords" N="18" Addr="C000" />
+      <Slot Desc="Использование динамической памяти" Operation="readonly" Length="4" Type="dwords" N="19" Addr="C100" />
+      <Slot Desc="Остатки стеков" Operation="readonly" Length="4" Type="dwords" N="20" Addr="C200" />
+      <Slot Desc="Статистика Интерфейсов" Operation="readonly" Length="112" Type="dwords" N="21" Addr="C300" />
+      <Slot Desc="Статистика Автоматов" Operation="readonly" Length="48" Type="dwords" N="22" Addr="C110" />
+      <Slot Desc="MEGA8 - Конфигурация" Operation="readonly" Length="2" Type="bytes" N="23" Addr="C502" />
+      <Slot Desc="MEGA8 - Статистика" Operation="readonly" Length="8" Type="words" N="24" Addr="C5CE" />
+      <Slot Desc="MEGA8 - Доп.Статистика - Такты" Operation="readonly" Length="2" Type="bytes" N="25" Addr="C5E0" />
+      <Slot Desc="MEGA8 - Доп.Статистика - Скорость I2C" Operation="readonly" Length="1" Type="words" N="26" Addr="C5E2" />
+      <Slot Desc="MEGA8 - Доп.Статистика - Обмен по I2C" Operation="readonly" Length="4" Type="dwords" N="27" Addr="C5E4" />
+      <Slot Desc="MEGA8 - Статистика - Время работы" Operation="readonly" Length="1" Type="dwords" N="28" Addr="C5D0" />
+      <Slot Desc="Алгоблоки - Системные параметры" Operation="readonly" Length="4" Type="dwords" N="29" Addr="64" />
+      <Slot Desc="Алгоблоки - Системные параметры" Operation="readonly" Length="8" Type="words" N="30" Addr="64" />
+      <Slot Desc="Алгоблоки - Параметры в ППЗУ" Operation="readonly" Length="250" Type="bytes" N="31" Addr="B000" />
+      <Slot Desc="Настройки интерфейсов (jumperless)" Operation="readwrite" Length="12" Type="dwords" N="32" Addr="300" />
+    </Module>
+  </MBConfig>
+</MKStudio>

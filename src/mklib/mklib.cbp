@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="mklib" />
+		<Option makefile_is_custom="1" />
+		<Option pch_mode="0" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="release">
+				<Option output="..\bin\mkstudio.exe" prefix_auto="0" extension_auto="0" />
+				<Option working_dir=".." />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option projectResourceIncludeDirsRelation="0" />
+			</Target>
+		</Build>
+		<VirtualTargets>
+			<Add alias="All" targets="release;" />
+		</VirtualTargets>
+		<Unit filename="consolewidget.cpp" />
+		<Unit filename="consolewidget.h" />
+		<Unit filename="crc.cpp" />
+		<Unit filename="crc.h" />
+		<Unit filename="mbcommon.cpp" />
+		<Unit filename="mbcommon.h" />
+		<Unit filename="mbconfigwidget.cpp" />
+		<Unit filename="mbconfigwidget.h" />
+		<Unit filename="mbmaster.cpp" />
+		<Unit filename="mbmaster.h" />
+		<Unit filename="mbmasterwidget.cpp" />
+		<Unit filename="mbmasterwidget.h" />
+		<Unit filename="mbtypes.h" />
+		<Unit filename="mkselfrecorder.cpp" />
+		<Unit filename="mkselfrecorder.h" />
+		<Unit filename="mktable.cpp" />
+		<Unit filename="mktable.h" />
+		<Unit filename="serialport.cpp" />
+		<Unit filename="serialport.h" />
+		<Unit filename="serialport_p.h" />
+		<Unit filename="serialport_win.cpp" />
+		<Unit filename="slotwidget.cpp" />
+		<Unit filename="slotwidget.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

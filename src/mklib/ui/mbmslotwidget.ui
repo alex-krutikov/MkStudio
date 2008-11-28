@@ -1,0 +1,208 @@
+<ui version="4.0" >
+ <class>MBMasterSlotWidget</class>
+ <widget class="QMainWindow" name="MBMasterSlotWidget" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>572</width>
+    <height>598</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <layout class="QVBoxLayout" >
+    <property name="spacing" >
+     <number>3</number>
+    </property>
+    <property name="leftMargin" >
+     <number>3</number>
+    </property>
+    <property name="topMargin" >
+     <number>3</number>
+    </property>
+    <property name="rightMargin" >
+     <number>3</number>
+    </property>
+    <property name="bottomMargin" >
+     <number>3</number>
+    </property>
+    <item>
+     <widget class="QSplitter" name="splitter" >
+      <property name="orientation" >
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="childrenCollapsible" >
+       <bool>false</bool>
+      </property>
+      <widget class="MKTable" name="tw" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize" >
+        <size>
+         <width>0</width>
+         <height>150</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QwtPlot" name="plot" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize" >
+        <size>
+         <width>0</width>
+         <height>150</height>
+        </size>
+       </property>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>572</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu" >
+    <property name="title" >
+     <string>Формат</string>
+    </property>
+    <addaction name="action_format_dec" />
+    <addaction name="action_format_unsigned" />
+    <addaction name="action_format_hex" />
+    <addaction name="action_format_bin" />
+    <addaction name="action_format_float" />
+    <addaction name="separator" />
+    <addaction name="action_format_text_cp1251" />
+    <addaction name="action_format_text_866" />
+    <addaction name="action_format_text_KOI8_R" />
+   </widget>
+   <widget class="QMenu" name="menu_2" >
+    <property name="title" >
+     <string>Вид</string>
+    </property>
+    <addaction name="action_view_table" />
+    <addaction name="action_view_plot" />
+   </widget>
+   <addaction name="menu" />
+   <addaction name="menu_2" />
+  </widget>
+  <action name="action_format_dec" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Десятичный</string>
+   </property>
+  </action>
+  <action name="action_format_hex" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Шестнадцатиричный</string>
+   </property>
+  </action>
+  <action name="action_format_bin" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Двоичный</string>
+   </property>
+  </action>
+  <action name="action_format_text_cp1251" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Текст (CP-1251)</string>
+   </property>
+  </action>
+  <action name="action_format_text_866" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Текст (866)</string>
+   </property>
+  </action>
+  <action name="action_format_unsigned" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Десятичный беззнаковый</string>
+   </property>
+  </action>
+  <action name="action_view_plot" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>График</string>
+   </property>
+  </action>
+  <action name="action_format_text_KOI8_R" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Текст (KOI8-R)</string>
+   </property>
+  </action>
+  <action name="action_format_float" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Вещественный</string>
+   </property>
+  </action>
+  <action name="action_format_options" >
+   <property name="text" >
+    <string>Настройка точности</string>
+   </property>
+  </action>
+  <action name="action_view_table" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Таблица</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QwtPlot</class>
+   <extends>QFrame</extends>
+   <header>qwt_plot.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MKTable</class>
+   <extends>QTableWidget</extends>
+   <header>mktable.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

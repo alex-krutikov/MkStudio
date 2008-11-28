@@ -1,0 +1,308 @@
+<ui version="4.0" >
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>671</width>
+    <height>616</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <layout class="QHBoxLayout" >
+    <item>
+     <widget class="QGroupBox" name="groupBox" >
+      <property name="sizePolicy" >
+       <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="title" >
+       <string>Значения входов</string>
+      </property>
+      <layout class="QVBoxLayout" >
+       <item>
+        <widget class="QCheckBox" name="checkBox" >
+         <property name="text" >
+          <string>Отключить коммутацию</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTableWidget" name="tw_inputs" >
+         <property name="focusPolicy" >
+          <enum>Qt::NoFocus</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" >
+      <item>
+       <widget class="QGroupBox" name="groupBox_2" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Preferred" hsizetype="Maximum" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="title" >
+         <string>Калибровка АЦП</string>
+        </property>
+        <layout class="QGridLayout" >
+         <item row="0" column="0" >
+          <widget class="QLabel" name="label_2" >
+           <property name="text" >
+            <string>Версия платы АЦП:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1" colspan="2" >
+          <widget class="QComboBox" name="cb_adc_version" >
+           <item>
+            <property name="text" >
+             <string>mAI103.01 (10V)</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="3" >
+          <widget class="Line" name="line_6" >
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0" >
+          <widget class="QLabel" name="label" >
+           <property name="text" >
+            <string>Нижняя точка (мВ)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1" >
+          <widget class="QLineEdit" name="le_p1_mv" />
+         </item>
+         <item row="3" column="0" >
+          <widget class="QLabel" name="label_4" >
+           <property name="text" >
+            <string>Верхняя точка (мВ)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1" >
+          <widget class="QLineEdit" name="le_p2_mv" />
+         </item>
+         <item row="4" column="0" colspan="3" >
+          <widget class="Line" name="line_7" >
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0" >
+          <widget class="QLabel" name="label_12" >
+           <property name="text" >
+            <string>Текущий код:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1" >
+          <widget class="QLineEdit" name="le_current_code" >
+           <property name="styleSheet" >
+            <string/>
+           </property>
+           <property name="frame" >
+            <bool>false</bool>
+           </property>
+           <property name="readOnly" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0" colspan="3" >
+          <widget class="Line" name="line" >
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="0" colspan="3" >
+          <widget class="QPushButton" name="pb_adc_clear" >
+           <property name="text" >
+            <string>Новый АЦП</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="0" colspan="3" >
+          <widget class="Line" name="line_3" >
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="0" >
+          <widget class="QLabel" name="label_3" >
+           <property name="text" >
+            <string>Нижняя точка (код)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="1" >
+          <widget class="QLineEdit" name="le_p1_code" >
+           <property name="styleSheet" >
+            <string/>
+           </property>
+           <property name="frame" >
+            <bool>false</bool>
+           </property>
+           <property name="readOnly" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="2" >
+          <widget class="QToolButton" name="pb_zahvat1" >
+           <property name="text" >
+            <string>Захват</string>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="0" >
+          <widget class="QLabel" name="label_5" >
+           <property name="text" >
+            <string>Верхняя точка (код)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="1" >
+          <widget class="QLineEdit" name="le_p2_code" >
+           <property name="styleSheet" >
+            <string/>
+           </property>
+           <property name="frame" >
+            <bool>false</bool>
+           </property>
+           <property name="readOnly" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="2" >
+          <widget class="QToolButton" name="pb_zahvat2" >
+           <property name="text" >
+            <string>Захват</string>
+           </property>
+          </widget>
+         </item>
+         <item row="11" column="0" colspan="3" >
+          <widget class="Line" name="line_5" >
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="12" column="0" >
+          <widget class="QLabel" name="label_6" >
+           <property name="text" >
+            <string>Коэфф. A</string>
+           </property>
+          </widget>
+         </item>
+         <item row="12" column="1" >
+          <widget class="QLineEdit" name="le_A" >
+           <property name="styleSheet" >
+            <string/>
+           </property>
+           <property name="frame" >
+            <bool>false</bool>
+           </property>
+           <property name="readOnly" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="13" column="0" >
+          <widget class="QLabel" name="label_7" >
+           <property name="text" >
+            <string>Коэфф. B</string>
+           </property>
+          </widget>
+         </item>
+         <item row="13" column="1" >
+          <widget class="QLineEdit" name="le_B" >
+           <property name="styleSheet" >
+            <string/>
+           </property>
+           <property name="frame" >
+            <bool>false</bool>
+           </property>
+           <property name="readOnly" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="14" column="0" colspan="3" >
+          <widget class="QPushButton" name="pb_adc_write" >
+           <property name="font" >
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text" >
+            <string>Записать</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QwtPlot" name="plot" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Ignored" hsizetype="Ignored" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QwtPlot</class>
+   <extends>QFrame</extends>
+   <header>qwt_plot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>tw_inputs</tabstop>
+  <tabstop>cb_adc_version</tabstop>
+  <tabstop>le_p1_mv</tabstop>
+  <tabstop>le_p2_mv</tabstop>
+  <tabstop>le_current_code</tabstop>
+  <tabstop>pb_adc_clear</tabstop>
+  <tabstop>le_p1_code</tabstop>
+  <tabstop>pb_zahvat1</tabstop>
+  <tabstop>le_p2_code</tabstop>
+  <tabstop>pb_zahvat2</tabstop>
+  <tabstop>le_A</tabstop>
+  <tabstop>le_B</tabstop>
+  <tabstop>pb_adc_write</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

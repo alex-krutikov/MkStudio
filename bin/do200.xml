@@ -1,0 +1,184 @@
+<!DOCTYPE MKStudio>
+<MKStudio>
+  <Table ColumnCount="5" Labels="Канал;Дискретные&#xa;выходы;ШИМ;ЧИМ&#xa;период;ЧИМ&#xa;длительность" RowCount="34" LabelsSize="126;100;100;100;100" >
+    <Item Column="0" Row="0" Text="1  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="0" Text="1/1/1" Font="align_center" Assign="1/1/1" />
+    <Item Column="2" Row="0" Text="1/2/1" Font="align_center" Assign="1/2/1" />
+    <Item Column="3" Row="0" Text="1/3/1" Font="align_center" Assign="1/3/1" />
+    <Item Column="4" Row="0" Text="1/4/1" Font="align_center" Assign="1/4/1" />
+    <Item Column="0" Row="1" Text="2  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="1" Text="1/1/2" Font="align_center" Assign="1/1/2" />
+    <Item Column="2" Row="1" Text="1/2/2" Font="align_center" Assign="1/2/2" />
+    <Item Column="3" Row="1" Text="1/3/2" Font="align_center" Assign="1/3/2" />
+    <Item Column="4" Row="1" Text="1/4/2" Font="align_center" Assign="1/4/2" />
+    <Item Column="0" Row="2" Text="3  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="2" Text="1/1/3" Font="align_center" Assign="1/1/3" />
+    <Item Column="2" Row="2" Text="1/2/3" Font="align_center" Assign="1/2/3" />
+    <Item Column="3" Row="2" Text="1/3/3" Font="align_center" Assign="1/3/3" />
+    <Item Column="4" Row="2" Text="1/4/3" Font="align_center" Assign="1/4/3" />
+    <Item Column="0" Row="3" Text="4  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="3" Text="1/1/4" Font="align_center" Assign="1/1/4" />
+    <Item Column="2" Row="3" Text="1/2/4" Font="align_center" Assign="1/2/4" />
+    <Item Column="3" Row="3" Text="1/3/4" Font="align_center" Assign="1/3/4" />
+    <Item Column="4" Row="3" Text="1/4/4" Font="align_center" Assign="1/4/4" />
+    <Item Column="0" Row="4" Text="5  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="4" Text="1/1/5" Font="align_center" Assign="1/1/5" />
+    <Item Column="2" Row="4" Text="1/2/5" Font="align_center" Assign="1/2/5" />
+    <Item Column="3" Row="4" Text="1/3/5" Font="align_center" Assign="1/3/5" />
+    <Item Column="4" Row="4" Text="1/4/5" Font="align_center" Assign="1/4/5" />
+    <Item Column="0" Row="5" Text="6  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="5" Text="1/1/6" Font="align_center" Assign="1/1/6" />
+    <Item Column="2" Row="5" Text="1/2/6" Font="align_center" Assign="1/2/6" />
+    <Item Column="3" Row="5" Text="1/3/6" Font="align_center" Assign="1/3/6" />
+    <Item Column="4" Row="5" Text="1/4/6" Font="align_center" Assign="1/4/6" />
+    <Item Column="0" Row="6" Text="7  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="6" Text="1/1/7" Font="align_center" Assign="1/1/7" />
+    <Item Column="2" Row="6" Text="1/2/7" Font="align_center" Assign="1/2/7" />
+    <Item Column="3" Row="6" Text="1/3/7" Font="align_center" Assign="1/3/7" />
+    <Item Column="4" Row="6" Text="1/4/7" Font="align_center" Assign="1/4/7" />
+    <Item Column="0" Row="7" Text="8  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="7" Text="1/1/8" Font="align_center" Assign="1/1/8" />
+    <Item Column="2" Row="7" Text="1/2/8" Font="align_center" Assign="1/2/8" />
+    <Item Column="3" Row="7" Text="1/3/8" Font="align_center" Assign="1/3/8" />
+    <Item Column="4" Row="7" Text="1/4/8" Font="align_center" Assign="1/4/8" />
+    <Item Column="0" Row="8" Text="9  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="8" Text="1/1/9" Font="align_center" Assign="1/1/9" />
+    <Item Column="2" Row="8" Text="1/2/9" Font="align_center" Assign="1/2/9" />
+    <Item Column="3" Row="8" Text="1/3/9" Font="align_center" Assign="1/3/9" />
+    <Item Column="4" Row="8" Text="1/4/9" Font="align_center" Assign="1/4/9" />
+    <Item Column="0" Row="9" Text="10  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="9" Text="1/1/10" Font="align_center" Assign="1/1/10" />
+    <Item Column="2" Row="9" Text="1/2/10" Font="align_center" Assign="1/2/10" />
+    <Item Column="3" Row="9" Text="1/3/10" Font="align_center" Assign="1/3/10" />
+    <Item Column="4" Row="9" Text="1/4/10" Font="align_center" Assign="1/4/10" />
+    <Item Column="0" Row="10" Text="11  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="10" Text="1/1/11" Font="align_center" Assign="1/1/11" />
+    <Item Column="2" Row="10" Text="1/2/11" Font="align_center" Assign="1/2/11" />
+    <Item Column="3" Row="10" Text="1/3/11" Font="align_center" Assign="1/3/11" />
+    <Item Column="4" Row="10" Text="1/4/11" Font="align_center" Assign="1/4/11" />
+    <Item Column="0" Row="11" Text="12  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="11" Text="1/1/12" Font="align_center" Assign="1/1/12" />
+    <Item Column="2" Row="11" Text="1/2/12" Font="align_center" Assign="1/2/12" />
+    <Item Column="3" Row="11" Text="1/3/12" Font="align_center" Assign="1/3/12" />
+    <Item Column="4" Row="11" Text="1/4/12" Font="align_center" Assign="1/4/12" />
+    <Item Column="0" Row="12" Text="13  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="12" Text="1/1/13" Font="align_center" Assign="1/1/13" />
+    <Item Column="2" Row="12" Text="1/2/13" Font="align_center" Assign="1/2/13" />
+    <Item Column="3" Row="12" Text="1/3/13" Font="align_center" Assign="1/3/13" />
+    <Item Column="4" Row="12" Text="1/4/13" Font="align_center" Assign="1/4/13" />
+    <Item Column="0" Row="13" Text="14  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="13" Text="1/1/14" Font="align_center" Assign="1/1/14" />
+    <Item Column="2" Row="13" Text="1/2/14" Font="align_center" Assign="1/2/14" />
+    <Item Column="3" Row="13" Text="1/3/14" Font="align_center" Assign="1/3/14" />
+    <Item Column="4" Row="13" Text="1/4/14" Font="align_center" Assign="1/4/14" />
+    <Item Column="0" Row="14" Text="15  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="14" Text="1/1/15" Font="align_center" Assign="1/1/15" />
+    <Item Column="2" Row="14" Text="1/2/15" Font="align_center" Assign="1/2/15" />
+    <Item Column="3" Row="14" Text="1/3/15" Font="align_center" Assign="1/3/15" />
+    <Item Column="4" Row="14" Text="1/4/15" Font="align_center" Assign="1/4/15" />
+    <Item Column="0" Row="15" Text="16  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="15" Text="1/1/16" Font="align_center" Assign="1/1/16" />
+    <Item Column="2" Row="15" Text="1/2/16" Font="align_center" Assign="1/2/16" />
+    <Item Column="3" Row="15" Text="1/3/16" Font="align_center" Assign="1/3/16" />
+    <Item Column="4" Row="15" Text="1/4/16" Font="align_center" Assign="1/4/16" />
+    <Item Column="0" Row="16" Text="17  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="16" Text="1/1/17" Font="align_center" Assign="1/1/17" />
+    <Item Column="2" Row="16" Text="1/2/17" Font="align_center" Assign="1/2/17" />
+    <Item Column="3" Row="16" Text="1/3/17" Font="align_center" Assign="1/3/17" />
+    <Item Column="4" Row="16" Text="1/4/17" Font="align_center" Assign="1/4/17" />
+    <Item Column="0" Row="17" Text="18  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="17" Text="1/1/18" Font="align_center" Assign="1/1/18" />
+    <Item Column="2" Row="17" Text="1/2/18" Font="align_center" Assign="1/2/18" />
+    <Item Column="3" Row="17" Text="1/3/18" Font="align_center" Assign="1/3/18" />
+    <Item Column="4" Row="17" Text="1/4/18" Font="align_center" Assign="1/4/18" />
+    <Item Column="0" Row="18" Text="19  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="18" Text="1/1/19" Font="align_center" Assign="1/1/19" />
+    <Item Column="2" Row="18" Text="1/2/19" Font="align_center" Assign="1/2/19" />
+    <Item Column="3" Row="18" Text="1/3/19" Font="align_center" Assign="1/3/19" />
+    <Item Column="4" Row="18" Text="1/4/19" Font="align_center" Assign="1/4/19" />
+    <Item Column="0" Row="19" Text="20  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="19" Text="1/1/20" Font="align_center" Assign="1/1/20" />
+    <Item Column="2" Row="19" Text="1/2/20" Font="align_center" Assign="1/2/20" />
+    <Item Column="3" Row="19" Text="1/3/20" Font="align_center" Assign="1/3/20" />
+    <Item Column="4" Row="19" Text="1/4/20" Font="align_center" Assign="1/4/20" />
+    <Item Column="0" Row="20" Text="21  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="20" Text="1/1/21" Font="align_center" Assign="1/1/21" />
+    <Item Column="2" Row="20" Text="1/2/21" Font="align_center" Assign="1/2/21" />
+    <Item Column="3" Row="20" Text="1/3/21" Font="align_center" Assign="1/3/21" />
+    <Item Column="4" Row="20" Text="1/4/21" Font="align_center" Assign="1/4/21" />
+    <Item Column="0" Row="21" Text="22  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="21" Text="1/1/22" Font="align_center" Assign="1/1/22" />
+    <Item Column="2" Row="21" Text="1/2/22" Font="align_center" Assign="1/2/22" />
+    <Item Column="3" Row="21" Text="1/3/22" Font="align_center" Assign="1/3/22" />
+    <Item Column="4" Row="21" Text="1/4/22" Font="align_center" Assign="1/4/22" />
+    <Item Column="0" Row="22" Text="23  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="22" Text="1/1/23" Font="align_center" Assign="1/1/23" />
+    <Item Column="2" Row="22" Text="1/2/23" Font="align_center" Assign="1/2/23" />
+    <Item Column="3" Row="22" Text="1/3/23" Font="align_center" Assign="1/3/23" />
+    <Item Column="4" Row="22" Text="1/4/23" Font="align_center" Assign="1/4/23" />
+    <Item Column="0" Row="23" Text="24  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="23" Text="1/1/24" Font="align_center" Assign="1/1/24" />
+    <Item Column="2" Row="23" Text="1/2/24" Font="align_center" Assign="1/2/24" />
+    <Item Column="3" Row="23" Text="1/3/24" Font="align_center" Assign="1/3/24" />
+    <Item Column="4" Row="23" Text="1/4/24" Font="align_center" Assign="1/4/24" />
+    <Item Column="0" Row="24" Text="25  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="24" Text="1/1/25" Font="align_center" Assign="1/1/25" />
+    <Item Column="2" Row="24" Text="1/2/25" Font="align_center" Assign="1/2/25" />
+    <Item Column="3" Row="24" Text="1/3/25" Font="align_center" Assign="1/3/25" />
+    <Item Column="4" Row="24" Text="1/4/25" Font="align_center" Assign="1/4/25" />
+    <Item Column="0" Row="25" Text="26  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="25" Text="1/1/26" Font="align_center" Assign="1/1/26" />
+    <Item Column="2" Row="25" Text="1/2/26" Font="align_center" Assign="1/2/26" />
+    <Item Column="3" Row="25" Text="1/3/26" Font="align_center" Assign="1/3/26" />
+    <Item Column="4" Row="25" Text="1/4/26" Font="align_center" Assign="1/4/26" />
+    <Item Column="0" Row="26" Text="27  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="26" Text="1/1/27" Font="align_center" Assign="1/1/27" />
+    <Item Column="2" Row="26" Text="1/2/27" Font="align_center" Assign="1/2/27" />
+    <Item Column="3" Row="26" Text="1/3/27" Font="align_center" Assign="1/3/27" />
+    <Item Column="4" Row="26" Text="1/4/27" Font="align_center" Assign="1/4/27" />
+    <Item Column="0" Row="27" Text="28  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="27" Text="1/1/28" Font="align_center" Assign="1/1/28" />
+    <Item Column="2" Row="27" Text="1/2/28" Font="align_center" Assign="1/2/28" />
+    <Item Column="3" Row="27" Text="1/3/28" Font="align_center" Assign="1/3/28" />
+    <Item Column="4" Row="27" Text="1/4/28" Font="align_center" Assign="1/4/28" />
+    <Item Column="0" Row="28" Text="29  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="28" Text="1/1/29" Font="align_center" Assign="1/1/29" />
+    <Item Column="2" Row="28" Text="1/2/29" Font="align_center" Assign="1/2/29" />
+    <Item Column="3" Row="28" Text="1/3/29" Font="align_center" Assign="1/3/29" />
+    <Item Column="4" Row="28" Text="1/4/29" Font="align_center" Assign="1/4/29" />
+    <Item Column="0" Row="29" Text="30  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="29" Text="1/1/30" Font="align_center" Assign="1/1/30" />
+    <Item Column="2" Row="29" Text="1/2/30" Font="align_center" Assign="1/2/30" />
+    <Item Column="3" Row="29" Text="1/3/30" Font="align_center" Assign="1/3/30" />
+    <Item Column="4" Row="29" Text="1/4/30" Font="align_center" Assign="1/4/30" />
+    <Item Column="0" Row="30" Text="31  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="30" Text="1/1/31" Font="align_center" Assign="1/1/31" />
+    <Item Column="2" Row="30" Text="1/2/31" Font="align_center" Assign="1/2/31" />
+    <Item Column="3" Row="30" Text="1/3/31" Font="align_center" Assign="1/3/31" />
+    <Item Column="4" Row="30" Text="1/4/31" Font="align_center" Assign="1/4/31" />
+    <Item Column="0" Row="31" Text="32  " Font="bold;align_right" Assign="" />
+    <Item Column="1" Row="31" Text="1/1/32" Font="align_center" Assign="1/1/32" />
+    <Item Column="2" Row="31" Text="1/2/32" Font="align_center" Assign="1/2/32" />
+    <Item Column="3" Row="31" Text="1/3/32" Font="align_center" Assign="1/3/32" />
+    <Item Column="4" Row="31" Text="1/4/32" Font="align_center" Assign="1/4/32" />
+    <Item Column="0" Row="32" Text="" Font="" Assign="" />
+    <Item Column="1" Row="32" Text="" Font="" Assign="" />
+    <Item Column="2" Row="32" Text="" Font="" Assign="" />
+    <Item Column="3" Row="32" Text="" Font="" Assign="" />
+    <Item Column="4" Row="32" Text="" Font="" Assign="" />
+    <Item Column="0" Row="33" Text="Групповое управление" Font="" Assign="" />
+    <Item Column="1" Row="33" Text="1/5/1" Font="align_center" Assign="1/5/1" />
+    <Item Column="2" Row="33" Text="" Font="" Assign="" />
+    <Item Column="3" Row="33" Text="" Font="" Assign="" />
+    <Item Column="4" Row="33" Text="" Font="" Assign="" />
+  </Table>
+  <MBConfig>
+    <Module Node="1" Desc="Дискретный вывод 32 канала серия Урал" N="1" Name="DO200" >
+      <Slot Desc="Значения дискретных выходов" Operation="readonly" Length="32" Type="bits" N="1" Addr="2" />
+      <Slot Desc="ШИМ" Operation="readonly" Length="32" Type="words" N="2" Addr="6" />
+      <Slot Desc="ЧИМ период" Operation="readonly" Length="32" Type="words" N="3" Addr="46" />
+      <Slot Desc="ЧИМ длительность импульса" Operation="readonly" Length="32" Type="words" N="4" Addr="86" />
+      <Slot Desc="Параметр группового управления" Operation="readonly" Length="1" Type="words" N="5" Addr="C6" />
+    </Module>
+  </MBConfig>
+</MKStudio>

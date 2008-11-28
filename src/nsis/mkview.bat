@@ -1,0 +1,1 @@
+makensis mkview.nsi

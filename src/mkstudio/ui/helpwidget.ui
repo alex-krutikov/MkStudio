@@ -1,0 +1,88 @@
+<ui version="4.0" >
+ <class>HelpWidget</class>
+ <widget class="QWidget" name="HelpWidget" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>553</width>
+    <height>454</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <layout class="QHBoxLayout" >
+     <item>
+      <widget class="QToolButton" name="pb_backward" >
+       <property name="text" >
+        <string>Назад</string>
+       </property>
+       <property name="icon" >
+        <iconset resource="../mkstudio.qrc" >:/icons/res/arrow_left_blue.png</iconset>
+       </property>
+       <property name="toolButtonStyle" >
+        <enum>Qt::ToolButtonTextUnderIcon</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="pb_forward" >
+       <property name="text" >
+        <string>Вперед</string>
+       </property>
+       <property name="icon" >
+        <iconset resource="../mkstudio.qrc" >:/icons/res/arrow_right_blue.png</iconset>
+       </property>
+       <property name="toolButtonStyle" >
+        <enum>Qt::ToolButtonTextUnderIcon</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="pb_home" >
+       <property name="text" >
+        <string>В начало</string>
+       </property>
+       <property name="icon" >
+        <iconset resource="../mkstudio.qrc" >:/icons/res/home.png</iconset>
+       </property>
+       <property name="toolButtonStyle" >
+        <enum>Qt::ToolButtonTextUnderIcon</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QTextBrowser" name="tb" >
+     <property name="frameShape" >
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="lineWidth" >
+      <number>1</number>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../mkstudio.qrc" />
+ </resources>
+ <connections/>
+</ui>

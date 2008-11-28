@@ -1,0 +1,207 @@
+<ui version="4.0" >
+ <class>SlotWidget</class>
+ <widget class="QMainWindow" name="SlotWidget" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>464</width>
+    <height>427</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>19</y>
+     <width>464</width>
+     <height>408</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_3" >
+    <property name="spacing" >
+     <number>0</number>
+    </property>
+    <property name="margin" >
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QStackedWidget" name="stackedWidget" >
+      <property name="currentIndex" >
+       <number>2</number>
+      </property>
+      <widget class="QWidget" name="page" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>464</width>
+         <height>408</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout" >
+        <property name="spacing" >
+         <number>0</number>
+        </property>
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="MKTable" name="table" />
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_2" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>464</width>
+         <height>408</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2" >
+        <item>
+         <widget class="QwtPlot" name="plot" />
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_3" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>464</width>
+         <height>408</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_4" >
+        <item>
+         <widget class="QwtPlot" name="plot2" />
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>464</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu" >
+    <property name="title" >
+     <string>Формат</string>
+    </property>
+    <addaction name="action_format_bin" />
+    <addaction name="action_format_dec" />
+    <addaction name="action_format_unsigned" />
+    <addaction name="action_format_hex" />
+    <addaction name="action_format_float" />
+    <addaction name="separator" />
+    <addaction name="action_set_scale" />
+   </widget>
+   <widget class="QMenu" name="menu_2" >
+    <property name="title" >
+     <string>Вид</string>
+    </property>
+    <addaction name="action_view_table" />
+    <addaction name="action_view_plot1" />
+    <addaction name="action_view_plot2" />
+   </widget>
+   <addaction name="menu" />
+   <addaction name="menu_2" />
+  </widget>
+  <action name="action_view_table" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Таблица</string>
+   </property>
+  </action>
+  <action name="action_view_plot1" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>График</string>
+   </property>
+  </action>
+  <action name="action_view_plot2" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>График (масштаб.)</string>
+   </property>
+  </action>
+  <action name="action_format_bin" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Двоичный</string>
+   </property>
+  </action>
+  <action name="action_format_unsigned" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Десятичный беззнаковый</string>
+   </property>
+  </action>
+  <action name="action_format_dec" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Десятичный</string>
+   </property>
+  </action>
+  <action name="action_format_hex" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Шестнадцатиричный</string>
+   </property>
+  </action>
+  <action name="action_format_float" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Вещественный</string>
+   </property>
+  </action>
+  <action name="action_set_scale" >
+   <property name="text" >
+    <string>Масштабирование...</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QwtPlot</class>
+   <extends>QFrame</extends>
+   <header>qwt_plot.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MKTable</class>
+   <extends>QTableWidget</extends>
+   <header>mktable.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
