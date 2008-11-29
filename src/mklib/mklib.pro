@@ -67,8 +67,5 @@ HEADERS += slotwidget.h
 SOURCES += slotwidget.cpp
 FORMS   += slotwidget.ui slotdialog.ui
 
-win32{ HEADERS += hires_sleep.h }
-win32{ SOURCES += hires_sleep.cpp }
-
 RESOURCES += mklib.qrc
 

@@ -42,9 +42,13 @@ class SerialPortPrivate
   static QStringList queryComPorts();
 
 #ifdef Q_OS_WIN32
+  void usleep(DWORD us);
+  
   HANDLE hport;
   SerialPortPrivateWidget window;
   HDEVNOTIFY notify_handle;
+  LARGE_INTEGER freq;
+  bool perf_cnt_ok;
 #endif
 #ifdef Q_OS_UNIX
   int fd;
