@@ -7,6 +7,8 @@
 #include "serialport.h"
 #include "mbcommon.h"
 
+#include "hires_sleep.h"
+
 #define _UNICODE
 #include <winuser.h>
 #include <windows.h>
@@ -166,6 +168,7 @@ void SerialPortPrivate::close()
 int SerialPortPrivate::request( const QByteArray &request,
                                   QByteArray &answer, int *errorcode)
 {
+  static HiResSleep hrs;  // таймер с мкс разрешением
   bool ok;
   DWORD i,j,answer_size;
 
@@ -188,9 +191,11 @@ int SerialPortPrivate::request( const QByteArray &request,
   { CONSOLE_OUT( "MODBUS: Request: "+QByteArray2QString( request )+"\n");
   }
 
-  // задержка перед запросом
+  // задержка перед запросом 4 байтовых интервала на выбранной скорости
   // Sleep(2);
-  Sleep(3);
+  // Sleep(3);
+  hrs.UsSleep((4 * 10 * 1000000 / sp->getSpeed()));
+
   // запрос
   ok = WriteFile( hport, request.data(), request.length(),  &j, 0 );
   if(!ok)
