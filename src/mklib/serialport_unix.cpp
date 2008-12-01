@@ -60,7 +60,9 @@ bool SerialPortPrivate::open()
    default:      br=B9600;   break;
   }
 
-  tcgetattr( fd, &ts );
+  if( tcgetattr( fd, &ts ) )
+  { return false;
+  }
   cfmakeraw( &ts );
   cfsetispeed( &ts, br );
   cfsetospeed( &ts, br );
@@ -104,14 +106,18 @@ int SerialPortPrivate::request( const QByteArray &request,
   int i,ret;
   int request_size = request.size();
   int answer_size  = answer.size();
-  
-  if( fd == 0 ) return 0;
 
+  if( fd == 0 )
+  { usleep(500000);
+    open();
+    return 0;
+  }
+  
   if( sp->console_out_packets )
   { CONSOLE_OUT( "MODBUS: Request: "+QByteArray2QString( request )+"\n");
   }
-  
-  //usleep( 1000*((50000/sp->portspeed)+2) );
+
+  usleep( 40000000/sp->portspeed ); // 4*10 bit time delay
   
   tcflush( fd, TCIOFLUSH );
   
@@ -120,6 +126,7 @@ int SerialPortPrivate::request( const QByteArray &request,
   {  ret = write( fd, request.data()+i, request_size-i );
      if( ret < 0 )
      { CONSOLE_OUT("MODBUS: ERROR: Can't write to port.\n");
+       close();
        return 0;
      }
      i += ret;
@@ -132,6 +139,7 @@ int SerialPortPrivate::request( const QByteArray &request,
   {  ret = read( fd, answer.data()+i, answer_size-i );
      if( ret < 0 )
      { CONSOLE_OUT("MODBUS: ERROR: Can't read from port.\n");
+       close();
        return 0;
      }
      i += ret;
@@ -162,14 +170,17 @@ QStringList SerialPortPrivate::queryComPorts()
   QStringList sl;
   QDir dir("/dev");
   int fd;
+  struct termios ts;
   
   foreach( QString str, dir.entryList(QDir::System, QDir::Name) )
   { if( !rx.exactMatch( str ) ) continue;
     str = "/dev/" + str;
-    fd = ::open( str.toLocal8Bit(), O_RDONLY|O_NOCTTY );
+    fd = ::open( str.toLocal8Bit(), O_RDWR|O_NOCTTY );
     if( fd < 0 ) continue;
+    if( tcgetattr( fd, &ts ) == 0 )
+    { sl << str + ";Serial Port";
+    }
     ::close(fd);
-    sl << str + QString("; Serial Port");
   }
   return sl;
 }
