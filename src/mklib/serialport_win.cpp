@@ -41,6 +41,10 @@ SerialPortPrivate::SerialPortPrivate( SerialPort *sp_arg )
   last_error_id = 0;
 
   window.spp = this;
+  
+  if (perf_cnt_ok = QueryPerformanceCounter(&freq))
+  { perf_cnt_ok = QueryPerformanceFrequency(&freq);
+  }
 
   DEV_BROADCAST_PORT dbh;
   memset( &dbh, 0, sizeof( dbh ) );
@@ -188,9 +192,9 @@ int SerialPortPrivate::request( const QByteArray &request,
   { CONSOLE_OUT( "MODBUS: Request: "+QByteArray2QString( request )+"\n");
   }
 
-  // задержка перед запросом
-  // Sleep(2);
-  Sleep(3);
+  // задержка перед запросом 4 байтовых интервала на выбранной скорости
+  usleep((4 * 10 * 1000000 / sp->getSpeed()));
+
   // запрос
   ok = WriteFile( hport, request.data(), request.length(),  &j, 0 );
   if(!ok)
@@ -276,6 +280,26 @@ error3:
    return j;
    }
 }
+
+//===================================================================
+// Микросекундная задержка
+//===================================================================
+void SerialPortPrivate::usleep(DWORD us)
+{
+  LARGE_INTEGER curr, stop;
+
+  if( perf_cnt_ok )
+  { QueryPerformanceCounter(&curr);
+    stop.QuadPart = curr.QuadPart + (freq.QuadPart * 1000 * us / 1000000000);
+    do
+    { Sleep(0);
+      QueryPerformanceCounter(&curr);
+    } while (curr.QuadPart < stop.QuadPart);
+  } else
+  { Sleep((us + 999) / 1000);
+  }
+}
+
 
 //===================================================================
 // Поиск присутствующих в системе COM портов
