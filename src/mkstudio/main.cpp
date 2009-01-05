@@ -48,6 +48,8 @@ int main(int argc, char *argv[])
     goto exit;
   }
 
+  app_header = QString("%1 %2 - MKStudio").arg(port->getName()).arg(port->getSpeed() );
+
   mbmaster = new MBMaster;
   mbmaster->setTransport( port );
   mbmaster->setMaximumPacketLength( initdialog.sb_max_len->value() );
