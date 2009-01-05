@@ -50,6 +50,7 @@ int main(int argc, char *argv[])
 
   mbmaster = new MBMaster;
   mbmaster->setTransport( port );
+  mbmaster->setMaximumPacketLength( initdialog.sb_max_len->value() );
 
   helpwidget = new HelpWidget;
   helpwidget->setWindowTitle("Руководство MKStudio");

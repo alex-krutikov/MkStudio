@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>236</width>
-    <height>141</height>
+    <width>231</width>
+    <height>163</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -61,7 +61,10 @@
      <item row="2" column="0" >
       <widget class="QLabel" name="label_3" >
        <property name="text" >
-        <string>Таймаут (мс)</string>
+        <string>Таймаут (мс):</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -78,6 +81,32 @@
        </property>
        <property name="value" >
         <number>200</number>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0" >
+      <widget class="QLabel" name="label_4" >
+       <property name="text" >
+        <string>Макс. длина пакета:</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1" >
+      <widget class="QSpinBox" name="sb_max_len" >
+       <property name="minimum" >
+        <number>10</number>
+       </property>
+       <property name="maximum" >
+        <number>255</number>
+       </property>
+       <property name="singleStep" >
+        <number>16</number>
+       </property>
+       <property name="value" >
+        <number>128</number>
        </property>
       </widget>
      </item>
