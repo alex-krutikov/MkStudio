@@ -43,11 +43,20 @@ InitDialog::InitDialog( QWidget *parent )
   if( i >= 0 ) cb_portname->setCurrentIndex(i);
   //--------------------------------------------------------
   cb_portspeed->clear();
-  cb_portspeed->addItem( "2400"   );
-  cb_portspeed->addItem( "9600"   );
-  cb_portspeed->addItem( "115200" );
-  cb_portspeed->setCurrentIndex(2);
-  i = cb_portspeed->findText( settings.value("portspeed").toString() );
+  cb_portspeed -> addItems( QStringList() << "300"
+                                          << "600"
+                                          << "1200"
+                                          << "2400"
+                                          << "4800"
+                                          << "9600"
+                                          << "19200"
+                                          << "38400"
+                                          << "57600"
+                                          << "115200"
+                                          << "230400"
+                                          << "460800"
+                                          << "921600" );
+  i = cb_portspeed->findText( settings.value("portspeed","115200").toString() );
   if( i >= 0 ) cb_portspeed->setCurrentIndex(i);
   //--------------------------------------------------------
   setModulesComboBox( cb_modulename );
