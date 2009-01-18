@@ -51,7 +51,6 @@ HEADERS += serialport.h serialport_p.h
 SOURCES += serialport.cpp
 win32{ SOURCES += serialport_win.cpp }
 unix{  SOURCES += serialport_unix.cpp }
-FORMS   += ui/serialportdialog.ui
 
 HEADERS += mktable.h
 SOURCES += mktable.cpp

@@ -3,24 +3,8 @@
 
 #include <QtGui>
 
-#include "ui/ui_serialportdialog.h"
-
 class SerialPort;
 class SerialPortPrivate;
-
-//---------------------------------------------------------
-//  Диалог выбора и настройки порта
-//---------------------------------------------------------
-class SerialPortSetupDialog : public QDialog,
-                              public Ui::SerialPortDialog
-{
-Q_OBJECT
-public:
-  SerialPortSetupDialog();
-  SerialPort *port;
-private:
-  void accept();
-};
 
 //---------------------------------------------------------
 // Порт на транспортном уровне
@@ -41,7 +25,6 @@ public:
   bool open();
   void close();
 
-  int setupDialog();
   int request( const QByteArray &request, QByteArray &answer, int *errorcode=0);
 
   static QStringList queryComPorts();
