@@ -1,10 +1,10 @@
 #ifndef __mainwindow__h__
 #define __mainwindow__h__
 
-#ifdef Q_OS_WIN32
-  #include <windows.h>
-  #include <dbt.h>
-#endif
+//#ifdef Q_OS_WIN32
+  //#include <windows.h>
+  //#include <dbt.h>
+//#endif
 
 #include<QtGui>
 
