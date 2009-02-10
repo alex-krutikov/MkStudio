@@ -36,129 +36,40 @@ public:
   MBMaster( QObject *parent = 0);
   virtual ~MBMaster();
 
-//! Привязка к транспорту
   void setTransport( SerialPort *transport );
-
-//! Очистка конфигурации
   void clear_configuration();
-
-//! Загрузить конфигурацию
-/*!
-    \param doc XML Документ с конфигурацей
-    См. \ref xml_opros_desc
-*/
   void load_configuration( QDomDocument &doc );
-
-//! Загрузить конфигурацию
-/*! \param xml Массив данных с текстом XML документа
-    См. \ref xml_opros_desc
-*/
   void load_configuration( const QByteArray &xml );
 
   void saveValues( QDomDocument &doc );
   void loadValues( const QDomDocument &doc );
-
-
-//! Поменять адрес модуля
   void set_module_node(int module_index, int node, int subnode=0 );
-
-//! Добавить модуль
-/**
-  \param module_index   Номер модуля
-  \param node           Адрес
-  \param subnode        Дополнительный адрес
-  \param name           Имя модуля
-  \param description    Описание модуля
-*/
   void add_module( int module_index, int node, int subnode=0,
                                      const QString &name = QString(),
                                      const QString &description = QString() );
-//! Добавить слот
-/**
-  \param module_index   Номер модуля
-  \param slot_index     Номер слота
-  \param addr           Начальный адрес
-  \param len            Длина (Количество запрашиваемых данных)
-  \param datatype       Тип данных
-  \param description    Описание
-*/
-void add_slot( int module_index, int slot_index, int addr, int len,
+  void add_slot( int module_index, int slot_index, int addr, int len,
                     MBDataType datatype, const QString &description = QString() );
 
-//! Запустить опрос
   void polling_start();
-
-//! Остановить опрос
   void polling_stop();
 
-//! Прочитать все данные из слота
-/**
-  \param module Номер модуля
-  \param slot   Номер слота
-*/
   MMSlot getSlot(int module, int slot ) const;
-
-//! Прочитать значение
-/**
-  \param module Номер модуля
-  \param slot   Номер слота
-  \param index  Номер сигнала
-*/
   MMValue getSlotValue(int module, int slot,int index ) const;
-
-//! Записать значение
-/**
-  \param module Номер модуля
-  \param slot   Номер слота
-  \param index  Номер сигнала
-  \param value  Значение
-*/
   void setSlotValue(int module, int slot,int index,
                                 const MMValue &value );
 
-//! Установить аттрибуты слота
-/**
-  \param module      Номер модуля
-  \param slot        Номер слота
-  \param attributes  Аттрибуты
-*/
   void setSlotAttributes(int module, int slot, const QString &attributes );
 
-//! Запретить транзакции на чтение
-/**
-  \param disabled \b true - транзакции на чтение запрещены, \b false - разрешены
-*/
-  void setReadTransactionsDisabled( bool disabled );
 
-//! Запретить транзакции на запись
-/**
-  \param disabled \b true - транзакции на запись запрещены, \b false - разрешены
-*/
+  void setReadTransactionsDisabled( bool disabled );
   void setWriteTransactionsDisabled( bool disabled );
 
 
-//! Статус запрета транзакции на чтение
-/**
-  \return \b true - транзакции на чтение запрещены, \b false - разрешены
-*/
   bool readTransactionsDisabled() const;
-
-//! Статус запрета на запись
-/**
-  \return \b true - транзакции на запись запрещены, \b false - разрешены
-*/
   bool writeTransactionsDisabled() const;
 
-//! Установить максимальную длину пакета
-/**
-  \param packet_length - максимальная длина пакета (байт)
-*/
-  void setMaximumPacketLength( int packet_length );
 
-//! Максимальная длина пакета
-/**
-  \return максимальная длина пакета (байт)
-*/
+  void setMaximumPacketLength( int packet_length );
   int maximumPacketLength() const;
 
 

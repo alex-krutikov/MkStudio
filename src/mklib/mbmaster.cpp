@@ -31,7 +31,11 @@ MBMaster::~MBMaster()
 }
 
 //===================================================================
-//
+//! Загрузить конфигурацию
+/*!
+    \param doc XML Документ с конфигурацей
+    См. \ref xml_opros_desc
+*/
 //===================================================================
 void MBMaster::load_configuration( QDomDocument &doc )
 {
@@ -110,7 +114,10 @@ void MBMaster::load_configuration( QDomDocument &doc )
 }
 
 //===================================================================
-//
+//! Загрузить конфигурацию
+/*! \param xml Массив данных с текстом XML документа
+    См. \ref xml_opros_desc
+*/
 //===================================================================
 void MBMaster::load_configuration( const QByteArray &xml )
 {
@@ -176,7 +183,7 @@ void MBMaster::loadValues( const QDomDocument &doc )
 }
 
 //===================================================================
-// запустить опрос
+//! Запустить опрос
 //===================================================================
 void MBMaster::polling_start()
 {
@@ -283,7 +290,7 @@ void MBMaster::polling_start()
 }
 
 //===================================================================
-// остановить опрос
+//! Остановить опрос
 //===================================================================
 void MBMaster::polling_stop()
 {
@@ -293,7 +300,7 @@ void MBMaster::polling_stop()
 }
 
 //===================================================================
-//
+//! Очистка конфигурации
 //===================================================================
 void MBMaster::clear_configuration()
 {
@@ -311,7 +318,7 @@ void MBMaster::clear_configuration()
 }
 
 //===================================================================
-//  Поменять адрес модуля
+//! Поменять адрес модуля
 //===================================================================
 void MBMaster::set_module_node(int module_index, int node, int subnode )
 {
@@ -324,7 +331,14 @@ void MBMaster::set_module_node(int module_index, int node, int subnode )
 }
 
 //===================================================================
-//
+//! Добавить модуль
+/**
+  \param module_index   Номер модуля
+  \param node           Адрес
+  \param subnode        Дополнительный адрес
+  \param name           Имя модуля
+  \param description    Описание модуля
+*/
 //===================================================================
 void MBMaster::add_module( int module_index, int node, int subnode,
                            const QString &name, const QString &description  )
@@ -339,7 +353,15 @@ void MBMaster::add_module( int module_index, int node, int subnode,
 }
 
 //===================================================================
-//
+//! Добавить слот
+/**
+  \param module_index   Номер модуля
+  \param slot_index     Номер слота
+  \param addr           Начальный адрес
+  \param len            Длина (Количество запрашиваемых данных)
+  \param datatype       Тип данных
+  \param description    Описание
+*/
 //===================================================================
 void MBMaster::add_slot( int module_index, int slot_index, int addr, int len,
                     MBDataType datatype,
@@ -364,7 +386,7 @@ void MBMaster::add_slot( int module_index, int slot_index, int addr, int len,
 
 
 //===================================================================
-//
+//! Привязка к транспорту
 //===================================================================
 void MBMaster::setTransport( SerialPort *transport )
 {
@@ -695,7 +717,11 @@ skiped:
 }
 
 //===================================================================
-//
+//! Прочитать все данные из слота
+/**
+  \param module Номер модуля
+  \param slot   Номер слота
+*/
 //===================================================================
 MMSlot MBMaster::getSlot(int module, int slot ) const
 {
@@ -714,7 +740,13 @@ MMSlot MBMaster::getSlot(int module, int slot ) const
 }
 
 //===================================================================
-//
+//! Записать значение
+/**
+  \param module Номер модуля
+  \param slot   Номер слота
+  \param index  Номер сигнала
+  \param value  Значение
+*/
 //===================================================================
 void MBMaster::setSlotValue(int module, int slot,int index, const MMValue &value )
 {
@@ -760,7 +792,12 @@ void MBMaster::setSlotValue(int module, int slot,int index, const MMValue &value
 }
 
 //===================================================================
-//
+//! Прочитать значение
+/**
+  \param module Номер модуля
+  \param slot   Номер слота
+  \param index  Номер сигнала
+*/
 //===================================================================
 MMValue MBMaster::getSlotValue(int module, int slot,int index ) const
 {
@@ -781,7 +818,12 @@ MMValue MBMaster::getSlotValue(int module, int slot,int index ) const
 }
 
 //===================================================================
-//
+//! Установить аттрибуты слота
+/**
+  \param module      Номер модуля
+  \param slot        Номер слота
+  \param attributes  Аттрибуты
+*/
 //===================================================================
 void MBMaster::setSlotAttributes(int module, int slot, const QString &attributes )
 {
@@ -798,7 +840,10 @@ void MBMaster::setSlotAttributes(int module, int slot, const QString &attributes
 }
 
 //===================================================================
-//
+//! Запретить транзакции на чтение
+/**
+  \param disabled \b true - транзакции на чтение запрещены, \b false - разрешены
+*/
 //===================================================================
 void MBMaster::setReadTransactionsDisabled( bool disabled )
 {
@@ -807,7 +852,10 @@ void MBMaster::setReadTransactionsDisabled( bool disabled )
 }
 
 //===================================================================
-//
+//! Запретить транзакции на запись
+/**
+  \param disabled \b true - транзакции на запись запрещены, \b false - разрешены
+*/
 //===================================================================
 void MBMaster::setWriteTransactionsDisabled( bool disabled )
 {
@@ -816,7 +864,10 @@ void MBMaster::setWriteTransactionsDisabled( bool disabled )
 }
 
 //===================================================================
-//
+//! Статус запрета транзакции на чтение
+/**
+  \return \b true - транзакции на чтение запрещены, \b false - разрешены
+*/
 //===================================================================
 bool MBMaster::readTransactionsDisabled() const
 {
@@ -825,7 +876,10 @@ bool MBMaster::readTransactionsDisabled() const
 }
 
 //===================================================================
-//
+//! Статус запрета на запись
+/**
+  \return \b true - транзакции на запись запрещены, \b false - разрешены
+*/
 //===================================================================
 bool MBMaster::writeTransactionsDisabled() const
 {
@@ -834,7 +888,10 @@ bool MBMaster::writeTransactionsDisabled() const
 }
 
 //===================================================================
-//
+//! Установить максимальную длину пакета
+/**
+  \param packet_length - максимальная длина пакета (байт)
+*/
 //===================================================================
 void MBMaster::setMaximumPacketLength( int packet_length )
 {
@@ -844,7 +901,10 @@ void MBMaster::setMaximumPacketLength( int packet_length )
 }
 
 //===================================================================
-//
+//! Максимальная длина пакета
+/**
+  \return максимальная длина пакета (байт)
+*/
 //===================================================================
 int MBMaster::maximumPacketLength() const
 {
