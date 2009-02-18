@@ -5,11 +5,75 @@
 
 #include "mbcommon.h"
 
+
+class ModulesModel : public QAbstractTableModel
+{
+public:
+
+  struct t_module_desc
+  { QString addr;
+    QString name;
+    QString desc;
+  };
+
+  int rowCount    ( const QModelIndex & parent = QModelIndex() ) const
+    { Q_UNUSED( parent ); return MODULES_MAX_N; }
+  int columnCount ( const QModelIndex & parent = QModelIndex() ) const
+    { Q_UNUSED( parent ); return 4; }
+  QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
+  QVariant headerData ( int section, Qt::Orientation orientation,
+                                   int role = Qt::DisplayRole ) const;
+  Qt::ItemFlags flags ( const QModelIndex & index ) const;
+  bool setData ( const QModelIndex & index,
+                   const QVariant & value, int role = Qt::EditRole );
+  t_module_desc md[MODULES_MAX_N];
+  void refresh();
+};
+
+class SlotsModel : public QAbstractTableModel
+{
+public:
+
+  struct t_slot_desc
+  { QString addr;
+    int     n;
+    MBDataType type;
+    QString desc;
+    QString attributes;
+  };
+
+  int rowCount    ( const QModelIndex & parent = QModelIndex() ) const
+    { Q_UNUSED( parent ); return SLOTS_MAX_N; }
+  int columnCount ( const QModelIndex & parent = QModelIndex() ) const
+    { Q_UNUSED( parent ); return 5; }
+  QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
+  QVariant headerData ( int section, Qt::Orientation orientation,
+                                   int role = Qt::DisplayRole ) const;
+  Qt::ItemFlags flags ( const QModelIndex & index ) const;
+  bool setData ( const QModelIndex & index,
+                   const QVariant & value, int role = Qt::EditRole );
+  void set_current_module( int i );
+  int current_module;
+  t_slot_desc sd[MODULES_MAX_N][SLOTS_MAX_N];
+};
+
+class MBConfigWidgetPrivate
+{
+public:
+  ModulesModel       modules_model;
+  SlotsModel         slots_model;
+
+  ModulesModel::t_module_desc mbuffer;
+  SlotsModel::t_slot_desc     sbuffer[SLOTS_MAX_N];
+
+};
+
 //###################################################################
 //
 //###################################################################
 MBConfigWidget::MBConfigWidget( QWidget *parent )
-  : QWidget( parent ), ui( new Ui::MBConfigWidget )
+  : QWidget( parent ), ui( new Ui::MBConfigWidget ),
+    d( new MBConfigWidgetPrivate )
 {
   int i,j;
   ui->setupUi( this );
@@ -18,18 +82,18 @@ MBConfigWidget::MBConfigWidget( QWidget *parent )
 
   for( i=0; i<MODULES_MAX_N; i++ )
   { for( j=0; j<SLOTS_MAX_N; j++ )
-    { slots_model.sd[i][j].n=0;
-      slots_model.sd[i][j].type = MBDataType::Bits;
+    { d->slots_model.sd[i][j].n=0;
+      d->slots_model.sd[i][j].type = MBDataType::Bits;
     }
   }
-  slots_model.current_module=-1;
+  d->slots_model.current_module=-1;
 
   ui->tw1->setContextMenuPolicy( Qt::CustomContextMenu );
   ui->tw1->setSelectionBehavior( QAbstractItemView::SelectRows );
   ui->tw1->setSelectionMode( QAbstractItemView::SingleSelection );
   ui->tw1->verticalHeader()->setDefaultSectionSize( ui->tw1->font().pointSize()+11 );
   ui->tw1->verticalHeader()->hide();
-  ui->tw1->setModel( &modules_model );
+  ui->tw1->setModel( &d->modules_model );
   ui->tw1->horizontalHeader()->setStretchLastSection( true );
   ui->tw1->horizontalHeader()->resizeSections( QHeaderView::ResizeToContents );
   ui->tw1->horizontalHeader()->setClickable( false );
@@ -44,7 +108,7 @@ MBConfigWidget::MBConfigWidget( QWidget *parent )
   ui->tw2->setSelectionMode( QAbstractItemView::SingleSelection );
   ui->tw2->verticalHeader()->setDefaultSectionSize( ui->tw1->font().pointSize()+11 );
   ui->tw2->verticalHeader()->hide();
-  ui->tw2->setModel( &slots_model );
+  ui->tw2->setModel( &d->slots_model );
   ui->tw2->horizontalHeader()->setStretchLastSection( true );
   ui->tw2->horizontalHeader()->resizeSections( QHeaderView::ResizeToContents );
   ui->tw2->horizontalHeader()->setClickable( false );
@@ -56,6 +120,7 @@ MBConfigWidget::MBConfigWidget( QWidget *parent )
 MBConfigWidget::~MBConfigWidget()
 {
   delete ui;
+  delete d;
 }
 
 //===================================================================
@@ -75,16 +140,16 @@ void MBConfigWidget::on_tw1_customContextMenuRequested ( const QPoint& pos)
   if(( r < 0) || (r >= MODULES_MAX_N ) ) return;
 
   if( act == act_copy )
-  { mbuffer = modules_model.md[ r ];
+  { d->mbuffer = d->modules_model.md[ r ];
     for( i=0; i<SLOTS_MAX_N; i++ )
-    { sbuffer[i]=slots_model.sd[r][i];
+    { d->sbuffer[i]=d->slots_model.sd[r][i];
     }
   } else if( act == act_paste )
-  { modules_model.md[ r ] = mbuffer;
+  { d->modules_model.md[ r ] = d->mbuffer;
     for( i=0; i<SLOTS_MAX_N; i++ )
-    { slots_model.sd[r][i]=sbuffer[i];
+    { d->slots_model.sd[r][i]=d->sbuffer[i];
     }
-    modules_model.refresh();
+    d->modules_model.refresh();
     ui->tw1->selectRow(r);
   }
   return;
@@ -105,7 +170,7 @@ void MBConfigWidget::tw1_currentRowChanged(const QModelIndex&current,
                              const QModelIndex&previous)
 {
   Q_UNUSED( previous );
-  slots_model.set_current_module( current.row() );
+  d->slots_model.set_current_module( current.row() );
   ui->tw2->clearSelection();
 }
 
@@ -117,21 +182,21 @@ void MBConfigWidget::clearConfiguration()
   int i,j;
 
   for( i=0; i<MODULES_MAX_N; i++ )
-  { modules_model.md[i].addr.clear();
-    modules_model.md[i].name.clear();
-    modules_model.md[i].desc.clear();
+  { d->modules_model.md[i].addr.clear();
+    d->modules_model.md[i].name.clear();
+    d->modules_model.md[i].desc.clear();
     for( j=0; j<SLOTS_MAX_N; j++ )
-    { slots_model.sd[i][j].addr.clear();
-      slots_model.sd[i][j].n=0;
-      slots_model.sd[i][j].type = MBDataType::Bits;
-      slots_model.sd[i][j].desc.clear();
-      slots_model.sd[i][j].attributes.clear();
+    { d->slots_model.sd[i][j].addr.clear();
+      d->slots_model.sd[i][j].n=0;
+      d->slots_model.sd[i][j].type = MBDataType::Bits;
+      d->slots_model.sd[i][j].desc.clear();
+      d->slots_model.sd[i][j].attributes.clear();
     }
   }
-  slots_model.current_module=-1;
+  d->slots_model.current_module=-1;
 
-  modules_model.refresh();
-  slots_model.set_current_module(0);
+  d->modules_model.refresh();
+  d->slots_model.set_current_module(0);
   ui->tw1->selectRow(0);
 }
 
@@ -155,26 +220,26 @@ void MBConfigWidget::loadConfiguration( QDomDocument &doc )
   { element = module_list.item( i ).toElement();
     n = element.attribute("N").toInt()-1;
     if( ( n >= MODULES_MAX_N ) || ( n < 0 )) continue;
-    modules_model.md[n].addr = element.attribute("Node");
-    modules_model.md[n].name = element.attribute("Name");
-    modules_model.md[n].desc = element.attribute("Desc");
+    d->modules_model.md[n].addr = element.attribute("Node");
+    d->modules_model.md[n].name = element.attribute("Name");
+    d->modules_model.md[n].desc = element.attribute("Desc");
     slot_list = element.elementsByTagName("Slot");
     for(j=0; j<slot_list.count(); j++ )
     { element = slot_list.item( j ).toElement();
       k = element.attribute("N").toInt()-1;
       if( ( k >= SLOTS_MAX_N ) || ( k < 0 )) continue;
-      slots_model.sd[n][k].addr = element.attribute("Addr");
-      slots_model.sd[n][k].n    = element.attribute("Length").toInt();
+      d->slots_model.sd[n][k].addr = element.attribute("Addr");
+      d->slots_model.sd[n][k].n    = element.attribute("Length").toInt();
       str = element.attribute("Type");
-      slots_model.sd[n][k].type.fromTextId( str );
+      d->slots_model.sd[n][k].type.fromTextId( str );
       str = element.attribute("Operation");
-      slots_model.sd[n][k].desc       = element.attribute("Desc");
-      slots_model.sd[n][k].attributes = element.attribute("Attributes");
+      d->slots_model.sd[n][k].desc       = element.attribute("Desc");
+      d->slots_model.sd[n][k].attributes = element.attribute("Attributes");
     }
   }
 
-  modules_model.refresh();
-  slots_model.set_current_module(0);
+  d->modules_model.refresh();
+  d->slots_model.set_current_module(0);
   ui->tw1->selectRow(0);
 }
 
@@ -201,29 +266,29 @@ void MBConfigWidget::saveConfiguration( QDomDocument &doc )
 
   for(i=0; i<MODULES_MAX_N; i++ )
   {
-    if( modules_model.md[i].addr.size()==0 ) continue;
+    if( d->modules_model.md[i].addr.size()==0 ) continue;
     QDomElement module = doc.createElement("Module");
     module.setAttribute("N",i+1);
-    module.setAttribute("Node", modules_model.md[i].addr );
-    module.setAttribute("Name", modules_model.md[i].name );
-    str = modules_model.md[i].desc;
+    module.setAttribute("Node", d->modules_model.md[i].addr );
+    module.setAttribute("Name", d->modules_model.md[i].name );
+    str = d->modules_model.md[i].desc;
     if( !str.isEmpty() )
     {  module.setAttribute("Desc", str );
     }
     root.appendChild(module);
     for(j=0; j<SLOTS_MAX_N; j++ )
-    { if( slots_model.sd[i][j].addr.size() == 0 ) continue;
+    { if( d->slots_model.sd[i][j].addr.size() == 0 ) continue;
       QDomElement slot = doc.createElement("Slot");
       slot.setAttribute("N",j+1);
-      slot.setAttribute("Addr",   slots_model.sd[i][j].addr );
-      slot.setAttribute("Length", slots_model.sd[i][j].n    );
-      str = slots_model.sd[i][j].type.toTextId();
+      slot.setAttribute("Addr",   d->slots_model.sd[i][j].addr );
+      slot.setAttribute("Length", d->slots_model.sd[i][j].n    );
+      str = d->slots_model.sd[i][j].type.toTextId();
       slot.setAttribute("Type", str );
-      str = slots_model.sd[i][j].desc;
+      str = d->slots_model.sd[i][j].desc;
       if( !str.isEmpty() )
       { slot.setAttribute("Desc", str );
       }
-      str = slots_model.sd[i][j].attributes;
+      str = d->slots_model.sd[i][j].attributes;
       if( !str.isEmpty() )
       { slot.setAttribute("Attributes", str );
       }
@@ -241,7 +306,7 @@ void MBConfigWidget::setSlotAttributes(int module, int slot, const QString &attr
   if( ( slot   <= 0 ) || ( slot   > SLOTS_MAX_N   ) ) return;
   module--;
   slot--;
-  slots_model.sd[module][slot].attributes = attributes;
+  d->slots_model.sd[module][slot].attributes = attributes;
 }
 
 //===================================================================
@@ -264,17 +329,17 @@ QString MBConfigWidget::exportConfiguration()
 
   for(i=0; i<MODULES_MAX_N; i++ )
   {
-    if( modules_model.md[i].addr.size()==0 ) continue;
+    if( d->modules_model.md[i].addr.size()==0 ) continue;
 
-    str += "Модуль  : " + modules_model.md[i].name + "\n";
-    str += "Узел    : " + modules_model.md[i].addr + "\n";
-    s = modules_model.md[i].desc;
+    str += "Модуль  : " + d->modules_model.md[i].name + "\n";
+    str += "Узел    : " + d->modules_model.md[i].addr + "\n";
+    s = d->modules_model.md[i].desc;
     if( !s.isEmpty() )  str += "Описание: " + s + "\n";
 
     maxlen=0;
     for(j=0; j<SLOTS_MAX_N; j++ )
-    { if( slots_model.sd[i][j].addr.size() == 0 ) continue;
-      a = slots_model.sd[i][j].desc.length();
+    { if( d->slots_model.sd[i][j].addr.size() == 0 ) continue;
+      a = d->slots_model.sd[i][j].desc.length();
       if( a > maxlen ) maxlen=a;
     }
 
@@ -284,12 +349,12 @@ QString MBConfigWidget::exportConfiguration()
     str +=  QString("Кол-во").leftJustified(8, ' ') + "\n";
 
     for(j=0; j<SLOTS_MAX_N; j++ )
-    { if( slots_model.sd[i][j].addr.size() == 0 ) continue;
+    { if( d->slots_model.sd[i][j].addr.size() == 0 ) continue;
 
-      str +=  slots_model.sd[i][j].desc.leftJustified(maxlen, ' ') + "\t";
-      str +=  slots_model.sd[i][j].addr.leftJustified(8, ' ') + "\t";
-      str +=  slots_model.sd[i][j].type.toName().leftJustified(8, ' ') + "\t";
-      str +=  QString::number(slots_model.sd[i][j].n).leftJustified(8, ' ');
+      str +=  d->slots_model.sd[i][j].desc.leftJustified(maxlen, ' ') + "\t";
+      str +=  d->slots_model.sd[i][j].addr.leftJustified(8, ' ') + "\t";
+      str +=  d->slots_model.sd[i][j].type.toName().leftJustified(8, ' ') + "\t";
+      str +=  QString::number(d->slots_model.sd[i][j].n).leftJustified(8, ' ');
       str +=  "\n";
     }
     str +=  "\n";
@@ -300,7 +365,7 @@ QString MBConfigWidget::exportConfiguration()
 //###################################################################
 //
 //###################################################################
-QVariant MBConfigWidget::ModulesModel::data ( const QModelIndex & index, int role ) const
+QVariant ModulesModel::data ( const QModelIndex & index, int role ) const
 {
   int row = index.row();
   int column = index.column();
@@ -334,7 +399,7 @@ QVariant MBConfigWidget::ModulesModel::data ( const QModelIndex & index, int rol
 //===================================================================
 //
 //===================================================================
-QVariant MBConfigWidget::ModulesModel::headerData ( int section, Qt::Orientation orientation,
+QVariant ModulesModel::headerData ( int section, Qt::Orientation orientation,
                                    int role  ) const
 {
   if( orientation != Qt::Horizontal ) return QVariant();
@@ -362,7 +427,7 @@ QVariant MBConfigWidget::ModulesModel::headerData ( int section, Qt::Orientation
 //===================================================================
 //
 //===================================================================
-Qt::ItemFlags MBConfigWidget::ModulesModel::flags ( const QModelIndex & index ) const
+Qt::ItemFlags ModulesModel::flags ( const QModelIndex & index ) const
 {
   int column = index.column();
 
@@ -375,7 +440,7 @@ Qt::ItemFlags MBConfigWidget::ModulesModel::flags ( const QModelIndex & index ) 
 //===================================================================
 //
 //===================================================================
-bool MBConfigWidget::ModulesModel::setData ( const QModelIndex & index,
+bool ModulesModel::setData ( const QModelIndex & index,
                    const QVariant & value, int role )
 {
   int row = index.row();
@@ -415,7 +480,7 @@ ok:
 //===================================================================
 //
 //===================================================================
-void MBConfigWidget::ModulesModel::refresh()
+void ModulesModel::refresh()
 {
   reset();
 }
@@ -423,7 +488,7 @@ void MBConfigWidget::ModulesModel::refresh()
 //###################################################################
 //
 //###################################################################
-QVariant MBConfigWidget::SlotsModel::data ( const QModelIndex & index, int role ) const
+QVariant SlotsModel::data ( const QModelIndex & index, int role ) const
 {
   if( current_module < 0 ) return QVariant();
   int row = index.row();
@@ -485,7 +550,7 @@ QVariant MBConfigWidget::SlotsModel::data ( const QModelIndex & index, int role 
 //===================================================================
 //
 //===================================================================
-QVariant MBConfigWidget::SlotsModel::headerData ( int section, Qt::Orientation orientation,
+QVariant SlotsModel::headerData ( int section, Qt::Orientation orientation,
                                    int role  ) const
 {
   if( orientation != Qt::Horizontal ) return QVariant();
@@ -515,7 +580,7 @@ QVariant MBConfigWidget::SlotsModel::headerData ( int section, Qt::Orientation o
 //===================================================================
 //
 //===================================================================
-Qt::ItemFlags MBConfigWidget::SlotsModel::flags ( const QModelIndex & index ) const
+Qt::ItemFlags SlotsModel::flags ( const QModelIndex & index ) const
 {
   if( current_module < 0 ) return 0;
   int column = index.column();
@@ -531,7 +596,7 @@ Qt::ItemFlags MBConfigWidget::SlotsModel::flags ( const QModelIndex & index ) co
 //===================================================================
 //
 //===================================================================
-bool MBConfigWidget::SlotsModel::setData ( const QModelIndex & index,
+bool SlotsModel::setData ( const QModelIndex & index,
                    const QVariant & value, int role )
 {
   if( current_module < 0 ) return false;
@@ -582,7 +647,7 @@ ok:
 //===================================================================
 //
 //===================================================================
-void MBConfigWidget::SlotsModel::set_current_module( int i )
+void SlotsModel::set_current_module( int i )
 {
   current_module=i;
   reset();
