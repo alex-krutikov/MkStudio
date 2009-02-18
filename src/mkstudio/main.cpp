@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
   helpwidget = new HelpWidget;
   helpwidget->setWindowTitle("Руководство MKStudio");
   helpwidget->resize(900,600);
-  helpwidget->tb->setSource( QUrl::fromLocalFile(":/html/help/index.html" ) );
+  helpwidget->setContents( QUrl::fromLocalFile(":/html/help/index.html" ) );
 
   mainwindow = new MainWindow;
   mainwindow->show();

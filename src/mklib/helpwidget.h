@@ -4,16 +4,17 @@
 #include <QWidget>
 
 class QUrl;
+namespace Ui { class HelpWidget; }
 
-#include "ui_helpwidget.h"
-class HelpWidget : public QWidget,
-                   public Ui::HelpWidget
+class HelpWidget : public QWidget
 {
   Q_OBJECT
 public:
   HelpWidget(QWidget *parent = 0);
+  virtual ~HelpWidget();
   void setContents( const QUrl &url );
 private:
+  Ui::HelpWidget *ui;
 };
 
 

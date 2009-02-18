@@ -1,28 +1,34 @@
 #include <QtGui>
 
 #include "helpwidget.h"
+#include "ui_helpwidget.h"
 
 HelpWidget::HelpWidget( QWidget *parent )
-  : QWidget( parent )
+  : QWidget( parent ), ui( new Ui::HelpWidget )
 {
-  setupUi( this );
+  ui->setupUi( this );
   setWindowIcon( QIcon(":/icons/res/help2.png" ) );
 
   QFont f = font();
   f.setPixelSize( 16 );
-  tb->setFont( f );
+  ui->tb->setFont( f );
 
-  tb->setOpenExternalLinks( true );
+  ui->tb->setOpenExternalLinks( true );
 
-  connect( pb_backward, SIGNAL( clicked() ), tb, SLOT( backward() ) );
-  connect( pb_forward, SIGNAL( clicked() ), tb, SLOT( forward() ) );
-  connect( pb_home, SIGNAL( clicked() ), tb, SLOT( home() ) );
+  connect( ui->pb_backward, SIGNAL( clicked() ), ui->tb, SLOT( backward() ) );
+  connect( ui->pb_forward, SIGNAL( clicked() ), ui->tb, SLOT( forward() ) );
+  connect( ui->pb_home, SIGNAL( clicked() ), ui->tb, SLOT( home() ) );
 
-  connect( tb, SIGNAL( backwardAvailable(bool) ), pb_backward, SLOT( setEnabled(bool) ) );
-  connect( tb, SIGNAL( forwardAvailable(bool) ),  pb_forward,  SLOT( setEnabled(bool) ) );
+  connect( ui->tb, SIGNAL( backwardAvailable(bool) ), ui->pb_backward, SLOT( setEnabled(bool) ) );
+  connect( ui->tb, SIGNAL( forwardAvailable(bool) ),  ui->pb_forward,  SLOT( setEnabled(bool) ) );
+}
+
+HelpWidget::~HelpWidget()
+{
+  delete ui;
 }
 
 void HelpWidget::setContents( const QUrl &url )
 {
-  tb->setSource( url );
+  ui->tb->setSource( url );
 }
