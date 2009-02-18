@@ -54,9 +54,6 @@ unix{  SOURCES += serialport_unix.cpp }
 HEADERS += mktable.h
 SOURCES += mktable.cpp
 
-HEADERS += mkselfrecorder.h
-SOURCES += mkselfrecorder.cpp
-
 HEADERS += helpwidget.h
 SOURCES += helpwidget.cpp
 FORMS   += ui/helpwidget.ui
