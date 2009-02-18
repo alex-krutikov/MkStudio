@@ -1,8 +1,7 @@
 #include <QtCore>
 
 #include "crc.h"
-
-#include "consolewidget.h"
+#include "console.h"
 
 //=======================================================================================
 //
@@ -81,7 +80,7 @@ quint16 CRC::CRC16(const char *ptr, int  DataLen )
     Index   = CRCLo ^ ((unsigned char)(*ptr));      // calculate the CRC
     CRCLo   = CRCHi ^ auchCRCHi[Index];
     CRCHi   = auchCRCLo[Index];
-    //CONSOLE_OUT( QString("$$$$> (%1), [ %2 %3 ]\n").arg((int)(*ptr),4,16).arg(CRCLo,4,16).arg(CRCHi,4,16) );
+    //Console::Print( QString("$$$$> (%1), [ %2 %3 ]\n").arg((int)(*ptr),4,16).arg(CRCLo,4,16).arg(CRCHi,4,16) );
     ptr++;
   }
   return ((CRCHi << 8) | CRCLo) ;

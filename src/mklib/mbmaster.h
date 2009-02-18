@@ -11,7 +11,6 @@
 
 #include "mbcommon.h"
 #include "serialport.h"
-#include "consolewidget.h"
 
 #include "mbtypes.h"
 

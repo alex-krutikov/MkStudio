@@ -303,7 +303,7 @@ void MKTable::ss_process()
 
   for( i=0; i<sl_enum_name.count(); i++ )
   {
-    //CONSOLE_OUT( "########\n" + sl_enum_name.at(i) + "|" + sl_enum_body.at(i) + "\n########\n");
+    //Console::Print( "########\n" + sl_enum_name.at(i) + "|" + sl_enum_body.at(i) + "\n########\n");
     t.map_display.clear();
     t.map_menu.clear();
     str = sl_enum_body.at(i);

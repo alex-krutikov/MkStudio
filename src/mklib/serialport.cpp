@@ -1,7 +1,7 @@
 #include <QtGui>
 
-#include "consolewidget.h"
 #include "mbcommon.h"
+#include "console.h"
 
 #include "serialport.h"
 #include "serialport_p.h"

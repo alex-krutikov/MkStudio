@@ -3,6 +3,7 @@
 
 #include "slotwidget.h"
 #include "mbmaster.h"
+#include "console.h"
 
 #include <qwt_painter.h>
 #include <qwt_plot_canvas.h>
@@ -566,7 +567,7 @@ SlotDialog::SlotDialog( QWidget *parent, QMap<QString,QString> *settings )
 
   // масштаб - интервал
   str = csettings["xscale_interval"];
-  CONSOLE_OUT( str );
+  Console::Print( str );
   if( rx1.indexIn( str ) == 0 )
   { xscale_int->setChecked( true );
     xscale_int_a->setText( rx1.cap(1) );

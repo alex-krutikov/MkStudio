@@ -67,3 +67,4 @@ FORMS   += slotwidget.ui slotdialog.ui
 
 RESOURCES += mklib.qrc
 
+SOURCES += console.cpp

@@ -18,6 +18,8 @@
 		<VirtualTargets>
 			<Add alias="All" targets="release;" />
 		</VirtualTargets>
+		<Unit filename="console.cpp" />
+		<Unit filename="console.h" />
 		<Unit filename="consolewidget.cpp" />
 		<Unit filename="consolewidget.h" />
 		<Unit filename="crc.cpp" />

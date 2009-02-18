@@ -1,8 +1,7 @@
 #include <QtGui>
 
 #include "consolewidget.h"
-
-ConsoleWidget *global_colsole;
+#include "console.h"
 
 //###################################################################
 //
@@ -20,28 +19,14 @@ ConsoleWidget::ConsoleWidget( QWidget *parent )
 }
 
 //===================================================================
-//
-//===================================================================
-void ConsoleWidget::print( const QString &str )
-{
-	mutex.lock();
-	data += str;
-	mutex.unlock();
-}
-
-//===================================================================
-//
+/// Функция таймера
 //===================================================================
 void ConsoleWidget::timerEvent(QTimerEvent * event)
 {
   Q_UNUSED( event );
-  
-	mutex.lock();
-	if( !data.isEmpty() )
-	{  te->insertPlainText( data );
-	   data.clear();
-  }
-	mutex.unlock();
+
+  te->insertPlainText( Console::takeMessage() );
+
 	// лимитирование размера
 	if( div_counter++ > 25 ) // 5 секунд
 	{ div_counter = 0;
@@ -59,11 +44,9 @@ void ConsoleWidget::timerEvent(QTimerEvent * event)
 }
 
 //===================================================================
-//
+/// Очистка консоли
 //===================================================================
 void ConsoleWidget::on_pb_clear_clicked()
 {
 	te->clear();
 }
-
-

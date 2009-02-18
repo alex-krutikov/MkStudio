@@ -2,7 +2,7 @@
 
 #include "serialport_p.h"
 
-#include "consolewidget.h"
+#include "console.h"
 #include "serialport.h"
 #include "mbcommon.h"
 
@@ -114,7 +114,7 @@ int SerialPortPrivate::request( const QByteArray &request,
   }
   
   if( sp->console_out_packets )
-  { CONSOLE_OUT( "MODBUS: Request: "+QByteArray2QString( request )+"\n");
+  { Console::Print( "MODBUS: Request: "+QByteArray2QString( request )+"\n");
   }
 
   usleep( 40000000/sp->portspeed ); // 4*10 bit time delay
@@ -125,7 +125,7 @@ int SerialPortPrivate::request( const QByteArray &request,
   while(1)
   {  ret = write( fd, request.data()+i, request_size-i );
      if( ret < 0 )
-     { CONSOLE_OUT("MODBUS: ERROR: Can't write to port.\n");
+     { Console::Print("MODBUS: ERROR: Can't write to port.\n");
        close();
        return 0;
      }
@@ -138,7 +138,7 @@ int SerialPortPrivate::request( const QByteArray &request,
   while(1)
   {  ret = read( fd, answer.data()+i, answer_size-i );
      if( ret < 0 )
-     { CONSOLE_OUT("MODBUS: ERROR: Can't read from port.\n");
+     { Console::Print("MODBUS: ERROR: Can't read from port.\n");
        close();
        return 0;
      }
@@ -148,15 +148,15 @@ int SerialPortPrivate::request( const QByteArray &request,
   }
   
   if( i != answer_size )
-  { CONSOLE_OUT( QString("MODBUS: ERROR: Wrong answer length. (expected=%1, real=%2) ")
+  { Console::Print( QString("MODBUS: ERROR: Wrong answer length. (expected=%1, real=%2) ")
                        .arg( answer_size ).arg( i ))
     QByteArray ba = answer;
     ba.resize( i );
-    CONSOLE_OUT( " Answer: "+QByteArray2QString( ba )+"\n");
+    Console::Print( " Answer: "+QByteArray2QString( ba )+"\n");
   }
   
   if( sp->console_out_packets )
-  { CONSOLE_OUT( "MODBUS:  Answer: "+QByteArray2QString( answer )+"\n");
+  { Console::Print( "MODBUS:  Answer: "+QByteArray2QString( answer )+"\n");
   }
   return i;
 }

@@ -1,5 +1,10 @@
 include( ../mklib.pri )
 
+OBJECTS_DIR    = build
+UI_HEADERS_DIR = build
+MOC_DIR        = build
+RCC_DIR        = build
+
 TEMPLATE = app
 QT      += xml
 DEPENDPATH  += . ui

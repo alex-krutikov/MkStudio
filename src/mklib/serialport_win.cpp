@@ -3,7 +3,7 @@
 
 #include "serialport_p.h"
 
-#include "consolewidget.h"
+#include "console.h"
 #include "serialport.h"
 #include "mbcommon.h"
 
@@ -23,7 +23,7 @@ extern "C" WINUSERAPI BOOL WINAPI UnregisterDeviceNotification(HANDLE);
 bool SerialPortPrivateWidget::winEvent(MSG * message, long * result)
 {
   if( message->message == WM_DEVICECHANGE )
-  { CONSOLE_OUT("WM_DEVICECHANGE  wParam=" + QString::number( message->wParam , 16) + " \n" );
+  { Console::Print("WM_DEVICECHANGE  wParam=" + QString::number( message->wParam , 16) + " \n" );
     spp->close();
 
   }
@@ -41,7 +41,7 @@ SerialPortPrivate::SerialPortPrivate( SerialPort *sp_arg )
   last_error_id = 0;
 
   window.spp = this;
-  
+
   if (perf_cnt_ok = QueryPerformanceCounter(&freq))
   { perf_cnt_ok = QueryPerformanceFrequency(&freq);
   }
@@ -89,7 +89,7 @@ bool SerialPortPrivate::open()
   if(hport==INVALID_HANDLE_VALUE)
   { if( last_error_id != 1 )
     { last_error_id = 1;
-      CONSOLE_OUT( "ERROR Can't open port!\n" );
+      Console::Print( "ERROR Can't open port!\n" );
       sp->lastError_str="Can't open port!";
     }
     hport=0;
@@ -189,7 +189,7 @@ int SerialPortPrivate::request( const QByteArray &request,
   PurgeComm(hport,PURGE_TXCLEAR|PURGE_RXCLEAR);
 
   if( sp->console_out_packets )
-  { CONSOLE_OUT( "MODBUS: Request: "+QByteArray2QString( request )+"\n");
+  { Console::Print( "MODBUS: Request: "+QByteArray2QString( request )+"\n");
   }
 
   // задержка перед запросом 4 байтовых интервала на выбранной скорости
@@ -200,12 +200,12 @@ int SerialPortPrivate::request( const QByteArray &request,
   if(!ok)
   { if( last_error_id != 2 )
     { last_error_id = 2;
-      CONSOLE_OUT( "MODBUS: ERROR: WriteFile (return value).\n" );
+      Console::Print( "MODBUS: ERROR: WriteFile (return value).\n" );
     }
     return -1;
   }
   if((int)j != request.length() )
-  { CONSOLE_OUT( "MODBUS: ERROR: WriteFile (wrong length).\n" );
+  { Console::Print( "MODBUS: ERROR: WriteFile (wrong length).\n" );
     return 0;
   }
 
@@ -218,7 +218,7 @@ int SerialPortPrivate::request( const QByteArray &request,
     if(!ok)
     { if( last_error_id != 3 )
       { last_error_id = 3;
-        CONSOLE_OUT( "MODBUS: ERROR: ReadFile (return value).\n" );
+        Console::Print( "MODBUS: ERROR: ReadFile (return value).\n" );
       }
       return 0;
     }
@@ -232,7 +232,7 @@ int SerialPortPrivate::request( const QByteArray &request,
     if(!ok)
     { if( last_error_id != 3 )
       { last_error_id = 3;
-        CONSOLE_OUT( "MODBUS: ERROR: ReadFile (return value).\n" );
+        Console::Print( "MODBUS: ERROR: ReadFile (return value).\n" );
       }
       return 0;
     }
@@ -246,37 +246,37 @@ int SerialPortPrivate::request( const QByteArray &request,
   else if(j != answer_size )  goto error3;
 
   if( sp->console_out_packets )
-  { CONSOLE_OUT( "MODBUS:  Answer: "+QByteArray2QString( answer )+"\n");
+  { Console::Print( "MODBUS:  Answer: "+QByteArray2QString( answer )+"\n");
   }
 
   if( last_error_id )
-  {  CONSOLE_OUT( QString("MODBUS: OK.\n"));
+  {  Console::Print( QString("MODBUS: OK.\n"));
      last_error_id = 0;
   }
   return j;
 error1:
   {
-  CONSOLE_OUT( QString("MODBUS: Error flag in answer. ") );
+  Console::Print( QString("MODBUS: Error flag in answer. ") );
   QByteArray ba = answer;
   ba.resize( 5 );
-  CONSOLE_OUT( " [ "+QByteArray2QString( ba, 1 )+" ]\n");
+  Console::Print( " [ "+QByteArray2QString( ba, 1 )+" ]\n");
   if(errorcode) *errorcode=answer[2];
   return 5;
   }
 error2:
   {
   if( last_error_id != 4 )
-  CONSOLE_OUT( QString("MODBUS: TimeOut.\n"));
+  Console::Print( QString("MODBUS: TimeOut.\n"));
   last_error_id = 4;
   return 0;
   }
 error3:
    {
-   CONSOLE_OUT( QString("MODBUS: ERROR: ReadFile Wrong answer length. (expected=%1, real=%2) ")
+   Console::Print( QString("MODBUS: ERROR: ReadFile Wrong answer length. (expected=%1, real=%2) ")
                               .arg(answer.length()).arg(j) );
    QByteArray ba = answer;
    ba.resize( j );
-   CONSOLE_OUT( "Answer: "+QByteArray2QString( ba, 1 )+"\n");
+   Console::Print( "Answer: "+QByteArray2QString( ba, 1 )+"\n");
    return j;
    }
 }

@@ -62,7 +62,6 @@ int main(int argc, char *argv[])
   mainwindow = new MainWindow;
   mainwindow->show();
 
-  global_colsole = mainwindow->console;
   mainwindow->mbmasterwidget->setMBMaster( mbmaster );
 
   ret=application->exec();

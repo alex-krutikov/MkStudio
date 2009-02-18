@@ -5,6 +5,7 @@
 #include "mainwindow.h"
 #include "dialogs.h"
 #include "misc.h"
+#include "console.h"
 
 #include "mbmaster.h"
 #include "helpwidget.h"
@@ -1258,7 +1259,7 @@ void MainWindow::copy_to_console()
   QList<QTableWidgetItem*> si = tw->selectedItems();
   foreach(titem, si )
   { if( titem == 0 ) continue;
-    CONSOLE_OUT( titem->text() + "\n" );
+    Console::Print( titem->text() + "\n" );
   }
 }
 

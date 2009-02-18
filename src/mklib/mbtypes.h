@@ -9,7 +9,6 @@
 
 #include "mbcommon.h"
 #include "serialport.h"
-#include "consolewidget.h"
 
 class QDomDocument;
 

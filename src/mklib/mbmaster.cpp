@@ -4,6 +4,7 @@
 #include "mbmaster.h"
 #include "mbcommon.h"
 #include "crc.h"
+#include "console.h"
 
 
 //###################################################################
@@ -69,14 +70,14 @@ void MBMaster::load_configuration( QDomDocument &doc )
     mm.node    = rx.cap(1).toInt();
     mm.subnode = rx.cap(2).toInt();
 /*
-    CONSOLE_OUT( QString("NODE = %1, SUBNODE = %2  <%3> <%4> <%5> <%6>")
+    Console::Print( QString("NODE = %1, SUBNODE = %2  <%3> <%4> <%5> <%6>")
             .arg( mm.node ).arg( mm.subnode ).arg( element.attribute("Node") )
             .arg(rx.numCaptures() ).arg(rx.cap(1) ).arg(rx.cap(2) ) );
 */
     mm.name = element.attribute("Name");
     mm.desc = element.attribute("Desc");
 /*
-    CONSOLE_OUT( QString("  Модуль: %1       Название: %2 Адрес: %3 Описание: %4\n")
+    Console::Print( QString("  Модуль: %1       Название: %2 Адрес: %3 Описание: %4\n")
                    .arg(mm.n,2)
                    .arg(mm.name)
                    .arg(mm.node,2)
@@ -98,7 +99,7 @@ void MBMaster::load_configuration( QDomDocument &doc )
 
       ss.module = mm;
 /*
-      CONSOLE_OUT( QString("    слот:   %1 Адрес: 0x%2 Кол-во: %3 Тип: %4 Операция: \"%5\" Описание: %6\n")
+      Console::Print( QString("    слот:   %1 Адрес: 0x%2 Кол-во: %3 Тип: %4 Операция: \"%5\" Описание: %6\n")
                      .arg(ss.n,2)
                      .arg(ss.addr,3,16)
                      .arg(ss.len,2)
@@ -110,7 +111,7 @@ void MBMaster::load_configuration( QDomDocument &doc )
     }
  }
 
- CONSOLE_OUT( "Конфигурации MBMaster загружена.\n" );
+ Console::Print( "Конфигурации MBMaster загружена.\n" );
 }
 
 //===================================================================
@@ -283,7 +284,7 @@ void MBMaster::polling_start()
    }
  }
  //for( i=0; i<transactions_write.count(); i++ )
- //{ CONSOLE_OUT("запись:" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
+ //{ Console::Print("запись:" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
  //}
  start();
  setPriority( QThread::HighestPriority );
@@ -415,7 +416,7 @@ void MBMaster::run()
   full_time_timer.start();
   full_time=0;
 
-  CONSOLE_OUT( "Опрос модулей запущен.\n" );
+  Console::Print( "Опрос модулей запущен.\n" );
 
   thread_exit_flag = false;
   while( !thread_exit_flag ) // цикл опроса
@@ -484,7 +485,7 @@ void MBMaster::run()
     }
     msleep(25);
   }
-  CONSOLE_OUT( "Опрос модулей остановлен.\n" );
+  Console::Print( "Опрос модулей остановлен.\n" );
 }
 
 //===================================================================
@@ -539,7 +540,7 @@ void MBMaster::optimize_write()
       j = i;
       while( ( j < ni ) && ( flags_array[j] == k ) ) j++;
       j--;
-      //CONSOLE_OUT( QString("ОПТИМИЗИРОВАННАЯ ЗАПИСЬ [%1;%2] (%3)\n").arg(i).arg(j).arg(k) );
+      //Console::Print( QString("ОПТИМИЗИРОВАННАЯ ЗАПИСЬ [%1;%2] (%3)\n").arg(i).arg(j).arg(k) );
       optimize_write_transaction( i,j );
       i=j;
     }
@@ -616,7 +617,7 @@ void MBMaster::optimize_write_transaction(int i1, int i2)
     if( !transport  ) return;
     int errorcode;
     transport->request( ba, ba_answer, &errorcode );
-    //CONSOLE_OUT( "ОПТИМИЗИРОВАННАЯ ЗАПИСЬ: " + QByteArray2QString( ba ) + "\n" );
+    //Console::Print( "ОПТИМИЗИРОВАННАЯ ЗАПИСЬ: " + QByteArray2QString( ba ) + "\n" );
     i = j;
   }
 }
@@ -754,16 +755,16 @@ void MBMaster::setSlotValue(int module, int slot,int index, const MMValue &value
   int  buff_len=0;
 
   int i,j;
-  //CONSOLE_OUT( QString("Запись: %1/%2/%3 %4\n").arg(module).arg(slot).arg(index).arg(value.toString()) );
+  //Console::Print( QString("Запись: %1/%2/%3 %4\n").arg(module).arg(slot).arg(index).arg(value.toString()) );
 
   QMutexLocker locker(&mutex);
 
    i=transactions_write_map.value( ModuleSlotIndex(module,slot,index), -1 );
    if( (i>=0) && (i<transactions_write.count()) )
    {
-    //CONSOLE_OUT( QString("Запись: слот найден!\n") );
+    //Console::Print( QString("Запись: слот найден!\n") );
     transactions_write[i].request.resize(6);
-    //CONSOLE_OUT("запись 1:" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
+    //Console::Print("запись 1:" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
     switch( transactions_write[i].slot->datatype.id() )
     {  case( MBDataType::Bits   ):
          if( value.toInt() != 0 )
@@ -787,7 +788,7 @@ void MBMaster::setSlotValue(int module, int slot,int index, const MMValue &value
     for(j=0; j<buff_len; j++ ) transactions_write[i].request.append( buff[j] );
     CRC::appendCRC16( transactions_write[i].request );
     transactions_write[i].execute_flag=true;
-    //CONSOLE_OUT("запись 2:" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
+    //Console::Print("запись 2:" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
   }
 }
 
