@@ -33,10 +33,11 @@
 		<Unit filename="mbmasterwidget.cpp" />
 		<Unit filename="mbmasterwidget.h" />
 		<Unit filename="mbtypes.h" />
-		<Unit filename="mkselfrecorder.cpp" />
-		<Unit filename="mkselfrecorder.h" />
 		<Unit filename="mktable.cpp" />
 		<Unit filename="mktable.h" />
+		<Unit filename="mktable_p.h" />
+		<Unit filename="plot.cpp" />
+		<Unit filename="plot.h" />
 		<Unit filename="serialport.cpp" />
 		<Unit filename="serialport.h" />
 		<Unit filename="serialport_p.h" />

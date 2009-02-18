@@ -52,7 +52,11 @@ win32{ SOURCES += serialport_win.cpp }
 unix{  SOURCES += serialport_unix.cpp }
 
 HEADERS += mktable.h
+HEADERS += mktable_p.h
 SOURCES += mktable.cpp
+
+HEADERS += plot.h
+SOURCES += plot.cpp
 
 HEADERS += helpwidget.h
 SOURCES += helpwidget.cpp

@@ -7,17 +7,13 @@
 #include <QWidget>
 #include <QModelIndex>
 #include <QListWidget>
-
-#include "mbtypes.h"
+#include <QVector>
 
 class MBMaster;
 class QMouseEvent;
 class QDomDocument;
-
-class MKTableItemDelegate;
 class MBDataType;
-
-class QToolButton;
+class MMValue;
 
 //---------------------------------------------------------------------------
 //! Ќастроечна€ таблица
@@ -64,16 +60,7 @@ private:
     QMap<int,QString> map_menu;
   };
 
-  // служебна€ структура - прив€зка €чеек
-  struct MKTableAssignData
-  { int m_index,s_index,i_index; // модуль,слот,индекс
-    int row,column;              // €чейка
-    MMValue current_value;       // текущее значение
-    int status;                  // достоверность значени€
-    int format;                  // формат выдачи
-    int ss_enum_index;           // индекс в векторе enum
-    static bool lessThan(const MKTableAssignData &s1, const MKTableAssignData &s2);
-  };
+  struct MKTableAssignData;
 
   QVector<MKTableAssignData> assign_data;
   QVector<MKTable_SS_Enum>   ss_enum;
@@ -84,94 +71,6 @@ private slots:
   void refresh();
 signals:
   void item_changed_by_editor();
-};
-
-//---------------------------------------------------------------------------
-//
-//---------------------------------------------------------------------------
-class MKTableItemDelegate : public QItemDelegate
-{
-  Q_OBJECT
-public:
-  MKTableItemDelegate( MKTable *parent = 0 );
-  void paint ( QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index ) const;
-  void setModelData ( QWidget * editor, QAbstractItemModel * model, const QModelIndex &index ) const;
-  QWidget *createEditor ( QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index ) const;
-  void setEditorData( QWidget *editor, const QModelIndex &index ) const;
-  void updateEditorGeometry ( QWidget * editor, const QStyleOptionViewItem & option, const QModelIndex & index ) const;
-private slots:
-  void commitAndCloseEditor();
-private:
-  bool eventFilter(QObject *obj, QEvent *ev);
-  MKTable *table;
-};
-
-//---------------------------------------------------------------------------
-//
-//---------------------------------------------------------------------------
-class MKTableItemCBWidget : public QListWidget
-{
-  Q_OBJECT
-public:
-  MKTableItemCBWidget( QWidget *parent = 0 );
-  void highlightcursor();
-signals:
-  void editingFinished();
-protected:
-  void mousePressEvent( QMouseEvent * event );
-  void mouseMoveEvent ( QMouseEvent * event );
-  void leaveEvent ( QEvent * event );
-
-   QStyleOptionViewItem viewOptions() const
-   { QStyleOptionViewItem option = QListView::viewOptions();
-     option.showDecorationSelected = true;
-     return option;
-   }
-private:
-  int row_under_mouse;
-};
-
-//---------------------------------------------------------------------------
-//
-//---------------------------------------------------------------------------
-#include "ui/ui_plot.h"
-
-class Plot : public QWidget,
-             public Ui::Plot
-{
-  Q_OBJECT
-public:
-  Plot( QWidget *parent=0, MBMaster *mbmaster=0, const QString &config = QString() );
-  void timerEvent ( QTimerEvent * event );
-  QSize sizeHint () const;
-  double noise() const;
-private slots:
-  void pb_clear_clicked();
-  void pb_pause_clicked();
-  void pb_export_clicked();
-  void on_cb_speed_currentIndexChanged( int );
-private:
-  QToolButton *pb_pause;
-  QToolButton *pb_export;
-  static const int y_data_len = 200;
-  double y_data[ y_data_len ];
-  double x_data[ y_data_len ];
-  double y_max;
-  double y_min;
-  double y_mean;
-  double y_std;
-  static const int y_hist_data_len = 17;
-  double y_hist_data[ y_hist_data_len ];
-  double x_hist_data[ y_hist_data_len ];
-  int module_index;
-  int slot_index;
-  int value_index;
-  bool firstrun_flag;
-  bool pause_flag;
-  int points_counter;
-  double avr_a;
-  int avr_counter;
-  MBMaster *mbmaster;
 };
 
 /*! \page xml_table_desc ‘ормат XML документа таблицы
