@@ -1,6 +1,7 @@
 #include <QtGui>
 
 #include "mbconfigwidget.h"
+#include "ui_mbconfigwidget.h"
 
 #include "mbcommon.h"
 
@@ -8,12 +9,12 @@
 //
 //###################################################################
 MBConfigWidget::MBConfigWidget( QWidget *parent )
-  : QWidget( parent )
+  : QWidget( parent ), ui( new Ui::MBConfigWidget )
 {
   int i,j;
-  setupUi( this );
-  splitter->setStretchFactor(0,10);
-  splitter->setStretchFactor(1,15);
+  ui->setupUi( this );
+  ui->splitter->setStretchFactor(0,10);
+  ui->splitter->setStretchFactor(1,15);
 
   for( i=0; i<MODULES_MAX_N; i++ )
   { for( j=0; j<SLOTS_MAX_N; j++ )
@@ -23,30 +24,38 @@ MBConfigWidget::MBConfigWidget( QWidget *parent )
   }
   slots_model.current_module=-1;
 
-  tw1->setContextMenuPolicy( Qt::CustomContextMenu );
-  tw1->setSelectionBehavior( QAbstractItemView::SelectRows );
-  tw1->setSelectionMode( QAbstractItemView::SingleSelection );
-  tw1->verticalHeader()->setDefaultSectionSize( tw1->font().pointSize()+11 );
-  tw1->verticalHeader()->hide();
-  tw1->setModel( &modules_model );
-  tw1->horizontalHeader()->setStretchLastSection( true );
-  tw1->horizontalHeader()->resizeSections( QHeaderView::ResizeToContents );
-  tw1->horizontalHeader()->setClickable( false );
-  connect( tw1->selectionModel(),
+  ui->tw1->setContextMenuPolicy( Qt::CustomContextMenu );
+  ui->tw1->setSelectionBehavior( QAbstractItemView::SelectRows );
+  ui->tw1->setSelectionMode( QAbstractItemView::SingleSelection );
+  ui->tw1->verticalHeader()->setDefaultSectionSize( ui->tw1->font().pointSize()+11 );
+  ui->tw1->verticalHeader()->hide();
+  ui->tw1->setModel( &modules_model );
+  ui->tw1->horizontalHeader()->setStretchLastSection( true );
+  ui->tw1->horizontalHeader()->resizeSections( QHeaderView::ResizeToContents );
+  ui->tw1->horizontalHeader()->setClickable( false );
+  connect( ui->tw1->selectionModel(),
           SIGNAL( currentRowChanged(const QModelIndex&, const QModelIndex&) ),
           this,
           SLOT( tw1_currentRowChanged(const QModelIndex&, const QModelIndex&)));
-  tw1->selectRow(0);
+  ui->tw1->selectRow(0);
 
-  tw2->setContextMenuPolicy( Qt::CustomContextMenu );
-  tw2->setSelectionBehavior( QAbstractItemView::SelectRows );
-  tw2->setSelectionMode( QAbstractItemView::SingleSelection );
-  tw2->verticalHeader()->setDefaultSectionSize( tw1->font().pointSize()+11 );
-  tw2->verticalHeader()->hide();
-  tw2->setModel( &slots_model );
-  tw2->horizontalHeader()->setStretchLastSection( true );
-  tw2->horizontalHeader()->resizeSections( QHeaderView::ResizeToContents );
-  tw2->horizontalHeader()->setClickable( false );
+  ui->tw2->setContextMenuPolicy( Qt::CustomContextMenu );
+  ui->tw2->setSelectionBehavior( QAbstractItemView::SelectRows );
+  ui->tw2->setSelectionMode( QAbstractItemView::SingleSelection );
+  ui->tw2->verticalHeader()->setDefaultSectionSize( ui->tw1->font().pointSize()+11 );
+  ui->tw2->verticalHeader()->hide();
+  ui->tw2->setModel( &slots_model );
+  ui->tw2->horizontalHeader()->setStretchLastSection( true );
+  ui->tw2->horizontalHeader()->resizeSections( QHeaderView::ResizeToContents );
+  ui->tw2->horizontalHeader()->setClickable( false );
+}
+
+//===================================================================
+//
+//===================================================================
+MBConfigWidget::~MBConfigWidget()
+{
+  delete ui;
 }
 
 //===================================================================
@@ -59,10 +68,10 @@ void MBConfigWidget::on_tw1_customContextMenuRequested ( const QPoint& pos)
   QMenu menu;
   QAction *act_copy  = menu.addAction(QIcon(":/icons/res/copy.png"),  "Копировать" );
   QAction *act_paste = menu.addAction(QIcon(":/icons/res/paste.png"), "Вставить"   );
-  QAction *act = menu.exec( tw1->mapToGlobal( pos ) );
+  QAction *act = menu.exec( ui->tw1->mapToGlobal( pos ) );
   if( act == 0 ) return;
 
-  int r = tw1->selectionModel()->selectedRows().value(0).row();
+  int r = ui->tw1->selectionModel()->selectedRows().value(0).row();
   if(( r < 0) || (r >= MODULES_MAX_N ) ) return;
 
   if( act == act_copy )
@@ -76,7 +85,7 @@ void MBConfigWidget::on_tw1_customContextMenuRequested ( const QPoint& pos)
     { slots_model.sd[r][i]=sbuffer[i];
     }
     modules_model.refresh();
-    tw1->selectRow(r);
+    ui->tw1->selectRow(r);
   }
   return;
 }
@@ -86,7 +95,7 @@ void MBConfigWidget::on_tw1_customContextMenuRequested ( const QPoint& pos)
 //===================================================================
 void MBConfigWidget::on_tw2_activated ( const QModelIndex & index)
 {
-  tw2->model()->setData( index, 1 , Qt::UserRole );
+  ui->tw2->model()->setData( index, 1 , Qt::UserRole );
 }
 
 //===================================================================
@@ -97,7 +106,7 @@ void MBConfigWidget::tw1_currentRowChanged(const QModelIndex&current,
 {
   Q_UNUSED( previous );
   slots_model.set_current_module( current.row() );
-  tw2->clearSelection();
+  ui->tw2->clearSelection();
 }
 
 //===================================================================
@@ -123,7 +132,7 @@ void MBConfigWidget::clearConfiguration()
 
   modules_model.refresh();
   slots_model.set_current_module(0);
-  tw1->selectRow(0);
+  ui->tw1->selectRow(0);
 }
 
 //===================================================================
@@ -166,7 +175,7 @@ void MBConfigWidget::loadConfiguration( QDomDocument &doc )
 
   modules_model.refresh();
   slots_model.set_current_module(0);
-  tw1->selectRow(0);
+  ui->tw1->selectRow(0);
 }
 
 //===================================================================

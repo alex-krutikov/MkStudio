@@ -12,13 +12,12 @@
 #define MODULES_MAX_N   50
 #define SLOTS_MAX_N    100
 
+namespace Ui { class MBConfigWidget; }
 
 //===================================================================
 //! Виджет для настройки конфигурации опроса модулей
 //===================================================================
-#include "ui_mbconfigwidget.h"
-class MBConfigWidget : public QWidget,
-                       public Ui::MBConfigWidget
+class MBConfigWidget : public QWidget
 {
 
 class ModulesModel : public QAbstractTableModel
@@ -81,6 +80,7 @@ private:
   Q_OBJECT
 public:
   MBConfigWidget( QWidget *parent = 0 );
+  ~MBConfigWidget();
 //! Очистить конфигурацию
   void clearConfiguration();
 
@@ -123,6 +123,7 @@ public:
   void setSlotAttributes(int module, int slot, const QString &attributes);
 
 private:
+  Ui::MBConfigWidget *ui;
   ModulesModel modules_model;
   SlotsModel   slots_model;
 
