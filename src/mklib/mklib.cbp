@@ -24,6 +24,8 @@
 		<Unit filename="consolewidget.h" />
 		<Unit filename="crc.cpp" />
 		<Unit filename="crc.h" />
+		<Unit filename="helpwidget.cpp" />
+		<Unit filename="helpwidget.h" />
 		<Unit filename="mbcommon.cpp" />
 		<Unit filename="mbcommon.h" />
 		<Unit filename="mbconfigwidget.cpp" />

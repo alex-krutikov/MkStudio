@@ -5,7 +5,7 @@
 
 class QUrl;
 
-#include "ui/ui_helpwidget.h"
+#include "ui_helpwidget.h"
 class HelpWidget : public QWidget,
                    public Ui::HelpWidget
 {

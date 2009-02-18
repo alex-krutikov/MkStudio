@@ -4,6 +4,7 @@ OBJECTS_DIR    = build
 UI_HEADERS_DIR = build
 MOC_DIR        = build
 RCC_DIR        = build
+UI_HEADERS_DIR = build
 
 TEMPLATE = app
 QT      += xml
@@ -15,7 +16,6 @@ INCLUDEPATH += . ui
 DESTDIR = ../../bin
 
 PRECOMPILED_HEADER = pch.h
-UI_HEADERS_DIR = ui
 
 RESOURCES = mkstudio.qrc
 

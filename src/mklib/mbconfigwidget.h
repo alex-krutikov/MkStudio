@@ -16,7 +16,7 @@
 //===================================================================
 //! Виджет для настройки конфигурации опроса модулей
 //===================================================================
-#include "ui/ui_mbconfigwidget.h"
+#include "ui_mbconfigwidget.h"
 class MBConfigWidget : public QWidget,
                        public Ui::MBConfigWidget
 {

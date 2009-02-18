@@ -58,7 +58,7 @@ class MBMasterWidgetTableModel : public QAbstractTableModel
 //===================================================================
 //
 //===================================================================
-#include "ui/ui_mbmasterwidget.h"
+#include "ui_mbmasterwidget.h"
 class MBMasterWidget : public QWidget,
                        public Ui::MBMasterWidget
 {
@@ -88,7 +88,7 @@ signals:
 //===================================================================
 //
 //===================================================================
-#include "ui/ui_mbmslotwidget.h"
+#include "ui_mbmslotwidget.h"
 class MBMasterSlotWidget : public QMainWindow,
                            public Ui::MBMasterSlotWidget
 {
@@ -124,7 +124,7 @@ private slots:
 //===================================================================
 //
 //===================================================================
-#include "ui/ui_mbmslotexportdialog.h"
+#include "ui_mbmslotexportdialog.h"
 class MBMasterSlotExportDialog : public QDialog,
                            public Ui::MBMasterSlotExportDialog
 {

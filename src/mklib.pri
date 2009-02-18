@@ -1,5 +1,5 @@
-INCLUDEPATH += ../mklib
-DEPENDPATH  += ../mklib
+INCLUDEPATH += ../mklib ../mklib/build
+DEPENDPATH  += ../mklib ../mklib/build
 LIBS += -L../../lib -lmklib
 
 PRE_TARGETDEPS = ../../lib/libmklib.a

@@ -61,7 +61,7 @@ private:
 //=======================================================================================
 //
 //=======================================================================================
-#include "ui/ui_midialog.h"
+#include "ui_midialog.h"
 class ModuleInfoDialog : public QDialog,
                          public Ui::ModuleInfoDialog
 {
