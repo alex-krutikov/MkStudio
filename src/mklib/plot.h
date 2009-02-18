@@ -12,14 +12,15 @@ class QToolButton;
 //---------------------------------------------------------------------------
 //
 //---------------------------------------------------------------------------
-#include "ui_plot.h"
 
-class Plot : public QWidget,
-             public Ui::Plot
+namespace Ui { class Plot; }
+
+class Plot : public QWidget
 {
   Q_OBJECT
 public:
   Plot( QWidget *parent=0, MBMaster *mbmaster=0, const QString &config = QString() );
+  virtual ~Plot();
   void timerEvent ( QTimerEvent * event );
   QSize sizeHint () const;
   double noise() const;
@@ -29,6 +30,7 @@ private slots:
   void pb_export_clicked();
   void on_cb_speed_currentIndexChanged( int );
 private:
+  Ui::Plot *ui;
   QToolButton *pb_pause;
   QToolButton *pb_export;
   static const int y_data_len = 200;

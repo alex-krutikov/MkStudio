@@ -1,6 +1,7 @@
 #include <QtGui>
 #include <QtXml>
 
+#include "ui_plot.h"
 #include "plot.h"
 #include "mbmaster.h"
 
@@ -20,12 +21,12 @@
 //
 //##############################################################################
 Plot::Plot( QWidget *parent, MBMaster *mbmaster, const QString &config )
-  : QWidget( parent )
+  : QWidget( parent ), ui( new Ui::Plot )
 {
   int i;
   static QRegExp rx("^(\\d+)/(\\d+)/(\\d+)$");
 
-  setupUi( this );
+  ui->setupUi( this );
   setWindowTitle("Самописец");
 
   setWindowFlags( Qt::Tool );
@@ -49,32 +50,32 @@ Plot::Plot( QWidget *parent, MBMaster *mbmaster, const QString &config )
   memset( y_data, 0, sizeof( y_data ) );
   for(i=0; i<y_hist_data_len;i++) x_hist_data[i]=i;
   //--------------------------------------------
-  plot->setCanvasBackground(QColor("linen"));
-  plot->enableAxis(QwtPlot::yRight);
-  plot->enableAxis(QwtPlot::yLeft, false );
-  plot->setAxisScale(QwtPlot::xBottom,20,0);
+  ui->plot->setCanvasBackground(QColor("linen"));
+  ui->plot->enableAxis(QwtPlot::yRight);
+  ui->plot->enableAxis(QwtPlot::yLeft, false );
+  ui->plot->setAxisScale(QwtPlot::xBottom,20,0);
 
   QwtPlotCurve *plot_data = new QwtPlotCurve("Curve 1");
   plot_data->setPen(QPen(Qt::darkBlue,2));
   plot_data->setYAxis(QwtPlot::yRight);
   plot_data->setRawData( x_data, y_data, y_data_len );
-  plot_data->attach(plot);
+  plot_data->attach(ui->plot);
   //--------------------------------------------
-  hist->setCanvasBackground(QColor("linen"));
-  hist->enableAxis(QwtPlot::xTop,      false );
-  hist->enableAxis(QwtPlot::xBottom,   false );
-  hist->enableAxis(QwtPlot::yRight,    false );
-  hist->enableAxis(QwtPlot::yLeft,     false );
+  ui->hist->setCanvasBackground(QColor("linen"));
+  ui->hist->enableAxis(QwtPlot::xTop,      false );
+  ui->hist->enableAxis(QwtPlot::xBottom,   false );
+  ui->hist->enableAxis(QwtPlot::yRight,    false );
+  ui->hist->enableAxis(QwtPlot::yLeft,     false );
 
   QwtPlotCurve *hist_data = new QwtPlotCurve("Curve 2");
   hist_data->setPen( Qt::NoPen );
   hist_data->setStyle( QwtPlotCurve::Steps );
   hist_data->setBrush( QColor( "lightslategrey" ) );
   hist_data->setRawData( x_hist_data, y_hist_data, y_hist_data_len );
-  hist_data->attach(hist);
+  hist_data->attach(ui->hist);
   //---------
 
-  QWidget *w = new QWidget( plot );
+  QWidget *w = new QWidget( ui->plot );
   QHBoxLayout *layout = new QHBoxLayout;
 
   QToolButton *pb = new QToolButton;
@@ -107,9 +108,17 @@ Plot::Plot( QWidget *parent, MBMaster *mbmaster, const QString &config )
 //==============================================================================
 //
 //==============================================================================
+Plot::~Plot()
+{
+  delete ui;
+}
+
+//==============================================================================
+//
+//==============================================================================
 double Plot::noise() const
 {
-  return le_std->text().toDouble();
+  return ui->le_std->text().toDouble();
 }
 
 //==============================================================================
@@ -149,7 +158,7 @@ void Plot::pb_export_clicked()
   double scale_x = 20;
   double x_value;
 
-  switch( cb_speed->currentIndex() )
+  switch( ui->cb_speed->currentIndex() )
   { case(0): // 20 сек
       scale_x = 20;
       break;
@@ -197,7 +206,7 @@ void Plot::on_cb_speed_currentIndexChanged( int index )
     case(3): a=20; break; // 20 мин
     case(4): a=60; break; // 1 час
   }
-  plot->setAxisScale(QwtPlot::xBottom,a,0);
+  ui->plot->setAxisScale(QwtPlot::xBottom,a,0);
   pb_clear_clicked();
 }
 
@@ -228,7 +237,7 @@ void Plot::timerEvent ( QTimerEvent * event )
   { avr_a += a;
     avr_counter++;
 
-    switch( cb_speed->currentIndex() )
+    switch( ui->cb_speed->currentIndex() )
     { case(0): // 20 сек
         scale_x = 20;
         break;
@@ -298,17 +307,17 @@ void Plot::timerEvent ( QTimerEvent * event )
   }
 
   // обновление графика
-  plot->replot();
-  hist->replot();
-  le_mean          -> setText( QString::number( y_mean ) );
-  le_diff          -> setText( QString::number( y_max-y_min ) );
-  le_std           -> setText( QString::number( y_std ) );
+  ui->plot->replot();
+  ui->hist->replot();
+  ui->le_mean          -> setText( QString::number( y_mean ) );
+  ui->le_diff          -> setText( QString::number( y_max-y_min ) );
+  ui->le_std           -> setText( QString::number( y_std ) );
   if( ( y_mean != 0 ) && (y_max != y_min ) )
-  { le_noise_percent -> setText( QString::number( fabs((y_max-y_min) / y_mean )*100 ) );
-    le_noise_db      -> setText( QString::number( -20*log10( fabs( (y_max-y_min) / y_mean ) ),'f' ,1 ) );
+  { ui->le_noise_percent -> setText( QString::number( fabs((y_max-y_min) / y_mean )*100 ) );
+    ui->le_noise_db      -> setText( QString::number( -20*log10( fabs( (y_max-y_min) / y_mean ) ),'f' ,1 ) );
   } else
-  { le_noise_percent->clear();
-    le_noise_db->clear();
+  { ui->le_noise_percent->clear();
+    ui->le_noise_db->clear();
   }
 }
 
