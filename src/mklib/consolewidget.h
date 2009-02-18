@@ -9,24 +9,26 @@
   "автопрокрутка".
 */
 
-#include <QtGui>
+#include <QWidget>
+
+namespace Ui { class ConsoleWidget; }
 
 //===================================================================
 //! Виджет консоль для выдачи сообщений и логов.
 //===================================================================
-#include "ui/ui_consolewidget.h"
-class ConsoleWidget : public QWidget,
-                      public Ui::ConsoleWidget
+class ConsoleWidget : public QWidget
 {
   Q_OBJECT
 public:
   ConsoleWidget( QWidget *parent = 0 );
+  virtual ~ConsoleWidget();
 protected:
   void timerEvent(QTimerEvent * event);
 private slots:
   void on_pb_clear_clicked();
 private:
   int div_counter;
+  Ui::ConsoleWidget *ui;
 };
 
 #endif
