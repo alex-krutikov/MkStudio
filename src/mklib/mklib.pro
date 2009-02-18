@@ -1,12 +1,11 @@
 QT += xml
 
-#### win32{ QMAKE_POST_LINK  =  cd ../mkstudio && make release }
+OBJECTS_DIR    = build
+UI_HEADERS_DIR = build
+MOC_DIR        = build
+RCC_DIR        = build
 
 CONFIG -= rtti exceptions
-
-#####QMAKE_CXXFLAGS_RELEASE -= -O2
-#####QMAKE_CXXFLAGS_RELEASE += -O0 -g
-#####QMAKE_LFLAGS_RELEASE   -= -Wl,-s
 
 TEMPLATE = lib
 DESTDIR  = ../../lib
