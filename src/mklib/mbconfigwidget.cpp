@@ -5,6 +5,8 @@
 
 #include "mbcommon.h"
 
+#define MODULES_MAX_N   50
+#define SLOTS_MAX_N    100
 
 class ModulesModel : public QAbstractTableModel
 {
@@ -57,9 +59,8 @@ public:
   t_slot_desc sd[MODULES_MAX_N][SLOTS_MAX_N];
 };
 
-class MBConfigWidgetPrivate
+struct MBConfigWidgetPrivate
 {
-public:
   ModulesModel       modules_model;
   SlotsModel         slots_model;
 
@@ -175,7 +176,7 @@ void MBConfigWidget::tw1_currentRowChanged(const QModelIndex&current,
 }
 
 //===================================================================
-//
+//! Очистить конфигурацию
 //===================================================================
 void MBConfigWidget::clearConfiguration()
 {
@@ -201,9 +202,12 @@ void MBConfigWidget::clearConfiguration()
 }
 
 //===================================================================
-//
+//! Загрузить конфигурацию
+/*!
+   \param doc XML документ с описанием конфигурации
+*/
 //===================================================================
-void MBConfigWidget::loadConfiguration( QDomDocument &doc )
+void MBConfigWidget::loadConfiguration( const QDomDocument &doc )
 {
   int i,j;
   int n,k;
@@ -244,9 +248,12 @@ void MBConfigWidget::loadConfiguration( QDomDocument &doc )
 }
 
 //===================================================================
-//
+//! Загрузить конфигурацию
+/*!
+   \param xml массив данных с конфигурацией (текст xml-описания)
+*/
 //===================================================================
-void MBConfigWidget::loadConfiguration( QByteArray &xml )
+void MBConfigWidget::loadConfiguration( const QByteArray &xml )
 {
   QDomDocument doc;
   doc.setContent( xml, false );
@@ -254,7 +261,10 @@ void MBConfigWidget::loadConfiguration( QByteArray &xml )
 }
 
 //===================================================================
-//
+//! Получить текущую конфигурацию
+/*!
+   \param doc XML документ с описанием конфигурации
+*/
 //===================================================================
 void MBConfigWidget::saveConfiguration( QDomDocument &doc )
 {
@@ -298,7 +308,12 @@ void MBConfigWidget::saveConfiguration( QDomDocument &doc )
 }
 
 //===================================================================
-//
+//! Задать аттрибуты слота
+/*!
+   \param module     Номер модуля
+   \param slot       Номер слота
+   \param attributes Аттрибуты
+*/
 //===================================================================
 void MBConfigWidget::setSlotAttributes(int module, int slot, const QString &attributes)
 {
@@ -310,7 +325,10 @@ void MBConfigWidget::setSlotAttributes(int module, int slot, const QString &attr
 }
 
 //===================================================================
-//
+//! Получить текущую конфигурацию
+/*!
+   \param xml массив данных с конфигурацией (текст xml-описания)
+*/
 //===================================================================
 void MBConfigWidget::saveConfiguration( QByteArray &xml )
 {
@@ -320,7 +338,10 @@ void MBConfigWidget::saveConfiguration( QByteArray &xml )
 }
 
 //===================================================================
-//
+//! Экспортировать текущую конфигурацию в текстовый файл
+/*!
+   \return Текстовое описание конфигурации
+*/
 //===================================================================
 QString MBConfigWidget::exportConfiguration()
 {

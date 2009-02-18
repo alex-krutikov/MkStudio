@@ -2,19 +2,14 @@
 #define __MBCONFIGWIDGET_H__
 
 #include <QWidget>
-#include <QAbstractTableModel>
 #include <QString>
-#include <QByteArray>
-#include <QtXml>
-
-#include "mbcommon.h"
-
-#define MODULES_MAX_N   50
-#define SLOTS_MAX_N    100
 
 namespace Ui { class MBConfigWidget; }
-
 class MBConfigWidgetPrivate;
+class QByteArray;
+class QDomDocument;
+class QPoint;
+class QModelIndex;
 
 //===================================================================
 //! Виджет для настройки конфигурации опроса модулей
@@ -25,45 +20,13 @@ class MBConfigWidget : public QWidget
 public:
   MBConfigWidget( QWidget *parent = 0 );
   ~MBConfigWidget();
-//! Очистить конфигурацию
+
   void clearConfiguration();
-
-//! Загрузить конфигурацию
-/*!
-   \param xml массив данных с конфигурацией (текст xml-описания)
-*/
-  void loadConfiguration( QByteArray &xml );
-
-//! Загрузить конфигурацию
-/*!
-   \param doc XML документ с описанием конфигурации
-*/
-  void loadConfiguration( QDomDocument &doc );
-
-//! Получить текущую конфигурацию
-/*!
-   \param xml массив данных с конфигурацией (текст xml-описания)
-*/
+  void loadConfiguration( const QByteArray &xml );
+  void loadConfiguration( const QDomDocument &doc );
   void saveConfiguration( QByteArray &xml );
-
-//! Получить текущую конфигурацию
-/*!
-   \param doc XML документ с описанием конфигурации
-*/
   void saveConfiguration( QDomDocument &doc );
-
-//! Экспортировать текущую конфигурацию в текстовый файл
-/*!
-   \return Текстовое описание конфигурации
-*/
   QString exportConfiguration();
-
-//! Задать аттрибуты слота
-/*!
-   \param module     Номер модуля
-   \param slot       Номер слота
-   \param attributes Аттрибуты
-*/
   void setSlotAttributes(int module, int slot, const QString &attributes);
 
 private:
