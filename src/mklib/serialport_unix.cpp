@@ -149,7 +149,7 @@ int SerialPortPrivate::request( const QByteArray &request,
   
   if( i != answer_size )
   { Console::Print( QString("MODBUS: ERROR: Wrong answer length. (expected=%1, real=%2) ")
-                       .arg( answer_size ).arg( i ))
+                       .arg( answer_size ).arg( i ));
     QByteArray ba = answer;
     ba.resize( i );
     Console::Print( " Answer: "+QByteArray2QString( ba )+"\n");

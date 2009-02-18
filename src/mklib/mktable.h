@@ -14,6 +14,7 @@ class QMouseEvent;
 class QDomDocument;
 class MBDataType;
 class MMValue;
+class MKTableItemDelegate;
 
 //---------------------------------------------------------------------------
 //! Настроечная таблица
