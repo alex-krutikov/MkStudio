@@ -4,6 +4,10 @@
 #include "mbcommon.h"
 #include "slotwidget.h"
 
+#include "ui_mbmasterwidget.h"
+#include "ui_mbmslotwidget.h"
+#include "ui_mbmslotexportdialog.h"
+
 #include <qwt_painter.h>
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_marker.h>
@@ -18,21 +22,29 @@
 //
 //##############################################################################
 MBMasterWidget::MBMasterWidget( QWidget *parent )
-  : QWidget( parent )
+  : QWidget( parent ), ui( new Ui::MBMasterWidget )
 {
-  setupUi( this );
+  ui->setupUi( this );
 
   mbmaster = 0;
   mbmodel = new MBMasterWidgetTableModel( this );
 
-  tw->setSelectionBehavior( QAbstractItemView::SelectRows );
-  tw->setSelectionMode( QAbstractItemView::NoSelection );
-  tw->verticalHeader()->setDefaultSectionSize( tw->font().pointSize()+11 );
-  tw->verticalHeader()->hide();
-  tw->setModel( mbmodel );
-  tw->horizontalHeader()->setStretchLastSection( true );
-  tw->horizontalHeader()->resizeSections( QHeaderView::ResizeToContents );
-  tw->horizontalHeader()->setClickable( false );
+  ui->tw->setSelectionBehavior( QAbstractItemView::SelectRows );
+  ui->tw->setSelectionMode( QAbstractItemView::NoSelection );
+  ui->tw->verticalHeader()->setDefaultSectionSize( ui->tw->font().pointSize()+11 );
+  ui->tw->verticalHeader()->hide();
+  ui->tw->setModel( mbmodel );
+  ui->tw->horizontalHeader()->setStretchLastSection( true );
+  ui->tw->horizontalHeader()->resizeSections( QHeaderView::ResizeToContents );
+  ui->tw->horizontalHeader()->setClickable( false );
+}
+
+//==============================================================================
+//
+//==============================================================================
+MBMasterWidget::~MBMasterWidget()
+{
+  delete ui;
 }
 
 //==============================================================================
@@ -347,16 +359,17 @@ void MBMasterWidgetTableModel::refresh()
 QMap<QString,QString> MBMasterSlotWidget::class_settings;
 MBMasterSlotWidget::MBMasterSlotWidget( QWidget *parent, MBMaster *mm_arg,
                                                 MTMSlot slot_arg )
- : QMainWindow( parent ), slot(slot_arg), mm( mm_arg )
+ :  QMainWindow( parent ), ui( new Ui::MBMasterSlotWidget ),
+    slot(slot_arg), mm( mm_arg )
 {
   QString str;
 
-  setupUi( this );
+  ui->setupUi( this );
   setWindowFlags( Qt::Tool );
   setAttribute( Qt::WA_DeleteOnClose, true );
   resize( 800,400 );
 
-  QAction *act_export = menubar->addAction("Ёкспорт");
+  QAction *act_export = ui->menubar->addAction("Ёкспорт");
   connect( act_export, SIGNAL( activated() ), this, SLOT( action_export_activated() ) );
 
 
@@ -374,56 +387,64 @@ MBMasterSlotWidget::MBMasterSlotWidget( QWidget *parent, MBMaster *mm_arg,
 
   configure_table();
   //-----------
-  plot->setCanvasBackground(QColor("linen"));
-  plot->enableAxis(QwtPlot::yRight, false);
-  plot->enableAxis(QwtPlot::yLeft,  true );
+  ui->plot->setCanvasBackground(QColor("linen"));
+  ui->plot->enableAxis(QwtPlot::yRight, false);
+  ui->plot->enableAxis(QwtPlot::yLeft,  true );
 
   plot_curve = new QwtPlotCurve("");
   plot_curve->setPen(QPen(Qt::darkBlue,2));
   plot_curve->setStyle( QwtPlotCurve::Steps );
-  plot_curve->attach(plot);
+  plot_curve->attach(ui->plot);
 
   QwtPlotGrid *grid = new QwtPlotGrid;
   grid->enableXMin(true);
   grid->enableYMin(true);
   grid->setMajPen(QPen(Qt::black, 1, Qt::DotLine));
   grid->setMinPen(QPen(Qt::gray, 1,  Qt::DotLine));
-  grid->attach(plot);
+  grid->attach(ui->plot);
   //--------------
-  splitter->setStretchFactor(0,10);
-  splitter->setStretchFactor(1,10);
-  plot->hide();
+  ui->splitter->setStretchFactor(0,10);
+  ui->splitter->setStretchFactor(1,10);
+  ui->plot->hide();
   //--------------
   uncheck_all_formats();
   if( slot.datatype.id() == MBDataType::Floats )
-  { action_format_dec          -> setVisible( false );
-    action_format_unsigned     -> setVisible( false );
-    action_format_hex          -> setVisible( false );
-    action_format_float        -> setVisible( true  );
-    action_format_bin          -> setVisible( false );
-    action_format_text_cp1251  -> setVisible( false );
-    action_format_text_866     -> setVisible( false );
-    action_format_text_KOI8_R  -> setVisible( false );
-    action_format_float        -> setChecked( true  );
+  { ui->action_format_dec          -> setVisible( false );
+    ui->action_format_unsigned     -> setVisible( false );
+    ui->action_format_hex          -> setVisible( false );
+    ui->action_format_float        -> setVisible( true  );
+    ui->action_format_bin          -> setVisible( false );
+    ui->action_format_text_cp1251  -> setVisible( false );
+    ui->action_format_text_866     -> setVisible( false );
+    ui->action_format_text_KOI8_R  -> setVisible( false );
+    ui->action_format_float        -> setChecked( true  );
   } else
-  { action_format_dec          -> setChecked( true  );
-    action_format_float        -> setVisible( false );
+  { ui->action_format_dec          -> setChecked( true  );
+    ui->action_format_float        -> setVisible( false );
   }
 
-  action_format_text_cp1251    -> setVisible( false );
-  action_format_text_866       -> setVisible( false );
-  action_format_text_KOI8_R    -> setVisible( false );
+  ui->action_format_text_cp1251    -> setVisible( false );
+  ui->action_format_text_866       -> setVisible( false );
+  ui->action_format_text_KOI8_R    -> setVisible( false );
   //--------------
 
   str = class_settings.value( QString("%1/%2;table").arg(slot.module.n).arg(slot.n) );
-  if( str.contains("hidden") ) action_view_table->setChecked( false );
-  if( str.contains("shown") )  action_view_table->setChecked( true );
+  if( str.contains("hidden") ) ui->action_view_table->setChecked( false );
+  if( str.contains("shown") )  ui->action_view_table->setChecked( true );
   str = class_settings.value( QString("%1/%2;plot").arg(slot.module.n).arg(slot.n) );
-  if( str.contains("hidden") ) action_view_plot->setChecked( false );
-  if( str.contains("shown") )  action_view_plot->setChecked( true );
+  if( str.contains("hidden") ) ui->action_view_plot->setChecked( false );
+  if( str.contains("shown") )  ui->action_view_plot->setChecked( true );
 
   //--------------
   startTimer( 1000 );
+}
+
+//==============================================================================
+//
+//==============================================================================
+MBMasterSlotWidget::~MBMasterSlotWidget()
+{
+  delete ui;
 }
 
 //==============================================================================
@@ -438,7 +459,7 @@ void MBMasterSlotWidget::on_pb_format_clicked()
 void MBMasterSlotWidget::on_action_format_dec_activated()
 {
   uncheck_all_formats();
-  action_format_dec->setChecked( true );
+  ui->action_format_dec->setChecked( true );
   configure_table();
 }
 //==============================================================================
@@ -447,7 +468,7 @@ void MBMasterSlotWidget::on_action_format_dec_activated()
 void MBMasterSlotWidget::on_action_format_hex_activated()
 {
   uncheck_all_formats();
-  action_format_hex->setChecked( true );
+  ui->action_format_hex->setChecked( true );
   configure_table();
 }
 //==============================================================================
@@ -456,7 +477,7 @@ void MBMasterSlotWidget::on_action_format_hex_activated()
 void MBMasterSlotWidget::on_action_format_bin_activated()
 {
   uncheck_all_formats();
-  action_format_bin->setChecked( true );
+  ui->action_format_bin->setChecked( true );
   configure_table();
 }
 //==============================================================================
@@ -465,7 +486,7 @@ void MBMasterSlotWidget::on_action_format_bin_activated()
 void MBMasterSlotWidget::on_action_format_float_activated()
 {
   uncheck_all_formats();
-  action_format_float->setChecked( true );
+  ui->action_format_float->setChecked( true );
   configure_table();
 }
 //==============================================================================
@@ -474,7 +495,7 @@ void MBMasterSlotWidget::on_action_format_float_activated()
 void MBMasterSlotWidget::on_action_format_unsigned_activated()
 {
   uncheck_all_formats();
-  action_format_unsigned->setChecked( true );
+  ui->action_format_unsigned->setChecked( true );
   configure_table();
 }
 //==============================================================================
@@ -483,7 +504,7 @@ void MBMasterSlotWidget::on_action_format_unsigned_activated()
 void MBMasterSlotWidget::on_action_format_text_cp1251_activated()
 {
   uncheck_all_formats();
-  action_format_text_cp1251->setChecked( true );
+  ui->action_format_text_cp1251->setChecked( true );
   configure_table();
 }
 //==============================================================================
@@ -492,7 +513,7 @@ void MBMasterSlotWidget::on_action_format_text_cp1251_activated()
 void MBMasterSlotWidget::on_action_format_text_866_activated()
 {
   uncheck_all_formats();
-  action_format_text_866->setChecked( true );
+  ui->action_format_text_866->setChecked( true );
   configure_table();
 }
 //==============================================================================
@@ -501,7 +522,7 @@ void MBMasterSlotWidget::on_action_format_text_866_activated()
 void MBMasterSlotWidget::on_action_format_text_KOI8_R_activated()
 {
   uncheck_all_formats();
-  action_format_text_KOI8_R->setChecked( true );
+  ui->action_format_text_KOI8_R->setChecked( true );
   configure_table();
 }
 //==============================================================================
@@ -516,10 +537,10 @@ void MBMasterSlotWidget::on_action_format_options_activated()
 void MBMasterSlotWidget::on_action_view_table_toggled( bool b)
 {
   if( !b )
-  { tw->setFocus();
-    tw->clearSelection();
+  { ui->tw->setFocus();
+    ui->tw->clearSelection();
   }
-  tw->setShown( b );
+  ui->tw->setShown( b );
   class_settings.insert( QString("%1/%2;table").arg(slot.module.n).arg(slot.n),
                    b ? "shown":"hidden" );
 }
@@ -528,7 +549,7 @@ void MBMasterSlotWidget::on_action_view_table_toggled( bool b)
 //==============================================================================
 void MBMasterSlotWidget::on_action_view_plot_toggled(bool b)
 {
-  plot->setShown( b );
+  ui->plot->setShown( b );
   class_settings.insert( QString("%1/%2;plot").arg(slot.module.n).arg(slot.n),
                    b ? "shown":"hidden" );
 }
@@ -538,14 +559,14 @@ void MBMasterSlotWidget::on_action_view_plot_toggled(bool b)
 //==============================================================================
 void MBMasterSlotWidget::uncheck_all_formats()
 {
-  action_format_dec          -> setChecked( false );
-  action_format_unsigned     -> setChecked( false );
-  action_format_hex          -> setChecked( false );
-  action_format_float        -> setChecked( false );
-  action_format_bin          -> setChecked( false );
-  action_format_text_cp1251  -> setChecked( false );
-  action_format_text_866     -> setChecked( false );
-  action_format_text_KOI8_R  -> setChecked( false );
+  ui->action_format_dec          -> setChecked( false );
+  ui->action_format_unsigned     -> setChecked( false );
+  ui->action_format_hex          -> setChecked( false );
+  ui->action_format_float        -> setChecked( false );
+  ui->action_format_bin          -> setChecked( false );
+  ui->action_format_text_cp1251  -> setChecked( false );
+  ui->action_format_text_866     -> setChecked( false );
+  ui->action_format_text_KOI8_R  -> setChecked( false );
 }
 
 //==============================================================================
@@ -557,14 +578,14 @@ void MBMasterSlotWidget::configure_table()
   char *cf;
 
   cf = (char*)"";
-  if( action_format_dec->isChecked() )         cf = (char*)"";
-  if( action_format_unsigned->isChecked() )    cf = (char*)"unsigned";
-  if( action_format_hex->isChecked() )         cf = (char*)"hex";
-  if( action_format_bin->isChecked() )         cf = (char*)"bin";
-  if( action_format_float->isChecked() )       cf = (char*)"float";
-  if( action_format_text_cp1251->isChecked() ) cf = (char*)"text_cp1251";
-  if( action_format_text_866->isChecked() )    cf = (char*)"text_866";
-  if( action_format_text_KOI8_R->isChecked() ) cf = (char*)"text_koi8r";
+  if( ui->action_format_dec->isChecked() )         cf = (char*)"";
+  if( ui->action_format_unsigned->isChecked() )    cf = (char*)"unsigned";
+  if( ui->action_format_hex->isChecked() )         cf = (char*)"hex";
+  if( ui->action_format_bin->isChecked() )         cf = (char*)"bin";
+  if( ui->action_format_float->isChecked() )       cf = (char*)"float";
+  if( ui->action_format_text_cp1251->isChecked() ) cf = (char*)"text_cp1251";
+  if( ui->action_format_text_866->isChecked() )    cf = (char*)"text_866";
+  if( ui->action_format_text_KOI8_R->isChecked() ) cf = (char*)"text_koi8r";
 
 
   QDomDocument doc;
@@ -589,15 +610,14 @@ void MBMasterSlotWidget::configure_table()
     i++;
   }
 exit:
-  tw->setMode( MKTable::Edit );
-  tw->setMBMaster( mm );
-  tw->loadConfiguration( doc );
-  for(i=0; i<tw->rowCount(); i++ )
-  { tw->setVerticalHeaderItem( i, new QTableWidgetItem( QString::number(10*i) ) );
+  ui->tw->setMode( MKTable::Edit );
+  ui->tw->setMBMaster( mm );
+  ui->tw->loadConfiguration( doc );
+  for(i=0; i<ui->tw->rowCount(); i++ )
+  { ui->tw->setVerticalHeaderItem( i, new QTableWidgetItem( QString::number(10*i) ) );
   }
-  tw->verticalHeader()->show();
-  tw->setMode( MKTable::Polling );
-
+  ui->tw->verticalHeader()->show();
+  ui->tw->setMode( MKTable::Polling );
 }
 
 //==============================================================================
@@ -607,12 +627,12 @@ void MBMasterSlotWidget::timerEvent( QTimerEvent *event)
 {
   Q_UNUSED( event );
 
-  if( plot->isHidden() ) return;
+  if( ui->plot->isHidden() ) return;
 
   int i,mask;
-  bool b_unsigned =    action_format_unsigned->isChecked()
-                    || action_format_hex->isChecked()
-                    || action_format_bin->isChecked();
+  bool b_unsigned =    ui->action_format_unsigned->isChecked()
+                    || ui->action_format_hex->isChecked()
+                    || ui->action_format_bin->isChecked();
 
 
   MMSlot ss = mm->getSlot( slot.module.n, slot.n );
@@ -637,7 +657,7 @@ void MBMasterSlotWidget::timerEvent( QTimerEvent *event)
   plot_data_x[0] = 0;
   plot_data_y[0] = plot_data_y[1];
   plot_curve->setData( plot_data_x.constData(), plot_data_y.constData(),n );
-  plot->replot();
+  ui->plot->replot();
 }
 
 //==============================================================================
@@ -657,9 +677,17 @@ void MBMasterSlotWidget::action_export_activated()
 //
 //##############################################################################
 MBMasterSlotExportDialog::MBMasterSlotExportDialog( QWidget *parent )
-  : QDialog( parent )
+  : QDialog( parent ), ui( new Ui::MBMasterSlotExportDialog )
 {
-  setupUi(this);
+  ui->setupUi(this);
   setWindowTitle( "Ёкспорт" );
+}
+
+//==============================================================================
+//
+//==============================================================================
+MBMasterSlotExportDialog::~MBMasterSlotExportDialog()
+{
+  delete ui;
 }
 

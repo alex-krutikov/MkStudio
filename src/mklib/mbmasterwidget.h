@@ -1,9 +1,6 @@
 #ifndef __MBMASTERWIDGET_H__
 #define __MBMASTERWIDGET_H__
 
-#include <QtCore>
-#include <QtXml>
-
 #include <QWidget>
 #include <QDialog>
 #include <QAbstractTableModel>
@@ -14,6 +11,12 @@
 
 class MBMasterValuesWidget;
 class QwtPlotCurve;
+
+namespace Ui
+{ class MBMasterWidget;
+  class MBMasterSlotWidget;
+  class MBMasterSlotExportDialog;
+}
 
 struct MTMSlot
 {
@@ -58,13 +61,12 @@ class MBMasterWidgetTableModel : public QAbstractTableModel
 //===================================================================
 //
 //===================================================================
-#include "ui_mbmasterwidget.h"
-class MBMasterWidget : public QWidget,
-                       public Ui::MBMasterWidget
+class MBMasterWidget : public QWidget
 {
   Q_OBJECT
 public:
   MBMasterWidget( QWidget *parent = 0 );
+  virtual ~MBMasterWidget();
   void load_config( QByteArray &xml );
   void load_config( QDomDocument &doc );
   void clear_config();
@@ -74,6 +76,7 @@ public:
 private:
   void delete_slotwidgets();
 
+  Ui::MBMasterWidget *ui;
   MBMaster *mbmaster;
   MBMasterWidgetTableModel *mbmodel;
   QObjectCleanupHandler slotwidgets;
@@ -88,17 +91,18 @@ signals:
 //===================================================================
 //
 //===================================================================
-#include "ui_mbmslotwidget.h"
-class MBMasterSlotWidget : public QMainWindow,
-                           public Ui::MBMasterSlotWidget
+class MBMasterSlotWidget : public QMainWindow
 {
   Q_OBJECT
 public:
   MBMasterSlotWidget( QWidget *parent = 0, MBMaster *mm = 0, MTMSlot slot = MTMSlot() );
+  virtual ~MBMasterSlotWidget();
 private:
   void timerEvent( QTimerEvent *event);
   void uncheck_all_formats();
   void configure_table();
+
+  Ui::MBMasterSlotWidget *ui;
   MTMSlot slot;
   MBMaster *mm;
   QwtPlotCurve *plot_curve;
@@ -124,13 +128,14 @@ private slots:
 //===================================================================
 //
 //===================================================================
-#include "ui_mbmslotexportdialog.h"
-class MBMasterSlotExportDialog : public QDialog,
-                           public Ui::MBMasterSlotExportDialog
+class MBMasterSlotExportDialog : public QDialog
 {
   Q_OBJECT
 public:
   MBMasterSlotExportDialog( QWidget *parent = 0 );
+  virtual ~MBMasterSlotExportDialog();
+private:
+  Ui::MBMasterSlotExportDialog *ui;
 };
 
 
