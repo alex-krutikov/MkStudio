@@ -3,6 +3,7 @@
 
 #include "ui_initdialog.h"
 #include "mbmaster.h"
+#include "serialport.h"
 
 class MKViewPluginInterface;
 class MKTable;

@@ -96,8 +96,6 @@ Q_EXPORT_PLUGIN2(EchoInterface, MKViewPlugin);
 MainWindow::MainWindow( QWidget *parent  )
   : QMainWindow( parent )
 {
-  int i,j;
-
   setupUi( this );
   setWindowTitle("Стенд для проверки MB100");
  //-------- по центру экрана -------------------
@@ -241,10 +239,10 @@ void MainWindow::timerEvent( QTimerEvent * event )
   mbmaster->setSlotValue(1,4,2,0);
   mbmaster->setSlotValue(1,4,3,0);
 
-  full_time       -> setText( QString(" Время опроса: %1 мс ").arg(mbmaster->full_time) );
-  status_requests -> setText( QString(" Запросы: %1 ").arg(mbmaster->request_counter) );
-  status_answers  -> setText( QString(" Ответы:  %1 ").arg(mbmaster->answer_counter) );
-  status_errors   -> setText( QString(" Ошибки:  %1 ").arg(mbmaster->error_counter) );
+  full_time       -> setText( QString(" Время опроса: %1 мс ").arg(mbmaster->full_time()) );
+  status_requests -> setText( QString(" Запросы: %1 ").arg(mbmaster->request_counter()) );
+  status_answers  -> setText( QString(" Ответы:  %1 ").arg(mbmaster->answer_counter()) );
+  status_errors   -> setText( QString(" Ошибки:  %1 ").arg(mbmaster->error_counter()) );
 }
 
 

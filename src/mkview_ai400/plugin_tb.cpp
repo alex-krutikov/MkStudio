@@ -4,6 +4,7 @@
 #include "serialport.h"
 #include "mbmaster.h"
 #include "mktable.h"
+#include "plot.h"
 
 #include "speedo_meter.h"
 

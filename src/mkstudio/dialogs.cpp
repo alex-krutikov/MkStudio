@@ -14,6 +14,7 @@
 #include "dialogs.h"
 #include "main.h"
 #include "mbmaster.h"
+#include "serialport.h"
 
 //##############################################################################
 /// Окно выбора порта и скорости

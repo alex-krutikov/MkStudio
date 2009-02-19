@@ -5,6 +5,7 @@
 #include "interface.h"
 #include "serialport.h"
 #include "mbmaster.h"
+#include "serialport.h"
 #include "mktable.h"
 #include "crc.h"
 
@@ -395,10 +396,10 @@ void MainWindowXml::on_action_font_decrease_activated()
 //==============================================================================
 void MainWindowXml::group_update()
 {
-  full_time       -> setText( QString(" Время опроса: %1 мс ").arg(mbmaster.full_time) );
-  status_requests -> setText( QString(" Запросы: %1 ").arg(mbmaster.request_counter) );
-  status_answers  -> setText( QString(" Ответы:  %1 ").arg(mbmaster.answer_counter) );
-  status_errors   -> setText( QString(" Ошибки:  %1 ").arg(mbmaster.error_counter) );
+  full_time       -> setText( QString(" Время опроса: %1 мс ").arg(mbmaster.full_time()) );
+  status_requests -> setText( QString(" Запросы: %1 ").arg(mbmaster.request_counter()) );
+  status_answers  -> setText( QString(" Ответы:  %1 ").arg(mbmaster.answer_counter()) );
+  status_errors   -> setText( QString(" Ошибки:  %1 ").arg(mbmaster.error_counter()) );
 }
 
 //-------------------------------------------------------------------------------------------

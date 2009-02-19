@@ -4,6 +4,7 @@
 #include "mbcommon.h"
 #include "slotwidget.h"
 #include "mbmaster.h"
+#include "mbmaster_p.h"
 
 #include "ui_mbmasterwidget.h"
 
@@ -134,12 +135,12 @@ void  MBMasterWidget::stateUpdate()
 {
   int i,j;
   int n = mbmodel->table.count();
-  int m = mbmaster->mmslots.count();
+  int m = mbmaster->d->mmslots.count();
   for( i=0; i<n; i++ )
   { j = mbmodel->table[i].mm_index;
     if( j < 0   ) continue;
     if( j >= m  ) continue;
-    mbmodel->setData( mbmodel->index(i,0),mbmaster->mmslots[j].status, Qt::UserRole );
+    mbmodel->setData( mbmodel->index(i,0),mbmaster->d->mmslots[j].status, Qt::UserRole );
   }
 }
 
@@ -330,10 +331,10 @@ QVariant MBMasterWidgetTableModel::headerData ( int section, Qt::Orientation ori
 //==============================================================================
 void MBMasterWidgetTableModel::update_slots( MBMaster *mm )
 {
-  QMutexLocker locker(&mm->mutex);
+  QMutexLocker locker(&mm->d->mutex);
 
   int i;
-  int len = mm->mmslots.count();
+  int len = mm->d->mmslots.count();
 
   table.clear();
 
@@ -343,7 +344,7 @@ void MBMasterWidgetTableModel::update_slots( MBMaster *mm )
   module_old.n = -1;
 
   for( i=0; i<len; i++ )
-  { module = mm->mmslots[i].module;
+  { module = mm->d->mmslots[i].module;
     if( module.n != module_old.n )
     { ss.flag = 1;
       ss.n    = module.n;
@@ -361,12 +362,12 @@ void MBMasterWidgetTableModel::update_slots( MBMaster *mm )
     ss.flag = 0;
     ss.status   = MMSlot::NotInit;
     ss.module   = module;
-    ss.n        = mm->mmslots[i].n;
+    ss.n        = mm->d->mmslots[i].n;
     ss.mm_index = i;
-    ss.addr     = QString::number( mm->mmslots[i].addr,16 ).toUpper();
-    ss.len      = mm->mmslots[i].len;
-    ss.datatype = mm->mmslots[i].datatype;
-    ss.desc     = mm->mmslots[i].desc;
+    ss.addr     = QString::number( mm->d->mmslots[i].addr,16 ).toUpper();
+    ss.len      = mm->d->mmslots[i].len;
+    ss.datatype = mm->d->mmslots[i].datatype;
+    ss.desc     = mm->d->mmslots[i].desc;
     table << ss;
   }
   reset();

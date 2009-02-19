@@ -6,6 +6,7 @@
 #include "dialogs.h"
 #include "misc.h"
 #include "console.h"
+#include "serialport.h"
 
 #include "mbmaster.h"
 #include "helpwidget.h"
@@ -1427,10 +1428,10 @@ void MainWindow::timerEvent(QTimerEvent *event )
   {  statusbar->showMessage("Среднее: " + QString::number( s/n , 'f') );
   }
 
-  full_time       -> setText( QString(" Время цикла: %1 мс ").arg(mbmaster->full_time) );
-  status_requests -> setText( QString(" Запросы: %1 ").arg(mbmaster->request_counter) );
-  status_answers  -> setText( QString(" Ответы:  %1 ").arg(mbmaster->answer_counter) );
-  status_errors   -> setText( QString(" Ошибки:  %1 ").arg(mbmaster->error_counter) );
+  full_time       -> setText( QString(" Время цикла: %1 мс ").arg(mbmaster->full_time()) );
+  status_requests -> setText( QString(" Запросы: %1 ").arg(mbmaster->request_counter()) );
+  status_answers  -> setText( QString(" Ответы:  %1 ").arg(mbmaster->answer_counter()) );
+  status_errors   -> setText( QString(" Ошибки:  %1 ").arg(mbmaster->error_counter()) );
 }
 
 //==============================================================================

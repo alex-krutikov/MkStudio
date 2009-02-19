@@ -5,6 +5,7 @@
 #include "dialogs.h"
 #include "mbmaster.h"
 #include "consolewidget.h"
+#include "serialport.h"
 
 #include "helpwidget.h"
 

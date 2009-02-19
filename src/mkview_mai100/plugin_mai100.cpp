@@ -13,6 +13,7 @@
 #include "plugin.h"
 
 #include "mbmaster.h"
+#include "serialport.h"
 #include "crc.h"
 
 SerialPort *port;
