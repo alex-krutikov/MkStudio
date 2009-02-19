@@ -5,12 +5,8 @@
     \brief Типы данных Мастер Modbus RTU
 */
 
-#include <QtCore>
-
-#include "mbcommon.h"
-#include "serialport.h"
-
-class QDomDocument;
+#include <QByteArray>
+#include <QString>
 
 //===================================================================
 //! Описание значения
