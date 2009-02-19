@@ -3,8 +3,48 @@
 #include "mbmasterwidget.h"
 #include "mbcommon.h"
 #include "slotwidget.h"
+#include "mbmaster.h"
 
 #include "ui_mbmasterwidget.h"
+
+struct MTMSlot
+{
+  int        flag;
+  int        status;
+  int        n;
+  int        mm_index;
+  MMModule   module;
+  QString    name;
+  MBDataType datatype;
+  QString    addr;
+  int        len;
+  QString    desc;
+};
+
+//===================================================================
+//
+//===================================================================
+class MBMasterWidgetTableModel : public QAbstractTableModel
+{
+  public:
+    MBMasterWidgetTableModel( QObject *parent = 0);
+  public:
+    int rowCount    ( const QModelIndex & parent = QModelIndex() ) const
+      { Q_UNUSED( parent ); return table.count(); }
+    int columnCount ( const QModelIndex & parent = QModelIndex() ) const
+      { Q_UNUSED( parent ); return 5; }
+    QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
+    QVariant headerData ( int section, Qt::Orientation orientation,
+                                   int role = Qt::DisplayRole ) const;
+    Qt::ItemFlags flags ( const QModelIndex & index ) const;
+    bool setData ( const QModelIndex & index,
+                   const QVariant & value, int role = Qt::EditRole );
+  public:
+    void refresh();
+    void update_slots( MBMaster *mm );
+
+    QVector<MTMSlot> table;
+};
 
 //##############################################################################
 //
