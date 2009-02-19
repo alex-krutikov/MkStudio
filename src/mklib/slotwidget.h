@@ -2,6 +2,13 @@
 #define __SLOTWIDGET_H__
 
 #include <QMainWindow>
+#include <QString>
+#include <QMap>
+
+namespace Ui
+{ class SlotWidget;
+  class SlotDialog;
+}
 
 class MBMaster;
 class QwtPlotCurve;
@@ -9,13 +16,12 @@ class QwtPlotCurve;
 //==============================================================================
 // Окно с представлением слота (используется по двойному нажатию на слот)
 //==============================================================================
-#include "ui_slotwidget.h"
-class SlotWidget : public QMainWindow,
-                   public Ui::SlotWidget
+class SlotWidget : public QMainWindow
 {
   Q_OBJECT
 public:
   SlotWidget( QWidget *parent = 0, MBMaster *mm=0, int module=0, int slot=0 );
+  virtual ~SlotWidget();
 private slots:
   void view_changed();
   void format_changed();
@@ -29,6 +35,7 @@ private:
   void configure_table();
   void applay_settings();
 
+  Ui::SlotWidget *ui;
   int module_n,slot_n;
   MBMaster *mm;
   QwtPlotCurve *plot_curve;
@@ -46,17 +53,17 @@ private:
 //==============================================================================
 // Диалог о масштабировании графика
 //==============================================================================
-#include "ui_slotdialog.h"
-class SlotDialog : public QDialog,
-                   public Ui::SlotDialog
+class SlotDialog : public QDialog
 {
   Q_OBJECT
 public:
   SlotDialog( QWidget *parent = 0, QMap<QString,QString> *settings = 0 );
+  virtual ~SlotDialog();
 private slots:
   void accept();
   void radio_buttons();
 private:
+  Ui::SlotDialog *ui;
   QMap<QString,QString> *settings;
 };
 

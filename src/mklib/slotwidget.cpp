@@ -4,6 +4,8 @@
 #include "slotwidget.h"
 #include "mbmaster.h"
 #include "console.h"
+#include "ui_slotwidget.h"
+#include "ui_slotdialog.h"
 
 #include <qwt_painter.h>
 #include <qwt_plot_canvas.h>
@@ -19,10 +21,10 @@
 ///Окно с представлением слота (используется по двойному нажатию на слот)
 //###################################################################
 SlotWidget::SlotWidget( QWidget *parent, MBMaster *mm, int module, int slot )
-  : QMainWindow( parent )
+  : QMainWindow( parent ), ui( new Ui::SlotWidget )
 {
-  setupUi(this);
-  stackedWidget->setCurrentIndex(0);
+  ui->setupUi(this);
+  ui->stackedWidget->setCurrentIndex(0);
   setWindowFlags( Qt::Tool );
   setAttribute( Qt::WA_DeleteOnClose, true );
   resize( 800,400 );
@@ -38,7 +40,7 @@ SlotWidget::SlotWidget( QWidget *parent, MBMaster *mm, int module, int slot )
   // меню "экспорт"
   QAction *act = new QAction( this );
   act->setText("Экспорт");
-  menubar->addAction( act );
+  ui->menubar->addAction( act );
   connect( act, SIGNAL( triggered() ), SLOT( export_data() ) );
 
   // импортирование настроек из строки
@@ -50,15 +52,15 @@ SlotWidget::SlotWidget( QWidget *parent, MBMaster *mm, int module, int slot )
   }
 
   // обработка меню
-  connect( action_view_table, SIGNAL( activated() ), this, SLOT( view_changed() ) );
-  connect( action_view_plot1, SIGNAL( activated() ), this, SLOT( view_changed() ) );
-  connect( action_view_plot2, SIGNAL( activated() ), this, SLOT( view_changed() ) );
+  connect( ui->action_view_table, SIGNAL( activated() ), this, SLOT( view_changed() ) );
+  connect( ui->action_view_plot1, SIGNAL( activated() ), this, SLOT( view_changed() ) );
+  connect( ui->action_view_plot2, SIGNAL( activated() ), this, SLOT( view_changed() ) );
 
-  connect( action_format_bin,      SIGNAL( activated() ), this, SLOT( format_changed() ) );
-  connect( action_format_dec,      SIGNAL( activated() ), this, SLOT( format_changed() ) );
-  connect( action_format_unsigned, SIGNAL( activated() ), this, SLOT( format_changed() ) );
-  connect( action_format_hex,      SIGNAL( activated() ), this, SLOT( format_changed() ) );
-  connect( action_format_float,    SIGNAL( activated() ), this, SLOT( format_changed() ) );
+  connect( ui->action_format_bin,      SIGNAL( activated() ), this, SLOT( format_changed() ) );
+  connect( ui->action_format_dec,      SIGNAL( activated() ), this, SLOT( format_changed() ) );
+  connect( ui->action_format_unsigned, SIGNAL( activated() ), this, SLOT( format_changed() ) );
+  connect( ui->action_format_hex,      SIGNAL( activated() ), this, SLOT( format_changed() ) );
+  connect( ui->action_format_float,    SIGNAL( activated() ), this, SLOT( format_changed() ) );
 
   // название окна
   QString str;
@@ -75,24 +77,24 @@ SlotWidget::SlotWidget( QWidget *parent, MBMaster *mm, int module, int slot )
   // возможные варианты меню
   switch( slot2.datatype.id() )
   { case( MBDataType::Floats ):
-      action_format_bin      -> setEnabled( false );
-      action_format_dec      -> setEnabled( false );
-      action_format_unsigned -> setEnabled( false );
-      action_format_hex      -> setEnabled( false );
-      action_format_float    -> setEnabled( true  );
-      action_format_float    -> setChecked( true );
+      ui->action_format_bin      -> setEnabled( false );
+      ui->action_format_dec      -> setEnabled( false );
+      ui->action_format_unsigned -> setEnabled( false );
+      ui->action_format_hex      -> setEnabled( false );
+      ui->action_format_float    -> setEnabled( true  );
+      ui->action_format_float    -> setChecked( true );
       break;
     case( MBDataType::Bits ):
-      action_format_bin      -> setEnabled( false  );
-      action_format_dec      -> setEnabled( true   );
-      action_format_unsigned -> setEnabled( false  );
-      action_format_hex      -> setEnabled( false  );
-      action_format_float    -> setEnabled( false  );
-      action_format_dec      -> setChecked( true );
+      ui->action_format_bin      -> setEnabled( false  );
+      ui->action_format_dec      -> setEnabled( true   );
+      ui->action_format_unsigned -> setEnabled( false  );
+      ui->action_format_hex      -> setEnabled( false  );
+      ui->action_format_float    -> setEnabled( false  );
+      ui->action_format_dec      -> setChecked( true );
       break;
     default:
-      action_format_float    -> setEnabled( false  );
-      action_format_dec      -> setChecked( true );
+      ui->action_format_float    -> setEnabled( false  );
+      ui->action_format_dec      -> setChecked( true );
       break;
   }
 
@@ -100,54 +102,62 @@ SlotWidget::SlotWidget( QWidget *parent, MBMaster *mm, int module, int slot )
   configure_table();
 
   // конфигурация графиков
-  plot->setCanvasBackground(QColor("linen"));
-  plot->enableAxis(QwtPlot::yRight, false);
-  plot->enableAxis(QwtPlot::yLeft,  true );
+  ui->plot->setCanvasBackground(QColor("linen"));
+  ui->plot->enableAxis(QwtPlot::yRight, false);
+  ui->plot->enableAxis(QwtPlot::yLeft,  true );
 
   plot_curve = new QwtPlotCurve("");
   plot_curve->setPen(QPen(Qt::darkBlue,2));
   plot_curve->setStyle( QwtPlotCurve::Steps );
-  plot_curve->attach(plot);
+  plot_curve->attach(ui->plot);
 
   QwtPlotGrid *grid = new QwtPlotGrid;
   grid->enableXMin(true);
   grid->enableYMin(true);
   grid->setMajPen(QPen(Qt::black, 1, Qt::DotLine));
   grid->setMinPen(QPen(Qt::gray, 1,  Qt::DotLine));
-  grid->attach(plot);
+  grid->attach(ui->plot);
 
-  plot2->setCanvasBackground(QColor("linen"));
-  plot2->enableAxis(QwtPlot::yRight, false);
-  plot2->enableAxis(QwtPlot::yLeft,  true );
+  ui->plot2->setCanvasBackground(QColor("linen"));
+  ui->plot2->enableAxis(QwtPlot::yRight, false);
+  ui->plot2->enableAxis(QwtPlot::yLeft,  true );
 
   plot2_curve = new QwtPlotCurve("");
   plot2_curve->setPen(QPen(Qt::darkBlue,2));
   plot2_curve->setStyle( QwtPlotCurve::Steps );
-  plot2_curve->attach(plot2);
+  plot2_curve->attach(ui->plot2);
 
   QwtPlotGrid *grid2 = new QwtPlotGrid;
   grid2->enableXMin(true);
   grid2->enableYMin(true);
   grid2->setMajPen(QPen(Qt::black, 1, Qt::DotLine));
   grid2->setMinPen(QPen(Qt::gray, 1,  Qt::DotLine));
-  grid2->attach(plot2);
+  grid2->attach(ui->plot2);
 
   // применение настроек
   QMap<QString,QString> settings2 = settings;
   str = settings2["view"];
-  if( str == "table"       ) action_view_table->activate(QAction::Trigger);
-  if( str == "plot"        ) action_view_plot1->activate(QAction::Trigger);
-  if( str == "scaled_plot" ) action_view_plot2->activate(QAction::Trigger);
+  if( str == "table"       ) ui->action_view_table->activate(QAction::Trigger);
+  if( str == "plot"        ) ui->action_view_plot1->activate(QAction::Trigger);
+  if( str == "scaled_plot" ) ui->action_view_plot2->activate(QAction::Trigger);
   str = settings2["format"];
-  if( str == "dec"       ) action_format_dec      -> activate(QAction::Trigger);
-  if( str == "bin"       ) action_format_bin      -> activate(QAction::Trigger);
-  if( str == "unsigned"  ) action_format_unsigned -> activate(QAction::Trigger);
-  if( str == "hex"       ) action_format_hex      -> activate(QAction::Trigger);
-  if( str == "float"     ) action_format_float    -> activate(QAction::Trigger);
+  if( str == "dec"       ) ui->action_format_dec      -> activate(QAction::Trigger);
+  if( str == "bin"       ) ui->action_format_bin      -> activate(QAction::Trigger);
+  if( str == "unsigned"  ) ui->action_format_unsigned -> activate(QAction::Trigger);
+  if( str == "hex"       ) ui->action_format_hex      -> activate(QAction::Trigger);
+  if( str == "float"     ) ui->action_format_float    -> activate(QAction::Trigger);
   applay_settings();
 
   // таймер перерисовки графиков
   startTimer( 1000 );
+}
+
+//===================================================================
+//
+//===================================================================
+SlotWidget::~SlotWidget()
+{
+  delete ui;
 }
 
 //===================================================================
@@ -156,16 +166,16 @@ SlotWidget::SlotWidget( QWidget *parent, MBMaster *mm, int module, int slot )
 void SlotWidget::view_changed()
 {
   QAction *act = (QAction*)sender();
-  action_view_table->setChecked( act == action_view_table );
-  action_view_plot1->setChecked( act == action_view_plot1 );
-  action_view_plot2->setChecked( act == action_view_plot2 );
+  ui->action_view_table->setChecked( act == ui->action_view_table );
+  ui->action_view_plot1->setChecked( act == ui->action_view_plot1 );
+  ui->action_view_plot2->setChecked( act == ui->action_view_plot2 );
 
-  if(        act == action_view_table )
-  { stackedWidget->setCurrentIndex(0);
-  } else if( act == action_view_plot1 )
-  { stackedWidget->setCurrentIndex(1);
-  } else if( act == action_view_plot2 )
-  { stackedWidget->setCurrentIndex(2);
+  if(        act == ui->action_view_table )
+  { ui->stackedWidget->setCurrentIndex(0);
+  } else if( act == ui->action_view_plot1 )
+  { ui->stackedWidget->setCurrentIndex(1);
+  } else if( act == ui->action_view_plot2 )
+  { ui->stackedWidget->setCurrentIndex(2);
   }
   save_settings();
 }
@@ -176,11 +186,11 @@ void SlotWidget::view_changed()
 void SlotWidget::format_changed()
 {
   QAction *act = (QAction*)sender();
-  action_format_bin      -> setChecked( act == action_format_bin      );
-  action_format_dec      -> setChecked( act == action_format_dec      );
-  action_format_unsigned -> setChecked( act == action_format_unsigned );
-  action_format_hex      -> setChecked( act == action_format_hex      );
-  action_format_float    -> setChecked( act == action_format_float    );
+  ui->action_format_bin      -> setChecked( act == ui->action_format_bin      );
+  ui->action_format_dec      -> setChecked( act == ui->action_format_dec      );
+  ui->action_format_unsigned -> setChecked( act == ui->action_format_unsigned );
+  ui->action_format_hex      -> setChecked( act == ui->action_format_hex      );
+  ui->action_format_float    -> setChecked( act == ui->action_format_float    );
 
   configure_table();
   save_settings();
@@ -195,13 +205,13 @@ void SlotWidget::export_data()
   int i,j,n,m;
   QwtPlotCurve *curve = 0;
 
-  switch( stackedWidget->currentIndex() )
+  switch( ui->stackedWidget->currentIndex() )
   { case(0): // экспорт таблицы
-      n = table->rowCount();
-      m = table->columnCount();
+      n = ui->table->rowCount();
+      m = ui->table->columnCount();
       for(i=0; i<n; i++ )
       { for( j=0; j<m; j++ )
-        { QTableWidgetItem *titem = table->item(i,j);
+        { QTableWidgetItem *titem = ui->table->item(i,j);
           if( !titem ) continue;
           if( !( titem->flags() &  Qt::ItemIsEditable ) ) continue;
           str += titem->text() + "\n";
@@ -238,14 +248,14 @@ void SlotWidget::export_data()
 void SlotWidget::save_settings()
 {
   // текущий формат отображения таблицы
-  if(      action_format_dec->isChecked() )       settings["format"] = "dec";
-  else if( action_format_unsigned->isChecked() )  settings["format"] = "unsigned";
-  else if( action_format_hex->isChecked() )       settings["format"] = "hex";
-  else if( action_format_bin->isChecked() )       settings["format"] = "bin";
-  else if( action_format_float->isChecked() )     settings["format"] = "float";
+  if(      ui->action_format_dec->isChecked() )       settings["format"] = "dec";
+  else if( ui->action_format_unsigned->isChecked() )  settings["format"] = "unsigned";
+  else if( ui->action_format_hex->isChecked() )       settings["format"] = "hex";
+  else if( ui->action_format_bin->isChecked() )       settings["format"] = "bin";
+  else if( ui->action_format_float->isChecked() )     settings["format"] = "float";
 
   // текущий вид
-  switch( stackedWidget->currentIndex() )
+  switch( ui->stackedWidget->currentIndex() )
   { case(0): settings["view"] = "table";         break;
     case(1): settings["view"] = "plot";          break;
     case(2): settings["view"] = "scaled_plot";   break;
@@ -272,7 +282,7 @@ void SlotWidget::on_action_set_scale_triggered()
   if( dialog.exec() != QDialog::Accepted ) return;
 
   applay_settings();
-  action_view_plot2->activate(QAction::Trigger);
+  ui->action_view_plot2->activate(QAction::Trigger);
   save_settings();
 }
 
@@ -299,8 +309,8 @@ void SlotWidget::applay_settings()
   plot2_unsigned = false;
 
   // название осей
-  plot2->setAxisTitle(QwtPlot::xBottom, settings["xname"]);
-  plot2->setAxisTitle(QwtPlot::yLeft,   settings["yname"]);
+  ui->plot2->setAxisTitle(QwtPlot::xBottom, settings["xname"]);
+  ui->plot2->setAxisTitle(QwtPlot::yLeft,   settings["yname"]);
 
   // масштаб - коэффициент
   if( settings.contains("xscale_coeff") )
@@ -376,11 +386,11 @@ void SlotWidget::configure_table()
 
   // формат ячеек
   cf = (char*)"";
-  if( action_format_dec->isChecked() )         cf = (char*)"";
-  if( action_format_unsigned->isChecked() )    cf = (char*)"unsigned";
-  if( action_format_hex->isChecked() )         cf = (char*)"hex";
-  if( action_format_bin->isChecked() )         cf = (char*)"bin";
-  if( action_format_float->isChecked() )       cf = (char*)"float";
+  if( ui->action_format_dec->isChecked() )         cf = (char*)"";
+  if( ui->action_format_unsigned->isChecked() )    cf = (char*)"unsigned";
+  if( ui->action_format_hex->isChecked() )         cf = (char*)"hex";
+  if( ui->action_format_bin->isChecked() )         cf = (char*)"bin";
+  if( ui->action_format_float->isChecked() )       cf = (char*)"float";
 
   // заполнение XML документа о таблице
   QDomDocument doc;
@@ -406,14 +416,14 @@ void SlotWidget::configure_table()
   }
 exit:
   // настройка таблицы
-  table->setMode( MKTable::Edit );
-  table->setMBMaster( mm );
-  table->loadConfiguration( doc );
-  for(i=0; i<table->rowCount(); i++ )
-  { table->setVerticalHeaderItem( i, new QTableWidgetItem( QString::number(10*i) ) );
+  ui->table->setMode( MKTable::Edit );
+  ui->table->setMBMaster( mm );
+  ui->table->loadConfiguration( doc );
+  for(i=0; i<ui->table->rowCount(); i++ )
+  { ui->table->setVerticalHeaderItem( i, new QTableWidgetItem( QString::number(10*i) ) );
   }
-  table->verticalHeader()->show();
-  table->setMode( MKTable::Polling );
+  ui->table->verticalHeader()->show();
+  ui->table->setMode( MKTable::Polling );
 }
 
 //==============================================================================
@@ -428,9 +438,9 @@ void SlotWidget::timerEvent( QTimerEvent *event)
   //----------- подготовка данных --------------------
 
   int i,mask;
-  bool b_unsigned =    action_format_unsigned->isChecked()
-                    || action_format_hex->isChecked()
-                    || action_format_bin->isChecked();
+  bool b_unsigned =    ui->action_format_unsigned->isChecked()
+                    || ui->action_format_hex->isChecked()
+                    || ui->action_format_bin->isChecked();
 
 
   MMSlot ss = mm->getSlot( module_n, slot_n );
@@ -458,7 +468,7 @@ void SlotWidget::timerEvent( QTimerEvent *event)
   plot_data_x[0] = 0;
   plot_data_y[0] = plot_data_y[1];
   plot_curve->setData( plot_data_x.constData(), plot_data_y.constData(),n );
-  plot->replot();
+  ui->plot->replot();
 
   //------------ вывод масштабированного графика -------------
 
@@ -513,35 +523,35 @@ void SlotWidget::timerEvent( QTimerEvent *event)
     plot_data_y[i] *= ky;
   }
   plot2_curve->setData( plot_data_x.constData(), plot_data_y.constData(),n );
-  plot2->replot();
+  ui->plot2->replot();
 }
 
 //###################################################################
 /// Диалог о масштабировании графика
 //###################################################################
 SlotDialog::SlotDialog( QWidget *parent, QMap<QString,QString> *settings )
-  : QDialog( parent )
+  : QDialog( parent ), ui( new Ui::SlotDialog )
 {
-  setupUi( this );
+  ui->setupUi( this );
   setWindowTitle("Масштабирование графика");
 
   this->settings = settings;
 
-  xscale_int_a       -> setValidator( new QDoubleValidator( this ) );
-  xscale_int_b       -> setValidator( new QDoubleValidator( this ) );
-  xscale_coeff_value -> setValidator( new QDoubleValidator( this ) );
-  yscale_coeff_value -> setValidator( new QDoubleValidator( this ) );
+  ui->xscale_int_a       -> setValidator( new QDoubleValidator( this ) );
+  ui->xscale_int_b       -> setValidator( new QDoubleValidator( this ) );
+  ui->xscale_coeff_value -> setValidator( new QDoubleValidator( this ) );
+  ui->yscale_coeff_value -> setValidator( new QDoubleValidator( this ) );
 
-  connect( xscale_none,  SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
-  connect( yscale_none,  SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
-  connect( xscale_coeff, SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
-  connect( yscale_coeff, SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
-  connect( xscale_int,   SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
-  connect( xscale_base,  SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
-  connect( yscale_base,  SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
+  connect( ui->xscale_none,  SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
+  connect( ui->yscale_none,  SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
+  connect( ui->xscale_coeff, SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
+  connect( ui->yscale_coeff, SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
+  connect( ui->xscale_int,   SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
+  connect( ui->xscale_base,  SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
+  connect( ui->yscale_base,  SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
 
-  xscale_none->setChecked( true );
-  yscale_none->setChecked( true );
+  ui->xscale_none->setChecked( true );
+  ui->yscale_none->setChecked( true );
 
   // чтение настроек
   if( !settings ) return;
@@ -552,45 +562,53 @@ SlotDialog::SlotDialog( QWidget *parent, QMap<QString,QString> *settings )
   QString str;
 
   // названия
-  xname->setText( csettings["xname"] );
-  yname->setText( csettings["yname"] );
+  ui->xname->setText( csettings["xname"] );
+  ui->yname->setText( csettings["yname"] );
 
   // масштаб - коэффициент
   if( csettings.contains("xscale_coeff") )
-  { xscale_coeff->setChecked( true );
-    xscale_coeff_value->setText( csettings["xscale_coeff"] );
+  { ui->xscale_coeff->setChecked( true );
+    ui->xscale_coeff_value->setText( csettings["xscale_coeff"] );
   }
   if( csettings.contains("yscale_coeff") )
-  { yscale_coeff->setChecked( true );
-    yscale_coeff_value->setText( csettings["yscale_coeff"] );
+  { ui->yscale_coeff->setChecked( true );
+    ui->yscale_coeff_value->setText( csettings["yscale_coeff"] );
   }
 
   // масштаб - интервал
   str = csettings["xscale_interval"];
   Console::Print( str );
   if( rx1.indexIn( str ) == 0 )
-  { xscale_int->setChecked( true );
-    xscale_int_a->setText( rx1.cap(1) );
-    xscale_int_b->setText( rx1.cap(2) );
+  { ui->xscale_int->setChecked( true );
+    ui->xscale_int_a->setText( rx1.cap(1) );
+    ui->xscale_int_b->setText( rx1.cap(2) );
   }
 
   // масштаб - база
   str = csettings["xscale_base"];
   if( rx2.indexIn( str ) == 0 )
-  { xscale_base->setChecked( true );
-    xscale_base_m->setValue( rx2.cap(1).toInt() );
-    xscale_base_s->setValue( rx2.cap(2).toInt() );
-    xscale_base_n->setValue( rx2.cap(3).toInt() );
+  { ui->xscale_base->setChecked( true );
+    ui->xscale_base_m->setValue( rx2.cap(1).toInt() );
+    ui->xscale_base_s->setValue( rx2.cap(2).toInt() );
+    ui->xscale_base_n->setValue( rx2.cap(3).toInt() );
   }
   str = csettings["yscale_base"];
   if( rx2.indexIn( str ) == 0 )
-  { yscale_base->setChecked( true );
-    yscale_base_m->setValue( rx2.cap(1).toInt() );
-    yscale_base_s->setValue( rx2.cap(2).toInt() );
-    yscale_base_n->setValue( rx2.cap(3).toInt() );
+  { ui->yscale_base->setChecked( true );
+    ui->yscale_base_m->setValue( rx2.cap(1).toInt() );
+    ui->yscale_base_s->setValue( rx2.cap(2).toInt() );
+    ui->yscale_base_n->setValue( rx2.cap(3).toInt() );
   }
 
-  yunsigned->setChecked( csettings["yunsigned"] == "1" );
+  ui->yunsigned->setChecked( csettings["yunsigned"] == "1" );
+}
+
+//==============================================================================
+// Обработка включения/отключения различных пунктов диалога
+//==============================================================================
+SlotDialog::~SlotDialog()
+{
+  delete ui;
 }
 
 //==============================================================================
@@ -598,16 +616,16 @@ SlotDialog::SlotDialog( QWidget *parent, QMap<QString,QString> *settings )
 //==============================================================================
 void SlotDialog::radio_buttons()
 {
-  xscale_coeff_value -> setEnabled( xscale_coeff->isChecked() );
-  xscale_int_a       -> setEnabled( xscale_int->isChecked()   );
-  xscale_int_b       -> setEnabled( xscale_int->isChecked()   );
-  xscale_base_m      -> setEnabled( xscale_base->isChecked()  );
-  xscale_base_s      -> setEnabled( xscale_base->isChecked()  );
-  xscale_base_n      -> setEnabled( xscale_base->isChecked()  );
-  yscale_coeff_value -> setEnabled( yscale_coeff->isChecked() );
-  yscale_base_m      -> setEnabled( yscale_base->isChecked()  );
-  yscale_base_s      -> setEnabled( yscale_base->isChecked()  );
-  yscale_base_n      -> setEnabled( yscale_base->isChecked()  );
+  ui->xscale_coeff_value -> setEnabled( ui->xscale_coeff->isChecked() );
+  ui->xscale_int_a       -> setEnabled( ui->xscale_int->isChecked()   );
+  ui->xscale_int_b       -> setEnabled( ui->xscale_int->isChecked()   );
+  ui->xscale_base_m      -> setEnabled( ui->xscale_base->isChecked()  );
+  ui->xscale_base_s      -> setEnabled( ui->xscale_base->isChecked()  );
+  ui->xscale_base_n      -> setEnabled( ui->xscale_base->isChecked()  );
+  ui->yscale_coeff_value -> setEnabled( ui->yscale_coeff->isChecked() );
+  ui->yscale_base_m      -> setEnabled( ui->yscale_base->isChecked()  );
+  ui->yscale_base_s      -> setEnabled( ui->yscale_base->isChecked()  );
+  ui->yscale_base_n      -> setEnabled( ui->yscale_base->isChecked()  );
 }
 
 
@@ -631,33 +649,33 @@ void SlotDialog::accept()
   isettings.remove("yunsigned");
 
   // названия осей
-  str = xname->text();  if( !str.isEmpty() ) isettings["xname"] = str;
-  str = yname->text();  if( !str.isEmpty() ) isettings["yname"] = str;
+  str = ui->xname->text();  if( !str.isEmpty() ) isettings["xname"] = str;
+  str = ui->yname->text();  if( !str.isEmpty() ) isettings["yname"] = str;
 
   // масштаб - коэффициент
-  if( xscale_coeff->isChecked() )
-  { isettings["xscale_coeff"] = xscale_coeff_value->text();
+  if( ui->xscale_coeff->isChecked() )
+  { isettings["xscale_coeff"] = ui->xscale_coeff_value->text();
   }
-  if( yscale_coeff->isChecked() )
-  { isettings["yscale_coeff"] = yscale_coeff_value->text();
+  if( ui->yscale_coeff->isChecked() )
+  { isettings["yscale_coeff"] = ui->yscale_coeff_value->text();
   }
   // масштаб - интервал
-  if( xscale_int->isChecked() )
-  { isettings["xscale_interval"] = xscale_int_a->text()+"/"+xscale_int_b->text();
+  if( ui->xscale_int->isChecked() )
+  { isettings["xscale_interval"] = ui->xscale_int_a->text()+"/"+ui->xscale_int_b->text();
   }
   // масштаб - база
-  if( xscale_base->isChecked() )
-  { isettings["xscale_base"] = QString().sprintf("%d/%d/%d", xscale_base_m->value(),
-                                                             xscale_base_s->value(),
-                                                             xscale_base_n->value() );
+  if( ui->xscale_base->isChecked() )
+  { isettings["xscale_base"] = QString().sprintf("%d/%d/%d", ui->xscale_base_m->value(),
+                                                             ui->xscale_base_s->value(),
+                                                             ui->xscale_base_n->value() );
   }
-  if( yscale_base->isChecked() )
-  { isettings["yscale_base"] = QString().sprintf("%d/%d/%d", yscale_base_m->value(),
-                                                             yscale_base_s->value(),
-                                                             yscale_base_n->value() );
+  if( ui->yscale_base->isChecked() )
+  { isettings["yscale_base"] = QString().sprintf("%d/%d/%d", ui->yscale_base_m->value(),
+                                                             ui->yscale_base_s->value(),
+                                                             ui->yscale_base_n->value() );
   }
   // беззнаковые числа
-  if( yunsigned->isChecked() )
+  if( ui->yunsigned->isChecked() )
   { isettings["yunsigned"] = "1";
   }
 
