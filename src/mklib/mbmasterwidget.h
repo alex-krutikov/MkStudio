@@ -12,11 +12,7 @@
 class MBMasterValuesWidget;
 class QwtPlotCurve;
 
-namespace Ui
-{ class MBMasterWidget;
-  class MBMasterSlotWidget;
-  class MBMasterSlotExportDialog;
-}
+namespace Ui { class MBMasterWidget; }
 
 struct MTMSlot
 {
@@ -87,56 +83,5 @@ public slots:
 signals:
   void attributes_saved( int module, int slot, QString attribute );
 };
-
-//===================================================================
-//
-//===================================================================
-class MBMasterSlotWidget : public QMainWindow
-{
-  Q_OBJECT
-public:
-  MBMasterSlotWidget( QWidget *parent = 0, MBMaster *mm = 0, MTMSlot slot = MTMSlot() );
-  virtual ~MBMasterSlotWidget();
-private:
-  void timerEvent( QTimerEvent *event);
-  void uncheck_all_formats();
-  void configure_table();
-
-  Ui::MBMasterSlotWidget *ui;
-  MTMSlot slot;
-  MBMaster *mm;
-  QwtPlotCurve *plot_curve;
-  QVector<double> plot_data_x;
-  QVector<double> plot_data_y;
-  static QMap<QString,QString> class_settings;
-private slots:
-  void on_pb_format_clicked();
-  void on_action_format_dec_activated();
-  void on_action_format_hex_activated();
-  void on_action_format_bin_activated();
-  void on_action_format_float_activated();
-  void on_action_format_unsigned_activated();
-  void on_action_format_text_cp1251_activated();
-  void on_action_format_text_866_activated();
-  void on_action_format_text_KOI8_R_activated();
-  void on_action_format_options_activated();
-  void on_action_view_table_toggled(bool);
-  void on_action_view_plot_toggled(bool);
-  void action_export_activated();
-};
-
-//===================================================================
-//
-//===================================================================
-class MBMasterSlotExportDialog : public QDialog
-{
-  Q_OBJECT
-public:
-  MBMasterSlotExportDialog( QWidget *parent = 0 );
-  virtual ~MBMasterSlotExportDialog();
-private:
-  Ui::MBMasterSlotExportDialog *ui;
-};
-
 
 #endif
