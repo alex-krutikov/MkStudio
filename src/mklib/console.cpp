@@ -12,7 +12,7 @@ static QString message;
 void Console::Print( const QString &message )
 {
   QMutexLocker locker( &mutex );
-  ::message += message + "\n";
+  ::message += message;
   if( ::message.length() > 16384 ) ::message.remove(0,4096);
 }
 
