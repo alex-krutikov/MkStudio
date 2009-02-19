@@ -1,4 +1,5 @@
 #include <QtGui>
+#include <QtXml>
 
 #include "mbconfigwidget.h"
 #include "ui_mbconfigwidget.h"

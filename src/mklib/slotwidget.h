@@ -2,6 +2,7 @@
 #define __SLOTWIDGET_H__
 
 #include <QMainWindow>
+#include <QDialog>
 #include <QString>
 #include <QMap>
 

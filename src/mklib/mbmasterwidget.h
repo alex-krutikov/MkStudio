@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QWidget>
+#include <QObjectCleanupHandler>
 
 class MBMasterValuesWidget;
 class MBMaster;
