@@ -2,9 +2,9 @@
 
 #include "plugin.h"
 #include "serialport.h"
-#include "mbmaster.h"
+#include "mbmasterxml.h"
 
-MBMaster   *mbmaster;
+MBMasterXML   *mbmaster;
 SerialPort *port;
 
 QString MKViewPlugin::echo(const QString &message)
@@ -39,7 +39,7 @@ void MKViewPlugin::mainWindow( QWidget *parent, const QString &portname, int por
   Q_UNUSED( node );
   Q_UNUSED( subnode );
 
-  mbmaster = new MBMaster;
+  mbmaster = new MBMasterXML;
   port     = new SerialPort;
 
   port->setName( portname );

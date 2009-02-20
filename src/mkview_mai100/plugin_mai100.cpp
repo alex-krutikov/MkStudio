@@ -12,12 +12,12 @@
 
 #include "plugin.h"
 
-#include "mbmaster.h"
+#include "mbmasterxml.h"
 #include "serialport.h"
 #include "crc.h"
 
 SerialPort *port;
-MBMaster   *mbmaster;
+MBMasterXML   *mbmaster;
 
 QString MKViewPlugin::echo(const QString &message)
 {
@@ -53,7 +53,7 @@ void MKViewPlugin::mainWindow( QWidget *parent, const QString &portname, int por
   Q_UNUSED( subnode );
 
    port     = new SerialPort;
-   mbmaster = new MBMaster;
+   mbmaster = new MBMasterXML;
 
    port->setName( portname );
    port->setSpeed( portspeed );

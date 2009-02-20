@@ -8,7 +8,7 @@
 #include "console.h"
 #include "serialport.h"
 
-#include "mbmaster.h"
+#include "mbmasterxml.h"
 #include "helpwidget.h"
 
 //##############################################################################

@@ -3,7 +3,7 @@
 #include "main.h"
 #include "mainwindow.h"
 #include "dialogs.h"
-#include "mbmaster.h"
+#include "mbmasterxml.h"
 #include "consolewidget.h"
 #include "serialport.h"
 
@@ -11,7 +11,7 @@
 
 QApplication  *application;
 MainWindow    *mainwindow;
-MBMaster      *mbmaster;
+MBMasterXML      *mbmaster;
 SerialPort    *port;
 HelpWidget    *helpwidget;
 QString       app_header;
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 
   app_header = QString("%1 %2 - MKStudio").arg(port->getName()).arg(port->getSpeed() );
 
-  mbmaster = new MBMaster;
+  mbmaster = new MBMasterXML;
   mbmaster->setTransport( port );
   mbmaster->setMaximumPacketLength( initdialog.sb_max_len->value() );
 

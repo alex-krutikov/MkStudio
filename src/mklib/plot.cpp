@@ -3,7 +3,7 @@
 
 #include "ui_plot.h"
 #include "plot.h"
-#include "mbmaster.h"
+#include "mbmasterxml.h"
 
 #include <qwt_plot.h>
 #include <qwt_painter.h>
@@ -20,7 +20,7 @@
 //##############################################################################
 //
 //##############################################################################
-Plot::Plot( QWidget *parent, MBMaster *mbmaster, const QString &config )
+Plot::Plot( QWidget *parent, MBMasterXML *mbmaster, const QString &config )
   : QWidget( parent ), ui( new Ui::Plot )
 {
   int i;

@@ -4,7 +4,7 @@
 #include "mktable.h"
 #include "mktable_p.h"
 #include "plot.h"
-#include "mbmaster.h"
+#include "mbmasterxml.h"
 
 //-----------------------------------------------------------------------------
 // служебная структура - привязка ячеек

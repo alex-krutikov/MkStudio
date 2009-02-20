@@ -6,7 +6,7 @@
 #include <QObjectCleanupHandler>
 
 class MBMasterValuesWidget;
-class MBMaster;
+class MBMasterXML;
 class MBMasterWidgetTableModel;
 class QByteArray;
 class QDomDocument;
@@ -29,12 +29,12 @@ public:
   void clear_config();
   void polling_start();                               // запустить опрос
   void polling_stop();                                // остоновить опрос
-  void setMBMaster( MBMaster *mm );
+  void setMBMaster( MBMasterXML *mm );
 private:
   void delete_slotwidgets();
 
   Ui::MBMasterWidget *ui;
-  MBMaster *mbmaster;
+  MBMasterXML *mbmaster;
   MBMasterWidgetTableModel *mbmodel;
   QObjectCleanupHandler slotwidgets;
 private slots:

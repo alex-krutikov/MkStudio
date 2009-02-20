@@ -4,7 +4,7 @@
 #include "main.h"
 #include "interface.h"
 #include "serialport.h"
-#include "mbmaster.h"
+#include "mbmasterxml.h"
 #include "serialport.h"
 #include "mktable.h"
 #include "crc.h"
@@ -421,7 +421,7 @@ ModuleInfoDialog::ModuleInfoDialog( QWidget *parent, const QByteArray &ba )
 {
   setupUi( this );
   setWindowTitle( "Информация о модуле" );
-  MikkonModuleDefinition mmd = MBMaster::decodeModuleDefinition( ba );
+  MikkonModuleDefinition mmd = MBMasterXML::decodeModuleDefinition( ba );
   le_name      -> setText( mmd.productName );
   le_desc      -> setText( mmd.productDescription );
   le_firmware  -> setText( QString("%1 [%2] %3.%4")

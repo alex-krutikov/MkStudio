@@ -1,11 +1,11 @@
-#ifndef __MBMASTER__H_
-#define __MBMASTER__H_
+#ifndef __MBMASTERXML__H_
+#define __MBMASTERXML__H_
 
 #include "mbcommon.h"
 #include "mbtypes.h"
 
 class QDomDocument;
-class MBMasterPrivate;
+class MBMasterPrivateXML;
 class SerialPort;
 
 //===================================================================
@@ -17,15 +17,15 @@ class SerialPort;
     Ñì. \ref xml_opros_desc
 */
 //===================================================================
-class MBMaster : public QObject
+class MBMasterXML : public QObject
 {
-  friend class MBMasterPrivate;
+  friend class MBMasterPrivateXML;
   friend class MBMasterWidget;
   friend class MBMasterWidgetTableModel;
 
   Q_OBJECT
 public:
-  MBMaster( QObject *parent = 0);
+  MBMasterXML( QObject *parent = 0);
 
   void setTransport( SerialPort *transport );
   void clear_configuration();
@@ -75,7 +75,7 @@ public:
 signals:
   void stateChanged();
 private:
-  MBMasterPrivate *d;
+  MBMasterPrivateXML *d;
 };
 
 #endif

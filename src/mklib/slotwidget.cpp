@@ -2,7 +2,7 @@
 #include <QDomDocument>
 
 #include "slotwidget.h"
-#include "mbmaster.h"
+#include "mbmasterxml.h"
 #include "console.h"
 #include "ui_slotwidget.h"
 #include "ui_slotdialog.h"
@@ -20,7 +20,7 @@
 //###################################################################
 ///Окно с представлением слота (используется по двойному нажатию на слот)
 //###################################################################
-SlotWidget::SlotWidget( QWidget *parent, MBMaster *mm, int module, int slot )
+SlotWidget::SlotWidget( QWidget *parent, MBMasterXML *mm, int module, int slot )
   : QMainWindow( parent ), ui( new Ui::SlotWidget )
 {
   ui->setupUi(this);

@@ -3,7 +3,7 @@
 
 #include "mainwindow.h"
 
-class MBMaster;
+class MBMasterXML;
 class QString;
 
 #if defined( Q_OS_WIN32 )

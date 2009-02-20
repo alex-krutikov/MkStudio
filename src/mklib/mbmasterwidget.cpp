@@ -3,8 +3,8 @@
 #include "mbmasterwidget.h"
 #include "mbcommon.h"
 #include "slotwidget.h"
-#include "mbmaster.h"
-#include "mbmaster_p.h"
+#include "mbmasterxml.h"
+#include "mbmasterxml_p.h"
 
 #include "ui_mbmasterwidget.h"
 
@@ -42,7 +42,7 @@ class MBMasterWidgetTableModel : public QAbstractTableModel
                    const QVariant & value, int role = Qt::EditRole );
   public:
     void refresh();
-    void update_slots( MBMaster *mm );
+    void update_slots( MBMasterXML *mm );
 
     QVector<MTMSlot> table;
 };
@@ -122,7 +122,7 @@ void MBMasterWidget::polling_stop()
 //==============================================================================
 //
 //==============================================================================
-void MBMasterWidget::setMBMaster( MBMaster *mm )
+void MBMasterWidget::setMBMaster( MBMasterXML *mm )
 {
   mbmaster = mm;
   connect( mm, SIGNAL( stateChanged() ), SLOT( stateUpdate() ),Qt::QueuedConnection);
@@ -329,7 +329,7 @@ QVariant MBMasterWidgetTableModel::headerData ( int section, Qt::Orientation ori
 //==============================================================================
 //
 //==============================================================================
-void MBMasterWidgetTableModel::update_slots( MBMaster *mm )
+void MBMasterWidgetTableModel::update_slots( MBMasterXML *mm )
 {
   QMutexLocker locker(&mm->d->mutex);
 

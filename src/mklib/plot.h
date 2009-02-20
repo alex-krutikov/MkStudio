@@ -4,7 +4,7 @@
 #include <QTimer>
 #include <QWidget>
 
-class MBMaster;
+class MBMasterXML;
 class QTimerEvent;
 
 class QToolButton;
@@ -19,7 +19,7 @@ class Plot : public QWidget
 {
   Q_OBJECT
 public:
-  Plot( QWidget *parent=0, MBMaster *mbmaster=0, const QString &config = QString() );
+  Plot( QWidget *parent=0, MBMasterXML *mbmaster=0, const QString &config = QString() );
   virtual ~Plot();
   void timerEvent ( QTimerEvent * event );
   QSize sizeHint () const;
@@ -51,7 +51,7 @@ private:
   int points_counter;
   double avr_a;
   int avr_counter;
-  MBMaster *mbmaster;
+  MBMasterXML *mbmaster;
 };
 
 #endif

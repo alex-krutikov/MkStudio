@@ -31,8 +31,8 @@
 		<Unit filename="mbconfigwidget.cpp" />
 		<Unit filename="mbconfigwidget.h" />
 		<Unit filename="mbmaster.cpp" />
-		<Unit filename="mbmaster.h" />
-		<Unit filename="mbmaster_p.h" />
+		<Unit filename="mbmasterxml.h" />
+		<Unit filename="mbmasterxml_p.h" />
 		<Unit filename="mbmasterwidget.cpp" />
 		<Unit filename="mbmasterwidget.h" />
 		<Unit filename="mbtypes.h" />

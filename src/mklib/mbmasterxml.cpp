@@ -1,8 +1,8 @@
 #include <QtCore>
 #include <QtXml>
 
-#include "mbmaster.h"
-#include "mbmaster_p.h"
+#include "mbmasterxml.h"
+#include "mbmasterxml_p.h"
 #include "mbcommon.h"
 #include "crc.h"
 #include "console.h"
@@ -11,7 +11,7 @@
 //###################################################################
 //
 //###################################################################
-MBMasterPrivate::MBMasterPrivate( QObject *parent )
+MBMasterPrivateXML::MBMasterPrivateXML( QObject *parent )
   : QThread( parent )
 {
   transport = 0;
@@ -27,12 +27,15 @@ MBMasterPrivate::MBMasterPrivate( QObject *parent )
 //===================================================================
 //
 //===================================================================
-MBMasterPrivate::~MBMasterPrivate()
+MBMasterPrivateXML::~MBMasterPrivateXML()
 {
   clear_configuration();
 }
 
-void MBMasterPrivate::load_configuration( QDomDocument &doc )
+//===================================================================
+//
+//===================================================================
+void MBMasterPrivateXML::load_configuration( QDomDocument &doc )
 {
   bool ok;
   int i,j;
@@ -105,10 +108,13 @@ void MBMasterPrivate::load_configuration( QDomDocument &doc )
     }
  }
 
- Console::Print( "Конфигурации MBMasterPrivate загружена.\n" );
+ Console::Print( "Конфигурации MBMasterPrivateXML загружена.\n" );
 }
 
-void MBMasterPrivate::load_configuration( const QByteArray &xml )
+//===================================================================
+//
+//===================================================================
+void MBMasterPrivateXML::load_configuration( const QByteArray &xml )
 {
   QDomDocument doc;
   doc.setContent( xml, false );
@@ -118,7 +124,7 @@ void MBMasterPrivate::load_configuration( const QByteArray &xml )
 //===================================================================
 //
 //===================================================================
-void MBMasterPrivate::saveValues( QDomDocument &doc )
+void MBMasterPrivateXML::saveValues( QDomDocument &doc )
 {
   int i,j;
   QDomElement root = doc.createElement("MBMasterPrivateValues");
@@ -143,7 +149,7 @@ void MBMasterPrivate::saveValues( QDomDocument &doc )
 //===================================================================
 //
 //===================================================================
-void MBMasterPrivate::loadValues( const QDomDocument &doc )
+void MBMasterPrivateXML::loadValues( const QDomDocument &doc )
 {
   int i,j,mm,ss;
   QDomElement element;
@@ -171,7 +177,10 @@ void MBMasterPrivate::loadValues( const QDomDocument &doc )
   }
 }
 
-void MBMasterPrivate::polling_start()
+//===================================================================
+//
+//===================================================================
+void MBMasterPrivateXML::polling_start()
 {
  int i=0,j=0,k,m,len,a;
  QByteArray ba;
@@ -275,14 +284,20 @@ void MBMasterPrivate::polling_start()
  setPriority( QThread::HighestPriority );
 }
 
-void MBMasterPrivate::polling_stop()
+//===================================================================
+//
+//===================================================================
+void MBMasterPrivateXML::polling_stop()
 {
   thread_exit_flag = true;
   wait(5000);
   full_time=0;
 }
 
-void MBMasterPrivate::clear_configuration()
+//===================================================================
+//
+//===================================================================
+void MBMasterPrivateXML::clear_configuration()
 {
   thread_exit_flag = true;
   if( !wait(5000) ) terminate();
@@ -297,7 +312,10 @@ void MBMasterPrivate::clear_configuration()
   transactions_write2.clear();
 }
 
-void MBMasterPrivate::set_module_node(int module_index, int node, int subnode )
+//===================================================================
+//
+//===================================================================
+void MBMasterPrivateXML::set_module_node(int module_index, int node, int subnode )
 {
   int i;
   for(i=0; i<mmslots.count(); i++ )
@@ -307,7 +325,10 @@ void MBMasterPrivate::set_module_node(int module_index, int node, int subnode )
   }
 }
 
-void MBMasterPrivate::add_module( int module_index, int node, int subnode,
+//===================================================================
+//
+//===================================================================
+void MBMasterPrivateXML::add_module( int module_index, int node, int subnode,
                            const QString &name, const QString &description  )
 {
   MMModule mm;
@@ -319,7 +340,10 @@ void MBMasterPrivate::add_module( int module_index, int node, int subnode,
   mmmodules << mm;
 }
 
-void MBMasterPrivate::add_slot( int module_index, int slot_index, int addr, int len,
+//===================================================================
+//
+//===================================================================
+void MBMasterPrivateXML::add_slot( int module_index, int slot_index, int addr, int len,
                     MBDataType datatype,
                          const QString &description  )
 {
@@ -340,7 +364,10 @@ void MBMasterPrivate::add_slot( int module_index, int slot_index, int addr, int 
   }
 }
 
-void MBMasterPrivate::setTransport( SerialPort *transport )
+//===================================================================
+//
+//===================================================================
+void MBMasterPrivateXML::setTransport( SerialPort *transport )
 {
   this->transport = transport;
 }
@@ -348,7 +375,7 @@ void MBMasterPrivate::setTransport( SerialPort *transport )
 //===================================================================
 //
 //===================================================================
-void MBMasterPrivate::run()
+void MBMasterPrivateXML::run()
 {
   QTime stateChanged_timer;
   QTime full_time_timer;
@@ -397,7 +424,7 @@ void MBMasterPrivate::run()
         }
       }
       if( flag )
-      { emit qobject_cast<MBMaster*>(parent())->stateChanged();
+      { emit qobject_cast<MBMasterXML*>(parent())->stateChanged();
       }
     }
 
@@ -442,7 +469,7 @@ void MBMasterPrivate::run()
 //===================================================================
 //
 //===================================================================
-void MBMasterPrivate::optimize_write()
+void MBMasterPrivateXML::optimize_write()
 {
   QVector<int> flags_array;
 
@@ -501,7 +528,7 @@ void MBMasterPrivate::optimize_write()
 //===================================================================
 //
 //===================================================================
-void MBMasterPrivate::optimize_write_transaction(int i1, int i2)
+void MBMasterPrivateXML::optimize_write_transaction(int i1, int i2)
 {
   int i,j,k1,k2;
   QByteArray ba;
@@ -577,7 +604,7 @@ void MBMasterPrivate::optimize_write_transaction(int i1, int i2)
 //===================================================================
 //
 //===================================================================
-bool MBMasterPrivate::process_transaction( MMSlotTransaction &tr )
+bool MBMasterPrivateXML::process_transaction( MMSlotTransaction &tr )
 {
   int i;
   int data_offset;
@@ -668,7 +695,10 @@ skiped:
   return false;
 }
 
-MMSlot MBMasterPrivate::getSlot(int module, int slot ) const
+//===================================================================
+//
+//===================================================================
+MMSlot MBMasterPrivateXML::getSlot(int module, int slot ) const
 {
   int i,n;
   QMutexLocker locker(&mutex);
@@ -684,7 +714,10 @@ MMSlot MBMasterPrivate::getSlot(int module, int slot ) const
   return MMSlot();
 }
 
-void MBMasterPrivate::setSlotValue(int module, int slot,int index, const MMValue &value )
+//===================================================================
+//
+//===================================================================
+void MBMasterPrivateXML::setSlotValue(int module, int slot,int index, const MMValue &value )
 {
   char buff[8];
   int  buff_len=0;
@@ -727,7 +760,10 @@ void MBMasterPrivate::setSlotValue(int module, int slot,int index, const MMValue
   }
 }
 
-MMValue MBMasterPrivate::getSlotValue(int module, int slot,int index ) const
+//===================================================================
+//
+//===================================================================
+MMValue MBMasterPrivateXML::getSlotValue(int module, int slot,int index ) const
 {
   MMValue ret;
   int i,n;
@@ -745,7 +781,10 @@ MMValue MBMasterPrivate::getSlotValue(int module, int slot,int index ) const
   return ret;
 }
 
-void MBMasterPrivate::setSlotAttributes(int module, int slot, const QString &attributes )
+//===================================================================
+//
+//===================================================================
+void MBMasterPrivateXML::setSlotAttributes(int module, int slot, const QString &attributes )
 {
   int i,n;
   QMutexLocker locker(&mutex);
@@ -759,38 +798,56 @@ void MBMasterPrivate::setSlotAttributes(int module, int slot, const QString &att
   }
 }
 
-void MBMasterPrivate::setReadTransactionsDisabled( bool disabled )
+//===================================================================
+//
+//===================================================================
+void MBMasterPrivateXML::setReadTransactionsDisabled( bool disabled )
 {
   QMutexLocker locker(&mutex);
   disable_read_transactions = disabled;
 }
 
-void MBMasterPrivate::setWriteTransactionsDisabled( bool disabled )
+//===================================================================
+//
+//===================================================================
+void MBMasterPrivateXML::setWriteTransactionsDisabled( bool disabled )
 {
   QMutexLocker locker(&mutex);
   disable_write_transactions = disabled;
 }
 
-bool MBMasterPrivate::readTransactionsDisabled() const
+//===================================================================
+//
+//===================================================================
+bool MBMasterPrivateXML::readTransactionsDisabled() const
 {
   QMutexLocker locker(&mutex);
   return disable_read_transactions;
 }
 
-bool MBMasterPrivate::writeTransactionsDisabled() const
+//===================================================================
+//
+//===================================================================
+bool MBMasterPrivateXML::writeTransactionsDisabled() const
 {
   QMutexLocker locker(&mutex);
   return disable_write_transactions ;
 }
 
-void MBMasterPrivate::setMaximumPacketLength( int packet_length )
+//===================================================================
+//
+//===================================================================
+void MBMasterPrivateXML::setMaximumPacketLength( int packet_length )
 {
   if( packet_length < 16  ) packet_length = 16;
   if( packet_length > 256 ) packet_length = 256;
   max_packet_length = packet_length;
 }
 
-int MBMasterPrivate::maximumPacketLength() const
+//===================================================================
+//
+//===================================================================
+int MBMasterPrivateXML::maximumPacketLength() const
 {
   return max_packet_length;
 }
@@ -799,7 +856,7 @@ int MBMasterPrivate::maximumPacketLength() const
 //===================================================================
 // Расшифровка ModuleDefinition
 //===================================================================
-MikkonModuleDefinition MBMasterPrivate::decodeModuleDefinition( const QByteArray &ba )
+MikkonModuleDefinition MBMasterPrivateXML::decodeModuleDefinition( const QByteArray &ba )
 {
   //struct PACKED ModuleDefinition
   struct __attribute__(( packed )) ModuleDefinition
@@ -834,15 +891,15 @@ MikkonModuleDefinition MBMasterPrivate::decodeModuleDefinition( const QByteArray
 //###################################################################
 //
 //###################################################################
-MBMaster::MBMaster( QObject *parent )
-  : QObject( parent ), d( new MBMasterPrivate(this) )
+MBMasterXML::MBMasterXML( QObject *parent )
+  : QObject( parent ), d( new MBMasterPrivateXML(this) )
 {
 }
 
 //===================================================================
 //! Привязка к транспорту
 //===================================================================
-void MBMaster::setTransport( SerialPort *transport )
+void MBMasterXML::setTransport( SerialPort *transport )
 {
   d->setTransport( transport );
 }
@@ -850,7 +907,7 @@ void MBMaster::setTransport( SerialPort *transport )
 //===================================================================
 //! Очистка конфигурации
 //===================================================================
-void MBMaster::clear_configuration()
+void MBMasterXML::clear_configuration()
 {
   d->clear_configuration();
 }
@@ -862,7 +919,7 @@ void MBMaster::clear_configuration()
     См. \ref xml_opros_desc
 */
 //===================================================================
-void MBMaster::load_configuration( QDomDocument &doc )
+void MBMasterXML::load_configuration( QDomDocument &doc )
 {
   d->load_configuration( doc );
 }
@@ -873,7 +930,7 @@ void MBMaster::load_configuration( QDomDocument &doc )
     См. \ref xml_opros_desc
 */
 //===================================================================
-void MBMaster::load_configuration( const QByteArray &xml )
+void MBMasterXML::load_configuration( const QByteArray &xml )
 {
   d->load_configuration( xml );
 }
@@ -883,7 +940,7 @@ void MBMaster::load_configuration( const QByteArray &xml )
 /*! \param doc XML документ куда следует сохранить данные
 */
 //===================================================================
-void MBMaster::saveValues( QDomDocument &doc )
+void MBMasterXML::saveValues( QDomDocument &doc )
 {
   d->saveValues(doc );
 }
@@ -893,7 +950,7 @@ void MBMaster::saveValues( QDomDocument &doc )
 /*! \param doc XML документ с загружаемыми данными
 */
 //===================================================================
-void MBMaster::loadValues( const QDomDocument &doc )
+void MBMasterXML::loadValues( const QDomDocument &doc )
 {
   d->loadValues( doc );
 }
@@ -901,7 +958,7 @@ void MBMaster::loadValues( const QDomDocument &doc )
 //===================================================================
 //! Поменять адрес модуля
 //===================================================================
-void MBMaster::set_module_node(int module_index, int node, int subnode )
+void MBMasterXML::set_module_node(int module_index, int node, int subnode )
 {
   d->set_module_node( module_index, node, subnode );
 }
@@ -916,7 +973,7 @@ void MBMaster::set_module_node(int module_index, int node, int subnode )
   \param description    Описание модуля
 */
 //===================================================================
-void MBMaster::add_module( int module_index, int node, int subnode,
+void MBMasterXML::add_module( int module_index, int node, int subnode,
                                      const QString &name ,
                                      const QString &description )
 {
@@ -935,7 +992,7 @@ void MBMaster::add_module( int module_index, int node, int subnode,
   \param description    Описание
 */
 //===================================================================
-void MBMaster::add_slot( int module_index, int slot_index, int addr, int len,
+void MBMasterXML::add_slot( int module_index, int slot_index, int addr, int len,
                     MBDataType datatype, const QString &description  )
 {
   d->add_slot( module_index, slot_index, addr, len,
@@ -945,7 +1002,7 @@ void MBMaster::add_slot( int module_index, int slot_index, int addr, int len,
 //===================================================================
 //! Запустить опрос
 //===================================================================
-void MBMaster::polling_start()
+void MBMasterXML::polling_start()
 {
   d->polling_start();
 }
@@ -953,7 +1010,7 @@ void MBMaster::polling_start()
 //===================================================================
 //! Остановить опрос
 //===================================================================
-void MBMaster::polling_stop()
+void MBMasterXML::polling_stop()
 {
   d->polling_stop();
 }
@@ -965,7 +1022,7 @@ void MBMaster::polling_stop()
   \param slot   Номер слота
 */
 //===================================================================
-MMSlot MBMaster::getSlot(int module, int slot ) const
+MMSlot MBMasterXML::getSlot(int module, int slot ) const
 {
   return d->getSlot( module,  slot );
 }
@@ -978,7 +1035,7 @@ MMSlot MBMaster::getSlot(int module, int slot ) const
   \param index  Номер сигнала
 */
 //===================================================================
-MMValue MBMaster::getSlotValue(int module, int slot,int index ) const
+MMValue MBMasterXML::getSlotValue(int module, int slot,int index ) const
 {
   return d->getSlotValue( module, slot, index );
 }
@@ -992,7 +1049,7 @@ MMValue MBMaster::getSlotValue(int module, int slot,int index ) const
   \param value  Значение
 */
 //===================================================================
-void MBMaster::setSlotValue(int module, int slot,int index,
+void MBMasterXML::setSlotValue(int module, int slot,int index,
                                 const MMValue &value )
 {
   d->setSlotValue( module,  slot, index, value );
@@ -1006,7 +1063,7 @@ void MBMaster::setSlotValue(int module, int slot,int index,
   \param attributes  Аттрибуты
 */
 //===================================================================
-void MBMaster::setSlotAttributes(int module, int slot, const QString &attributes )
+void MBMasterXML::setSlotAttributes(int module, int slot, const QString &attributes )
 {
   d->setSlotAttributes( module,  slot,  attributes );
 }
@@ -1017,7 +1074,7 @@ void MBMaster::setSlotAttributes(int module, int slot, const QString &attributes
   \param disabled \b true - транзакции на чтение запрещены, \b false - разрешены
 */
 //===================================================================
-void MBMaster::setReadTransactionsDisabled( bool disabled )
+void MBMasterXML::setReadTransactionsDisabled( bool disabled )
 {
   d->setReadTransactionsDisabled( disabled );
 }
@@ -1028,7 +1085,7 @@ void MBMaster::setReadTransactionsDisabled( bool disabled )
   \param disabled \b true - транзакции на запись запрещены, \b false - разрешены
 */
 //===================================================================
-void MBMaster::setWriteTransactionsDisabled( bool disabled )
+void MBMasterXML::setWriteTransactionsDisabled( bool disabled )
 {
   d->setWriteTransactionsDisabled( disabled );
 }
@@ -1039,7 +1096,7 @@ void MBMaster::setWriteTransactionsDisabled( bool disabled )
   \return \b true - транзакции на чтение запрещены, \b false - разрешены
 */
 //===================================================================
-bool MBMaster::readTransactionsDisabled() const
+bool MBMasterXML::readTransactionsDisabled() const
 {
   return d->readTransactionsDisabled();
 }
@@ -1050,7 +1107,7 @@ bool MBMaster::readTransactionsDisabled() const
   \return \b true - транзакции на запись запрещены, \b false - разрешены
 */
 //===================================================================
-bool MBMaster::writeTransactionsDisabled() const
+bool MBMasterXML::writeTransactionsDisabled() const
 {
   return d->writeTransactionsDisabled();
 }
@@ -1061,7 +1118,7 @@ bool MBMaster::writeTransactionsDisabled() const
   \param packet_length - максимальная длина пакета (байт)
 */
 //===================================================================
-void MBMaster::setMaximumPacketLength( int packet_length )
+void MBMasterXML::setMaximumPacketLength( int packet_length )
 {
   return d->setMaximumPacketLength( packet_length );
 }
@@ -1072,7 +1129,7 @@ void MBMaster::setMaximumPacketLength( int packet_length )
   \return максимальная длина пакета (байт)
 */
 //===================================================================
-int MBMaster::maximumPacketLength() const
+int MBMasterXML::maximumPacketLength() const
 {
   return d->maximumPacketLength();
 }
@@ -1080,37 +1137,37 @@ int MBMaster::maximumPacketLength() const
 //===================================================================
 //! Общее кол-во запросов
 //===================================================================
-int MBMaster::request_counter() const
+int MBMasterXML::request_counter() const
 { return d->request_counter;
 }
 
 //===================================================================
 //! Общее кол-во ответов
 //===================================================================
-int MBMaster::answer_counter() const
+int MBMasterXML::answer_counter() const
 { return d->answer_counter;
 }
 
 //===================================================================
 //! Общее кол-во ошибок
 //===================================================================
-int MBMaster::error_counter() const
+int MBMasterXML::error_counter() const
 { return d->error_counter;
 }
 
 //===================================================================
 //! Время (в мс) полного цикла опроса
 //===================================================================
-int MBMaster::full_time() const
+int MBMasterXML::full_time() const
 { return d->full_time;
 }
 //===================================================================
 //! Расшифровка ModuleDefinition
 //===================================================================
 MikkonModuleDefinition
-            MBMaster::decodeModuleDefinition( const QByteArray& ba )
+            MBMasterXML::decodeModuleDefinition( const QByteArray& ba )
 {
-  return MBMasterPrivate::decodeModuleDefinition( ba );
+  return MBMasterPrivateXML::decodeModuleDefinition( ba );
 }
 
 /*! \page xml_opros_desc Формат XML документа конфигурации опроса модулей

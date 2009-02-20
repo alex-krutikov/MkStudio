@@ -1,18 +1,18 @@
-#ifndef __MBMASTER_P__H_
-#define __MBMASTER_P__H_
+#ifndef __MBMASTERXML_P__H_
+#define __MBMASTERXML_P__H_
 
 #include <QThread>
 
 #include "mbcommon.h"
 
-class MBMasterPrivate : public QThread
+class MBMasterPrivateXML : public QThread
 {
-  friend class MBMaster;
+  friend class MBMasterXML;
   friend class MBMasterWidget;
   friend class MBMasterWidgetTableModel;
 private:
-  MBMasterPrivate( QObject *parent);
-  virtual ~MBMasterPrivate();
+  MBMasterPrivateXML( QObject *parent);
+  virtual ~MBMasterPrivateXML();
 
   void setTransport( SerialPort *transport );
   void clear_configuration();

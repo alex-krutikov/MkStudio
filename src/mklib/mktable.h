@@ -9,7 +9,7 @@
 #include <QListWidget>
 #include <QVector>
 
-class MBMaster;
+class MBMasterXML;
 class QMouseEvent;
 class QDomDocument;
 class MBDataType;
@@ -35,7 +35,7 @@ public:
   void saveConfiguration( QDomDocument &doc );
   QStringList getHorizontalHeaderLabels();
 
-  void setMBMaster( MBMaster *mm ) { mbmaster = mm; }
+  void setMBMaster( MBMasterXML *mm ) { mbmaster = mm; }
   void setMode( enum Mode m );
   void setSettingsSheet( const QString &ss);
   QString settingsSheet();
@@ -53,7 +53,7 @@ private:
                          const MBDataType &datatype, int type );
   enum Mode mode;
   QTimer timer;
-  MBMaster *mbmaster;
+  MBMasterXML *mbmaster;
   MKTableItemDelegate *delegate;
 
   struct MKTable_SS_Enum

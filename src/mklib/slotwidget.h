@@ -11,7 +11,7 @@ namespace Ui
   class SlotDialog;
 }
 
-class MBMaster;
+class MBMasterXML;
 class QwtPlotCurve;
 
 //==============================================================================
@@ -21,7 +21,7 @@ class SlotWidget : public QMainWindow
 {
   Q_OBJECT
 public:
-  SlotWidget( QWidget *parent = 0, MBMaster *mm=0, int module=0, int slot=0 );
+  SlotWidget( QWidget *parent = 0, MBMasterXML *mm=0, int module=0, int slot=0 );
   virtual ~SlotWidget();
 private slots:
   void view_changed();
@@ -38,7 +38,7 @@ private:
 
   Ui::SlotWidget *ui;
   int module_n,slot_n;
-  MBMaster *mm;
+  MBMasterXML *mm;
   QwtPlotCurve *plot_curve;
   QwtPlotCurve *plot2_curve;
   QVector<double> plot_data_x;

@@ -3,7 +3,7 @@
 
 #include "mainwindow.h"
 
-class MBMaster;
+class MBMasterXML;
 class QString;
 class QApplication;
 class MainWindow;
@@ -20,7 +20,7 @@ class HelpWidget;
 
 extern QApplication  *application;
 extern MainWindow    *mainwindow;
-extern MBMaster      *mbmaster;
+extern MBMasterXML      *mbmaster;
 extern SerialPort    *port;
 extern HelpWidget    *helpwidget;
 extern QString        app_header;

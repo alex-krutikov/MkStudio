@@ -2,7 +2,7 @@
 #define __mainwindow__h__
 
 #include "ui_initdialog.h"
-#include "mbmaster.h"
+#include "mbmasterxml.h"
 #include "serialport.h"
 
 class MKViewPluginInterface;
@@ -56,7 +56,7 @@ private:
   QLabel *status_errors;
   QLabel *full_time;
   SerialPort port;
-  MBMaster   mbmaster;
+  MBMasterXML   mbmaster;
 };
 
 //=======================================================================================

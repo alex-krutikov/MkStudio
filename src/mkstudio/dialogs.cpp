@@ -13,7 +13,7 @@
 
 #include "dialogs.h"
 #include "main.h"
-#include "mbmaster.h"
+#include "mbmasterxml.h"
 #include "serialport.h"
 
 //##############################################################################

@@ -5,7 +5,7 @@
 
 #include "interface.h"
 
-#include "mbmaster.h"
+#include "mbmasterxml.h"
 
 class MKViewPlugin : public QObject, MKViewPluginInterface
 {
