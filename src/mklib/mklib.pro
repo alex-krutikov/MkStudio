@@ -38,8 +38,11 @@ FORMS   += ui/consolewidget.ui
 
 HEADERS += mbtypes.h
 HEADERS += mbmasterxml.h
-HEADERS += mbmasterxml_p.h
+HEADERS += mbmaster_p.h
 SOURCES += mbmasterxml.cpp
+
+HEADERS += mbmaster.h
+SOURCES += mbmaster.cpp
 
 HEADERS += mbcommon.h
 SOURCES += mbcommon.cpp

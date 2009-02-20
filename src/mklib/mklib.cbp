@@ -8,7 +8,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="release">
-				<Option output="..\bin\mkstudio.exe" prefix_auto="0" extension_auto="0" />
+				<Option output="..\..\bin\mkstudio.exe" prefix_auto="0" extension_auto="0" />
 				<Option working_dir=".." />
 				<Option type="0" />
 				<Option compiler="gcc" />
@@ -31,10 +31,12 @@
 		<Unit filename="mbconfigwidget.cpp" />
 		<Unit filename="mbconfigwidget.h" />
 		<Unit filename="mbmaster.cpp" />
-		<Unit filename="mbmasterxml.h" />
-		<Unit filename="mbmasterxml_p.h" />
+		<Unit filename="mbmaster.h" />
+		<Unit filename="mbmaster_p.h" />
 		<Unit filename="mbmasterwidget.cpp" />
 		<Unit filename="mbmasterwidget.h" />
+		<Unit filename="mbmasterxml.cpp" />
+		<Unit filename="mbmasterxml.h" />
 		<Unit filename="mbtypes.h" />
 		<Unit filename="mktable.cpp" />
 		<Unit filename="mktable.h" />

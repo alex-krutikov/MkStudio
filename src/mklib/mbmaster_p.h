@@ -1,26 +1,29 @@
-#ifndef __MBMASTERXML_P__H_
-#define __MBMASTERXML_P__H_
+#ifndef __MBMASTER_P__H_
+#define __MBMASTER_P__H_
 
 #include <QThread>
 
 #include "mbcommon.h"
+#include "mbtypes.h"
 
-class MBMasterPrivateXML : public QThread
+class SerialPort;
+
+class MBMasterPrivate : public QThread
 {
+  friend class MBMasterPrivateXML;
   friend class MBMasterXML;
+  friend class MBMaster;
   friend class MBMasterWidget;
   friend class MBMasterWidgetTableModel;
+
+  Q_OBJECT
 private:
-  MBMasterPrivateXML( QObject *parent);
-  virtual ~MBMasterPrivateXML();
+  MBMasterPrivate( QObject *parent);
+  virtual ~MBMasterPrivate();
 
   void setTransport( SerialPort *transport );
   void clear_configuration();
-  void load_configuration( QDomDocument &doc );
-  void load_configuration( const QByteArray &xml );
 
-  void saveValues( QDomDocument &doc );
-  void loadValues( const QDomDocument &doc );
   void set_module_node(int module_index, int node, int subnode );
   void add_module( int module_index, int node, int subnode,
                                      const QString &name,
@@ -58,6 +61,8 @@ private:
 
 //! Расшифровка ModuleDefinition
   static MikkonModuleDefinition decodeModuleDefinition( const QByteArray& );
+signals:
+  void stateChanged();
 
 private:
   void run();

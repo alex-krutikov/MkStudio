@@ -4,7 +4,7 @@
 #include "mbcommon.h"
 #include "slotwidget.h"
 #include "mbmasterxml.h"
-#include "mbmasterxml_p.h"
+#include "mbmaster_p.h"
 
 #include "ui_mbmasterwidget.h"
 
