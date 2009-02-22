@@ -84,7 +84,7 @@ private:
   bool disable_read_transactions;  //!< флаг запрета транзакций на чтение
   int max_packet_length;           //!< максимальная длина пакета
 
-  //! служебная структура для быстрого поиска транзакци на запись
+  // служебная структура для быстрого поиска транзакци на запись
   struct ModuleSlotIndex
   { int module,slot,index;
     inline ModuleSlotIndex(int module, int slot, int index)
@@ -103,7 +103,7 @@ private:
       return true;
     }
   };
-  //! ассациативный контейнер для быстрого поиска транзакци на запись
+  // ассациативный контейнер для быстрого поиска транзакци на запись
   QMap<ModuleSlotIndex,int> transactions_write_map;
 };
 

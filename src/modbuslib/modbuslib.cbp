@@ -28,6 +28,7 @@
 		<Unit filename="mbmaster.h" />
 		<Unit filename="mbmaster_p.h" />
 		<Unit filename="mbtypes.h" />
+		<Unit filename="modbuslib.h" />
 		<Unit filename="serialport.cpp" />
 		<Unit filename="serialport.h" />
 		<Unit filename="serialport_p.h" />

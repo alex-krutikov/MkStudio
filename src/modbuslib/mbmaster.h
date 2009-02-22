@@ -8,12 +8,10 @@ class MBMasterPrivate;
 class SerialPort;
 
 //===================================================================
-//! Опрос Модулей MIKKON
+//! Опрос микроконтроллеров по протоколу Modbus RTU
 /**
-    Система опроса модулей MIKKON через последовательный порт по
-    протоколу Modbus RTU.
-
     См. \ref xml_opros_desc
+    \ingroup API_group
 */
 //===================================================================
 class MBMaster : public QObject
@@ -28,26 +26,44 @@ class MBMaster : public QObject
 public:
   MBMaster( QObject *parent = 0);
 
+/** @name Настройка
+ *
+ */
+//@{
+
   void setTransport( SerialPort *transport );
   void clear_configuration();
-  void set_module_node(int module_index, int node, int subnode=0 );
   void add_module( int module_index, int node, int subnode=0,
                                      const QString &name = QString(),
                                      const QString &description = QString() );
   void add_slot( int module_index, int slot_index, int addr, int len,
                     MBDataType datatype, const QString &description = QString() );
+  void set_module_node(int module_index, int node, int subnode=0 );
+  void setSlotAttributes(int module, int slot, const QString &attributes );
+//@}
 
+/** @name Запуск и останов опроса модулей
+ *
+ */
+//@{
   void polling_start();
   void polling_stop();
+//@}
 
+/** @name Чтение и запись значений
+ *
+ */
+//@{
   MMSlot getSlot(int module, int slot ) const;
   MMValue getSlotValue(int module, int slot,int index ) const;
   void setSlotValue(int module, int slot,int index,
                                 const MMValue &value );
+//@}
 
-  void setSlotAttributes(int module, int slot, const QString &attributes );
-
-
+/** @name Разное
+ *
+ */
+//@{
   void setReadTransactionsDisabled( bool disabled );
   void setWriteTransactionsDisabled( bool disabled );
 
@@ -58,12 +74,17 @@ public:
 
   void setMaximumPacketLength( int packet_length );
   int maximumPacketLength() const;
+//@}
 
-
+/** @name Статистика
+ *
+ */
+//@{
   int request_counter() const;
   int answer_counter() const;
   int error_counter() const;
   int full_time() const;
+//@}
 
 //! Расшифровка ModuleDefinition
   static MikkonModuleDefinition decodeModuleDefinition( const QByteArray& );
