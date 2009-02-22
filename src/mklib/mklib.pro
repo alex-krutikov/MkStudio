@@ -1,4 +1,18 @@
+TEMPLATE = lib
+DESTDIR  = ../../lib
+DLLDESTDIR  = ../../bin
+
 QT += xml
+CONFIG -= rtti exceptions
+unix { CONFIG += static }
+
+#CONFIG += static
+
+include( ../qwt.pri )
+include( ../modbuslib.pri )
+
+INCLUDEPATH  += .
+DEPENDPATH   += .
 
 OBJECTS_DIR    = build
 UI_HEADERS_DIR = build
@@ -6,70 +20,36 @@ MOC_DIR        = build
 RCC_DIR        = build
 UI_HEADERS_DIR = build
 
-CONFIG -= rtti exceptions
-
-TEMPLATE = lib
-DESTDIR  = ../../lib
-DLLDESTDIR  = ../../bin
-
-unix { CONFIG += static }
-
-include( ../qwt.pri )
-
 PRECOMPILED_HEADER = pch.h
 
-INCLUDEPATH += .
-DEPENDPATH  += . ui
+HEADERS = mbconfigwidget.h                      \
+          mbmasterwidget.h                      \
+          consolewidget.h                       \
+          mbmasterxml.h                         \
+          mktable.h                             \
+          mktable_p.h                           \
+          plot.h                                \
+          helpwidget.h                          \
+          slotwidget.h
+          
+          
+SOURCES = mbconfigwidget.cpp                    \
+          mbmasterwidget.cpp                    \
+          consolewidget.cpp                     \
+          mbmasterxml.cpp                       \
+          mktable.cpp                           \
+          plot.cpp                              \
+          helpwidget.cpp                        \
+          slotwidget.cpp
 
-HEADERS += mbconfigwidget.h
-SOURCES += mbconfigwidget.cpp
-FORMS   += ui/mbconfigwidget.ui
+FORMS   = ui/mbconfigwidget.ui                  \
+          ui/mbmasterwidget.ui                  \
+          ui/mbmslotwidget.ui                   \
+          ui/mbmslotexportdialog.ui             \
+          ui/plot.ui                            \
+          ui/consolewidget.ui                   \
+          ui/helpwidget.ui                      \
+          ui/slotwidget.ui                      \
+          ui/slotdialog.ui
 
-HEADERS += mbmasterwidget.h
-SOURCES += mbmasterwidget.cpp
-FORMS   += ui/mbmasterwidget.ui
-FORMS   += ui/mbmslotwidget.ui
-FORMS   += ui/mbmslotexportdialog.ui
-FORMS   += ui/plot.ui
-
-HEADERS += consolewidget.h
-SOURCES += consolewidget.cpp
-FORMS   += ui/consolewidget.ui
-
-HEADERS += mbtypes.h
-HEADERS += mbmasterxml.h
-HEADERS += mbmaster_p.h
-SOURCES += mbmasterxml.cpp
-
-HEADERS += mbmaster.h
-SOURCES += mbmaster.cpp
-
-HEADERS += mbcommon.h
-SOURCES += mbcommon.cpp
-
-HEADERS += crc.h
-SOURCES += crc.cpp
-
-HEADERS += serialport.h serialport_p.h
-SOURCES += serialport.cpp
-win32{ SOURCES += serialport_win.cpp }
-unix{  SOURCES += serialport_unix.cpp }
-
-HEADERS += mktable.h
-HEADERS += mktable_p.h
-SOURCES += mktable.cpp
-
-HEADERS += plot.h
-SOURCES += plot.cpp
-
-HEADERS += helpwidget.h
-SOURCES += helpwidget.cpp
-FORMS   += ui/helpwidget.ui
-
-HEADERS += slotwidget.h
-SOURCES += slotwidget.cpp
-FORMS   += slotwidget.ui slotdialog.ui
-
-RESOURCES += mklib.qrc
-
-SOURCES += console.cpp
+RESOURCES = mklib.qrc

@@ -1,3 +1,4 @@
+include( ../modbuslib.pri )
 include( ../mklib.pri )
 
 OBJECTS_DIR    = build

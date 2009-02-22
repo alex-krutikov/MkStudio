@@ -11,7 +11,7 @@
 
 QApplication  *application;
 MainWindow    *mainwindow;
-MBMasterXML      *mbmaster;
+MBMasterXML   *mbmaster;
 SerialPort    *port;
 HelpWidget    *helpwidget;
 QString       app_header;
