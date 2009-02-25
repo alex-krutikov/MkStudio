@@ -1,12 +1,12 @@
 #ifndef __MODBUSLIB_H__
 #define __MODBUSLIB_H__
 
-//#include "console.h"
-//#include "crc.h"
-//#include "mbcommon.h"
-//#include "mbtypes.h"
-//#include "serialport.h"
-//#include "mbmaster.h"
+#include "console.h"
+#include "crc.h"
+#include "mbcommon.h"
+#include "mbtypes.h"
+#include "serialport.h"
+#include "mbmaster.h"
 
 /*!
 
