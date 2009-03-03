@@ -33,8 +33,6 @@ Section "MKView"
   File ..\..\bin\mkview.exe
   File ..\..\bin\mklib.dll
   File ..\..\bin\*.xml
-  File ..\..\bin\mkview_*.dll
-
 
   File ..\..\..\qt\bin\qtcore4.dll
   File ..\..\..\qt\bin\qtgui4.dll
