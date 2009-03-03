@@ -7,7 +7,7 @@ class SerialPort;
 class SerialPortPrivate;
 
 //---------------------------------------------------------
-//! Последовательный порт \ingroup API_group
+//! Последовательный интерфейс передачи данных \ingroup API_group
 //---------------------------------------------------------
 class SerialPort
 {
@@ -16,20 +16,36 @@ public:
   SerialPort();
   virtual ~SerialPort();
 
+/** @name Настройка
+ *
+ */
+//@{
   void setName( const QString &portname );
   void setSpeed( const int speed );
-  QString getName() { return portname; }
-  int getSpeed() { return portspeed;   }
-  inline int answerTimeout() const;
   inline void setAnswerTimeout(int timeout );
   bool open();
   void close();
+//@}
 
+/** @name Работа
+ *
+ */
+//@{
   int request( const QByteArray &request, QByteArray &answer, int *errorcode=0);
+//@}
 
+/** @name Информация
+ *
+ */
+//@{
+
+  QString name() { return portname; } //!< Имя интерфейса
+  int speed() { return portspeed;   } //!< Скорость интерфейса
+  inline int answerTimeout() const;
+  inline QString lastError() const;
+  void resetLastErrorType();
+//@}
   static QStringList queryComPorts();
-  QString lastError() const { return lastError_str; }
-  void reset_current_error();
 
   bool console_out_packets;
 private:
@@ -41,12 +57,19 @@ private:
   QString lastError_str;
 };
 
+//! Таймаут ответа (в мс)
 inline int SerialPort::answerTimeout() const
 { return answer_timeout;
 }
 
+//! Задать таймаут ответа (в мс)
 inline void SerialPort::setAnswerTimeout(int timeout )
 { answer_timeout = timeout;
+}
+
+//! Описание последней ошибки
+inline QString SerialPort::lastError() const
+{ return lastError_str;
 }
 
 #endif

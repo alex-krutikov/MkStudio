@@ -236,7 +236,7 @@ void MBMasterPrivate::run()
   int i=0;
   int j,k;
 
-  if(transport) transport->reset_current_error();
+  if(transport) transport->resetLastErrorType();
 
   if( transactions_read.count() == 0 ) return; //#############
 

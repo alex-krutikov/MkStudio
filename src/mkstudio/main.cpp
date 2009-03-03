@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     goto exit;
   }
 
-  app_header = QString("%1 %2 - MKStudio").arg(port->getName()).arg(port->getSpeed() );
+  app_header = QString("%1 %2 - MKStudio").arg(port->name()).arg(port->speed() );
 
   mbmaster = new MBMasterXML;
   mbmaster->setTransport( port );
