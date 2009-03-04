@@ -1,4 +1,4 @@
-#include <QtGui>
+#include <QtCore>
 
 #include "mbcommon.h"
 #include "console.h"

@@ -3,7 +3,6 @@
 
 #ifdef Q_OS_WIN32
   #include <windows.h>
-  #include <QWidget>
 #endif
 
 class SerialPort;
@@ -13,22 +12,12 @@ class QByteArray;
 class QStringList;
 class QWidget;
 
-#ifdef Q_OS_WIN32
-#include <QWidget>
-class SerialPortPrivate;
-class SerialPortPrivateWidget : public QWidget
-{
-protected:
-  bool winEvent ( MSG * message, long * result );
-public:
-  SerialPortPrivate *spp;
-};
-#endif
-
 class SerialPortPrivate
 {
   friend class SerialPort;
-  friend class SerialPortPrivateWidget;
+#ifdef Q_OS_WIN32
+  friend LRESULT CALLBACK SerialPortWndProc(HWND hwnd, UINT Message, WPARAM wparam,LPARAM lparam);
+#endif
 
   SerialPortPrivate( SerialPort *sp);
   ~SerialPortPrivate();
@@ -43,12 +32,11 @@ class SerialPortPrivate
 
 #ifdef Q_OS_WIN32
   void usleep(DWORD us);
-  
+
   HANDLE hport;
-  SerialPortPrivateWidget window;
-  HDEVNOTIFY notify_handle;
   LARGE_INTEGER freq;
   bool perf_cnt_ok;
+  HWND hwnd;
 #endif
 #ifdef Q_OS_UNIX
   int fd;

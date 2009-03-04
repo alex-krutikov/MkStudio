@@ -1,5 +1,4 @@
 #include <QtCore>
-#include <QWidget>
 
 #include "serialport_p.h"
 
@@ -18,18 +17,17 @@ extern "C" WINUSERAPI HDEVNOTIFY WINAPI RegisterDeviceNotificationW(HANDLE,LPVOI
 extern "C" WINUSERAPI BOOL WINAPI UnregisterDeviceNotification(HANDLE);
 
 //===================================================================
-// Отлов WM_DEVICECHANGE в служебном окне
+// Оконная функция
 //===================================================================
-bool SerialPortPrivateWidget::winEvent(MSG * message, long * result)
+LRESULT CALLBACK SerialPortWndProc(HWND hwnd, UINT Message, WPARAM wparam,LPARAM lparam)
 {
-  if( message->message == WM_DEVICECHANGE )
-  { Console::Print("WM_DEVICECHANGE  wParam=" + QString::number( message->wParam , 16) + " \n" );
+  SerialPortPrivate *spp = (SerialPortPrivate*)GetWindowLongPtr( hwnd, GWL_USERDATA );
+  if( Message == WM_DEVICECHANGE )
+  { Console::Print("WM_DEVICECHANGE  wParam=" + QString::number( wparam , 16) + " \n" );
     spp->close();
-
   }
-  return false;
+  return DefWindowProc(hwnd,Message,wparam,lparam);
 }
-
 
 //===================================================================
 // Инициализация
@@ -40,19 +38,22 @@ SerialPortPrivate::SerialPortPrivate( SerialPort *sp_arg )
   hport = 0;
   last_error_id = 0;
 
-  window.spp = this;
-
   if (perf_cnt_ok = QueryPerformanceCounter(&freq))
   { perf_cnt_ok = QueryPerformanceFrequency(&freq);
   }
 
-  DEV_BROADCAST_PORT dbh;
-  memset( &dbh, 0, sizeof( dbh ) );
-  dbh.dbcp_size = sizeof( dbh );
-  dbh.dbcp_devicetype = DBT_DEVTYP_PORT;
-  notify_handle = RegisterDeviceNotification( window.winId(), &dbh, 0 );
-  window.setWindowFlags( Qt::Popup );
-  window.hide();
+  WNDCLASS w;
+  memset(&w,0,sizeof(WNDCLASS));
+  w.style = CS_HREDRAW | CS_VREDRAW;
+  w.lpfnWndProc = SerialPortWndProc;
+  w.hInstance = 0;
+  w.hbrBackground = (WHITE_BRUSH);
+  w.lpszClassName = _T("SerialPortNotifyWindows");
+  RegisterClass(&w);
+  hwnd = CreateWindow(_T("SerialPortNotifyWindows"),_T("SerialPortNotifyWindow"),0,
+		0,0,0,0,NULL,NULL,0,NULL);
+  SetWindowLongPtr( hwnd, GWL_USERDATA, (LONG)this );
+  ShowWindow(hwnd,SW_HIDE);
 }
 
 //===================================================================
@@ -61,7 +62,7 @@ SerialPortPrivate::SerialPortPrivate( SerialPort *sp_arg )
 SerialPortPrivate::~SerialPortPrivate()
 {
   close();
-  UnregisterDeviceNotification( notify_handle );
+  CloseWindow( hwnd );
 }
 
 //===================================================================

@@ -1,7 +1,7 @@
 #ifndef __SERIALPORT_H_
 #define __SERIALPORT_H_
 
-#include <QtGui>
+#include <QtCore>
 
 class SerialPort;
 class SerialPortPrivate;
