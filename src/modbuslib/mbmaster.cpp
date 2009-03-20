@@ -447,7 +447,7 @@ void MBMasterPrivate::optimize_write_transaction(int i1, int i2)
     ba_answer.fill(0);
     if( !transport  ) return;
     int errorcode;
-    transport->request( ba, ba_answer, &errorcode );
+    transport->query( ba, ba_answer, &errorcode );
     //Console::Print( "ÎÏÒÈÌÈÇÈÐÎÂÀÍÍÀß ÇÀÏÈÑÜ: " + QByteArray2QString( ba ) + "\n" );
     i = j;
   }
@@ -474,7 +474,7 @@ bool MBMasterPrivate::process_transaction( MMSlotTransaction &tr )
   tr.answer.fill(0);
 
   request_counter++;
-  i = transport->request( tr.request, tr.answer, &tr.errorcode );
+  i = transport->query( tr.request, tr.answer, &tr.errorcode );
 
   {
 

@@ -89,10 +89,10 @@ QStringList SerialPort::queryComPorts()
 //! \param[out] errorcode код ошибки в пакете ответа с ошибкой
 //! \return Реальное количество байт в ответе. Если равно 0 - нет ответа.
 //===================================================================
-int SerialPort::request( const QByteArray &request, QByteArray &answer,
+int SerialPort::query( const QByteArray &request, QByteArray &answer,
                          int *errorcode)
 {
-  return d->request( request, answer,errorcode );
+  return d->query( request, answer,errorcode );
 }
 
 //===================================================================

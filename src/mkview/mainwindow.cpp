@@ -178,7 +178,7 @@ void InitDialog::on_tb_moduleinfo_clicked()
   i=5;
   while( i-- )
   {
-    ret = serialport.request( req, ans );
+    ret = serialport.query( req, ans );
     if( ret != (128+6) )  continue;
     if( CRC::CRC16(ans) ) continue;
     break;

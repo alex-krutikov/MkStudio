@@ -98,7 +98,7 @@ void SerialPortPrivate::close()
 //===================================================================
 //
 //===================================================================
-int SerialPortPrivate::request( const QByteArray &request, 
+int SerialPortPrivate::query( const QByteArray &request, 
                                       QByteArray &answer, int *errorcode)
 {
   Q_UNUSED( errorcode );

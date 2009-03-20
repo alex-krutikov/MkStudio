@@ -26,7 +26,7 @@ class SerialPortPrivate
   bool reopen();
   void close();
 
-  int  request( const QByteArray &request, QByteArray &answer, int *errorcode);
+  int  query( const QByteArray &request, QByteArray &answer, int *errorcode);
 
   static QStringList queryComPorts();
 

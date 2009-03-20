@@ -31,7 +31,7 @@ public:
  *
  */
 //@{
-  int request( const QByteArray &request, QByteArray &answer, int *errorcode=0);
+  int query( const QByteArray &request, QByteArray &answer, int *errorcode=0);
 //@}
 
 /** @name Информация

@@ -168,7 +168,7 @@ void SerialPortPrivate::close()
 //===================================================================
 // Посылка запроса и получение ответа MODBUS RTU
 //===================================================================
-int SerialPortPrivate::request( const QByteArray &request,
+int SerialPortPrivate::query( const QByteArray &request,
                                   QByteArray &answer, int *errorcode)
 {
   bool ok;
