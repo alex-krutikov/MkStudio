@@ -229,11 +229,11 @@ void SlotWidget::export_data()
 
   if( curve )
   { // экспорт содержания графиков
-    const QwtSeriesData<QwtDoublePoint> &d = curve->data();
+    const QwtData &d = curve->data();
     n = d.size();
     for(i=1; i<n; i++ )
-    { str += QString::number( d.sample(i-1).x() ) + "\t";
-      str += QString::number( d.sample(i  ).y() ) + "\n";
+    { str += QString::number( d.x(i-1) ) + "\t";
+      str += QString::number( d.y(i  ) ) + "\n";
     }
     str.chop(1);
   }
