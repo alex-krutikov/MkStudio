@@ -4,4 +4,5 @@ SUBDIRS  = modbuslib        \
            mklib            \
            mkstudio         \
            mkview           \
+           xsync            \
 
