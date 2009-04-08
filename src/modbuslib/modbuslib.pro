@@ -30,7 +30,8 @@ SOURCES = mbmaster.cpp                          \
           mbcommon.cpp                          \
           crc.cpp                               \
           serialport.cpp                        \
-          console.cpp
+          console.cpp                           \
+          xfiles.cpp
 
 win32{ SOURCES += serialport_win.cpp  }
 unix{  SOURCES += serialport_unix.cpp }
