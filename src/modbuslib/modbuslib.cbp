@@ -33,6 +33,8 @@
 		<Unit filename="serialport.h" />
 		<Unit filename="serialport_p.h" />
 		<Unit filename="serialport_win.cpp" />
+		<Unit filename="xfiles.cpp" />
+		<Unit filename="xfiles.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

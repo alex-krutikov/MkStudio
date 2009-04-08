@@ -31,11 +31,16 @@ struct XFilesFileInfo
 };
 
 //=============================================================================
-//
+//! Работа с файловой системой микроконтроллеров по протоколу XFILES
+/**
+    \ingroup API_group
+*/
 //=============================================================================
 class XFiles
 {
 public:
+
+  //! Коды ошибок
   enum Result
   { Ok = 0,
     NotReady,
@@ -72,9 +77,18 @@ public:
   XFiles();
   virtual ~XFiles();
 
+/** @name Настройка
+ *
+ */
+//@{
   void setTransport( SerialPort *port );
   void setNode( int node );
+//@}
 
+/** @name Работа с файловой системой
+ *
+ */
+//@{
   Result openDirectory( const QString &path, int *id );
   Result readDirectory(int id, QList<XFilesFileInfo> &fi_list );
   Result openFile( const QString &filename, int mode, int *id );
@@ -83,7 +97,7 @@ public:
   Result closeFile(int id);
   Result removeFile( const QString &path );
   Result createDirectory( const QString &path );
-
+//@}
   static QString decodeResult( Result result );
 
 private:
