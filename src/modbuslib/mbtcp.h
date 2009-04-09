@@ -16,7 +16,7 @@ public:
 
   void setName( const QString &portname );
   void setSpeed( const int speed );
-  inline void setAnswerTimeout(int timeout );
+  void setAnswerTimeout(int timeout );
   bool open();
   void close();
 
@@ -32,12 +32,7 @@ public:
 
   bool console_out_packets;
 private:
-//  int answer_timeout;
-//  int current_answer_timeout;
-//  QString portname;
-//  int     portspeed;
   MbTcpPortPrivate *d;
-//  QString lastError_str;
 };
 
 #endif

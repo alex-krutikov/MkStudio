@@ -5,14 +5,14 @@
 #include "dialogs.h"
 #include "mbmasterxml.h"
 #include "consolewidget.h"
-#include "serialport.h"
+#include "abstractserialport.h"
 
 #include "helpwidget.h"
 
 QApplication  *application;
 MainWindow    *mainwindow;
 MBMasterXML   *mbmaster;
-SerialPort    *port;
+AbstractSerialPort  *port;
 HelpWidget    *helpwidget;
 QString       app_header;
 
@@ -25,18 +25,18 @@ int main(int argc, char *argv[])
 #ifdef Q_OS_UNIX
   QApplication::setStyle("cleanlooks");
 #endif
-  application = new QApplication( argc, argv);
+  QApplication app( argc, argv);
   QTextCodec::setCodecForTr(QTextCodec::codecForName("Windows-1251"));
   QTextCodec::setCodecForCStrings(QTextCodec::codecForName("Windows-1251"));
 
   QTranslator *qt_translator = new QTranslator;
   if ( qt_translator->load( ":tr/qt_ru.qm" ) )
-  { application->installTranslator( qt_translator );
+  { QApplication::installTranslator( qt_translator );
   }
 
   app_header = "MKStudio";
 
-  port = new SerialPort;
+  //// port = new SerialPort;
 
   InitDialog initdialog;
   if( initdialog.exec() != QDialog::Accepted ) goto exit;
@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
   delete mbmaster;
 exit:
   delete port;
-  delete application;
+  delete qt_translator;
 
   return ret;
 }

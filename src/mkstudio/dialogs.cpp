@@ -15,6 +15,7 @@
 #include "main.h"
 #include "mbmasterxml.h"
 #include "serialport.h"
+#include "mbtcp.h"
 
 //##############################################################################
 /// Окно выбора порта и скорости
@@ -38,6 +39,7 @@ InitDialog::InitDialog( QWidget *parent)
     str2.replace(';',"        ( ");
     cb_portname->addItem( str2+" )", str.section(';',0,0) );
   }
+  cb_portname->addItem( "Modbus TCP", "===TCP===" );
   i = cb_portname->findData( settings.value("portname").toString() );
   if( i >= 0 ) cb_portname->setCurrentIndex(i);
   //----------------------------------------------------------------------
@@ -57,7 +59,23 @@ InitDialog::InitDialog( QWidget *parent)
   i = cb_portspeed->findText( settings.value("portspeed","115200").toString() );
   if( i >= 0 ) cb_portspeed->setCurrentIndex(i);
   //----------------------------------------------------------------------
+  le_tcp_server -> setText( settings.value("tcpserver").toString() );
+  //----------------------------------------------------------------------
   setFocus();
+}
+
+//==============================================================================
+/// Переключение ComboBox'а порта
+//==============================================================================
+void InitDialog::on_cb_portname_currentIndexChanged(int)
+{
+  QString str = cb_portname->itemData( cb_portname->currentIndex() ).toString();
+  bool b = ( str == "===TCP===" );
+
+  cb_portspeed->setHidden(   b );
+  l_speed->setHidden(        b );
+  l_server->setHidden(      !b );
+  le_tcp_server->setHidden( !b );
 }
 
 //==============================================================================
@@ -66,10 +84,19 @@ InitDialog::InitDialog( QWidget *parent)
 void InitDialog::accept()
 {
   QString str = cb_portname->itemData( cb_portname->currentIndex() ).toString();
+  QString str2 = le_tcp_server->text().simplified();
 
   QSettings settings( QSETTINGS_PARAM );
-  settings.setValue( "portname", str );
+  settings.setValue( "portname",  str );
   settings.setValue( "portspeed", cb_portspeed->currentText() );
+  settings.setValue( "tcpserver", str2 );
+
+  if( str == "===TCP===" )
+  { str = le_tcp_server->text();
+    port = new MbTcpPort;
+  } else
+  { port = new SerialPort;
+  }
 
   if( !str.isEmpty() )
   {  port->setName( str );

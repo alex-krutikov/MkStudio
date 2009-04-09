@@ -14,6 +14,8 @@ class InitDialog : public QDialog,
 public:
   InitDialog( QWidget *parent = 0);
   void accept();
+private slots:
+  void on_cb_portname_currentIndexChanged(int);
 };
 
 #include "ui_assigndialog.h"

@@ -7,7 +7,7 @@ class MBMasterXML;
 class QString;
 class QApplication;
 class MainWindow;
-class SerialPort;
+class AbstractSerialPort;
 class HelpWidget;
 
 #if defined( Q_OS_WIN32 )
@@ -21,7 +21,7 @@ class HelpWidget;
 extern QApplication  *application;
 extern MainWindow    *mainwindow;
 extern MBMasterXML      *mbmaster;
-extern SerialPort    *port;
+extern AbstractSerialPort   *port;
 extern HelpWidget    *helpwidget;
 extern QString        app_header;
 

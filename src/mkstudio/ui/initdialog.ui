@@ -1,133 +1,147 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>InitDialog</class>
- <widget class="QDialog" name="InitDialog" >
-  <property name="geometry" >
+ <widget class="QDialog" name="InitDialog">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>231</width>
-    <height>163</height>
+    <width>253</width>
+    <height>189</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QVBoxLayout" >
-   <property name="margin" >
+  <layout class="QVBoxLayout">
+   <property name="margin">
     <number>3</number>
    </property>
    <item>
-    <layout class="QGridLayout" >
-     <item row="0" column="0" >
-      <widget class="QLabel" name="label" >
-       <property name="text" >
+    <layout class="QGridLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
         <string>Порт:</string>
        </property>
-       <property name="alignment" >
+       <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
-     <item row="0" column="1" >
-      <widget class="QComboBox" name="cb_portname" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+     <item row="0" column="1">
+      <widget class="QComboBox" name="cb_portname">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
       </widget>
      </item>
-     <item row="1" column="0" >
-      <widget class="QLabel" name="label_2" >
-       <property name="text" >
+     <item row="1" column="0">
+      <widget class="QLabel" name="l_speed">
+       <property name="text">
         <string>Скорость:</string>
        </property>
-       <property name="alignment" >
+       <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
-     <item row="1" column="1" >
-      <widget class="QComboBox" name="cb_portspeed" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+     <item row="1" column="1">
+      <widget class="QComboBox" name="cb_portspeed">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
       </widget>
      </item>
-     <item row="2" column="0" >
-      <widget class="QLabel" name="label_3" >
-       <property name="text" >
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
         <string>Таймаут (мс):</string>
        </property>
-       <property name="alignment" >
+       <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
-     <item row="2" column="1" >
-      <widget class="QSpinBox" name="sb_timeout" >
-       <property name="minimum" >
+     <item row="3" column="1">
+      <widget class="QSpinBox" name="sb_timeout">
+       <property name="minimum">
         <number>20</number>
        </property>
-       <property name="maximum" >
+       <property name="maximum">
         <number>20000</number>
        </property>
-       <property name="singleStep" >
+       <property name="singleStep">
         <number>100</number>
        </property>
-       <property name="value" >
+       <property name="value">
         <number>200</number>
        </property>
       </widget>
      </item>
-     <item row="3" column="0" >
-      <widget class="QLabel" name="label_4" >
-       <property name="text" >
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
         <string>Макс. длина пакета:</string>
        </property>
-       <property name="alignment" >
+       <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
-     <item row="3" column="1" >
-      <widget class="QSpinBox" name="sb_max_len" >
-       <property name="minimum" >
+     <item row="4" column="1">
+      <widget class="QSpinBox" name="sb_max_len">
+       <property name="minimum">
         <number>10</number>
        </property>
-       <property name="maximum" >
+       <property name="maximum">
         <number>255</number>
        </property>
-       <property name="singleStep" >
+       <property name="singleStep">
         <number>16</number>
        </property>
-       <property name="value" >
+       <property name="value">
         <number>128</number>
        </property>
       </widget>
      </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="l_server">
+       <property name="text">
+        <string>Сервер:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="le_tcp_server"/>
+     </item>
     </layout>
    </item>
    <item>
-    <widget class="Line" name="line" >
-     <property name="orientation" >
+    <widget class="Line" name="line">
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeType" >
+     <property name="sizeType">
       <enum>QSizePolicy::Minimum</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>10</height>
@@ -136,17 +150,25 @@
     </spacer>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="buttonBox" >
-     <property name="orientation" >
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <property name="standardButtons" >
+     <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>cb_portname</tabstop>
+  <tabstop>cb_portspeed</tabstop>
+  <tabstop>le_tcp_server</tabstop>
+  <tabstop>sb_timeout</tabstop>
+  <tabstop>sb_max_len</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -155,11 +177,11 @@
    <receiver>InitDialog</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>248</x>
      <y>254</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>157</x>
      <y>274</y>
     </hint>
@@ -171,11 +193,11 @@
    <receiver>InitDialog</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>316</x>
      <y>260</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
     </hint>
