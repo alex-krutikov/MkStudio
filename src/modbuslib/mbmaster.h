@@ -5,7 +5,7 @@
 #include "mbtypes.h"
 
 class MBMasterPrivate;
-class SerialPort;
+class AbstractSerialPort;
 
 //===================================================================
 //! Опрос микроконтроллеров по протоколу Modbus RTU
@@ -31,7 +31,7 @@ public:
  */
 //@{
 
-  void setTransport( SerialPort *transport );
+  void setTransport( AbstractSerialPort *transport );
   void clear_configuration();
   void add_module( int module_index, int node, int subnode=0,
                                      const QString &name = QString(),

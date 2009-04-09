@@ -3,13 +3,15 @@
 
 #include <QtCore>
 
+#include "abstractserialport.h"
+
 class SerialPort;
 class SerialPortPrivate;
 
 //---------------------------------------------------------
 //! Последовательный интерфейс передачи данных \ingroup API_group
 //---------------------------------------------------------
-class SerialPort
+class SerialPort : public AbstractSerialPort
 {
   friend class SerialPortPrivate;
 public:

@@ -6,7 +6,7 @@
 #include <QList>
 
 class XFilesPrivate;
-class SerialPort;
+class AbstractSerialPort;
 class QByteArray;
 //=============================================================================
 //
@@ -81,7 +81,7 @@ public:
  *
  */
 //@{
-  void setTransport( SerialPort *port );
+  void setTransport( AbstractSerialPort *port );
   void setNode( int node );
 //@}
 

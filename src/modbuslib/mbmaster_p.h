@@ -6,7 +6,7 @@
 #include "mbcommon.h"
 #include "mbtypes.h"
 
-class SerialPort;
+class AbstractSerialPort;
 
 class MBMasterPrivate : public QThread
 {
@@ -21,7 +21,7 @@ private:
   MBMasterPrivate( QObject *parent);
   virtual ~MBMasterPrivate();
 
-  void setTransport( SerialPort *transport );
+  void setTransport( AbstractSerialPort *transport );
   void clear_configuration();
 
   void set_module_node(int module_index, int node, int subnode );
@@ -78,7 +78,7 @@ private:
   QVector<MMSlotTransaction> transactions_write;   //!< транзакции на запись
   QVector<MMSlotTransaction> transactions_write2;  //!< транзакции на запись "0" для битов
   mutable QMutex mutex;   //!< синхронизация обращения к данным и настройкам
-  SerialPort *transport;  //!< ссылка на транспорт
+  AbstractSerialPort *transport;  //!< ссылка на транспорт
   volatile bool thread_exit_flag;  //!< флаг выхода из цикла опроса
   bool disable_write_transactions; //!< флаг запрета транзакций на запись
   bool disable_read_transactions;  //!< флаг запрета транзакций на чтение

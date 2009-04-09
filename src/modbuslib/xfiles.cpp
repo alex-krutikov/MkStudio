@@ -55,7 +55,7 @@ class XFilesPrivate
 
   XFiles::Result query( const QByteArray &req, QByteArray &ans, QByteArray &result, int res_offset=0 );
 
-  SerialPort *port;
+  AbstractSerialPort *port;
   int node;
   int packet_data_length;
 };
@@ -132,7 +132,7 @@ XFiles::~XFiles()
 //
 //! \param port транспорт
 //=============================================================================
-void XFiles::setTransport( SerialPort *port )
+void XFiles::setTransport( AbstractSerialPort *port )
 {
   d->port=port;
 }

@@ -5,6 +5,7 @@
 #include "crc.h"
 #include "mbcommon.h"
 #include "mbtypes.h"
+#include "abstractserialport.h"
 #include "serialport.h"
 #include "mbmaster.h"
 

@@ -5,7 +5,7 @@
 #include "mbcommon.h"
 #include "crc.h"
 #include "console.h"
-#include "serialport.h"
+#include "abstractserialport.h"
 
 //###################################################################
 //
@@ -220,7 +220,7 @@ void MBMasterPrivate::add_slot( int module_index, int slot_index, int addr, int 
 //===================================================================
 //
 //===================================================================
-void MBMasterPrivate::setTransport( SerialPort *transport )
+void MBMasterPrivate::setTransport( AbstractSerialPort *transport )
 {
   this->transport = transport;
 }
@@ -753,7 +753,7 @@ MBMaster::MBMaster( QObject *parent )
 //===================================================================
 //! Привязка к транспорту
 //===================================================================
-void MBMaster::setTransport( SerialPort *transport )
+void MBMaster::setTransport( AbstractSerialPort *transport )
 {
   d->setTransport( transport );
 }

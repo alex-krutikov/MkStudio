@@ -7,7 +7,7 @@
 
 class QDomDocument;
 class MBMasterPrivateXML;
-class SerialPort;
+class QByteArray;
 
 //===================================================================
 //! Опрос Модулей MIKKON
