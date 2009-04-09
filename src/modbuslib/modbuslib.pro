@@ -7,6 +7,7 @@ win32{ QMAKE_POST_LINK  +=  && cd mklib    && mingw32-make release && cd .. }
 win32{ QMAKE_POST_LINK  +=  && cd mkstudio && mingw32-make release && cd .. }
 
 QT -= gui
+QT += network
 CONFIG -= rtti exceptions
 unix { CONFIG += static }
 
@@ -32,6 +33,7 @@ SOURCES = mbmaster.cpp                          \
           serialport.cpp                        \
           console.cpp                           \
           xfiles.cpp                            \
+          mbtcp.cpp                             \
 
 win32{ SOURCES += serialport_win.cpp  }
 unix{  SOURCES += serialport_unix.cpp }

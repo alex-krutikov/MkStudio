@@ -18,6 +18,8 @@
 		<VirtualTargets>
 			<Add alias="All" targets="release;" />
 		</VirtualTargets>
+		<Unit filename="abstractserialport.cpp" />
+		<Unit filename="abstractserialport.h" />
 		<Unit filename="console.cpp" />
 		<Unit filename="console.h" />
 		<Unit filename="crc.cpp" />
@@ -27,6 +29,8 @@
 		<Unit filename="mbmaster.cpp" />
 		<Unit filename="mbmaster.h" />
 		<Unit filename="mbmaster_p.h" />
+		<Unit filename="mbtcp.cpp" />
+		<Unit filename="mbtcp.h" />
 		<Unit filename="mbtypes.h" />
 		<Unit filename="modbuslib.h" />
 		<Unit filename="serialport.cpp" />

@@ -5,7 +5,6 @@
 
 #include "abstractserialport.h"
 
-class SerialPort;
 class SerialPortPrivate;
 
 //---------------------------------------------------------
