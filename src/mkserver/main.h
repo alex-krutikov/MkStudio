@@ -7,7 +7,6 @@
 
 #define QSETTINGS_PARAM (qApp->applicationDirPath()+"/ftp.ini"),QSettings::IniFormat
 
-extern QApplication *appication;
 extern MainWindow   *mainwindow;
 extern QString       app_header;
 

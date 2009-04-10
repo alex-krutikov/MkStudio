@@ -6,7 +6,6 @@
 //=======================================================================================
 // глобальные переменные
 //=======================================================================================
-QApplication *application;
 MainWindow   *mainwindow;
 QString       app_header;
 
@@ -18,11 +17,11 @@ int main(int argc, char *argv[])
     //QApplication::setStyle("cleanlooks");
     //QApplication::setStyle("plastique");
 
-    application = new QApplication(argc, argv);
+    QApplication app(argc, argv);
 
     QTranslator *qt_translator = new QTranslator;
     if ( qt_translator->load( ":tr/qt_ru.qm" ) )
-    { application->installTranslator( qt_translator );
+    { QApplication::installTranslator( qt_translator );
     }
 
     QTextCodec::setCodecForTr(       QTextCodec::codecForName("Windows-1251"));
@@ -33,11 +32,10 @@ int main(int argc, char *argv[])
     mainwindow = new MainWindow;
     mainwindow -> show();
 
-    application->exec();
+    QApplication::exec();
 
     delete mainwindow;
     delete qt_translator;
-    delete application;
 
     return 0;
 }

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 class SerialPort;
+class ModbusTcpServer;
 
 //==============================================================================
 // главное окно
@@ -16,6 +17,8 @@ class MainWindow : public QMainWindow,
 public:
   MainWindow();
   virtual ~MainWindow();
+protected:
+  void timerEvent(QTimerEvent *event);
 private slots:
   void settingsChanged();
 private:
@@ -23,6 +26,7 @@ private:
   void console_update();
 
   SerialPort *serialport;
+  ModbusTcpServer *tcpserver;
 };
 
 #endif
