@@ -1,0 +1,43 @@
+#include <QtGui>
+
+#include "main.h"
+#include "mainwindow.h"
+
+//=======================================================================================
+// глобальные переменные
+//=======================================================================================
+QApplication *application;
+MainWindow   *mainwindow;
+QString       app_header;
+
+//=======================================================================================
+// MAIN
+//=======================================================================================
+int main(int argc, char *argv[])
+{
+    //QApplication::setStyle("cleanlooks");
+    //QApplication::setStyle("plastique");
+
+    application = new QApplication(argc, argv);
+
+    QTranslator *qt_translator = new QTranslator;
+    if ( qt_translator->load( ":tr/qt_ru.qm" ) )
+    { application->installTranslator( qt_translator );
+    }
+
+    QTextCodec::setCodecForTr(       QTextCodec::codecForName("Windows-1251"));
+    QTextCodec::setCodecForCStrings( QTextCodec::codecForName("Windows-1251"));
+
+    app_header = "XFiles Ftp server";
+
+    mainwindow = new MainWindow;
+    mainwindow -> show();
+
+    application->exec();
+
+    delete mainwindow;
+    delete qt_translator;
+    delete application;
+
+    return 0;
+}
