@@ -25,6 +25,7 @@ class MBMaster : public QObject
   Q_OBJECT
 public:
   MBMaster( QObject *parent = 0);
+  virtual ~MBMaster();
 
 /** @name Настройка
  *

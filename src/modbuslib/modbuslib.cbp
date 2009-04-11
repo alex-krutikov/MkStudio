@@ -18,7 +18,6 @@
 		<VirtualTargets>
 			<Add alias="All" targets="release;" />
 		</VirtualTargets>
-		<Unit filename="abstractserialport.cpp" />
 		<Unit filename="abstractserialport.h" />
 		<Unit filename="console.cpp" />
 		<Unit filename="console.h" />

@@ -5,32 +5,25 @@
 #include <QThread>
 
 class AbstractSerialPort;
+class QTcpServer;
 
 //=============================================================================
 //
 //=============================================================================
-class TcpServerThread : public QThread
+class ModbusTcpServerThread : public QThread
 {
   friend class ModbusTcpServer;
   Q_OBJECT
 protected:
   void run();
-
-private:
-};
-
-//=============================================================================
-//
-//=============================================================================
-class SerialPortThread : public QThread
-{
-  friend class ModbusTcpServer;
-  Q_OBJECT
-protected:
-  void run();
-
+public slots:
+  void newConnection();
+  void readyRead();
+  void disconnected();
 private:
   AbstractSerialPort *sp;
+
+  QTcpServer *server;
 };
 
 //=============================================================================
@@ -43,11 +36,8 @@ public:
   ModbusTcpServer( QObject *parent = 0, AbstractSerialPort *sp = 0 );
   ~ModbusTcpServer();
 
-
 private:
-
-  TcpServerThread  tcp_thread;
-  SerialPortThread sp_thread;
+  ModbusTcpServerThread sp_thread;
 
   AbstractSerialPort *sp;
 };

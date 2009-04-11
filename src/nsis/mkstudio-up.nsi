@@ -31,6 +31,7 @@ Section "Обновление MKStudio и MKView"
   ; Put file there
   File ..\..\bin\MKView.exe
   File ..\..\bin\MKStudio.exe
+  File ..\..\bin\MKServer.exe
   File ..\..\bin\*.dll
   
 SectionEnd

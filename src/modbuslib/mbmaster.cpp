@@ -280,7 +280,6 @@ void MBMasterPrivate::run()
       { emit stateChanged();
       }
     }
-
     i++;
     if( i < transactions_read.count() )  continue;
     i=0;
@@ -541,6 +540,10 @@ bool MBMasterPrivate::process_transaction( MMSlotTransaction &tr )
 exit:
   error_counter++;
   tr.slot->status=MMSlot::Bad;
+  Console::Print("R:"+QByteArray2QString(tr.request)+"\n");
+  Console::Print("A:"+QByteArray2QString(tr.answer)+"\n");
+  Console::Print("i:"+QString::number(i)+"\n");
+  Console::Print("e:"+QString::number(tr.errorcode)+"\n");
 skiped:
   for(i=0; i<tr.length; i++ )
   { tr.slot->data[i+tr.offset].setStatus( MMValue::Bad );
@@ -745,9 +748,18 @@ MikkonModuleDefinition MBMasterPrivate::decodeModuleDefinition( const QByteArray
 //
 //###################################################################
 MBMaster::MBMaster( QObject *parent )
-  : QObject( parent ), d( new MBMasterPrivate(this) )
+  : QObject( parent ), d( new MBMasterPrivate(0) )
 {
+  d->moveToThread( d );
   connect( d, SIGNAL( stateChanged() ), this, SIGNAL( stateChanged() ) );
+}
+
+//===================================================================
+//
+//===================================================================
+MBMaster::~MBMaster()
+{
+  delete d;
 }
 
 //===================================================================

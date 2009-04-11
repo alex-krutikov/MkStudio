@@ -37,6 +37,7 @@ Section "MKView"
   File ..\..\..\qt\bin\qtcore4.dll
   File ..\..\..\qt\bin\qtgui4.dll
   File ..\..\..\qt\bin\qtxml4.dll
+  File ..\..\..\qt\bin\qtnetwork4.dll
   File ..\..\..\qt\bin\mingwm10.dll
   File ..\..\..\qt\bin\qwt5.dll
   

@@ -32,11 +32,13 @@ Section "MKStudio è MKView"
   ; Put file there
   File ..\..\bin\MKView.exe
   File ..\..\bin\MKStudio.exe
+  File ..\..\bin\MKServer.exe
   File ..\..\bin\mklib.dll
 
   File ..\..\..\qt\bin\qtcore4.dll
   File ..\..\..\qt\bin\qtgui4.dll
   File ..\..\..\qt\bin\qtxml4.dll
+  File ..\..\..\qt\bin\qtnetwork4.dll
   File ..\..\..\qt\bin\mingwm10.dll
   File ..\..\..\qt\bin\qwt5.dll
   
