@@ -8,6 +8,32 @@
 #include "console.h"
 
 //==============================================================================
+//
+//==============================================================================
+static int zzz( const QByteArray &ba )
+{
+  int len = ba.size();
+  if( len < 3 ) return 255;
+  if(     ( ba[1] == 0x41 )
+       || ( ba[1] == 0x43 ) )
+  { int dsize = ba[5];
+    switch( ba[2] & 0x0F )
+    { case( 0x00 ): // read
+        return dsize + 6;
+        break;
+      case( 0x01 ): // set
+      case( 0x03 ):
+      case( 0x05 ):
+      case( 0x07 ):
+        return dsize + 8;
+        break;
+    }
+  }
+
+  return 255;
+}
+
+//==============================================================================
 // массив ==> строка шестнадцатеричных чисел
 //==============================================================================
 static QString QByteArray2QString( const QByteArray &ba, int mode = 1 )
@@ -26,6 +52,7 @@ static QString QByteArray2QString( const QByteArray &ba, int mode = 1 )
 	}
 	return str;
 }
+
 
 //==============================================================================
 //
@@ -106,7 +133,7 @@ QMap< QTcpSocket*, Item  > map;
 //#############################################################################
 void ModbusTcpServerThread::run()
 {
-  Console::Print( QString("SP thread id=%1\n").arg( (int) currentThreadId() ) );
+  //Console::Print( QString("SP thread id=%1\n").arg( (int) currentThreadId() ) );
 
   server = new QTcpServer(this);
   server->listen( QHostAddress::Any, 502 );
@@ -119,7 +146,7 @@ void ModbusTcpServerThread::run()
 //=============================================================================
 void ModbusTcpServerThread::newConnection()
 {
-  Console::Print( QString("New connection id=%1\n").arg( (int) currentThreadId() ) );
+  Console::Print( QString("New connection\n") );
   QTcpSocket *socket = server->nextPendingConnection();
   map.insert( socket, Item() );
   connect( socket, SIGNAL( readyRead() ), this, SLOT( readyRead() ) );
@@ -133,9 +160,12 @@ void ModbusTcpServerThread::readyRead()
 {
   QTcpSocket *socket = (QTcpSocket*) qobject_cast<QTcpSocket*>( sender() );
 
+  int j;
+
   Item &item = map[socket];
   QByteArray &req = item.req;
   QByteArray &ans = item.ans;
+
 
   req.append( socket->readAll() );
 
@@ -156,9 +186,13 @@ void ModbusTcpServerThread::readyRead()
     QByteArray ba_ans;
     QByteArray ba_req = req.mid(6,len);
     req.remove(0,len+6);
-    //Console::Print( "R:" + QByteArray2QString( ba_req ) + "\n" );
+    // Console::Print( "R:" + QByteArray2QString( ba_req ) + "\n" );
 
-    process( ba_req, ba_ans );
+    j = zzz( ba_req );
+    ba_ans.resize( j );
+    j = sp->query( ba_req, ba_ans, 0 );
+    ba_ans.resize( j );
+    // process( ba_req, ba_ans );
 
     ans.resize(0);
     ans.append( (char) 0 );
@@ -169,7 +203,7 @@ void ModbusTcpServerThread::readyRead()
     ans.append( (char) ba_ans.size() );
     ans.append( ba_ans );
 
-    //Console::Print( "A:" + QByteArray2QString( ba_ans ) + "\n" );
+    // Console::Print( "A:" + QByteArray2QString( ba_ans ) + "\n" );
 
     int j = socket->write( ans );
     if( j != ans.size() )
@@ -178,9 +212,7 @@ void ModbusTcpServerThread::readyRead()
     socket->flush();
 
   } else
-  { Console::Print( "@@!!:\n" );
-    map.remove( socket );
-    delete socket;
+  { delete socket;
     return;
   }
 
@@ -192,7 +224,7 @@ void ModbusTcpServerThread::readyRead()
 //=============================================================================
 void ModbusTcpServerThread::disconnected()
 {
-  Console::Print( QString("Disconnected id=%1\n").arg( (int) currentThreadId() ) );
+  Console::Print( QString("Disconnected\n") );
   QTcpSocket *socket = server->nextPendingConnection();
 
   map.remove( socket );

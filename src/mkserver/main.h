@@ -5,7 +5,7 @@
 
 #include "mainwindow.h"
 
-#define QSETTINGS_PARAM (qApp->applicationDirPath()+"/ftp.ini"),QSettings::IniFormat
+#define QSETTINGS_PARAM (qApp->applicationDirPath()+"/mkserver.ini"),QSettings::IniFormat
 
 extern MainWindow   *mainwindow;
 extern QString       app_header;
