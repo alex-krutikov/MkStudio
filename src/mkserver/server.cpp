@@ -134,6 +134,7 @@ QMap< QTcpSocket*, Item  > map;
 void ModbusTcpServerThread::run()
 {
   //Console::Print( QString("SP thread id=%1\n").arg( (int) currentThreadId() ) );
+  setTerminationEnabled( true );
 
   server = new QTcpServer(this);
   server->listen( QHostAddress::Any, 502 );
@@ -146,7 +147,7 @@ void ModbusTcpServerThread::run()
 //=============================================================================
 void ModbusTcpServerThread::newConnection()
 {
-  Console::Print( QString("New connection\n") );
+  Console::Print( QString("Connected\n") );
   QTcpSocket *socket = server->nextPendingConnection();
   map.insert( socket, Item() );
   connect( socket, SIGNAL( readyRead() ), this, SLOT( readyRead() ) );
@@ -237,9 +238,11 @@ void ModbusTcpServerThread::disconnected()
 ModbusTcpServer::ModbusTcpServer( QObject *parent, AbstractSerialPort *sp )
   : QObject( parent ), sp( sp )
 {
-  sp_thread.sp = sp;
-  sp_thread.moveToThread( &sp_thread );
-  sp_thread.start();
+  sp_thread = new ModbusTcpServerThread;
+
+  sp_thread->sp = sp;
+  sp_thread->moveToThread( sp_thread );
+  sp_thread->start();
 }
 
 //=============================================================================
@@ -247,7 +250,14 @@ ModbusTcpServer::ModbusTcpServer( QObject *parent, AbstractSerialPort *sp )
 //=============================================================================
 ModbusTcpServer::~ModbusTcpServer()
 {
-  sp_thread.exit();
-  sp_thread.wait(5000);
+  sp_thread->exit();
+  bool ok = sp_thread->wait(5000);
+
+  if( !ok )
+  { sp_thread->terminate();
+    sp_thread->wait(5000);
+  }
+
+  delete sp_thread;
 }
 

@@ -9,7 +9,6 @@
 
 #include "helpwidget.h"
 
-QApplication  *application;
 MainWindow    *mainwindow;
 MBMasterXML   *mbmaster;
 AbstractSerialPort  *port;
@@ -36,7 +35,6 @@ int main(int argc, char *argv[])
 
   app_header = "MKStudio";
 
-  //// port = new SerialPort;
 
   InitDialog initdialog;
   if( initdialog.exec() != QDialog::Accepted ) goto exit;

@@ -37,7 +37,7 @@ public:
   ~ModbusTcpServer();
 
 private:
-  ModbusTcpServerThread sp_thread;
+  ModbusTcpServerThread *sp_thread;
 
   AbstractSerialPort *sp;
 };
