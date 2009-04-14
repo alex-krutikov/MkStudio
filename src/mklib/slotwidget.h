@@ -6,6 +6,8 @@
 #include <QString>
 #include <QMap>
 
+#include "mk_global.h"
+
 namespace Ui
 { class SlotWidget;
   class SlotDialog;
@@ -17,7 +19,7 @@ class QwtPlotCurve;
 //==============================================================================
 // Окно с представлением слота (используется по двойному нажатию на слот)
 //==============================================================================
-class SlotWidget : public QMainWindow
+class MK_EXPORT SlotWidget : public QMainWindow
 {
   Q_OBJECT
 public:
@@ -54,7 +56,7 @@ private:
 //==============================================================================
 // Диалог о масштабировании графика
 //==============================================================================
-class SlotDialog : public QDialog
+class MK_EXPORT SlotDialog : public QDialog
 {
   Q_OBJECT
 public:

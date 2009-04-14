@@ -25,6 +25,7 @@
 		<Unit filename="crc.h" />
 		<Unit filename="mbcommon.cpp" />
 		<Unit filename="mbcommon.h" />
+		<Unit filename="mbl_global.h" />
 		<Unit filename="mbmaster.cpp" />
 		<Unit filename="mbmaster.h" />
 		<Unit filename="mbmaster_p.h" />

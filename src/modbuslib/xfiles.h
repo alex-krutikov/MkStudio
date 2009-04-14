@@ -5,13 +5,15 @@
 #include <QString>
 #include <QList>
 
+#include "mbl_global.h"
+
 class XFilesPrivate;
 class AbstractSerialPort;
 class QByteArray;
 //=============================================================================
 //
 //=============================================================================
-struct XFilesFileInfo
+struct MBL_EXPORT XFilesFileInfo
 {
   enum
   { AM_RDO = 0x01,	// Read only
@@ -36,7 +38,7 @@ struct XFilesFileInfo
     \ingroup API_group
 */
 //=============================================================================
-class XFiles
+class MBL_EXPORT XFiles
 {
 public:
 

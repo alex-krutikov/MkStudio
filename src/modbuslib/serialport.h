@@ -3,14 +3,16 @@
 
 #include <QtCore>
 
+#include "mbl_global.h"
 #include "abstractserialport.h"
+
 
 class SerialPortPrivate;
 
 //---------------------------------------------------------
 //! Последовательный интерфейс передачи данных \ingroup API_group
 //---------------------------------------------------------
-class SerialPort : public AbstractSerialPort
+class MBL_EXPORT SerialPort : public AbstractSerialPort
 {
   friend class SerialPortPrivate;
 public:

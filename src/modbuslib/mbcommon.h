@@ -3,7 +3,9 @@
 
 #include <QtCore>
 
-QString QByteArray2QString( const QByteArray &ba, int mode=0 );
+#include "mbl_global.h"
+
+QString MBL_EXPORT QByteArray2QString( const QByteArray &ba, int mode=0 );
 
 //===================================================================
 //! Перечисления с пердставлением в виде строк
@@ -14,7 +16,7 @@ QString QByteArray2QString( const QByteArray &ba, int mode=0 );
      \ingroup Private_group
 */
 //===================================================================
-class AbstractEnumValues
+class MBL_EXPORT AbstractEnumValues
 {
 protected:
   int state;
@@ -49,10 +51,10 @@ private:
 //===================================================================
 //
 //===================================================================
-extern const char * const MBDataType_id[];
-extern const char * const MBDataType_names[];
-extern const char * const MBOpType_id[];
-extern const char * const MBOpType_names[];
+extern MBL_EXPORT const char * const MBDataType_id[];
+extern MBL_EXPORT const char * const MBDataType_names[];
+extern MBL_EXPORT const char * const MBOpType_id[];
+extern MBL_EXPORT const char * const MBOpType_names[];
 
 //===================================================================
 //! Типы данных - байты, биты, слова... \ingroup Private_group

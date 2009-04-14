@@ -33,7 +33,7 @@ Section "MKStudio è MKView"
   File ..\..\bin\MKView.exe
   File ..\..\bin\MKStudio.exe
   File ..\..\bin\MKServer.exe
-  File ..\..\bin\mklib.dll
+;  File ..\..\bin\mklib.dll
 
   File ..\..\..\qt\bin\qtcore4.dll
   File ..\..\..\qt\bin\qtgui4.dll

@@ -3,9 +3,11 @@
 
 #include <QString>
 
+#include "mbl_global.h"
+
 class QByteArray;
 
-class AbstractSerialPort
+class MBL_EXPORT AbstractSerialPort
 {
 public:
   virtual void setName( const QString &portname ) = 0;

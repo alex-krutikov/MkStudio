@@ -5,6 +5,8 @@
 #include <QWidget>
 #include <QObjectCleanupHandler>
 
+#include "mk_global.h"
+
 class MBMasterValuesWidget;
 class MBMasterXML;
 class MBMasterWidgetTableModel;
@@ -18,7 +20,7 @@ namespace Ui { class MBMasterWidget; }
 //===================================================================
 //
 //===================================================================
-class MBMasterWidget : public QWidget
+class MK_EXPORT MBMasterWidget : public QWidget
 {
   Q_OBJECT
 public:

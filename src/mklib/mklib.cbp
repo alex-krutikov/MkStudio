@@ -8,7 +8,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="release">
-				<Option output="..\..\bin\mkview.exe" prefix_auto="0" extension_auto="0" />
+				<Option output="..\..\bin\mkstudio.exe" prefix_auto="0" extension_auto="0" />
 				<Option working_dir=".." />
 				<Option type="0" />
 				<Option compiler="gcc" />

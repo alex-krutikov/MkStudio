@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QString>
 
+#include "mk_global.h"
+
 namespace Ui { class MBConfigWidget; }
 class MBConfigWidgetPrivate;
 class QByteArray;
@@ -14,7 +16,7 @@ class QModelIndex;
 //===================================================================
 //! Виджет для настройки конфигурации опроса модулей
 //===================================================================
-class MBConfigWidget : public QWidget
+class MK_EXPORT MBConfigWidget : public QWidget
 {
   Q_OBJECT
 public:

@@ -3,10 +3,12 @@
 
 #include <QWidget>
 
+#include "mk_global.h"
+
 class QUrl;
 namespace Ui { class HelpWidget; }
 
-class HelpWidget : public QWidget
+class MK_EXPORT HelpWidget : public QWidget
 {
   Q_OBJECT
 public:

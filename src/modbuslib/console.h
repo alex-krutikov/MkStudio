@@ -12,6 +12,8 @@
 
 #include <QString>
 
+#include "mbl_global.h"
+
 //=============================================================================
 /// Класс для поддержки отладочных сообщений \ingroup Private_group
 //=============================================================================
@@ -20,8 +22,8 @@ class ConsolePrivate;
 class Console
 {
 public:
-  static void Print( const QString &message );
-  static QString takeMessage();
+  static MBL_EXPORT void Print( const QString &message );
+  static MBL_EXPORT QString takeMessage();
 };
 
 #endif

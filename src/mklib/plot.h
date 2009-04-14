@@ -4,6 +4,8 @@
 #include <QTimer>
 #include <QWidget>
 
+#include "mk_global.h"
+
 class MBMasterXML;
 class QTimerEvent;
 
@@ -15,7 +17,7 @@ class QToolButton;
 
 namespace Ui { class Plot; }
 
-class Plot : public QWidget
+class MK_EXPORT Plot : public QWidget
 {
   Q_OBJECT
 public:

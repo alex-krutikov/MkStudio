@@ -1,6 +1,7 @@
 #ifndef __MBMASTER__H_
 #define __MBMASTER__H_
 
+#include "mbl_global.h"
 #include "mbcommon.h"
 #include "mbtypes.h"
 
@@ -14,7 +15,7 @@ class AbstractSerialPort;
     \ingroup API_group
 */
 //===================================================================
-class MBMaster : public QObject
+class MBL_EXPORT MBMaster : public QObject
 {
   friend class MBMasterXML;
   friend class MBMasterPrivate;

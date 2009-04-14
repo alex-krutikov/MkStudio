@@ -8,10 +8,12 @@
 #include <QByteArray>
 #include <QString>
 
+#include "mbl_global.h"
+
 //===================================================================
 //! Единица данных \ingroup API_group
 //===================================================================
-class MMValue
+class MBL_EXPORT MMValue
 {
 public:
   enum Status { NotInit=0,Ok,Bad     };
@@ -207,7 +209,7 @@ typedef QVector<MMValue> MMSlotData;
 //===================================================================
 //! Структура с описанием модуля \ingroup Private_group
 //===================================================================
-struct MMModule
+struct MBL_EXPORT MMModule
 {
   int n;        //!< номер модуля
   int node;     //!< адрес
@@ -221,7 +223,7 @@ struct MMModule
 //===================================================================
 //! Структура с описанием слота опроса \ingroup Private_group
 //===================================================================
-struct MMSlot
+struct MBL_EXPORT MMSlot
 {
 //! Статус
   enum Status { NotInit = 0,    //!< слот еще ни разу не опрашивался
@@ -248,7 +250,7 @@ struct MMSlot
 //===================================================================
 //! Структура с описанием транзакции \ingroup Private_group
 //===================================================================
-struct MMSlotTransaction
+struct MBL_EXPORT MMSlotTransaction
 {
   MMSlot     *slot;        //!< ссылка на слот
   int        offset;       //!< смещение от начала слота в кол-ве значений
@@ -269,7 +271,7 @@ struct MMSlotTransaction
    \ingroup Private_group
 */
 //===================================================================
-struct MikkonModuleDefinition
+struct MBL_EXPORT MikkonModuleDefinition
 {
   int id;                       //!< Module ID
   int majorVersion;             //!< Version Major

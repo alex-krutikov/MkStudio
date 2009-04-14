@@ -11,6 +11,7 @@ QT += network
 CONFIG -= rtti exceptions
 unix { CONFIG += static }
 
+### DEFINES += MBL_DLL MBL_DLLEXPORT
 CONFIG += static
 
 INCLUDEPATH  = .

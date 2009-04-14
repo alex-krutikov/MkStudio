@@ -2,13 +2,14 @@
 #define __MBTCP_H__
 
 #include "abstractserialport.h"
+#include "mbl_global.h"
 
 class MbTcpPortPrivate;
 
 //---------------------------------------------------------
 //! Последовательный интерфейс передачи данных \ingroup API_group
 //---------------------------------------------------------
-class MbTcpPort : public AbstractSerialPort
+class MBL_EXPORT MbTcpPort : public AbstractSerialPort
 {
 public:
   MbTcpPort();

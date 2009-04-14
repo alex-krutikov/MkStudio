@@ -11,12 +11,14 @@
 
 #include <QWidget>
 
+#include "mk_global.h"
+
 namespace Ui { class ConsoleWidget; }
 
 //===================================================================
 //! Виджет консоль для выдачи сообщений и логов.
 //===================================================================
-class ConsoleWidget : public QWidget
+class MK_EXPORT ConsoleWidget : public QWidget
 {
   Q_OBJECT
 public:

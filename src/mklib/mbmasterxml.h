@@ -5,6 +5,8 @@
 #include "mbtypes.h"
 #include "mbmaster.h"
 
+#include "mk_global.h"
+
 class QDomDocument;
 class MBMasterPrivateXML;
 class QByteArray;
@@ -18,7 +20,7 @@ class QByteArray;
     Ñì. \ref xml_opros_desc
 */
 //===================================================================
-class MBMasterXML : public MBMaster
+class MK_EXPORT MBMasterXML : public MBMaster
 {
   friend class MBMasterPrivateXML;
   friend class MBMasterWidget;

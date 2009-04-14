@@ -9,6 +9,8 @@
 #include <QListWidget>
 #include <QVector>
 
+#include "mk_global.h"
+
 class MBMasterXML;
 class QMouseEvent;
 class QDomDocument;
@@ -19,7 +21,7 @@ class MKTableItemDelegate;
 //---------------------------------------------------------------------------
 //! Настроечная таблица
 //---------------------------------------------------------------------------
-class MKTable : public QTableWidget
+class MK_EXPORT MKTable : public QTableWidget
 {
   Q_OBJECT
   friend class MKTableItemDelegate;
