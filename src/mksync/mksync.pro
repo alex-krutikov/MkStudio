@@ -12,7 +12,7 @@ QT -= gui
 CONFIG += console
 
 TEMPLATE = app
-TARGET   = xsync
+TARGET   = mksync
 
 # Input
-SOURCES = xsync.cpp
+SOURCES = mksync.cpp
