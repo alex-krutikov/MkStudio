@@ -577,7 +577,6 @@ SlotDialog::SlotDialog( QWidget *parent, QMap<QString,QString> *settings )
 
   // масштаб - интервал
   str = csettings["xscale_interval"];
-  Console::Print( str );
   if( rx1.indexIn( str ) == 0 )
   { ui->xscale_int->setChecked( true );
     ui->xscale_int_a->setText( rx1.cap(1) );

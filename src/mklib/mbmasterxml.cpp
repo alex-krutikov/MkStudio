@@ -88,7 +88,7 @@ void MBMasterXML::load_configuration( QDomDocument &doc )
     }
  }
 
- Console::Print( "Конфигурации MBMasterPrivateXML загружена.\n" );
+ Console::Print( Console::Information, "Конфигурации MBMasterPrivateXML загружена.\n" );
 }
 
 //===================================================================

@@ -6,6 +6,7 @@
 #include "mbmasterxml.h"
 #include "consolewidget.h"
 #include "abstractserialport.h"
+#include "console.h"
 
 #include "helpwidget.h"
 
@@ -35,6 +36,7 @@ int main(int argc, char *argv[])
 
   app_header = "MKStudio";
 
+  Console::setMessageTypes( Console::AllTypes );
 
   InitDialog initdialog;
   if( initdialog.exec() != QDialog::Accepted ) goto exit;
@@ -63,7 +65,7 @@ int main(int argc, char *argv[])
 
   mainwindow->mbmasterwidget->setMBMaster( mbmaster );
 
-  ret=application->exec();
+  ret=QApplication::exec();
 
   delete mainwindow;
   delete mbmaster;

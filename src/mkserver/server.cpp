@@ -79,19 +79,11 @@ static void process( const QByteArray &req, QByteArray &ans )
     case( 0x00 ): // read
       ans[3] = len;
       for(i=0; i<len; i++) ans[4+i] = base[addr+i];
-      //memcpy( &ans[4], &base[addr], len );
       ans_len = len + 6;
      break;
     case( 0x01 ): // set
       ans[5] = len;
       for(i=0; i<len; i++) base[addr+i] = req[6+i];
-      Console::Print( "###:" + QByteArray2QString( req ) + "\n" );
-      Console::Print( QString::number( addr )  + "\n" );
-      Console::Print( QString::number( req[3] )  + "\n" );
-      Console::Print( QString::number( req[4] )  + "\n" );
-      Console::Print( QString::number( req[5] )  + "\n" );
-
-      //memcpy( &base[addr], &req[6], len );
       ans_len = len + 8;
       break;
     case( 0x03 ): // and
@@ -147,7 +139,7 @@ void ModbusTcpServerThread::run()
 //=============================================================================
 void ModbusTcpServerThread::newConnection()
 {
-  Console::Print( QString("Connected\n") );
+  Console::Print( Console::Information, QString("Connected\n") );
   QTcpSocket *socket = server->nextPendingConnection();
   map.insert( socket, Item() );
   connect( socket, SIGNAL( readyRead() ), this, SLOT( readyRead() ) );
@@ -208,7 +200,7 @@ void ModbusTcpServerThread::readyRead()
 
     int j = socket->write( ans );
     if( j != ans.size() )
-    { Console::Print( "!:\n" );
+    { Console::Print(  Console::Error, "!:\n" );
     }
     socket->flush();
 
@@ -225,7 +217,7 @@ void ModbusTcpServerThread::readyRead()
 //=============================================================================
 void ModbusTcpServerThread::disconnected()
 {
-  Console::Print( QString("Disconnected\n") );
+  Console::Print(  Console::Information, QString("Disconnected\n") );
   QTcpSocket *socket = server->nextPendingConnection();
 
   map.remove( socket );

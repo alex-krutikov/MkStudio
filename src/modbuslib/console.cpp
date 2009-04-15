@@ -4,16 +4,19 @@
 
 static QMutex mutex;
 static QString message;
+static int message_types;
 
 
 //=============================================================================
 /// Напечатать сообщение
 //=============================================================================
-void Console::Print( const QString &message )
+void Console::Print( MessageType mtype, const QString &message )
 {
   QMutexLocker locker( &mutex );
-  ::message += message;
-  if( ::message.length() > 16384 ) ::message.remove(0,4096);
+  if( mtype & message_types )
+  { ::message += message;
+    if( ::message.length() > 16384 ) ::message.remove(0,4096);
+  }
 }
 
 //=============================================================================
@@ -26,3 +29,22 @@ QString Console::takeMessage()
   message.clear();
   return ret;
 }
+
+//=============================================================================
+/// Установить типы отображаемых сообщений
+//
+/// \param type   тип сообщения
+/// \param status true - установить отображение, false - убрать отображение
+//=============================================================================
+void Console::setMessageTypes( int type, bool status )
+{
+  QMutexLocker locker( &mutex );
+  if( status )
+  { // set
+    message_types |= type;
+  } else
+  { // clear
+    message_types &= ~type;
+  }
+}
+

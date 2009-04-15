@@ -1259,7 +1259,7 @@ void MainWindow::copy_to_console()
   QList<QTableWidgetItem*> si = tw->selectedItems();
   foreach(titem, si )
   { if( titem == 0 ) continue;
-    Console::Print( titem->text() + "\n" );
+    Console::Print( Console::Information, titem->text() + "\n" );
   }
 }
 

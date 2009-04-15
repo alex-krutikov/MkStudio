@@ -2,6 +2,7 @@
 
 #include "main.h"
 #include "mainwindow.h"
+#include "console.h"
 
 //=======================================================================================
 // глобальные переменные
@@ -28,6 +29,8 @@ int main(int argc, char *argv[])
     QTextCodec::setCodecForCStrings( QTextCodec::codecForName("Windows-1251"));
 
     app_header = "XFiles Ftp server";
+
+    Console::setMessageTypes( Console::AllTypes );
 
     mainwindow = new MainWindow;
     mainwindow -> show();

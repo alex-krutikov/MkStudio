@@ -23,7 +23,7 @@ LRESULT CALLBACK SerialPortWndProc(HWND hwnd, UINT Message, WPARAM wparam,LPARAM
 {
   SerialPortPrivate *spp = (SerialPortPrivate*)GetWindowLongPtr( hwnd, GWL_USERDATA );
   if( Message == WM_DEVICECHANGE )
-  { Console::Print("WM_DEVICECHANGE  wParam=" + QString::number( wparam , 16) + " \n" );
+  { Console::Print(Console::Information, "WM_DEVICECHANGE  wParam=" + QString::number( wparam , 16) + " \n" );
     spp->close();
   }
   return DefWindowProc(hwnd,Message,wparam,lparam);
@@ -90,7 +90,7 @@ bool SerialPortPrivate::open()
   if(hport==INVALID_HANDLE_VALUE)
   { if( last_error_id != 1 )
     { last_error_id = 1;
-      Console::Print( "ERROR Can't open port!\n" );
+      Console::Print( Console::Error, "ERROR Can't open port!\n" );
       sp->lastError_str="Can't open port!";
     }
     hport=0;
@@ -190,7 +190,7 @@ int SerialPortPrivate::query( const QByteArray &request,
   PurgeComm(hport,PURGE_TXCLEAR|PURGE_RXCLEAR);
 
   if( sp->console_out_packets )
-  { Console::Print( "MODBUS: Request: "+QByteArray2QString( request )+"\n");
+  { Console::Print( Console::ModbusPacket, "MODBUS: Request: "+QByteArray2QString( request )+"\n");
   }
 
   // задержка перед запросом 4 байтовых интервала на выбранной скорости
@@ -201,12 +201,12 @@ int SerialPortPrivate::query( const QByteArray &request,
   if(!ok)
   { if( last_error_id != 2 )
     { last_error_id = 2;
-      Console::Print( "MODBUS: ERROR: WriteFile (return value).\n" );
+      Console::Print( Console::Error, "MODBUS: ERROR: WriteFile (return value).\n" );
     }
     return -1;
   }
   if((int)j != request.length() )
-  { Console::Print( "MODBUS: ERROR: WriteFile (wrong length).\n" );
+  { Console::Print( Console::Error, "MODBUS: ERROR: WriteFile (wrong length).\n" );
     return 0;
   }
 
@@ -219,7 +219,7 @@ int SerialPortPrivate::query( const QByteArray &request,
     if(!ok)
     { if( last_error_id != 3 )
       { last_error_id = 3;
-        Console::Print( "MODBUS: ERROR: ReadFile (return value).\n" );
+        Console::Print( Console::Error, "MODBUS: ERROR: ReadFile (return value).\n" );
       }
       return 0;
     }
@@ -233,7 +233,7 @@ int SerialPortPrivate::query( const QByteArray &request,
     if(!ok)
     { if( last_error_id != 3 )
       { last_error_id = 3;
-        Console::Print( "MODBUS: ERROR: ReadFile (return value).\n" );
+        Console::Print( Console::Error, "MODBUS: ERROR: ReadFile (return value).\n" );
       }
       return 0;
     }
@@ -247,37 +247,37 @@ int SerialPortPrivate::query( const QByteArray &request,
   else if(j != answer_size )  goto error3;
 
   if( sp->console_out_packets )
-  { Console::Print( "MODBUS:  Answer: "+QByteArray2QString( answer )+"\n");
+  { Console::Print( Console::ModbusPacket, "MODBUS:  Answer: "+QByteArray2QString( answer )+"\n");
   }
 
   if( last_error_id )
-  {  Console::Print( QString("MODBUS: OK.\n"));
+  {  Console::Print( Console::ModbusError, "MODBUS: OK.\n" );
      last_error_id = 0;
   }
   return j;
 error1:
   {
-  Console::Print( QString("MODBUS: Error flag in answer. ") );
+  Console::Print( Console::ModbusError, "MODBUS: Error flag in answer. " );
   QByteArray ba = answer;
   ba.resize( 5 );
-  Console::Print( " [ "+QByteArray2QString( ba, 1 )+" ]\n");
+  Console::Print( Console::ModbusError, " [ "+QByteArray2QString( ba, 1 )+" ]\n");
   if(errorcode) *errorcode=answer[2];
   return 5;
   }
 error2:
   {
   if( last_error_id != 4 )
-  Console::Print( QString("MODBUS: TimeOut.\n"));
+  Console::Print( Console::ModbusError, "MODBUS: TimeOut.\n" );
   last_error_id = 4;
   return 0;
   }
 error3:
    {
-   Console::Print( QString("MODBUS: ERROR: ReadFile Wrong answer length. (expected=%1, real=%2) ")
+   Console::Print( Console::ModbusError, QString("MODBUS: ERROR: ReadFile Wrong answer length. (expected=%1, real=%2) ")
                               .arg(answer.length()).arg(j) );
    QByteArray ba = answer;
    ba.resize( j );
-   Console::Print( "Answer: "+QByteArray2QString( ba, 1 )+"\n");
+   Console::Print( Console::ModbusError, "Answer: "+QByteArray2QString( ba, 1 )+"\n");
    return j;
    }
 }

@@ -247,7 +247,7 @@ void MBMasterPrivate::run()
   full_time_timer.start();
   full_time=0;
 
-  Console::Print( "Опрос модулей запущен.\n" );
+  Console::Print( Console::Information, "Опрос модулей запущен.\n" );
 
   thread_exit_flag = false;
   while( !thread_exit_flag ) // цикл опроса
@@ -315,7 +315,7 @@ void MBMasterPrivate::run()
     }
     msleep(25);
   }
-  Console::Print( "Опрос модулей остановлен.\n" );
+  Console::Print( Console::Information, "Опрос модулей остановлен.\n" );
 }
 
 //===================================================================

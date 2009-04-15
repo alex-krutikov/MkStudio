@@ -71,36 +71,36 @@ XFiles::Result XFilesPrivate::query( const QByteArray &req, QByteArray &ans, QBy
 
   while( --tr )
   {
-    Console::Print( "# Req: " + QByteArray2QString( req ) + "\n" );
+    Console::Print( Console::ModbusPacket, "# Req: " + QByteArray2QString( req ) + "\n" );
     j = port->query( req, ans );
     QByteArray zzz = ans;
     zzz.resize(j);
-    Console::Print( "# Ans: " + QByteArray2QString( zzz ) + "\n" );
+    Console::Print( Console::ModbusPacket, "# Ans: " + QByteArray2QString( zzz ) + "\n" );
 
     if( j > 2 && ans[1] & 0x80 )
-    { Console::Print( "# Ans: Error flag in answer.\n" );
+    { Console::Print( Console::ModbusError, "# Ans: Error flag in answer.\n" );
       return XFiles::ErrorFlagInAnswer;
     }
 
     if( j != ans.size() )
     { if( !j )
       { ret = XFiles::NoAnswer;
-        Console::Print( "# Ans: Error. No answer.\n" );
+        Console::Print( Console::ModbusError, "# Ans: Error. No answer.\n" );
       } else
       { ret = XFiles::WrongAnswerLength;
-        Console::Print( "# Ans: Error. Wrong answer length.\n" );
+        Console::Print( Console::ModbusError, "# Ans: Error. Wrong answer length.\n" );
       }
       continue;
     }
     if( CRC::CRC16( ans ) )
     { ret = XFiles::CRCError;
-      Console::Print( "# Ans: CRC Error.\n" );
+      Console::Print( Console::ModbusError, "# Ans: CRC Error.\n" );
       continue;
     }
     if( !res_offset  ) res_offset = req_size-2;
     if( ans.left(res_offset ) != req.left( res_offset ) )
     { ret = XFiles::AnswerNotMatch;
-      Console::Print( "# Ans: Error. Answer does not match request.\n" );
+      Console::Print( Console::ModbusError, "# Ans: Error. Answer does not match request.\n" );
       continue;
     }
     result  = ans.mid( res_offset , j-res_offset+2 );
@@ -166,7 +166,7 @@ XFiles::Result XFiles::openDirectory( const QString &path, int *id )
 
   if( dir_size > 200 ) return InvalidName;
 
-  Console::Print( "# XFILES 40 - Open a Directory.\n" );
+  Console::Print( Console::Information, "# XFILES 40 - Open a Directory.\n" );
 
   QByteArray req,ans,res;
   req.resize(5);
@@ -210,7 +210,7 @@ XFiles::Result XFiles::readDirectory(int id, QList<XFilesFileInfo> &fi_list )
     char filename[13];
   } st;
 
-  Console::Print( "# XFILES 41 - Read a Directory.\n" );
+  Console::Print( Console::Information, "# XFILES 41 - Read a Directory.\n" );
 
   QByteArray req,ans,res;
 
@@ -262,8 +262,7 @@ XFiles::Result XFiles::openFile( const QString &filename, int mode, int *id )
 
   if( path_size > 100 ) return XFiles::InvalidName;
 
-  Console::Print( "# XFILES 33 - Open/Create a File.\n" );
-  Console::Print( "### XFILES 33 - Open/Create a File." + filename + "\n" );
+  Console::Print( Console::Information, "# XFILES 33 - Open/Create a File." + filename + "\n" );
 
   QByteArray req,ans,res;
   req.resize(5);
@@ -295,7 +294,7 @@ XFiles::Result XFiles::openFile( const QString &filename, int mode, int *id )
 //=============================================================================
 XFiles::Result XFiles::readFile( int id, int offset, int len, QByteArray &ba )
 {
-  Console::Print( "# XFILES 35 - Read File.\n" );
+  Console::Print( Console::Information, "# XFILES 35 - Read File.\n" );
 
   XFiles::Result ret;
   QByteArray req,ans,res;
@@ -334,7 +333,7 @@ XFiles::Result XFiles::readFile( int id, int offset, int len, QByteArray &ba )
 //=============================================================================
 XFiles::Result XFiles::writeFile( int id, int offset, const QByteArray &ba, int *wlen )
 {
-  Console::Print( "# XFILES 36 - Write File.\n" );
+  Console::Print( Console::Information, "# XFILES 36 - Write File.\n" );
 
   int len = ba.size();
   if( len < 0 || len > 200 ) return XFiles::WrongDataLength;
@@ -371,7 +370,7 @@ XFiles::Result XFiles::writeFile( int id, int offset, const QByteArray &ba, int 
 //=============================================================================
 XFiles::Result XFiles::closeFile(int id)
 {
-  Console::Print( "# XFILES 34 - Close a File.\n" );
+  Console::Print( Console::Information, "# XFILES 34 - Close a File.\n" );
   XFiles::Result ret;
   QByteArray req,ans,res;
   req.resize(4);
@@ -405,7 +404,7 @@ XFiles::Result XFiles::removeFile( const QString &path )
 
   if( path_ba_size > 100 ) return XFiles::InvalidName;;
 
-  Console::Print( "# XFILES 45 - Remove a File or Directory.\n" );
+  Console::Print( Console::Information, "# XFILES 45 - Remove a File or Directory.\n" );
 
   QByteArray req,ans,res;
   req.resize(4);
@@ -440,7 +439,7 @@ XFiles::Result XFiles::createDirectory( const QString &path )
 
   if( path_ba_size > 100 ) return XFiles::InvalidName;
 
-  Console::Print( "# XFILES 45 - Create a Directory.\n" );
+  Console::Print( Console::Information, "# XFILES 45 - Create a Directory.\n" );
 
   QByteArray req,ans,res;
   req.resize(4);
