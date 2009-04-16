@@ -12,7 +12,31 @@ XFiles *xf;
 
 QString remote_path;
 QString local_path;
-int node;
+int node=1;
+bool fastmode;
+
+//=============================================================================
+// Вывод информации о программе
+//=============================================================================
+static void print_help()
+{
+  QString str =
+  "\n"
+  "\n"
+  "usage: mksync [options]\n"
+  "\n"
+  "  Options:\n"
+  "    -port=[Serial port name]\n"
+  "    -baud=[Serial port baud rate]\n"
+  "    -host=[Modbus TCP host name]\n"
+  "    -node=[Modbus node]\n"
+  "    -rpath=[Remote path]\n"
+  "    -lpath=[Local path]\n"
+  "    -fast\n"
+  ;
+  cout << str;
+}
+
 
 //=============================================================================
 // Инициализация
@@ -21,12 +45,10 @@ static int init()
 {
   QString hostname;
   QString portname;
-  int portspeed;
+  int portspeed = 115200;
   bool ok;
 
-
   //--- разбор аргументов командной строки
-
   QStringList command_arguments = QCoreApplication::arguments();
   command_arguments.removeAt(0);
 
@@ -37,18 +59,22 @@ static int init()
     } else if( str.startsWith("-port=") )
     { str.remove(0,6);
       portname = str;
-    } else if( str.startsWith("-speed=") )
-    { str.remove(0,7);
+    } else if( str.startsWith("-baud=") )
+    { str.remove(0,6);
       portspeed = str.toInt(&ok);
       if( !ok )
       { cerr << "Error: port speed is invalid";
         return 1;
       }
-    } else if( str.startsWith("-rdir=") )
-    { str.remove(0,6);
+    } else if( str.startsWith("-rpath=") )
+    { str.remove(0,7);
+      if( str.startsWith('"') ) str.remove(0,1);
+      if( str.endsWith('"') ) str.chop(1);
       remote_path = str;
-    } else if( str.startsWith("-ldir=") )
-    { str.remove(0,6);
+    } else if( str.startsWith("-lpath=") )
+    { str.remove(0,7);
+      if( str.startsWith('"') ) str.remove(0,1);
+      if( str.endsWith('"') ) str.chop(1);
       local_path = str;
     } else if( str.startsWith("-node=") )
     { str.remove(0,6);
@@ -57,11 +83,40 @@ static int init()
       { cerr << "Error: node is invalid";
         return 1;
       }
+    } else if( str == "-fast" )
+    { fastmode = true;
     } else
-    { cerr << "Error: unknown command line argument: " + str;
+    { cerr << "Configuration error: unknown command line argument: " + str;
+      print_help();
       return 1;
     }
   }
+
+  //--- анализ конфигурации
+  if( portname.isEmpty() && hostname.isEmpty())
+  { cerr << "Configuration error: Serial port or tcp/ip host does not set.";
+    print_help();
+    return 1;
+  }
+
+  if( !portname.isEmpty() && !hostname.isEmpty())
+  { cerr << "Configuration error: Serial port and tcp/ip host can not be used together.";
+    print_help();
+    return 1;
+  }
+
+  if( local_path.isEmpty() )
+  { cerr << "Configuration error: Local path does not set.";
+    print_help();
+    return 1;
+  }
+
+  if( remote_path.isEmpty() )
+  { cerr << "Configuration error: Remote path does not set.";
+    print_help();
+    return 1;
+  }
+
 
   if( !portname.isEmpty() )
   { sp = new SerialPort();
@@ -70,7 +125,7 @@ static int init()
 
     ok = sp->open();
     if( !ok )
-    { cerr << "Unable to open port. (" + portname + ")";
+    { cerr << "Error: Unable to open port. (" + portname + ")";
       delete sp;
       sp=0;
       return 1;
@@ -83,7 +138,7 @@ static int init()
 
     ok = sp->open();
     if( !ok )
-    { cerr << "Unable to open port. (" + portname + ")";
+    { cerr << "Error: Unable to open port. (" + portname + ")";
       delete sp;
       sp=0;
       return 1;
@@ -100,15 +155,13 @@ static int init()
 static void xfile_print_error( XFiles::Result res )
 {
   if( res == XFiles::Ok ) return;
-
   cerr <<  "XFiles error: " + XFiles::decodeResult( res ) << endl;
-
 }
 
 //=============================================================================
 // Синхронизация файлов
 //=============================================================================
-void sync_file(const QString filename, const int filesize, const QString &path )
+bool sync_file(const QString filename, const int filesize, const QString &path )
 {
   QByteArray ba;
   XFiles::Result res;
@@ -117,13 +170,13 @@ void sync_file(const QString filename, const int filesize, const QString &path )
 
   //--- проверка наличия и размера файла
   QFile file( local_path + path +  filename );
-  if( file.exists() && ( file.size() >= filesize ) ) return;
+  if( file.exists() && ( file.size() >= filesize ) ) return true;
 
   //--- дочитка файла
   ok = file.open(QIODevice::WriteOnly|QIODevice::Append);
   if( !ok )
-  { cerr << "ERROR: Can't open file for write. " << file.fileName() ;
-    return;
+  { cerr << "ERROR: Can't open file for write. " << file.fileName() << endl;
+    return false;
   }
 
   j = file.size();
@@ -133,7 +186,7 @@ void sync_file(const QString filename, const int filesize, const QString &path )
 
   res = xf->openFile( remote_path + path + filename, XFiles::FA_OPEN_EXISTING, &id );
   xfile_print_error( res );
-  if( res != XFiles::Ok ) return;
+  if( res != XFiles::Ok ) return false;
 
 
   //--- получение и запись данных
@@ -153,18 +206,18 @@ void sync_file(const QString filename, const int filesize, const QString &path )
   res = xf->closeFile( id );
   xfile_print_error( res );
 
-  return;
+  return true;
 error:
-    res = xf->closeFile( id );
-    xfile_print_error( res );
-    if( res != XFiles::Ok ) return;
+  res = xf->closeFile( id );
+  return false;
 }
 
 //=============================================================================
 // Синхронизация каталога (рекурсивная функция)
 //=============================================================================
-void process_dir( QString path )
+bool process_dir( QString path )
 {
+  bool ok;
   QString dirname = local_path + path;
 
   //--- создание каталога
@@ -181,11 +234,11 @@ void process_dir( QString path )
 
   res = xf->openDirectory( path, &id );
   xfile_print_error( res );
-  if( res != XFiles::Ok ) return;
+  if( res != XFiles::Ok ) return false;
 
   res = xf->readDirectory( id, flist );
   xfile_print_error( res );
-  if( res != XFiles::Ok ) return;
+  if( res != XFiles::Ok ) return false;
 
   //--- обработка файлов катлога
   QStringList sl_dirs;
@@ -195,16 +248,61 @@ void process_dir( QString path )
     { sl_dirs << fi.name;
       continue;
     }
-    sync_file( fi.name, fi.size, path );
+    ok = sync_file( fi.name, fi.size, path );
+    if( !ok ) return false;
   }
 
   //--- рекурсивный вызов для всех подкаталогов
   foreach( QString str, sl_dirs )
   { if( str == "."  ) continue;
     if( str == ".." ) continue;
-    process_dir( path + str + "/" );
+    ok = process_dir( path + str + "/" );
+    if( !ok ) return false;
   }
+  return true;
 }
+
+//=============================================================================
+// Синхронизация файла минутного тренда по дате
+//=============================================================================
+static void fast_sync_date( const QDate &date, const QString &ext )
+{
+  XFiles::Result res;
+  XFilesFileInfo fi;
+
+  QString path     = date.toString("yyMM/");
+  QString filename = date.toString("~yyMMdd") + ext ;
+
+  //--- получение описания файла
+  res = xf->getFileInfo( remote_path+path+filename, fi );
+  xfile_print_error( res );
+  if( res != XFiles::Ok ) return;
+
+  //--- создание каталога
+  QString dirname = local_path + path;
+  QDir dir( dirname );
+  if( !dir.exists() )
+  {  cout << "Create path: " << dirname << endl;
+     dir.mkpath( dirname );
+  }
+
+  //--- синхронизация файла
+  sync_file(  filename, fi.size, path );
+}
+
+//=============================================================================
+// Быстрая синхронизация на основе анализа текущей даты
+//=============================================================================
+static void fast_sync()
+{
+  QDate date = QDate::currentDate();
+  fast_sync_date( date, ".RPM" );
+  fast_sync_date( date, ".RNM" );
+  date = date.addDays(-1);
+  fast_sync_date( date, ".RPM" );
+  fast_sync_date( date, ".RNM" );
+}
+
 
 //=============================================================================
 // MAIN
@@ -231,17 +329,19 @@ int main(int argc, char *argv[])
   xf->setNode( node );
 
   if( sp->speed() )
-  { cout << "Serial Port: " << sp->name() << " at " << sp->speed() << endl;
+  { //cout << "Serial Port: " << sp->name() << " at " << sp->speed() << endl;
   } else
-  { cout << "Modbus TCP host: " << sp->name() << endl;
+  { //cout << "Modbus TCP host: " << sp->name() << endl;
   }
-  cout << endl;
 
-  process_dir("");
+  if( fastmode )
+  { fast_sync();
+  } else
+  { process_dir("");
+  }
 
   delete xf;
   delete sp;
 
   return 0;
 }
-
