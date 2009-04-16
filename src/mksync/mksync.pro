@@ -9,6 +9,7 @@ UI_HEADERS_DIR = build
 DESTDIR = ../../bin
 
 QT -= gui
+QT += network
 CONFIG += console
 
 TEMPLATE = app

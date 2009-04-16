@@ -96,9 +96,9 @@ int MbTcpPort::query( const QByteArray &request, QByteArray &answer, int *errorc
     return 0;
   }
 
-  *errorcode = 0;
+  if( errorcode ) *errorcode = 0;
   if( d->socket->bytesAvailable() )
-  { *errorcode = 56;
+  { if( errorcode ) *errorcode = 56;
     return 0;
   }
 

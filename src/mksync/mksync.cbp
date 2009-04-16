@@ -12,7 +12,7 @@
 				<Option output="..\..\bin\mksync.exe" prefix_auto="0" extension_auto="0" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="-port=COM5 -speed=38400" />
+				<Option parameters="-host=127.0.0.1 -speed=115200 -node=8 -rdir=/ -ldir=d:/xtest " />
 				<Option projectResourceIncludeDirsRelation="0" />
 			</Target>
 		</Build>

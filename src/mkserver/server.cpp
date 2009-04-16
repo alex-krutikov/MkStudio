@@ -30,6 +30,20 @@ static int zzz( const QByteArray &ba )
     }
   }
 
+  if( ba[1] == 0x45 )
+  { switch( ba[2] )
+    { case( 33 ): return ba.size()+2;                      // create/open file
+      case( 34 ): return ba.size()+1;                      // close file
+      case( 35 ): return ba.size()+2+(unsigned char)ba[8]; // read file
+      case( 36 ): return (1+1+1)+1+4+1+1+1+2;              // write file
+      case( 40 ): return ba.size()+2;                      // open dir
+      case( 41 ): return (1+1+1)+1+1+4+2+2+1+1+13+2;       // read dir
+      case( 44 ): return ba.size()+1;                      // create dir
+      case( 45 ): return ba.size()+1;                      // remove file or dir
+    }
+  }
+
+
   return 255;
 }
 
@@ -53,7 +67,7 @@ static QString QByteArray2QString( const QByteArray &ba, int mode = 1 )
 	return str;
 }
 
-
+/*
 //==============================================================================
 //
 //==============================================================================
@@ -110,6 +124,7 @@ static void process( const QByteArray &req, QByteArray &ans )
 
   ans.resize( ans_len );
 }
+*/
 
 //=============================================================================
 //
