@@ -38,6 +38,7 @@ static int zzz( const QByteArray &ba )
       case( 36 ): return (1+1+1)+1+4+1+1+1+2;              // write file
       case( 40 ): return ba.size()+2;                      // open dir
       case( 41 ): return (1+1+1)+1+1+4+2+2+1+1+13+2;       // read dir
+      case( 43 ): return ba.size()+1+(4+2+2+1+1+13);       // file status
       case( 44 ): return ba.size()+1;                      // create dir
       case( 45 ): return ba.size()+1;                      // remove file or dir
     }

@@ -96,6 +96,7 @@ public:
   Result openFile( const QString &filename, int mode, int *id );
   Result readFile( int id, int offset, int len, QByteArray &ba );
   Result writeFile( int id, int offset, const QByteArray &ba, int *wlen );
+  Result getFileInfo( const QString &filename, XFilesFileInfo &fi );
   Result closeFile(int id);
   Result removeFile( const QString &path );
   Result createDirectory( const QString &path );

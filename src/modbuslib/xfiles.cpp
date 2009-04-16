@@ -363,6 +363,61 @@ XFiles::Result XFiles::writeFile( int id, int offset, const QByteArray &ba, int 
 }
 
 //=============================================================================
+//! Получить информацию о файле
+//
+//! \param filename   полное имя файла
+//! \param[out] fi    информация о файле
+//! \return код завершения операции
+//=============================================================================
+XFiles::Result XFiles::getFileInfo( const QString &filename, XFilesFileInfo &fi )
+{
+  Result ret;
+
+  QByteArray path = filename.toLocal8Bit();
+  path.append( (char)0 );
+  int path_size = path.size();
+
+  if( path_size > 100 ) return XFiles::InvalidName;
+
+  struct __attribute__(( packed ))
+  { int size;
+    short date;
+    short time;
+    char attr;
+    char filenamesize;
+    char filename[13];
+  } st;
+
+  Console::Print( Console::Information, "# XFILES 43 - Get File Status.\n" );
+
+  QByteArray req,ans,res;
+
+  req.resize(4);
+  req[0]= d->node;
+  req[1]= 0x45;
+  req[2]= 43;
+  req[3]= path_size;
+  req.append( path );
+  CRC::appendCRC16( req );
+  ans.resize( req.size()+1+sizeof(st)  );
+
+  ret = d->query( req, ans, res );
+  if( ret != XFiles::Ok ) return ret;
+  memcpy( &st, res.constData()+1, sizeof( st ) );
+  fi.name  = QString::fromLocal8Bit( st.filename );
+  fi.size  = st.size;
+  fi.attr  = st.attr;
+  fi.mtime = QDateTime( QDate( 1980+((st.date>>9)&0x7F),
+                                    ((st.date>>5)&0x0F),
+                                    ((st.date   )&0x1F) ),
+                        QTime( ((st.time>>11)&0x1F),
+                               ((st.time>> 5)&0x2F),
+                               ((st.time    )&0x1F)*2 ) );
+
+  return ret;
+}
+
+//=============================================================================
 //! Закрыть файл
 //
 //! \param id   дескриптор файла
