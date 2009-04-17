@@ -5,5 +5,6 @@ SUBDIRS  = modbuslib        \
            mkstudio         \
            mkview           \
            mksync           \
+           mkquery          \
            mkserver         \
 
