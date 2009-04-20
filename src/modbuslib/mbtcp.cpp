@@ -85,9 +85,12 @@ int MbTcpPort::query( const QByteArray &request, QByteArray &answer, int *errorc
   QByteArray header,resp;
 
   if( !d->socket )
-  { d->socket = new QTcpSocket;
-    d->socket->connectToHost(d->portname,502);
-    d->socket->waitForConnected(1000);
+  { QString host = d->portname.section(':',0,0);
+    int port = d->portname.section(':',1,1).toInt();
+    if( !port ) port=502; // default TCP Modbus port;
+    d->socket = new QTcpSocket;
+    d->socket->connectToHost( host, port );
+    d->socket->waitForConnected(5000);
   }
 
   if( d->socket->state() != QAbstractSocket::ConnectedState )

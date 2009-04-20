@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>601</width>
+    <width>738</width>
     <height>625</height>
    </rect>
   </property>
@@ -26,7 +26,7 @@
       <item>
        <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>Порт:</string>
+         <string>Последовательный порт:</string>
         </property>
        </widget>
       </item>
@@ -35,6 +35,56 @@
       </item>
       <item>
        <widget class="QComboBox" name="cb_portspeed"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>таймаут (мс):</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="le_timeout">
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>10</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>TCP порт:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="le_tcp_port">
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
       </item>
       <item>
        <spacer name="horizontalSpacer">
@@ -52,15 +102,25 @@
      </layout>
     </item>
     <item>
+     <widget class="QCheckBox" name="cb_mb_packet">
+      <property name="text">
+       <string>Показывать пакеты Modbus</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QPlainTextEdit" name="te"/>
     </item>
    </layout>
   </widget>
  </widget>
  <tabstops>
-  <tabstop>te</tabstop>
   <tabstop>cb_portname</tabstop>
   <tabstop>cb_portspeed</tabstop>
+  <tabstop>le_timeout</tabstop>
+  <tabstop>le_tcp_port</tabstop>
+  <tabstop>cb_mb_packet</tabstop>
+  <tabstop>te</tabstop>
  </tabstops>
  <resources/>
  <connections/>

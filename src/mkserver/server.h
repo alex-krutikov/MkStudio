@@ -3,9 +3,20 @@
 
 #include <QObject>
 #include <QThread>
+#include <QByteArray>
 
 class AbstractSerialPort;
 class QTcpServer;
+class QTcpSocket;
+
+
+//=============================================================================
+//
+//=============================================================================
+typedef struct ModbusTcpServerThreadItem
+{
+  QByteArray req,ans;
+};
 
 //=============================================================================
 //
@@ -22,8 +33,9 @@ public slots:
   void disconnected();
 private:
   AbstractSerialPort *sp;
-
+  int mb_tcp_port;
   QTcpServer *server;
+  QMap< QTcpSocket*, ModbusTcpServerThreadItem  > map;
 };
 
 //=============================================================================
@@ -33,13 +45,14 @@ class ModbusTcpServer : public QObject
 {
   Q_OBJECT
 public:
-  ModbusTcpServer( QObject *parent = 0, AbstractSerialPort *sp = 0 );
+  ModbusTcpServer( QObject *parent = 0, AbstractSerialPort *sp = 0, int mb_tcp_port=502 );
   ~ModbusTcpServer();
 
 private:
   ModbusTcpServerThread *sp_thread;
 
   AbstractSerialPort *sp;
+  int mb_tcp_port;
 };
 
 #endif

@@ -68,11 +68,11 @@ static QString QByteArray2QString( const QByteArray &ba, int mode = 1 )
 	return str;
 }
 
-/*
+
 //==============================================================================
 //
 //==============================================================================
-static void process( const QByteArray &req, QByteArray &ans )
+void emulator( const QByteArray &req, QByteArray &ans )
 {
   static unsigned char base[100000];
 
@@ -125,29 +125,38 @@ static void process( const QByteArray &req, QByteArray &ans )
 
   ans.resize( ans_len );
 }
-*/
-
-//=============================================================================
-//
-//=============================================================================
-typedef struct Item
-{
-  QByteArray req,ans;
-};
-QMap< QTcpSocket*, Item  > map;
 
 //#############################################################################
 //
 //#############################################################################
 void ModbusTcpServerThread::run()
 {
-  //Console::Print( QString("SP thread id=%1\n").arg( (int) currentThreadId() ) );
-  setTerminationEnabled( true );
+  bool ok;
 
   server = new QTcpServer(this);
-  server->listen( QHostAddress::Any, 502 );
+  ok = server->listen( QHostAddress::Any, mb_tcp_port );
+
+  QString message = ok ? QString("Server started on port %1.\n").arg(mb_tcp_port)
+                       : QString("Unable to listen port %1.\n").arg(mb_tcp_port);
+  Console::Print( Console::Information, message );
+
   connect( server, SIGNAL( newConnection() ), this, SLOT( newConnection() ) );
   exec();
+/*
+  server->close();
+  while( server->hasPendingConnections() )
+  { QTcpSocket *socket = server->nextPendingConnection();
+    socket->disconnectFromHost();
+    socket->waitForDisconnected();
+  }
+  foreach(QTcpSocket *socket, map.keys() )
+  { socket->disconnectFromHost();
+  }
+  foreach(QTcpSocket *socket, map.keys() )
+  { socket->waitForDisconnected();
+  }
+*/
+  delete server;
 }
 
 //=============================================================================
@@ -155,9 +164,11 @@ void ModbusTcpServerThread::run()
 //=============================================================================
 void ModbusTcpServerThread::newConnection()
 {
-  Console::Print( Console::Information, QString("Connected\n") );
   QTcpSocket *socket = server->nextPendingConnection();
-  map.insert( socket, Item() );
+  if( !socket ) return;
+  Console::Print( Console::Information, QString("Connected from %1\n")
+      .arg( socket->peerAddress().toString() ) );
+  map.insert( socket, ModbusTcpServerThreadItem() );
   connect( socket, SIGNAL( readyRead() ), this, SLOT( readyRead() ) );
   connect( socket, SIGNAL( disconnected() ), this, SLOT( disconnected() ) );
 }
@@ -168,10 +179,11 @@ void ModbusTcpServerThread::newConnection()
 void ModbusTcpServerThread::readyRead()
 {
   QTcpSocket *socket = (QTcpSocket*) qobject_cast<QTcpSocket*>( sender() );
+  if( !socket ) return;
 
   int j;
 
-  Item &item = map[socket];
+  ModbusTcpServerThreadItem &item = map[socket];
   QByteArray &req = item.req;
   QByteArray &ans = item.ans;
 
@@ -195,13 +207,14 @@ void ModbusTcpServerThread::readyRead()
     QByteArray ba_ans;
     QByteArray ba_req = req.mid(6,len);
     req.remove(0,len+6);
-    // Console::Print( "R:" + QByteArray2QString( ba_req ) + "\n" );
+     Console::Print( Console::ModbusPacket, "R:" + QByteArray2QString( ba_req ) + "\n" );
+
 
     j = zzz( ba_req );
     ba_ans.resize( j );
     j = sp->query( ba_req, ba_ans, 0 );
     ba_ans.resize( j );
-    // process( ba_req, ba_ans );
+    //emulator( ba_req, ba_ans );
 
     ans.resize(0);
     ans.append( (char) 0 );
@@ -212,7 +225,7 @@ void ModbusTcpServerThread::readyRead()
     ans.append( (char) ba_ans.size() );
     ans.append( ba_ans );
 
-    // Console::Print( "A:" + QByteArray2QString( ba_ans ) + "\n" );
+     Console::Print( Console::ModbusPacket, "A:" + QByteArray2QString( ba_ans ) + "\n" );
 
     int j = socket->write( ans );
     if( j != ans.size() )
@@ -224,8 +237,6 @@ void ModbusTcpServerThread::readyRead()
   { delete socket;
     return;
   }
-
-  //Console::Print( socket->readAll() );
 }
 
 //=============================================================================
@@ -233,22 +244,26 @@ void ModbusTcpServerThread::readyRead()
 //=============================================================================
 void ModbusTcpServerThread::disconnected()
 {
-  Console::Print(  Console::Information, QString("Disconnected\n") );
-  QTcpSocket *socket = server->nextPendingConnection();
+  QTcpSocket *socket = (QTcpSocket*)qobject_cast<QTcpSocket*>( sender() );
+  if( !socket ) return;
+
+  Console::Print(  Console::Information, QString("Disconnected %1\n")
+  .arg( socket->peerAddress().toString() ) );
 
   map.remove( socket );
-  delete socket;
+  socket->deleteLater();
 }
 
 //#############################################################################
 //
 //#############################################################################
-ModbusTcpServer::ModbusTcpServer( QObject *parent, AbstractSerialPort *sp )
-  : QObject( parent ), sp( sp )
+ModbusTcpServer::ModbusTcpServer( QObject *parent, AbstractSerialPort *sp,  int mb_tcp_port )
+  : QObject( parent ), sp( sp ), mb_tcp_port( mb_tcp_port )
 {
   sp_thread = new ModbusTcpServerThread;
 
   sp_thread->sp = sp;
+  sp_thread->mb_tcp_port = mb_tcp_port;
   sp_thread->moveToThread( sp_thread );
   sp_thread->start();
 }
@@ -265,7 +280,7 @@ ModbusTcpServer::~ModbusTcpServer()
   { sp_thread->terminate();
     sp_thread->wait(5000);
   }
-
+  Console::Print( Console::Information, QString("Server stoped on port %1.\n").arg(mb_tcp_port) );
   delete sp_thread;
 }
 

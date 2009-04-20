@@ -13,6 +13,7 @@ QTextStream cerr( stderr );
 AbstractSerialPort *sp;
 
 int verb_mode;
+int repeats_count = 5;
 enum Mode { UnknownMode=0, Read, Write } operation_mode;
 bool unsigned_mode;
 int addr;
@@ -38,12 +39,13 @@ static void print_help()
   "    -baud=[Serial port baud rate]\n"
   "    -host=[Modbus TCP host name]\n"
   "    -node=[Modbus node]\n"
-  "    -addr=[Modbus address]\n"
+  "    -addr=[Modbus memory address]\n"
   "    -type=[bits|bytes|words|dwords|float]\n"
-  "    -count=[parameters count]\n"
+  "    -count=[Parameters count]\n"
   "    -read\n"
   "    -write\n"
   "    -unsigned\n"
+  "    -repeats=[Repeats count]\n"
   "    -v\n"
   ;
   cout << str;
@@ -102,6 +104,13 @@ static int init()
     { operation_mode = Write;
     } else if( str == "-v" )
     { verb_mode = 1;
+    } else if( str.startsWith( "-repeats=" ) )
+    { str.remove(0,9);
+      repeats_count = str.toInt( &ok );
+      if( !ok )
+      {  cerr << "Error: repeats count is invalid";
+        return 1;
+      }
     } else if( str == "-unsigned" )
     { unsigned_mode = 1;
     } else if( str.startsWith("-count=") )
@@ -121,7 +130,7 @@ static int init()
       { addr = str.toInt( &ok );
       }
       if( !ok )
-      {  cerr << "Error: start address is invalid";
+      {  cerr << "Error: memory address is invalid";
         return 1;
       }
     } else
@@ -139,7 +148,7 @@ static int init()
   }
 
   if( !portname.isEmpty() && !hostname.isEmpty())
-  { cerr << "Configuration error: Serial port and tcp/ip host can not be used together.";
+  { cerr << "Configuration error: Serial port and tcp/ip host can not be used simultaneously.";
     print_help();
     return 1;
   }
@@ -157,13 +166,19 @@ static int init()
   }
 
   if( operation_mode == Read  && data.size() )
-  { cerr << "Configuration error: Data is set in read mode.";
+  { cerr << "Configuration error: Data can not be set in read mode.";
     print_help();
     return 1;
   }
 
   if( operation_mode == Write &&( data.count() < 1 ) )
-  { cerr << "Configuration error: Data count less then 1.";
+  { cerr << "Configuration error: Data not found.";
+    print_help();
+    return 1;
+  }
+
+  if( ( operation_mode ) == Write && ( data_type  == Bits ) && ( data.count()> 1 ) )
+  { cerr << "Configuration error: It is possible to write only a single bit.";
     print_help();
     return 1;
   }
@@ -273,7 +288,7 @@ bool read_data()
 
   ans.resize( 6 + len );
 
-  tr=5;
+  tr=repeats_count;
   while( tr-- )
   { j = sp->query( req, ans );
 
@@ -413,7 +428,7 @@ static bool write_data()
 
   ans.resize( req.size() );
 
-  tr=5;
+  tr=repeats_count;
   while( tr-- )
   { j = sp->query( req, ans );
 
