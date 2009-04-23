@@ -178,63 +178,73 @@ void ModbusTcpServerThread::newConnection()
 //=============================================================================
 void ModbusTcpServerThread::readyRead()
 {
+  Console::setMessageTypes( Console::AllTypes );
+
   QTcpSocket *socket = (QTcpSocket*) qobject_cast<QTcpSocket*>( sender() );
   if( !socket ) return;
 
   int j;
 
   ModbusTcpServerThreadItem &item = map[socket];
-  QByteArray &req = item.req;
-  QByteArray &ans = item.ans;
+  QByteArray &tcp_req = item.req;
+  QByteArray &tcp_ans = item.ans;
 
 
-  req.append( socket->readAll() );
+  tcp_req.append( socket->readAll() );
 
   //Console::Print( "###:" + QByteArray2QString( req ) + "\n" );
 
-  if( req.size() < 7 ) return;
+  if( tcp_req.size() < 7 ) return;
 
-  if( req.size() > 300 || req[2] || req[3] || req[4] )
+  if( tcp_req.size() > 300 || tcp_req[2] || tcp_req[3] || tcp_req[4] )
   { map.remove( socket );
-    delete socket;
+    socket->deleteLater();
     return;
   }
 
-  int len = (unsigned char)req[5];
+  int len = (unsigned char)tcp_req[5];
 
-  if( req.size() == len + 6 )
+  if( tcp_req.size() == len + 6 )
   {
-    QByteArray ba_ans;
-    QByteArray ba_req = req.mid(6,len);
-    req.remove(0,len+6);
-     Console::Print( Console::ModbusPacket, "R:" + QByteArray2QString( ba_req ) + "\n" );
+    Console::Print( Console::ModbusPacket, "TCP Req:" + QByteArray2QString( tcp_req ) + "\n" );
+
+    QByteArray mb_ans;
+    QByteArray mb_req = tcp_req.mid(6,len);
+    CRC::appendCRC16( mb_req );
+    Console::Print( Console::ModbusPacket, "MB  Req:" + QByteArray2QString( mb_req ) + "\n" );
 
 
-    j = zzz( ba_req );
-    ba_ans.resize( j );
-    j = sp->query( ba_req, ba_ans, 0 );
-    ba_ans.resize( j );
+    j = zzz( mb_req );
+    mb_ans.resize( j );
+    j = sp->query( mb_req, mb_ans, 0 );
     //emulator( ba_req, ba_ans );
+    mb_ans.resize( j );
 
-    ans.resize(0);
-    ans.append( (char) 0 );
-    ans.append( (char) 0 );
-    ans.append( (char) 0 );
-    ans.append( (char) 0 );
-    ans.append( (char) 0 );
-    ans.append( (char) ba_ans.size() );
-    ans.append( ba_ans );
+    Console::Print( Console::ModbusPacket, "MB  Ans:" + QByteArray2QString( mb_ans ) + "\n" );
+    mb_ans.chop(2);
 
-     Console::Print( Console::ModbusPacket, "A:" + QByteArray2QString( ba_ans ) + "\n" );
+    tcp_ans.resize(0);
+    tcp_ans.append( (char) 0 );
+    tcp_ans.append( (char) 0 );
+    tcp_ans.append( (char) 0 );
+    tcp_ans.append( (char) 0 );
+    tcp_ans.append( (char) 0 );
+    tcp_ans.append( (char) mb_ans.size() );
+    tcp_ans.append( mb_ans );
 
-    int j = socket->write( ans );
-    if( j != ans.size() )
+    Console::Print( Console::ModbusPacket, "TCP Ans:" + QByteArray2QString( tcp_ans ) + "\n" );
+
+    int j = socket->write( tcp_ans );
+    if( j != tcp_ans.size() )
     { Console::Print(  Console::Error, "!:\n" );
     }
     socket->flush();
 
+    tcp_req.resize(0);
+
   } else
-  { delete socket;
+  { Console::Print( Console::ModbusPacket, "################3\n" );
+    delete socket;
     return;
   }
 }
