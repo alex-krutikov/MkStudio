@@ -194,7 +194,7 @@ int SerialPortPrivate::query( const QByteArray &request,
   }
 
   // задержка перед запросом 4 байтовых интервала на выбранной скорости
-  usleep((4 * 10 * 1000000 / sp->speed()));
+  usleep((8 * 10 * 1000000 / sp->speed()));
 
   // запрос
   ok = WriteFile( hport, request.data(), request.length(),  &j, 0 );
