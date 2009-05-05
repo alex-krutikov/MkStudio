@@ -10,7 +10,7 @@
 //==============================================================================
 //
 //==============================================================================
-static int zzz( const QByteArray &ba )
+static int expected_answer_size( const QByteArray &ba )
 {
   int len = ba.size();
   if( len < 3 ) return 255;
@@ -68,64 +68,6 @@ static QString QByteArray2QString( const QByteArray &ba, int mode = 1 )
 	return str;
 }
 
-
-//==============================================================================
-//
-//==============================================================================
-void emulator( const QByteArray &req, QByteArray &ans )
-{
-  static unsigned char base[100000];
-
-  ans.resize( 300 );
-
-  int addr = ( (unsigned char)req[3] << 8 ) | (unsigned char)req[4];
-  int len  = (unsigned char)req[5];
-  int ans_len = 0;
-  int i;
-
-  ans[0] = req[0];
-  ans[1] = req[1];
-  ans[2] = req[2];
-  ans[3] = req[3];
-  ans[4] = req[4];
-
-  switch( req[2] & 0x0F )
-  {
-    case( 0x00 ): // read
-      ans[3] = len;
-      for(i=0; i<len; i++) ans[4+i] = base[addr+i];
-      ans_len = len + 6;
-     break;
-    case( 0x01 ): // set
-      ans[5] = len;
-      for(i=0; i<len; i++) base[addr+i] = req[6+i];
-      ans_len = len + 8;
-      break;
-    case( 0x03 ): // and
-      ans[5] = len;
-      for(i=0; i<len; i++) base[addr+i] &= req[6+i];
-      ans_len = len + 8;
-      break;
-    case( 0x05 ): // or
-      ans[5] = len;
-      for(i=0; i<len; i++) base[addr+i] |= req[6+i];
-      ans_len = len + 8;
-      break;
-    case( 0x07 ): // xor
-      ans[5] = len;
-      for(i=0; i<len; i++) base[addr+i] ^= req[6+i];
-      ans_len = len + 8;
-    break;
-  }
-
-  if( ans_len > 2)
-  { ans.resize( ans_len - 2 );
-    CRC::appendCRC16( ans );
-  }
-
-  ans.resize( ans_len );
-}
-
 //#############################################################################
 //
 //#############################################################################
@@ -178,8 +120,6 @@ void ModbusTcpServerThread::newConnection()
 //=============================================================================
 void ModbusTcpServerThread::readyRead()
 {
-  Console::setMessageTypes( Console::AllTypes );
-
   QTcpSocket *socket = (QTcpSocket*) qobject_cast<QTcpSocket*>( sender() );
   if( !socket ) return;
 
@@ -214,11 +154,10 @@ void ModbusTcpServerThread::readyRead()
     Console::Print( Console::ModbusPacket, "MB  Req:" + QByteArray2QString( mb_req ) + "\n" );
 
 
-    //j = zzz( mb_req );
-    //mb_ans.resize( j );
-    //j = sp->query( mb_req, mb_ans, 0 );
-    emulator( mb_req, mb_ans );
-    //mb_ans.resize( j );
+    j = expected_answer_size( mb_req );
+    mb_ans.resize( j );
+    j = sp->query( mb_req, mb_ans, 0 );
+    mb_ans.resize( j );
 
     Console::Print( Console::ModbusPacket, "MB  Ans:" + QByteArray2QString( mb_ans ) + "\n" );
     mb_ans.chop(2);
@@ -232,7 +171,7 @@ void ModbusTcpServerThread::readyRead()
     tcp_ans.append( (char) mb_ans.size() );
     tcp_ans.append( mb_ans );
 
-    Console::Print( Console::ModbusPacket, "TCP Ans:" + QByteArray2QString( tcp_ans ) + "\n" );
+    Console::Print( Console::ModbusPacket, "TCP Ans:" + QByteArray2QString( tcp_ans ) + "\n\n" );
 
     int j = socket->write( tcp_ans );
     if( j != tcp_ans.size() )

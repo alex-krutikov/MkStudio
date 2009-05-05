@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     QTextCodec::setCodecForTr(       QTextCodec::codecForName("Windows-1251"));
     QTextCodec::setCodecForCStrings( QTextCodec::codecForName("Windows-1251"));
 
-    app_header = "XFiles Ftp server";
+    app_header = "Modbus TCP Server";
 
     Console::setMessageTypes( Console::AllTypes );
 

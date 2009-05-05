@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 
-class SerialPort;
+class AbstractSerialPort;
 class ModbusTcpServer;
 
 //==============================================================================
@@ -25,7 +25,7 @@ private:
   void closeEvent ( QCloseEvent * event );
   void console_update();
 
-  SerialPort *serialport;
+  AbstractSerialPort *serialport;
   ModbusTcpServer *tcpserver;
 };
 
