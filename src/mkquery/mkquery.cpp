@@ -272,7 +272,7 @@ bool read_data()
     default: break;
   }
 
-  if( len < 1 || len > 200 )
+  if( len < 1 || len > 255 )
   { cerr << "Error: Data length invalid";
     return 1;
   }

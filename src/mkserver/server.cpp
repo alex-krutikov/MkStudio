@@ -214,11 +214,11 @@ void ModbusTcpServerThread::readyRead()
     Console::Print( Console::ModbusPacket, "MB  Req:" + QByteArray2QString( mb_req ) + "\n" );
 
 
-    j = zzz( mb_req );
-    mb_ans.resize( j );
-    j = sp->query( mb_req, mb_ans, 0 );
-    //emulator( ba_req, ba_ans );
-    mb_ans.resize( j );
+    //j = zzz( mb_req );
+    //mb_ans.resize( j );
+    //j = sp->query( mb_req, mb_ans, 0 );
+    emulator( mb_req, mb_ans );
+    //mb_ans.resize( j );
 
     Console::Print( Console::ModbusPacket, "MB  Ans:" + QByteArray2QString( mb_ans ) + "\n" );
     mb_ans.chop(2);

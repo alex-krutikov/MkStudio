@@ -193,7 +193,7 @@ bool sync_file(const QString filename, const int filesize, const QString &path )
   while( j < filesize )
   {
     len = filesize - j;
-    if( len > 80 ) len = 80;
+    if( len > 230 ) len = 230;
 
     res = xf->readFile( id, j, len, ba );
     xfile_print_error( res );

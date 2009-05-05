@@ -20,7 +20,7 @@ class SerialPortPrivate
 #endif
 
   SerialPortPrivate( SerialPort *sp);
-  ~SerialPortPrivate();
+  virtual ~SerialPortPrivate();
 
   bool open();
   bool reopen();

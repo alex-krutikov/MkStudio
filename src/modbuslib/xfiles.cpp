@@ -66,7 +66,7 @@ class XFilesPrivate
 XFiles::Result XFilesPrivate::query( const QByteArray &req, QByteArray &ans, QByteArray &result, int res_offset )
 {
   XFiles::Result ret = XFiles::Ok;
-  int j, tr=7;
+  int j, tr=4;
   int req_size = req.size();
 
   while( --tr )
@@ -79,7 +79,9 @@ XFiles::Result XFilesPrivate::query( const QByteArray &req, QByteArray &ans, QBy
 
     if( j > 2 && ans[1] & 0x80 )
     { Console::Print( Console::ModbusError, "# Ans: Error flag in answer.\n" );
-      return XFiles::ErrorFlagInAnswer;
+      ret = XFiles::ErrorFlagInAnswer;
+      continue;
+      //return XFiles::ErrorFlagInAnswer;
     }
 
     if( j != ans.size() )
@@ -173,7 +175,7 @@ XFiles::Result XFiles::openDirectory( const QString &path, int *id )
   req[0]= d->node;
   req[1]= 0x45;
   req[2]=   40;
-  req[3]=    1;
+  req[3]=   10;
   req[4]=    0;
   req[5]= dir_size;
   req.append( dir );
@@ -269,7 +271,7 @@ XFiles::Result XFiles::openFile( const QString &filename, int mode, int *id )
   req[0]= d->node;
   req[1]= 0x45;
   req[2]=   33;
-  req[3]=    1;
+  req[3]=   10;
   req[4]= mode;
   req[5]= path_size;
   req.append( path );

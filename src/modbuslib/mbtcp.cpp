@@ -33,6 +33,7 @@ MbTcpPort::MbTcpPort()
 //=============================================================================
 MbTcpPort::~MbTcpPort()
 {
+  close();
   delete d;
 }
 
