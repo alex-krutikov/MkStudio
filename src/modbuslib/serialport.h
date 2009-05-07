@@ -50,7 +50,6 @@ public:
 //@}
   static QStringList queryComPorts();
 
-  bool console_out_packets;
 private:
   int answer_timeout;
   int current_answer_timeout;

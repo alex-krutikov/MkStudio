@@ -12,7 +12,6 @@
 SerialPort::SerialPort()
   : d( new SerialPortPrivate(this) )
 {
-  console_out_packets = false;
   answer_timeout         = 100;
   current_answer_timeout = -1;
 }

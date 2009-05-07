@@ -189,9 +189,7 @@ int SerialPortPrivate::query( const QByteArray &request,
 
   PurgeComm(hport,PURGE_TXCLEAR|PURGE_RXCLEAR);
 
-  if( sp->console_out_packets )
-  { Console::Print( Console::ModbusPacket, "MODBUS: Request: "+QByteArray2QString( request )+"\n");
-  }
+  Console::Print( Console::ModbusPacket, "MODBUS: Request: "+QByteArray2QString( request )+"\n");
 
   // задержка перед запросом 4 байтовых интервала на выбранной скорости
   usleep((8 * 10 * 1000000 / sp->speed()));
@@ -246,9 +244,7 @@ int SerialPortPrivate::query( const QByteArray &request,
   if( j == 0 )                goto error2;
   else if(j != answer_size )  goto error3;
 
-  if( sp->console_out_packets )
-  { Console::Print( Console::ModbusPacket, "MODBUS:  Answer: "+QByteArray2QString( answer )+"\n");
-  }
+  Console::Print( Console::ModbusPacket, "MODBUS:  Answer: "+QByteArray2QString( answer )+"\n");
 
   if( last_error_id )
   {  Console::Print( Console::ModbusError, "MODBUS: OK.\n" );
