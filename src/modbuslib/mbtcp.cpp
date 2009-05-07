@@ -86,8 +86,6 @@ int MbTcpPort::query( const QByteArray &request, QByteArray &answer, int *errorc
 {
   Console::setMessageTypes( Console::AllTypes );
 
-  Console::Print( Console::Debug, "1request = " + QByteArray2QString( request ) +"\n" );
-
   QByteArray tcp_header,tcp_ans;
 
   if( !d->socket )
@@ -96,13 +94,14 @@ int MbTcpPort::query( const QByteArray &request, QByteArray &answer, int *errorc
     if( !port ) port=502; // default TCP Modbus port;
     d->socket = new QTcpSocket;
     d->socket->connectToHost( host, port );
-    d->socket->waitForConnected(5000);
-    Console::Print( Console::Debug, "1%%%%%%%%%%%\n" );
+    bool ok = d->socket->waitForConnected(4000);
+    if( !ok )
+    { Console::Print( Console::Error, "MB_TCP: Error: Unable to connect to host `"+d->portname+"`.\n" );
+    }
   }
 
   if( d->socket->state() != QAbstractSocket::ConnectedState )
   {
-    Console::Print( Console::Debug, "2%%%%%%%%%%%%\n" );
     delete d->socket;
     d->socket = 0;
     return 0;
@@ -111,7 +110,6 @@ int MbTcpPort::query( const QByteArray &request, QByteArray &answer, int *errorc
   if( errorcode ) *errorcode = 0;
   if( d->socket->bytesAvailable() )
   { if( errorcode ) *errorcode = 56;
-    Console::Print( Console::Debug, "$$$$$$$$$$$$$$$$$\n" );
     return 0;
   }
 
@@ -128,23 +126,22 @@ int MbTcpPort::query( const QByteArray &request, QByteArray &answer, int *errorc
   tcp_header.append( (char)0 );
   tcp_header.append( (char)tcp_req.size() );
 
-  Console::Print( Console::Debug, "2header = " + QByteArray2QString( tcp_header ) +"\n" );
-  Console::Print( Console::Debug, "3tcpreq = " + QByteArray2QString( tcp_req ) +"\n" );
+  Console::Print( Console::ModbusPacket, "\n" );
+  Console::Print( Console::ModbusPacket, "MB_TCP: tcp_header  = " + QByteArray2QString( tcp_header ) +"\n" );
+  Console::Print( Console::ModbusPacket, "MB_TCP: tcp_request = " + QByteArray2QString( tcp_req ) +"\n" );
 
   d->socket->write( tcp_header  );
   d->socket->write( tcp_req );
   d->socket->flush();
-  d->socket->waitForBytesWritten(5000);
 
   tcp_ans.resize(0);
 
   while(1)
   { if( d->socket->state() != QAbstractSocket::ConnectedState )
     { open();
-      Console::Print( Console::Debug, "return 0\n" );
+      Console::Print( Console::Error, "MB_TCP: Error: Socket state is not `Connected`\n" );
       return 0;
     }
-    Console::Print( Console::Debug, "******\n" );
     d->socket->waitForReadyRead(1000);
     tcp_ans.append( d->socket->readAll() );
     if( tcp_ans.size() < 6 ) continue;
@@ -153,17 +150,17 @@ int MbTcpPort::query( const QByteArray &request, QByteArray &answer, int *errorc
     goto error;
   }
 
-  Console::Print( Console::Debug, "4 tcp_ans = " + QByteArray2QString( tcp_ans ) +"\n" );
+  Console::Print( Console::ModbusPacket, "MB_TCP:  tcp_answer = " + QByteArray2QString( tcp_ans ) +"\n" );
 
   tcp_ans.remove(0,6);
   if( tcp_ans.size() ) CRC::appendCRC16( tcp_ans );
   int j = qMin( tcp_ans.size(), answer.size() );
   tcp_ans.resize( answer.size() );
   answer = tcp_ans;
-  Console::Print( Console::Debug, "5 mb_ans = " + QByteArray2QString( answer ) +"\n\n" );
+  Console::Print( Console::ModbusPacket, "MB_TCP:   mb_answer = " + QByteArray2QString( answer ) +"\n" );
   return j;
 error:
-  Console::Print( Console::Debug, "GOto error\n" );
+  Console::Print( Console::Error, "MB_TCP: Error: Wrong tcp anser: " + QByteArray2QString( tcp_ans ) +"\n" );
   close();
   return 0;
 }
