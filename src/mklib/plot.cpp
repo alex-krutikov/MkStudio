@@ -23,6 +23,8 @@
 Plot::Plot( QWidget *parent, MBMasterXML *mbmaster, const QString &config )
   : QWidget( parent ), ui( new Ui::Plot )
 {
+  Q_INIT_RESOURCE( mklib );
+
   int i;
   static QRegExp rx("^(\\d+)/(\\d+)/(\\d+)$");
 

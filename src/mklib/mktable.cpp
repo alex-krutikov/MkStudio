@@ -26,6 +26,8 @@ MKTable::MKTable( QWidget *parent )
   : QTableWidget( parent ),
     delegate( new MKTableItemDelegate( this ) )
 {
+  Q_INIT_RESOURCE( mklib );
+
   mbmaster = 0;
   mode = MKTable::Edit;
 
