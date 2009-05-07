@@ -1353,7 +1353,7 @@ void MainWindow::on_action_settings_triggered()
   dialog.fcb_tw->setCurrentFont( tw->font() );
   dialog.sb_program->setValue( font().pointSize() );
   dialog.sb_tw->setValue( tw->font().pointSize() );
-  //dialog.cb_mbconsole_packets->setChecked( port->console_out_packets );
+  dialog.cb_mbconsole_packets->setChecked( Console::messageTypes() & Console::ModbusPacket );
   dialog.sb_max_packet_len->setValue( mbmaster->maximumPacketLength() );
 
   if( dialog.exec() != QDialog::Accepted ) return;
@@ -1371,7 +1371,8 @@ void MainWindow::on_action_settings_triggered()
   { tw->verticalHeader()->resizeSection( i, a );
   }
   tw->verticalHeader()->setDefaultSectionSize( a );
-  //port->console_out_packets = dialog.cb_mbconsole_packets->isChecked();
+  Console::setMessageTypes( Console::ModbusPacket,
+                                   dialog.cb_mbconsole_packets->isChecked() );
   mbmaster->setMaximumPacketLength( dialog.sb_max_packet_len->value() );
 }
 

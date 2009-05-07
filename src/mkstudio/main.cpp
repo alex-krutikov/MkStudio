@@ -37,6 +37,7 @@ int main(int argc, char *argv[])
   app_header = "MKStudio";
 
   Console::setMessageTypes( Console::AllTypes );
+  Console::setMessageTypes( Console::ModbusPacket, false );
 
   InitDialog initdialog;
   if( initdialog.exec() != QDialog::Accepted ) goto exit;

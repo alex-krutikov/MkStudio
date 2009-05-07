@@ -28,10 +28,11 @@ InitDialog::InitDialog( QWidget *parent)
 
   QSettings settings( QSETTINGS_PARAM );
 
-  QString str,str2;
+  QString str,str2,portname;
   QStringList sl;
   int i;
   //----------------------------------------------------------------------
+  portname = settings.value("portname").toString();
   cb_portname->clear();
   QStringList ports = SerialPort::queryComPorts();
   foreach( str, ports )
@@ -40,7 +41,7 @@ InitDialog::InitDialog( QWidget *parent)
     cb_portname->addItem( str2+" )", str.section(';',0,0) );
   }
   cb_portname->addItem( "Modbus TCP", "===TCP===" );
-  i = cb_portname->findData( settings.value("portname").toString() );
+  i = cb_portname->findData( portname );
   if( i >= 0 ) cb_portname->setCurrentIndex(i);
   //----------------------------------------------------------------------
   cb_portspeed -> addItems( QStringList() << "300"
@@ -61,6 +62,10 @@ InitDialog::InitDialog( QWidget *parent)
   //----------------------------------------------------------------------
   le_tcp_server -> setText( settings.value("tcpserver").toString() );
   //----------------------------------------------------------------------
+  sb_timeout -> setValue( settings.value( portname+"_timeout", 200).toInt() );
+  //----------------------------------------------------------------------
+  sb_max_len -> setValue( settings.value( portname+"_datalength", 128).toInt() );
+  //----------------------------------------------------------------------
   setFocus();
 }
 
@@ -76,6 +81,10 @@ void InitDialog::on_cb_portname_currentIndexChanged(int)
   l_speed->setHidden(        b );
   l_server->setHidden(      !b );
   le_tcp_server->setHidden( !b );
+
+  QSettings settings( QSETTINGS_PARAM );
+  sb_timeout -> setValue( settings.value( str+"_timeout", 200).toInt() );
+  sb_max_len -> setValue( settings.value( str+"_datalength", 128).toInt() );
 }
 
 //==============================================================================
@@ -85,11 +94,14 @@ void InitDialog::accept()
 {
   QString str = cb_portname->itemData( cb_portname->currentIndex() ).toString();
   QString str2 = le_tcp_server->text().simplified();
+  int timeout = sb_timeout->value();
 
   QSettings settings( QSETTINGS_PARAM );
   settings.setValue( "portname",  str );
   settings.setValue( "portspeed", cb_portspeed->currentText() );
   settings.setValue( "tcpserver", str2 );
+  settings.setValue( str+"_timeout", timeout );
+  settings.setValue( str+"_datalength", sb_max_len->value() );
 
   if( str == "===TCP===" )
   { str = le_tcp_server->text();
@@ -101,7 +113,7 @@ void InitDialog::accept()
   if( !str.isEmpty() )
   {  port->setName( str );
      port->setSpeed( cb_portspeed->currentText().toInt() );
-     port->setAnswerTimeout( sb_timeout->value() );
+     port->setAnswerTimeout( timeout );
   }
 
   done( QDialog::Accepted );

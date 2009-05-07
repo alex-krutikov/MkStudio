@@ -84,8 +84,6 @@ void MbTcpPort::resetLastErrorType()
 //=============================================================================
 int MbTcpPort::query( const QByteArray &request, QByteArray &answer, int *errorcode)
 {
-  Console::setMessageTypes( Console::AllTypes );
-
   QByteArray tcp_header,tcp_ans;
 
   if( !d->socket )

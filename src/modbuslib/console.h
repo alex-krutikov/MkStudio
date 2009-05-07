@@ -35,6 +35,7 @@ public:
   static MBL_EXPORT void Print( MessageType mtype, const QString &message );
   static MBL_EXPORT QString takeMessage();
   static MBL_EXPORT void setMessageTypes( int type, bool status = true );
+  static MBL_EXPORT int messageTypes();
 };
 
 #endif
