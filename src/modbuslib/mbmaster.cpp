@@ -252,7 +252,7 @@ void MBMasterPrivate::run()
   thread_exit_flag = false;
   while( !thread_exit_flag ) // цикл опроса
   {
-    if( data_request_timer.elapsed() > 3000 )
+    if( full_time && ( data_request_timer.elapsed() > 3*full_time ) )
     { data_request_timer.restart();
       int nk = mmslots.count();
       for( k=0; k<nk; k++ )
