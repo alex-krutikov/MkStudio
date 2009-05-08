@@ -19,6 +19,8 @@ MBMasterPrivate::MBMasterPrivate( QObject *parent )
   max_packet_length = 128;
   disable_write_transactions = false;
   disable_read_transactions  = false;
+  transaction_delay = 0;
+  cycle_time = 0;
   setTerminationEnabled( true );
 }
 
@@ -284,10 +286,6 @@ void MBMasterPrivate::run()
     if( i < transactions_read.count() )  continue;
     i=0;
 
-    full_time = full_time_timer.restart(); // полное время опроса
-
-    msleep(25);
-
     optimize_write();
 
     if( !disable_write_transactions )
@@ -313,7 +311,12 @@ void MBMasterPrivate::run()
         }
       }
     }
-    msleep(25);
+
+    while( cycle_time > full_time_timer.elapsed() )
+    { msleep( 5 );
+      if( thread_exit_flag ) break;
+    }
+    full_time = full_time_timer.restart(); // полное время опроса
   }
   Console::Print( Console::Information, "Опрос модулей остановлен.\n" );
 }
@@ -446,6 +449,8 @@ void MBMasterPrivate::optimize_write_transaction(int i1, int i2)
     ba_answer.fill(0);
     if( !transport  ) return;
     int errorcode;
+    request_counter++;
+    msleep( transaction_delay );
     transport->query( ba, ba_answer, &errorcode );
     //Console::Print( "ОПТИМИЗИРОВАННАЯ ЗАПИСЬ: " + QByteArray2QString( ba ) + "\n" );
     i = j;
@@ -473,6 +478,7 @@ bool MBMasterPrivate::process_transaction( MMSlotTransaction &tr )
   tr.answer.fill(0);
 
   request_counter++;
+  msleep( transaction_delay );
   i = transport->query( tr.request, tr.answer, &tr.errorcode );
 
   {
@@ -984,6 +990,50 @@ int MBMaster::error_counter() const
 int MBMaster::full_time() const
 { return d->full_time;
 }
+
+//===================================================================
+//! Установка времени ожидания между запросами
+/**
+  \param packet_length - время ожидания (мс)
+*/
+//===================================================================
+void MBMaster::setTransactionDelay( int delay )
+{ if( delay < 0 )     delay = 0;
+  if( delay > 10000 ) delay = 10000;
+  d->transaction_delay = delay;
+}
+
+//===================================================================
+//! Текущее значение времени ожидания между запросами
+/**
+  \return время ожидания (мс)
+*/
+//===================================================================
+int  MBMaster::transactionDelay()
+{ return d->transaction_delay;
+}
+
+//===================================================================
+//! Установка времени полного цикла опроса
+/**
+  \param packet_length - времени полного цикла опроса (мс)
+*/
+//===================================================================
+void MBMaster::setCycleTime( int time )
+{ if( time < 0 ) time = 0;
+  d->cycle_time = time;
+}
+
+//===================================================================
+//! Текущее значение времени полного цикла опроса
+/**
+  \return времени полного цикла опроса (мс)
+*/
+//===================================================================
+int  MBMaster::cycleTime()
+{ return d->cycle_time;
+}
+
 //===================================================================
 //! Расшифровка ModuleDefinition
 //===================================================================

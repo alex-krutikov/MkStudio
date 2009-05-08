@@ -6,6 +6,7 @@
 #include "dialogs.h"
 #include "misc.h"
 #include "console.h"
+#include "info.h"
 
 #include "mbmasterxml.h"
 #include "helpwidget.h"
@@ -1216,6 +1217,7 @@ void MainWindow::on_action_help_about_triggered()
      "Программа <b>MKStudio</b> для работы <br> "
      "с микропроцессорными контроллерами <br> из "
      "состава&nbsp;ПТК УМИКОН. <br><br>"
+     "Версия программы: " + ProgramInformation::version() + "<br><br>"
      "ЗАО \"Инкоммет\" <br><br>"
      "<table border=0 cellpadding=1 cellspacing=1> "
      "  <tbody><tr><td>тел.</td><td>(495) 171-97-49</td></tr> "

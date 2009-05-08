@@ -66,6 +66,9 @@ InitDialog::InitDialog( QWidget *parent)
   //----------------------------------------------------------------------
   sb_max_len -> setValue( settings.value( portname+"_datalength", 128).toInt() );
   //----------------------------------------------------------------------
+  sb_tr_delay -> setValue( settings.value( "transaction_delay" ).toInt() );
+  sb_cycle_time -> setValue( settings.value( "cycle_time" ).toInt() );
+  //----------------------------------------------------------------------
   setFocus();
 }
 
@@ -102,6 +105,8 @@ void InitDialog::accept()
   settings.setValue( "tcpserver", str2 );
   settings.setValue( str+"_timeout", timeout );
   settings.setValue( str+"_datalength", sb_max_len->value() );
+  settings.setValue( "transaction_delay", sb_tr_delay->value() );
+  settings.setValue( "cycle_time", sb_cycle_time->value() );
 
   if( str == "===TCP===" )
   { str = le_tcp_server->text();

@@ -76,6 +76,13 @@ public:
 
   void setMaximumPacketLength( int packet_length );
   int maximumPacketLength() const;
+
+  void setTransactionDelay( int delay );
+  int  transactionDelay();
+
+  void setCycleTime( int time );
+  int  cycleTime();
+
 //@}
 
 /** @name Статистика

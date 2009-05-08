@@ -83,6 +83,8 @@ private:
   bool disable_write_transactions; //!< флаг запрета транзакций на запись
   bool disable_read_transactions;  //!< флаг запрета транзакций на чтение
   int max_packet_length;           //!< максимальная длина пакета
+  int transaction_delay;
+  int cycle_time;
 
   // служебная структура для быстрого поиска транзакци на запись
   struct ModuleSlotIndex

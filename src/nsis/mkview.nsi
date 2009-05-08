@@ -31,7 +31,6 @@ Section "MKView"
   
   ; Put file there
   File ..\..\bin\mkview.exe
-  File ..\..\bin\mklib.dll
   File ..\..\bin\*.xml
 
   File ..\..\..\qt\bin\qtcore4.dll

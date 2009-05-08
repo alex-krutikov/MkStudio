@@ -55,6 +55,8 @@ int main(int argc, char *argv[])
   mbmaster = new MBMasterXML;
   mbmaster->setTransport( port );
   mbmaster->setMaximumPacketLength( initdialog.sb_max_len->value() );
+  mbmaster->setTransactionDelay( initdialog.sb_tr_delay->value() );
+  mbmaster->setCycleTime( initdialog.sb_cycle_time->value() );
 
   helpwidget = new HelpWidget;
   helpwidget->setWindowTitle("Руководство MKStudio");
