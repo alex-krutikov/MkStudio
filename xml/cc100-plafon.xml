@@ -225,9 +225,9 @@
     <Item Column="4" Row="24" Font="bold;align_center" Text="Inc # 4" BackgroundColor="#aaff00" />
     <Item Column="5" Row="24" Font="bold;align_center" Text="Inc # 5" BackgroundColor="#aaff00" />
     <Item Column="6" Row="24" Font="bold;align_center" Text="Inc # 6" BackgroundColor="#aaff00" />
-    <Item Column="7" Row="24" Font="bold;align_center" Text="DLS" BackgroundColor="#aaff00" />
-    <Item Column="8" Row="24" Font="bold;align_center" Text="DLS ON" BackgroundColor="#aaff00" />
-    <Item Column="0" Row="25" Font="align_right" Text="X, угол в градусах / H, м / Лазер ВКЛ" />
+    <Item Column="7" Row="24" Font="bold;align_center" Text="DLS #1,2" BackgroundColor="#aaff00" />
+    <Item Column="8" Row="24" Font="bold;align_center" Text="Inc # 0" BackgroundColor="#aaff00" />
+    <Item Column="0" Row="25" Font="align_right" Text="X, угол в градусах / H, м (Лазер плафона)" />
     <Item Column="1" Format="dec" Row="25" Font="align_center" Text="1/15/1" Assign="1/15/1" BackgroundColor="#faebd7" />
     <Item Column="2" Format="dec" Row="25" Font="align_center" Text="1/15/3" Assign="1/15/3" BackgroundColor="#faebd7" />
     <Item Column="3" Format="dec" Row="25" Font="align_center" Text="1/15/5" Assign="1/15/5" BackgroundColor="#faebd7" />
@@ -245,7 +245,7 @@
     <Item Column="6" Format="dec" Row="26" SSSelector="quality" Font="align_center" Text="1/16/11" Assign="1/16/11" BackgroundColor="#faebd7" />
     <Item Column="7" Format="dec" Row="26" SSSelector="quality" Font="align_center" Text="1/16/13" Assign="1/16/13" BackgroundColor="#faebd7" />
     <Item Column="8" Format="dec" Row="26" SSSelector="quality" Font="align_center" Text="1/16/15" Assign="1/16/15" BackgroundColor="#faebd7" />
-    <Item Column="0" Row="27" Font="align_right" Text="Y, угол в градусах/ T, градус С / Резерв" />
+    <Item Column="0" Row="27" Font="align_right" Text="Y, угол в градусах/ H, м (Лазер рамы)" />
     <Item Column="1" Format="dec" Row="27" Font="align_center" Text="1/15/2" Assign="1/15/2" BackgroundColor="#faebd7" />
     <Item Column="2" Format="dec" Row="27" Font="align_center" Text="1/15/4" Assign="1/15/4" BackgroundColor="#faebd7" />
     <Item Column="3" Format="dec" Row="27" Font="align_center" Text="1/15/6" Assign="1/15/6" BackgroundColor="#faebd7" />
