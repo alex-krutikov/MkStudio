@@ -135,8 +135,7 @@ void MBMasterPrivate::polling_start()
  //for( i=0; i<transactions_write.count(); i++ )
  //{ Console::Print("запись:" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
  //}
- start();
- setPriority( QThread::HighestPriority );
+ start( QThread::HighPriority  );
 }
 
 //===================================================================
