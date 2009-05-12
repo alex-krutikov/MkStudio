@@ -135,7 +135,7 @@ void MBMasterPrivate::polling_start()
  //for( i=0; i<transactions_write.count(); i++ )
  //{ Console::Print("запись:" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
  //}
- start( QThread::HighPriority  );
+ start( QThread::HighPriority );
 }
 
 //===================================================================
@@ -231,6 +231,8 @@ void MBMasterPrivate::setTransport( AbstractSerialPort *transport )
 //===================================================================
 void MBMasterPrivate::run()
 {
+  msleep(200);
+
   QTime stateChanged_timer;
   QTime full_time_timer;
   QTime data_request_timer;
