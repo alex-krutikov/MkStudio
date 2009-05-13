@@ -313,6 +313,8 @@ void MBMasterPrivate::run()
       }
     }
 
+    msleep( 2 );
+
     while( cycle_time > full_time_timer.elapsed() )
     { msleep( 5 );
       if( thread_exit_flag ) break;
