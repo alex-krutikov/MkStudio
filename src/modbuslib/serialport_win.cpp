@@ -279,6 +279,144 @@ error3:
 }
 
 //===================================================================
+// ѕосылка запроса и получение ответа (протокол XBee)
+//===================================================================
+int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer, int *errorcode)
+{
+  bool ok;
+  unsigned char crc;
+  int i,a;
+  DWORD j;
+  int xbee_addr = request[0];
+
+  // подготовка порта
+
+  if( hport == 0 )
+  { reopen();
+    return 0;
+  }
+
+  if( sp->answer_timeout != sp->current_answer_timeout )
+  { COMMTIMEOUTS ct;
+    memset( &ct, 0 , sizeof(ct) );
+    ct.ReadTotalTimeoutConstant = sp->answer_timeout;
+    SetCommTimeouts(hport,&ct);
+    sp->current_answer_timeout =  sp->answer_timeout;
+  }
+
+  PurgeComm(hport,PURGE_TXCLEAR|PURGE_RXCLEAR);
+
+  // подготовка данных
+
+  QByteArray ba;
+  ba.resize(8);
+  ba[0] = 0x7E;
+  ba[3] = 0x01; // API identifier
+  ba[4] = 0x00; // Frame ID
+  ba[5] = xbee_addr >> 8;
+  ba[6] = xbee_addr;
+  ba[7] = 0; // Options
+  ba.append( request ); // Data
+
+  a = ba.size()-3;
+  ba[1] = a >> 8;
+  ba[2] = a;
+
+  a = ba.size();
+  crc=0;
+  for( i=3; i<a; i++ ) crc += ba[i];
+  crc=0xFF-crc;
+  ba.append( crc ); // CRC
+
+  Console::Print( Console::ModbusPacket, "MODBUS: Request: "+QByteArray2QString( request )+"\n");
+
+  // задержка перед запросом 8 байтовых интервалов на выбранной скорости
+  usleep((8 * 10 * 1000000 / sp->speed()));
+
+  // запрос
+  ok = WriteFile( hport, ba.data(), ba.length(),  &j, 0 );
+  if(!ok)
+  { if( last_error_id != 2 )
+    { last_error_id = 2;
+      Console::Print( Console::Error, "MODBUS: ERROR: WriteFile (return value).\n" );
+    }
+    return -1;
+  }
+  if((int)j != ba.length() )
+  { Console::Print( Console::Error, "MODBUS: ERROR: WriteFile (wrong length).\n" );
+    return 0;
+  }
+
+  // ответ
+
+  ba.resize( 3 ); // первые три байта ответа
+  i=0;
+
+  while(1)
+  { ok = ReadFile( hport, ba.data()+i, ba.size()-i, &j, 0 );
+    if(!ok)
+    { if( last_error_id != 3 )
+      { last_error_id = 3;
+        Console::Print( Console::Error, "MODBUS: ERROR: ReadFile (return value).\n" );
+      }
+      return 0;
+    }
+    i += j;
+    if( j == 0         ) break;
+    if( i == ba.size() ) break;
+  }
+
+  // анализ первых байт
+
+  if( i != 3 )
+  { Console::Print( Console::Error, "MODBUS: ERROR: No answer.\n" );
+    return 0;
+  }
+
+  if( ba[0] != (char)0x7E )
+  { Console::Print( Console::Error, "MODBUS: ERROR: Receive packet's first byte is not 0x7E.\n" );
+    return 0;
+  }
+
+  // дочтение остальных данных
+
+  a = ( (unsigned char)ba[1] << 8 ) | (unsigned char)ba[2];
+  ba.resize( ba.size() + a + 1 );
+
+  while(1)
+  { ok = ReadFile( hport, ba.data()+i, ba.size()-i, &j, 0 );
+    if(!ok)
+    { if( last_error_id != 3 )
+      { last_error_id = 3;
+        Console::Print( Console::Error, "MODBUS: ERROR: ReadFile (return value).\n" );
+      }
+      return 0;
+    }
+    i += j;
+    if( j == 0         ) break;
+    if( i == ba.size() ) break;
+  }
+
+  // анализ XBee CRC
+
+  a = ba.size();
+  crc=0;
+  for( i=3; i<a; i++ ) crc += ba[i];
+  if( crc != 0xFF )
+  { Console::Print( Console::Error, "MODBUS: ERROR: XBee CRC error.\n" );
+    return 0;
+  }
+
+  // подготовка ответа
+
+  ba = ba.mid( 8, a-9 );
+  Console::Print( Console::ModbusPacket, "MODBUS: Answer:  "+QByteArray2QString( ba )+"\n");
+
+  answer.replace(0, ba.size(), ba );
+  return ba.size();
+}
+
+//===================================================================
 // ћикросекундна€ задержка
 //===================================================================
 void SerialPortPrivate::usleep(DWORD us)

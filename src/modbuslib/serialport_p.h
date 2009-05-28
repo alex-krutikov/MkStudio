@@ -28,6 +28,8 @@ class SerialPortPrivate
 
   int  query( const QByteArray &request, QByteArray &answer, int *errorcode);
 
+  int  queryXBee( const QByteArray &request, QByteArray &answer, int *errorcode);
+
   static QStringList queryComPorts();
 
 #ifdef Q_OS_WIN32

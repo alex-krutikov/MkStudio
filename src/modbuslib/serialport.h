@@ -23,6 +23,7 @@ public:
  *
  */
 //@{
+  void setMode( PortMode mode );
   void setName( const QString &portname );
   void setSpeed( const int speed );
   inline void setAnswerTimeout(int timeout );
@@ -51,6 +52,7 @@ public:
   static QStringList queryComPorts();
 
 private:
+  PortMode mode;
   int answer_timeout;
   int current_answer_timeout;
   QString portname;

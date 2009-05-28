@@ -12,6 +12,8 @@
 SerialPort::SerialPort()
   : d( new SerialPortPrivate(this) )
 {
+  mode                   = ModbusRTU;
+  //mode                   = XBee;
   answer_timeout         = 100;
   current_answer_timeout = -1;
 }
@@ -24,6 +26,15 @@ SerialPort::~SerialPort()
   delete d;
 }
 
+//===================================================================
+//!
+//
+//!
+//===================================================================
+void SerialPort::setMode( PortMode mode )
+{
+  this->mode = mode;
+}
 
 //===================================================================
 //!  Задать имя порта
@@ -91,7 +102,11 @@ QStringList SerialPort::queryComPorts()
 int SerialPort::query( const QByteArray &request, QByteArray &answer,
                          int *errorcode)
 {
-  return d->query( request, answer,errorcode );
+  switch( mode )
+  { case( ModbusRTU ): return d->query(     request, answer,errorcode );
+    case( XBee      ): return d->queryXBee( request, answer,errorcode );
+  }
+  return 0;
 }
 
 //===================================================================
