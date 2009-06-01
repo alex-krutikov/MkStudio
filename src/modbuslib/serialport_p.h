@@ -1,6 +1,8 @@
 #ifndef __SERIALPORTPRIVATE__H__
 #define __SERIALPORTPRIVATE__H__
 
+#include <QVector>
+
 #ifdef Q_OS_WIN32
   #include <windows.h>
 #endif
@@ -11,6 +13,13 @@ class QString;
 class QByteArray;
 class QStringList;
 class QWidget;
+
+struct st_XBeeRoute
+{
+  int a1;
+  int a2;
+  int addr;
+};
 
 class SerialPortPrivate
 {
@@ -28,9 +37,11 @@ class SerialPortPrivate
 
   int  query( const QByteArray &request, QByteArray &answer, int *errorcode);
 
-  int  queryXBee( const QByteArray &request, QByteArray &answer, int *errorcode);
+  int  queryXBee( const QByteArray &request, QByteArray &answer, int *errorcode, int xbee_addr);
 
   static QStringList queryComPorts();
+
+  QVector<st_XBeeRoute> xbee_route_table;
 
 #ifdef Q_OS_WIN32
   void usleep(DWORD us);

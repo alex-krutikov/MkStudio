@@ -281,13 +281,13 @@ error3:
 //===================================================================
 // Посылка запроса и получение ответа (протокол XBee)
 //===================================================================
-int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer, int *errorcode)
+int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
+                                       int *errorcode, int xbee_addr)
 {
   bool ok;
   unsigned char crc;
   int i,a;
   DWORD j;
-  int xbee_addr = request[0];
 
   // подготовка порта
 

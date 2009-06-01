@@ -1,12 +1,13 @@
 #ifndef __ABSTRACTSERIALPORT_H_
 #define __ABSTRACTSERIALPORT_H_
 
+#include <QObject>
 #include <QString>
 #include <QByteArray>
 
 #include "mbl_global.h"
 
-class MBL_EXPORT AbstractSerialPort
+class MBL_EXPORT AbstractSerialPort : public QObject
 {
 public:
   enum PortMode { ModbusRTU=0, XBee };
@@ -23,9 +24,6 @@ public:
   virtual int answerTimeout() const = 0;
   virtual QString lastError() const = 0;
   virtual void resetLastErrorType()  = 0;
-
-  virtual void setXBeeParameters( const QByteArray &param ) {}
-  virtual QByteArray XBeeParameters() { return QByteArray(); }
 
   virtual int query( const QByteArray &request, QByteArray &answer, int *errorcode=0) = 0;
 };

@@ -27,6 +27,7 @@ PRECOMPILED_HEADER = pch.h
 
 HEADERS = mbmaster.h                            \
           mbmaster_p.h                          \
+          serialport.h                          \
 
 SOURCES = mbmaster.cpp                          \
           mbcommon.cpp                          \

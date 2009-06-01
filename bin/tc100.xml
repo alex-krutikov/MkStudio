@@ -914,7 +914,7 @@ enum day
 }</SettingsSheet>
   </Table>
   <MBConfig>
-    <Module Node="7" N="1" Name="TC100" >
+    <Module Node="1" N="1" Name="TC100" >
       <Slot Desc="Ğåæèìû ğàáîòû è Íàñòğîéêè ìîäóëÿ" Length="4" Type="bytes" N="1" Addr="2" />
       <Slot Desc="Äèñêğåòíûå Âõîäû (Áèòû)" Length="64" Type="bits" N="2" Addr="6" />
       <Slot Desc="Äèñêğåòíûå Âõîäû (Ñ÷åò÷èê èìïóëüñîâ)" Length="4" Type="dwords" N="3" Addr="116" />

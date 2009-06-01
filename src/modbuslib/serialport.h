@@ -14,6 +14,8 @@ class SerialPortPrivate;
 //---------------------------------------------------------
 class MBL_EXPORT SerialPort : public AbstractSerialPort
 {
+  Q_OBJECT
+
   friend class SerialPortPrivate;
 public:
   SerialPort();
@@ -29,6 +31,9 @@ public:
   inline void setAnswerTimeout(int timeout );
   bool open();
   void close();
+
+  void clearXBeeRouteTable();
+  void addXBeeRoute( int a1, int a2, int addr );
 //@}
 
 /** @name Работа
