@@ -1,7 +1,7 @@
 #include <QtCore>
 #include <QtNetwork>
 
-#include "server.h"
+#include "mbtcpserver.h"
 #include "abstractserialport.h"
 #include "crc.h"
 

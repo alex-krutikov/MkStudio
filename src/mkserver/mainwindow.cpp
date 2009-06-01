@@ -3,7 +3,7 @@
 
 #include "mainwindow.h"
 #include "main.h"
-#include "server.h"
+#include "mbtcpserver.h"
 
 #include "serialport.h"
 #include "crc.h"

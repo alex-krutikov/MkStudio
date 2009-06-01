@@ -27,9 +27,7 @@ FORMS   = ui/mainwindow.ui
 
 HEADERS = mainwindow.h           \
           main.h                 \
-          server.h               \
 
 SOURCES = mainwindow.cpp         \
           main.cpp               \
-          server.cpp             \
 

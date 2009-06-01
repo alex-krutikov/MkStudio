@@ -28,6 +28,7 @@ PRECOMPILED_HEADER = pch.h
 HEADERS = mbmaster.h                            \
           mbmaster_p.h                          \
           serialport.h                          \
+          mbtcpserver.h                         \
 
 SOURCES = mbmaster.cpp                          \
           mbcommon.cpp                          \
@@ -36,6 +37,7 @@ SOURCES = mbmaster.cpp                          \
           console.cpp                           \
           xfiles.cpp                            \
           mbtcp.cpp                             \
+          mbtcpserver.cpp                       \
 
 win32{ SOURCES += serialport_win.cpp  }
 unix{  SOURCES += serialport_unix.cpp }
