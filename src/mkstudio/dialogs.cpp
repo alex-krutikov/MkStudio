@@ -121,14 +121,6 @@ void InitDialog::accept()
      port->setAnswerTimeout( timeout );
   }
 
-  SerialPort *p = (SerialPort*)qobject_cast<SerialPort *>( port );
-  if( p )
-  {
-    p->clearXBeeRouteTable();
-    p->addXBeeRoute(1,1,1);
-    p->addXBeeRoute(2,2,2);
-  }
-
   done( QDialog::Accepted );
 }
 

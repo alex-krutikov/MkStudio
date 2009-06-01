@@ -12,8 +12,8 @@
 SerialPort::SerialPort()
   : d( new SerialPortPrivate(this) )
 {
-  //mode                   = ModbusRTU;
-  mode                   = XBee;
+  mode                   = ModbusRTU;
+  //mode                   = XBee;
   answer_timeout         = 100;
   current_answer_timeout = -1;
 }
