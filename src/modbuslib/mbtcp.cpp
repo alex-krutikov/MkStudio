@@ -51,6 +51,7 @@ void MbTcpPort::setName( const QString &portname )
 //=============================================================================
 void MbTcpPort::setSpeed( const int speed )
 {
+  Q_UNUSED( speed );
 }
 
 //=============================================================================
@@ -84,6 +85,7 @@ void MbTcpPort::resetLastErrorType()
 //=============================================================================
 int MbTcpPort::query( const QByteArray &request, QByteArray &answer, int *errorcode)
 {
+  int j;
   QByteArray tcp_header,tcp_ans;
 
   if( !d->socket )
@@ -152,7 +154,7 @@ int MbTcpPort::query( const QByteArray &request, QByteArray &answer, int *errorc
 
   tcp_ans.remove(0,6);
   if( tcp_ans.size() ) CRC::appendCRC16( tcp_ans );
-  int j = qMin( tcp_ans.size(), answer.size() );
+  j = qMin( tcp_ans.size(), answer.size() );
   tcp_ans.resize( answer.size() );
   answer = tcp_ans;
   Console::Print( Console::ModbusPacket, "MB_TCP:   mb_answer = " + QByteArray2QString( answer ) +"\n" );

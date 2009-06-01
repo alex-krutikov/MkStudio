@@ -374,6 +374,7 @@ static bool value_ptr( const QString &value, char* ptr, int offset )
          *((float*)(ptr+4*offset)) = (float)v;
       }
       break;
+    default: break;
   }
   return true;
 }

@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QThread>
 #include <QByteArray>
+#include <QMap>
 
 class AbstractSerialPort;
 class QTcpServer;
@@ -13,7 +14,7 @@ class QTcpSocket;
 //=============================================================================
 //
 //=============================================================================
-typedef struct ModbusTcpServerThreadItem
+struct ModbusTcpServerThreadItem
 {
   QByteArray req,ans;
 };

@@ -26,6 +26,8 @@ public:
 
   int query( const QByteArray &req, QByteArray &ans, int *errorcode=0)
   {
+    Q_UNUSED( errorcode );
+    
     static unsigned char base[100000];
 
     ans.resize( 300 );
@@ -225,6 +227,8 @@ void MainWindow::console_update()
 //==============================================================================
 void MainWindow::closeEvent ( QCloseEvent * event )
 {
+  Q_UNUSED( event );
+
   QSettings settings( QSETTINGS_PARAM );
   settings.setValue("pos", pos());
   settings.setValue("size", size());

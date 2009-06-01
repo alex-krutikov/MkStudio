@@ -112,12 +112,10 @@ int SerialPortPrivate::query( const QByteArray &request,
     open();
     return 0;
   }
-  
-  if( sp->console_out_packets )
-  { Console::Print( "MODBUS: Request: "+QByteArray2QString( request )+"\n");
-  }
 
-  usleep( 40000000/sp->portspeed ); // 4*10 bit time delay
+  Console::Print( Console::ModbusPacket, "MODBUS: Request: "+QByteArray2QString( request )+"\n");
+
+  usleep( 80000000/sp->portspeed ); // 8*10 bit time delay
   
   tcflush( fd, TCIOFLUSH );
   
@@ -125,7 +123,7 @@ int SerialPortPrivate::query( const QByteArray &request,
   while(1)
   {  ret = write( fd, request.data()+i, request_size-i );
      if( ret < 0 )
-     { Console::Print("MODBUS: ERROR: Can't write to port.\n");
+     { Console::Print( Console::Error, "MODBUS: ERROR: Can't write to port.\n");
        close();
        return 0;
      }
@@ -138,7 +136,7 @@ int SerialPortPrivate::query( const QByteArray &request,
   while(1)
   {  ret = read( fd, answer.data()+i, answer_size-i );
      if( ret < 0 )
-     { Console::Print("MODBUS: ERROR: Can't read from port.\n");
+     { Console::Print( Console::Error, "MODBUS: ERROR: Can't read from port.\n");
        close();
        return 0;
      }
@@ -148,17 +146,138 @@ int SerialPortPrivate::query( const QByteArray &request,
   }
   
   if( i != answer_size )
-  { Console::Print( QString("MODBUS: ERROR: Wrong answer length. (expected=%1, real=%2) ")
+  { Console::Print(  Console::Error, QString("MODBUS: ERROR: Wrong answer length. (expected=%1, real=%2) ")
                        .arg( answer_size ).arg( i ));
     QByteArray ba = answer;
     ba.resize( i );
-    Console::Print( " Answer: "+QByteArray2QString( ba )+"\n");
+    Console::Print(  Console::Error, " Answer: "+QByteArray2QString( ba )+"\n");
   }
-  
-  if( sp->console_out_packets )
-  { Console::Print( "MODBUS:  Answer: "+QByteArray2QString( answer )+"\n");
-  }
+
+  Console::Print( Console::ModbusPacket, "MODBUS:  Answer: "+QByteArray2QString( answer )+"\n");
+
   return i;
+}
+
+//===================================================================
+// Посылка запроса и получение ответа (протокол XBee)
+//===================================================================
+int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
+                                       int *errorcode, int xbee_addr)
+{
+  Q_UNUSED( errorcode );
+
+  unsigned char crc;
+  int ret,i,a;
+
+  if( fd == 0 )
+  { usleep(500000);
+    open();
+    return 0;
+  }
+
+  // подготовка данных
+
+  QByteArray ba;
+  ba.resize(8);
+  ba[0] = 0x7E;
+  ba[3] = 0x01; // API identifier
+  ba[4] = 0x00; // Frame ID
+  ba[5] = xbee_addr >> 8;
+  ba[6] = xbee_addr;
+  ba[7] = 0; // Options
+  ba.append( request ); // Data
+
+  a = ba.size()-3;
+  ba[1] = a >> 8;
+  ba[2] = a;
+
+  a = ba.size();
+  crc=0;
+  for( i=3; i<a; i++ ) crc += ba[i];
+  crc=0xFF-crc;
+  ba.append( crc ); // CRC
+
+  Console::Print( Console::ModbusPacket, "MODBUS: Request: "+QByteArray2QString( request )+"\n");
+
+
+  usleep((8 * 10 * 1000000 / sp->speed()));
+
+  tcflush( fd, TCIOFLUSH );
+
+  i=0;  
+  while(1)
+  {  ret = write( fd, ba.data()+i, ba.size()-i );
+     if( ret < 0 )
+     { Console::Print( Console::Error, "MODBUS: ERROR: Can't write to port.\n");
+       close();
+       return 0;
+     }
+     i += ret;
+     if( i == ba.size() ) break;
+     if( ret == 0 ) break;
+  }
+
+  ba.resize( 3 ); // первые три байта ответа
+
+  i=0;
+  while(1)
+  {  ret = read( fd, ba.data()+i, ba.size()-i );
+     if( ret < 0 )
+     { Console::Print( Console::Error, "MODBUS: ERROR: Can't read from port.\n");
+       close();
+       return 0;
+     }
+     i += ret;
+     if( i == ba.size() ) break;
+     if( ret == 0 ) break;
+  }
+
+  // анализ первых байт
+
+  if( i != 3 )
+  { Console::Print( Console::Error, "MODBUS: ERROR: No answer.\n" );
+    return 0;
+  }
+
+  if( ba[0] != (char)0x7E )
+  { Console::Print( Console::Error, "MODBUS: ERROR: Receive packet's first byte is not 0x7E.\n" );
+    return 0;
+  }
+
+  // дочтение остальных данных
+
+  a = ( (unsigned char)ba[1] << 8 ) | (unsigned char)ba[2];
+  ba.resize( ba.size() + a + 1 );
+
+  while(1)
+  {  ret = read( fd, ba.data()+i, ba.size()-i );
+     if( ret < 0 )
+     { Console::Print( Console::Error, "MODBUS: ERROR: Can't read from port.\n");
+       close();
+       return 0;
+     }
+     i += ret;
+     if( i == ba.size() ) break;
+     if( ret == 0 ) break;
+  }
+
+  // анализ XBee CRC
+
+  a = ba.size();
+  crc=0;
+  for( i=3; i<a; i++ ) crc += ba[i];
+  if( crc != 0xFF )
+  { Console::Print( Console::Error, "MODBUS: ERROR: XBee CRC error.\n" );
+    return 0;
+  }
+
+  // подготовка ответа
+
+  ba = ba.mid( 8, a-9 );
+  Console::Print( Console::ModbusPacket, "MODBUS: Answer:  "+QByteArray2QString( ba )+"\n");
+
+  answer.replace(0, ba.size(), ba );
+  return ba.size();
 }
 
 //===================================================================
