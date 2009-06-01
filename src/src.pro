@@ -7,4 +7,5 @@ SUBDIRS  = modbuslib        \
            mksync           \
            mkquery          \
            mkserver         \
+           mkserverd        \
 
