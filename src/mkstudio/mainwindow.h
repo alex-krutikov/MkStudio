@@ -35,6 +35,8 @@ private:
   void applay_undo_point();
   void clear_undo_list();
   void timerEvent(QTimerEvent *event );
+  void toClipboard();
+  void fromClipboard();
 private slots:
   void on_action_tw_rows_triggered();
   void on_action_tw_columns_triggered();

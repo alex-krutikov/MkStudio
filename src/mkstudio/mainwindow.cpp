@@ -46,7 +46,7 @@ MainWindow::MainWindow()
 
   action_copy  -> setEnabled( false );
   action_cut   -> setEnabled( false );
-  action_paste -> setEnabled( false );
+  action_paste -> setEnabled( true );
   action_undo  -> setEnabled( false );
   action_redo  -> setEnabled( false );
   action_values_save   -> setEnabled(  false );
@@ -356,7 +356,7 @@ void MainWindow::on_action_play_triggered()
     action_undo->setEnabled( false );
     action_redo->setEnabled( false );
   } else
-  { action_paste        -> setEnabled( table_clipboard.count() > 0 );
+  { action_paste        -> setEnabled( true );
     action_undo         -> setEnabled( false );
     action_redo         -> setEnabled( false );
     action_undo->setEnabled( is_undo_enabled );
@@ -836,6 +836,44 @@ void MainWindow::on_action_link_triggered()
 }
 
 //==============================================================================
+/// Перенести внутренний буфер обмена в Clipboard
+//==============================================================================
+void MainWindow::toClipboard()
+{
+  QByteArray ba;
+  QDataStream ds( &ba, QIODevice::WriteOnly );
+  for( int i=0; i<table_clipboard.size(); i++ )
+  { ds << table_clipboard[i].item;
+    ds << table_clipboard[i].row;
+    ds << table_clipboard[i].col;
+  }
+
+  QMimeData *mime = new QMimeData;
+  mime->setData( "application/mkstudio-cells-mime", ba );
+  QApplication::clipboard()->setMimeData( mime );
+}
+
+//==============================================================================
+/// Считать из Clipboard внутренний буфер обмена
+//==============================================================================
+void MainWindow::fromClipboard()
+{
+  table_clipboard.clear();
+
+  const QByteArray ba = QApplication::clipboard()->mimeData()
+                                    ->data( "application/mkstudio-cells-mime" );
+  QDataStream ds( ba );
+
+  TableClipboardItem tci;
+  while( !ds.atEnd() )
+  { ds >> tci.item;
+    ds >> tci.row;
+    ds >> tci.col;
+    table_clipboard << tci;
+  }
+}
+
+//==============================================================================
 /// Пункт меню "Копировать" (копирование во внутренний буфер обмена)
 //==============================================================================
 void MainWindow::on_action_copy_triggered()
@@ -865,7 +903,8 @@ void MainWindow::on_action_copy_triggered()
   { table_clipboard[i].row -= min_row;
     table_clipboard[i].col -= min_col;
   }
-  action_paste->setEnabled( table_clipboard.count() > 0 );
+
+  toClipboard();
 }
 
 //==============================================================================
@@ -880,6 +919,7 @@ void MainWindow::on_action_cut_triggered()
   foreach(titem, si )
   {  tw->setItem( titem->row(), titem->column(), new QTableWidgetItem );
   }
+  toClipboard();
   make_undo_point();
 }
 
@@ -888,6 +928,7 @@ void MainWindow::on_action_cut_triggered()
 //==============================================================================
 void MainWindow::on_action_paste_triggered()
 {
+  fromClipboard();
 
   int i,c,r;
   int row    = 100000;
