@@ -21,6 +21,7 @@ MBMasterPrivate::MBMasterPrivate( QObject *parent )
   disable_read_transactions  = false;
   transaction_delay = 0;
   cycle_time = 0;
+  auto_skip_mode = true;
   setTerminationEnabled( true );
 }
 
@@ -473,7 +474,7 @@ bool MBMasterPrivate::process_transaction( MMSlotTransaction &tr )
 
   if(    ( tr.slot->status == MMSlot::Skiped)
       || ( tr.slot->status == MMSlot::NotInit ) )
-  { if( !tr.slot->data_read_flag )
+  { if( auto_skip_mode && !tr.slot->data_read_flag )
     { goto skiped;
     }
   }
@@ -903,7 +904,9 @@ void MBMaster::setSlotAttributes(int module, int slot, const QString &attributes
 //===================================================================
 //! Запретить транзакции на чтение
 /**
-  \param disabled \b true - транзакции на чтение запрещены, \b false - разрешены
+  \param disabled
+    - \b true - транзакции на чтение запрещены,
+    - \b false - разрешены
 */
 //===================================================================
 void MBMaster::setReadTransactionsDisabled( bool disabled )
@@ -914,7 +917,9 @@ void MBMaster::setReadTransactionsDisabled( bool disabled )
 //===================================================================
 //! Запретить транзакции на запись
 /**
-  \param disabled \b true - транзакции на запись запрещены, \b false - разрешены
+  \param disabled
+    - \b true  - транзакции на запись запрещены,
+    - \b false - разрешены
 */
 //===================================================================
 void MBMaster::setWriteTransactionsDisabled( bool disabled )
@@ -925,7 +930,9 @@ void MBMaster::setWriteTransactionsDisabled( bool disabled )
 //===================================================================
 //! Статус запрета транзакции на чтение
 /**
-  \return \b true - транзакции на чтение запрещены, \b false - разрешены
+  \return
+    - \b true  - транзакции на чтение запрещены,
+    - \b false - разрешены
 */
 //===================================================================
 bool MBMaster::readTransactionsDisabled() const
@@ -936,7 +943,9 @@ bool MBMaster::readTransactionsDisabled() const
 //===================================================================
 //! Статус запрета на запись
 /**
-  \return \b true - транзакции на запись запрещены, \b false - разрешены
+  \return
+    - \b true  - транзакции на запись запрещены,
+    - \b false - разрешены
 */
 //===================================================================
 bool MBMaster::writeTransactionsDisabled() const
@@ -1036,6 +1045,33 @@ void MBMaster::setCycleTime( int time )
 int  MBMaster::cycleTime()
 { return d->cycle_time;
 }
+
+//===================================================================
+//! Установка режима автоматического пропуска неиспользуемых пакетов
+/**
+  \param autoSkipMode
+       - \b true  -  неиспользуемые пакеты не опрашиваются (по умолчанию),
+       - \b false -  опрашиваются все пакеты
+*/
+//===================================================================
+void MBMaster::setAutoSkipMode( bool autoSkipMode )
+{
+  d->auto_skip_mode = autoSkipMode;
+}
+
+//===================================================================
+//! Текущее значение режима автоматического пропуска неиспользуемых пакетов
+/**
+  \return
+     - \b true  - неиспользуемые пакеты не опрашиваются (по умолчанию),
+     - \b false - опрашиваются все пакеты
+*/
+//===================================================================
+bool MBMaster::autoSkipMode()
+{
+  return d->auto_skip_mode;
+}
+
 
 //===================================================================
 //! Расшифровка ModuleDefinition

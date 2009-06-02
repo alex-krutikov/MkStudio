@@ -83,6 +83,9 @@ public:
   void setCycleTime( int time );
   int  cycleTime();
 
+  void setAutoSkipMode( bool autoSkipMode );
+  bool autoSkipMode();
+
 //@}
 
 /** @name Статистика

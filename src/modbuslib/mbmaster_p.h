@@ -85,6 +85,7 @@ private:
   int max_packet_length;           //!< максимальная длина пакета
   int transaction_delay;
   int cycle_time;
+  bool auto_skip_mode;
 
   // служебная структура для быстрого поиска транзакци на запись
   struct ModuleSlotIndex
