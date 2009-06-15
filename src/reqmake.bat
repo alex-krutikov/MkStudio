@@ -6,3 +6,4 @@ cd mkview           && qmake && cd ..
 cd mksync           && qmake && cd ..
 cd mkquery          && qmake && cd ..
 cd mkserver         && qmake && cd ..
+cd mkserverd        && qmake && cd ..

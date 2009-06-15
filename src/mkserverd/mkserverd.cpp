@@ -7,23 +7,21 @@
 #include "mbcommon.h"
 #include "crc.h"
 
-
 QTextStream cout( stdout );
 QTextStream cerr( stderr );
 
+int tcpport=502;
 AbstractSerialPort *sp;
 
-int verb_mode;
-int repeats_count = 5;
-enum Mode { UnknownMode=0, Read, Write } operation_mode;
-bool unsigned_mode;
-int addr;
-int data_count;
-QStringList data;
-
-enum  DataType { UnknownType=0, Bits, Bytes, Words, DWords, Floats } data_type;
-
-int node=1;
+struct XBeeRoute
+{
+  XBeeRoute() {}
+  XBeeRoute( int start, int end, int addr )
+    : start(start), end(end), addr(addr) {}
+  int start;
+  int end;
+  int addr;
+};
 
 //=============================================================================
 // Вывод информации о программе
@@ -33,21 +31,21 @@ static void print_help()
   QString str =
   "\n"
   "\n"
-  "usage: mkquery [options] [data]\n"
+  "usage: mkserverd [options] \n"
   "\n"
   "  Options:\n"
   "    -port=[Serial port name]\n"
   "    -baud=[Serial port baud rate]\n"
-  "    -host=[Modbus TCP host name]\n"
-  "    -node=[Modbus node]\n"
-  "    -addr=[Modbus memory address]\n"
-  "    -type=[bits|bytes|words|dwords|float]\n"
-  "    -count=[Parameters count]\n"
-  "    -read\n"
-  "    -write\n"
-  "    -unsigned\n"
-  "    -repeats=[Repeats count]\n"
-  "    -v\n"
+  "    -host=[Modbus TCP remote server's host name]\n"
+  "    -tcpport=[Modbus TCP port number]\n"
+  "    -xbeeroute=[start]:[end]:[addr]\n"
+  "\n\n"
+  "  Comments\n\n"
+  "    1. \"-host\" option may be used to make the Modbus TCP proxy server.\n\n"
+  "    2. Default Modbus TCP port number is 502.\n\n"
+  "    3. If \"-xbeeroute\" option is set the \"XBee API protocol\" will be\n"
+  "       used instead of Modbus RTU. [start]:[end] - the modbus nodes interval\n"
+  "       that will be routed to [addr] XBee module.\n\n"
   ;
   cout << str;
 }
@@ -62,6 +60,8 @@ static int init()
   QString portname;
   int portspeed = 115200;
   bool ok;
+
+  QVector<XBeeRoute> xbeeroute;
 
   //--- разбор аргументов командной строки
   QStringList command_arguments = QCoreApplication::arguments();
@@ -81,57 +81,20 @@ static int init()
       { cerr << "Error: port speed is invalid";
         return 1;
       }
-    } else if( str.startsWith("-node=") )
-    { str.remove(0,6);
-      node = str.toInt(&ok);
-      if( !ok )
-      { cerr << "Error: node is invalid";
-        return 1;
-      }
-    } else if( str.startsWith("-type=") )
-    { str.remove(0,6);
-      str=str.toUpper();
-      if( str.endsWith("S") ) str.chop(1);
-      if( str=="BIT" ) data_type = Bits;
-      else if( str=="BYTE" )  data_type = Bytes;
-      else if( str=="WORD" )  data_type = Words;
-      else if( str=="DWORD" ) data_type = DWords;
-      else if( str=="FLOAT" ) data_type = Floats;
-    } else if( !str.startsWith("-") )
-    { data << str;
-    } else if( str == "-read" )
-    { operation_mode = Read;
-    } else if( str == "-write" )
-    { operation_mode = Write;
-    } else if( str == "-v" )
-    { verb_mode = 1;
-    } else if( str.startsWith( "-repeats=" ) )
+    } else if( str.startsWith("-tcpport=") )
     { str.remove(0,9);
-      repeats_count = str.toInt( &ok );
+      tcpport = str.toInt(&ok);
       if( !ok )
-      {  cerr << "Error: repeats count is invalid";
+      { cerr << "Error: Tcp port number is invalid";
         return 1;
       }
-    } else if( str == "-unsigned" )
-    { unsigned_mode = 1;
-    } else if( str.startsWith("-count=") )
-    { str.remove(0,7);
-      data_count = str.toInt( &ok );
-      if( !ok )
-      {  cerr << "Error: data count is invalid";
-        return 1;
-      }
-    } else if( str.startsWith("-addr=") )
-    { str.remove(0,6);
-      ok=false;
-      if( str.startsWith( "0x" ) )
-      { str.remove(0,2);
-        addr = str.toInt( &ok, 16 );
+    } else if( str.startsWith("-xbeeroute=") )
+    { str.remove(0,11);
+      QRegExp rx("(\\d+):(\\d+):(\\d+)");
+      if( rx.indexIn( str ) == 0 )
+      { xbeeroute << XBeeRoute( rx.cap(1).toInt(), rx.cap(2).toInt(),rx.cap(3).toInt() );
       } else
-      { addr = str.toInt( &ok );
-      }
-      if( !ok )
-      {  cerr << "Error: memory address is invalid";
+      { cerr << "Error: XBee route format is invalid.";
         return 1;
       }
     } else
@@ -154,40 +117,18 @@ static int init()
     return 1;
   }
 
-  if( data_type == UnknownType )
-  { cerr << "Configuration error:  Data type does not set.";
-    print_help();
-    return 1;
-  }
-
-  if( operation_mode == UnknownMode )
-  { cerr << "Configuration error:  Mode of operation (read or write) does not set.";
-    print_help();
-    return 1;
-  }
-
-  if( operation_mode == Read  && data.size() )
-  { cerr << "Configuration error: Data can not be set in read mode.";
-    print_help();
-    return 1;
-  }
-
-  if( operation_mode == Write &&( data.count() < 1 ) )
-  { cerr << "Configuration error: Data not found.";
-    print_help();
-    return 1;
-  }
-
-  if( ( operation_mode ) == Write && ( data_type  == Bits ) && ( data.count()> 1 ) )
-  { cerr << "Configuration error: It is possible to write only a single bit.";
-    print_help();
-    return 1;
-  }
-
   if( !portname.isEmpty() )
   { sp = new SerialPort();
     sp->setName( portname );
     sp->setSpeed( portspeed );
+
+    if( xbeeroute.size() )
+    { SerialPort *p = qobject_cast<SerialPort*>(sp);
+      p->setMode( SerialPort::XBee );
+      foreach( XBeeRoute route, xbeeroute )
+      { p->addXBeeRoute( route.start, route.end, route.addr );
+      }
+    }
 
     ok = sp->open();
     if( !ok )
@@ -235,11 +176,7 @@ int main(int argc, char *argv[])
   ret = init();
   if( ret ) return ret;
 
-  if( verb_mode > 0 )
-  {
-  }
-
-  ModbusTcpServer server( 0, sp, 502 );
+  ModbusTcpServer server( 0, sp, tcpport );
 
   app.exec();
 
