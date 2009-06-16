@@ -31,6 +31,8 @@
 		<Unit filename="mbmaster_p.h" />
 		<Unit filename="mbtcp.cpp" />
 		<Unit filename="mbtcp.h" />
+		<Unit filename="mbtcpserver.cpp" />
+		<Unit filename="mbtcpserver.h" />
 		<Unit filename="mbtypes.h" />
 		<Unit filename="modbuslib.h" />
 		<Unit filename="serialport.cpp" />

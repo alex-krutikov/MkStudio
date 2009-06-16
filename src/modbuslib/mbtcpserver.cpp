@@ -6,9 +6,10 @@
 #include "crc.h"
 
 #include "console.h"
+#include "mbcommon.h"
 
 //==============================================================================
-//
+/// ѕредсказание длины ответного пакета в соответствии с протоколом MIKKON Modbus
 //==============================================================================
 static int expected_answer_size( const QByteArray &ba )
 {
@@ -48,26 +49,6 @@ static int expected_answer_size( const QByteArray &ba )
   return 255;
 }
 
-//==============================================================================
-// массив ==> строка шестнадцатеричных чисел
-//==============================================================================
-static QString QByteArray2QString( const QByteArray &ba, int mode = 1 )
-{
-	int i, len = ba.size();
-	const char* p = ba.data();
-	QString s;
-	QString str;
-	if( mode == 0 )
-	{ str = QString("(length=%1) ").arg( ba.size(),4 );
-	}
-
-	for( i=0; i<len; i++ )
-	{ s.sprintf(" %2.2X", *(unsigned char*)(p+i) );
-		str = str + s;
-	}
-	return str;
-}
-
 //#############################################################################
 //
 //#############################################################################
@@ -75,6 +56,7 @@ void ModbusTcpServerThread::run()
 {
   bool ok;
 
+  // запуск сервера
   server = new QTcpServer(this);
   ok = server->listen( QHostAddress::Any, mb_tcp_port );
 
@@ -83,8 +65,11 @@ void ModbusTcpServerThread::run()
   Console::Print( Console::Information, message );
 
   connect( server, SIGNAL( newConnection() ), this, SLOT( newConnection() ) );
+
+  // запуск цикла сообщеий
   exec();
-/*
+
+  // завершение работы сервера
   server->close();
   while( server->hasPendingConnections() )
   { QTcpSocket *socket = server->nextPendingConnection();
@@ -97,12 +82,12 @@ void ModbusTcpServerThread::run()
   foreach(QTcpSocket *socket, map.keys() )
   { socket->waitForDisconnected();
   }
-*/
+
   delete server;
 }
 
 //=============================================================================
-//
+/// Ќовое подключение
 //=============================================================================
 void ModbusTcpServerThread::newConnection()
 {
@@ -116,7 +101,7 @@ void ModbusTcpServerThread::newConnection()
 }
 
 //=============================================================================
-//
+/// „тение новых данных из сокета
 //=============================================================================
 void ModbusTcpServerThread::readyRead()
 {
@@ -163,8 +148,8 @@ void ModbusTcpServerThread::readyRead()
     mb_ans.chop(2);
 
     tcp_ans.resize(0);
-    tcp_ans.append( (char) 0 );
-    tcp_ans.append( (char) 0 );
+    tcp_ans.append( tcp_req[0] );
+    tcp_ans.append( tcp_req[1] );
     tcp_ans.append( (char) 0 );
     tcp_ans.append( (char) 0 );
     tcp_ans.append( (char) 0 );
@@ -189,7 +174,7 @@ void ModbusTcpServerThread::readyRead()
 }
 
 //=============================================================================
-//
+/// ќтсоедиение сокета
 //=============================================================================
 void ModbusTcpServerThread::disconnected()
 {

@@ -17,6 +17,7 @@ class MbTcpPortPrivate
   int answer_timeout;
   QString lastError_str;
   QTcpSocket *socket;
+  int packet_counter;
 };
 
 //=============================================================================
@@ -26,6 +27,7 @@ MbTcpPort::MbTcpPort()
   : d ( new MbTcpPortPrivate )
 {
   d->socket=0;
+  d->packet_counter=0;
 }
 
 //=============================================================================
@@ -67,6 +69,7 @@ bool MbTcpPort::open()
 //=============================================================================
 void MbTcpPort::close()
 {
+  if( !d->socket ) return;
   d->socket->disconnect();
   d->socket->waitForDisconnected(1000);
   delete d->socket;
@@ -114,13 +117,13 @@ int MbTcpPort::query( const QByteArray &request, QByteArray &answer, int *errorc
   }
 
   //-------------------------------------------
-
+  d->packet_counter++;
   QByteArray tcp_req = request;
   tcp_req.chop(2);
 
   tcp_header.resize(0);
-  tcp_header.append( (char)0 );
-  tcp_header.append( (char)0 );
+  tcp_header.append( (char)(d->packet_counter)    );
+  tcp_header.append( (char)(d->packet_counter>>8) );
   tcp_header.append( (char)0 );
   tcp_header.append( (char)0 );
   tcp_header.append( (char)0 );
@@ -146,6 +149,8 @@ int MbTcpPort::query( const QByteArray &request, QByteArray &answer, int *errorc
     tcp_ans.append( d->socket->readAll() );
     if( tcp_ans.size() < 6 ) continue;
     if( tcp_ans[2] || tcp_ans[3] || tcp_ans[4] ) goto error;
+    if( tcp_ans[0] != tcp_header[0] ) goto error;
+    if( tcp_ans[1] != tcp_header[1] ) goto error;
     if( ( (int)(unsigned char)tcp_ans[5] + 6 ) == tcp_ans.size() ) break;
     goto error;
   }
