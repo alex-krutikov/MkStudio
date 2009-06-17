@@ -977,16 +977,9 @@ MKTableItemCBWidget::MKTableItemCBWidget( QWidget *parent  )
 //==============================================================================
 //
 //==============================================================================
-void MKTableItemCBWidget::mousePressEvent(QMouseEvent *event )
-{
-  QListWidget::mousePressEvent( event );
-}
-
-//==============================================================================
-//
-//==============================================================================
 void MKTableItemCBWidget::mouseReleaseEvent( QMouseEvent * event )
 {
+  QListWidget::mouseReleaseEvent( event );
   emit editingFinished();
 }
 
