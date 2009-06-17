@@ -62,7 +62,7 @@ SerialPortPrivate::SerialPortPrivate( SerialPort *sp_arg )
 SerialPortPrivate::~SerialPortPrivate()
 {
   close();
-  CloseWindow( hwnd );
+  DestroyWindow( hwnd );
 }
 
 //===================================================================
