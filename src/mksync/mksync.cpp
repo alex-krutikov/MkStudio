@@ -13,6 +13,7 @@ XFiles *xf;
 QString remote_path;
 QString local_path;
 int node=1;
+int maxlen=230;
 bool fastmode;
 
 //=============================================================================
@@ -32,6 +33,7 @@ static void print_help()
   "    -node=[Modbus node]\n"
   "    -rpath=[Remote path]\n"
   "    -lpath=[Local path]\n"
+  "    -maxlen=[Maximum data length in packet]\n"
   "    -fast\n"
   ;
   cout << str;
@@ -81,6 +83,13 @@ static int init()
       node = str.toInt(&ok);
       if( !ok )
       { cerr << "Error: node is invalid";
+        return 1;
+      }
+    } else if( str.startsWith("-maxlen=") )
+    { str.remove(0,8);
+      maxlen = str.toInt(&ok);
+      if( !ok || maxlen < 1 || maxlen > 230 )
+      { cerr << "Error: maximum data length is invalid";
         return 1;
       }
     } else if( str == "-fast" )
@@ -193,7 +202,7 @@ bool sync_file(const QString filename, const int filesize, const QString &path )
   while( j < filesize )
   {
     len = filesize - j;
-    if( len > 230 ) len = 230;
+    if( len > maxlen ) len = maxlen;
 
     res = xf->readFile( id, j, len, ba );
     xfile_print_error( res );
