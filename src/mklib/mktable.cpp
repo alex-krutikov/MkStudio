@@ -615,12 +615,15 @@ void MKTable::refresh()
   int mm,ss,ii;
   MMValue value;
   MMSlot  slot;
-  int i;
+  int i,j;
   int slot_size;
   QTableWidgetItem *titem;
+  bool vflag;
 
   if( mbmaster == 0 ) return;
   if( mode != MKTable::Polling ) return;
+
+  QRect vr =  viewport()->rect();
 
   int assign_data_size = assign_data.size();
 
@@ -629,7 +632,24 @@ void MKTable::refresh()
 cycle_begin:
     mm  = assign_data[i].m_index;
     ss  = assign_data[i].s_index;
-    slot = mbmaster->getSlot(mm,ss); // запрос данных
+
+    vflag = false;
+    for(j=i; (assign_data[j].m_index == mm ) && ( assign_data[j].s_index == ss ); j++ )
+    { titem = item( assign_data[j].row, assign_data[j].column );
+      if( titem == 0 ) continue;
+      QRect r = visualItemRect( titem );
+      if( vr.intersects(r) )
+      { vflag = true;
+        break;
+      }
+    }
+
+    if( vflag )
+    { slot = mbmaster->getSlot(mm,ss); // запрос данных
+    } else
+    { slot = MMSlot();
+    }
+
     slot_size = slot.data.size();
     for( ; i<assign_data_size ; i++)
     { if( assign_data[i].m_index != mm ) goto cycle_begin;
@@ -661,7 +681,6 @@ cycle_begin:
             } else
             { str.clear();
             }
-            //str = ss_enum[assign_data[i].ss_enum_index].map.value( value.toInt() );
           }
           titem->setText( str );
         } else

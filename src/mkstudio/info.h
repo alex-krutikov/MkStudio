@@ -11,7 +11,7 @@ class ProgramInformation
 public:
   static QString version()
   {
-     return "20090617";
+     return "20090629";
   }
 };
 
