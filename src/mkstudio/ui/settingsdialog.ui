@@ -1,92 +1,96 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>SettingsDialog</class>
- <widget class="QDialog" name="SettingsDialog" >
-  <property name="geometry" >
+ <widget class="QDialog" name="SettingsDialog">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>343</width>
-    <height>219</height>
+    <width>360</width>
+    <height>244</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QVBoxLayout">
+   <property name="spacing">
+    <number>12</number>
+   </property>
+   <property name="leftMargin">
+    <number>6</number>
+   </property>
+   <property name="topMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>6</number>
+   </property>
+   <property name="bottomMargin">
+    <number>6</number>
+   </property>
    <item>
-    <widget class="QGroupBox" name="groupBox" >
-     <property name="title" >
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
       <string>Шрифт</string>
      </property>
-     <layout class="QGridLayout" >
-      <property name="leftMargin" >
-       <number>9</number>
-      </property>
-      <property name="topMargin" >
-       <number>9</number>
-      </property>
-      <property name="rightMargin" >
-       <number>9</number>
-      </property>
-      <property name="bottomMargin" >
-       <number>9</number>
-      </property>
-      <property name="horizontalSpacing" >
+     <layout class="QGridLayout">
+      <property name="margin">
        <number>6</number>
       </property>
-      <property name="verticalSpacing" >
+      <property name="spacing">
        <number>6</number>
       </property>
-      <item row="0" column="1" >
-       <widget class="QFontComboBox" name="fcb_program" >
-        <property name="writingSystem" >
+      <item row="0" column="1">
+       <widget class="QFontComboBox" name="fcb_program">
+        <property name="writingSystem">
          <enum>QFontDatabase::Cyrillic</enum>
         </property>
        </widget>
       </item>
-      <item row="0" column="2" >
-       <widget class="QLabel" name="label_2" >
-        <property name="text" >
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
          <string>размер:</string>
         </property>
-        <property name="alignment" >
+        <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
-      <item row="1" column="1" >
-       <widget class="QFontComboBox" name="fcb_tw" >
-        <property name="writingSystem" >
+      <item row="1" column="1">
+       <widget class="QFontComboBox" name="fcb_tw">
+        <property name="writingSystem">
          <enum>QFontDatabase::Cyrillic</enum>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="label_4" >
-        <property name="text" >
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
          <string>Таблица:</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="2" >
-       <widget class="QLabel" name="label_3" >
-        <property name="text" >
+      <item row="1" column="2">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
          <string>размер:</string>
         </property>
-        <property name="alignment" >
+        <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
-      <item row="1" column="3" >
-       <widget class="QSpinBox" name="sb_tw" />
+      <item row="1" column="3">
+       <widget class="QSpinBox" name="sb_tw"/>
       </item>
-      <item row="0" column="3" >
-       <widget class="QSpinBox" name="sb_program" />
+      <item row="0" column="3">
+       <widget class="QSpinBox" name="sb_program"/>
       </item>
-      <item row="0" column="0" >
-       <widget class="QLabel" name="label" >
-        <property name="text" >
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
          <string>Интерфейс:</string>
         </property>
        </widget>
@@ -95,35 +99,61 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_2" >
-     <property name="title" >
-      <string>MODBUS</string>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>Транспорт (Modbus RTU)</string>
      </property>
-     <layout class="QGridLayout" >
-      <item row="0" column="0" >
-       <widget class="QLabel" name="label_5" >
-        <property name="text" >
+     <layout class="QGridLayout" name="gridLayout">
+      <property name="margin">
+       <number>6</number>
+      </property>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
          <string>Максимальная длина пакета (байт):</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1" >
-       <widget class="QSpinBox" name="sb_max_packet_len" >
-        <property name="minimum" >
+      <item row="0" column="1">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>86</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="2">
+       <widget class="QSpinBox" name="sb_max_packet_len">
+        <property name="minimum">
          <number>16</number>
         </property>
-        <property name="maximum" >
+        <property name="maximum">
          <number>256</number>
         </property>
-        <property name="singleStep" >
+        <property name="singleStep">
          <number>32</number>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" colspan="2" >
-       <widget class="QCheckBox" name="cb_mbconsole_packets" >
-        <property name="text" >
+      <item row="1" column="0" colspan="3">
+       <widget class="QCheckBox" name="cb_mbconsole_packets">
+        <property name="text">
          <string>Выводить пакеты в окно сообщений</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="3">
+       <widget class="QCheckBox" name="cb_optimize_read">
+        <property name="toolTip">
+         <string>Отключать транзакции чтения данных, которые не выводятся на экран в данный момент.</string>
+        </property>
+        <property name="text">
+         <string>Пропускать неиспользуемые транзакции</string>
         </property>
        </widget>
       </item>
@@ -131,17 +161,27 @@
     </widget>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="buttonBox" >
-     <property name="orientation" >
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <property name="standardButtons" >
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>fcb_program</tabstop>
+  <tabstop>sb_program</tabstop>
+  <tabstop>fcb_tw</tabstop>
+  <tabstop>sb_tw</tabstop>
+  <tabstop>sb_max_packet_len</tabstop>
+  <tabstop>cb_mbconsole_packets</tabstop>
+  <tabstop>cb_optimize_read</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -150,11 +190,11 @@
    <receiver>SettingsDialog</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>248</x>
      <y>254</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>157</x>
      <y>274</y>
     </hint>
@@ -166,11 +206,11 @@
    <receiver>SettingsDialog</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>316</x>
      <y>260</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
     </hint>

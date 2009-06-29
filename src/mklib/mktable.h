@@ -41,6 +41,9 @@ public:
   void setMode( enum Mode m );
   void setSettingsSheet( const QString &ss);
   QString settingsSheet();
+  
+  void setOptimizeReadMode( bool optimizeRead );
+  bool optimizeReadMode();
 
   QSize sizeHint() const;
 private:
@@ -70,6 +73,7 @@ private:
   QMap<QString,int> ss_enum_name2index;
 
   QString settingssheet_str;
+  bool optimize_read_mode;
 private slots:
   void refresh();
 signals:

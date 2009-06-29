@@ -42,6 +42,8 @@ MKTable::MKTable( QWidget *parent )
   connect(&timer, SIGNAL(timeout()), this, SLOT(refresh()));
 
   setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
+  
+  optimize_read_mode = true;
 }
 
 //==============================================================================
@@ -49,6 +51,22 @@ MKTable::MKTable( QWidget *parent )
 //==============================================================================
 MKTable::~MKTable()
 {
+}
+
+//==============================================================================
+//
+//==============================================================================
+void MKTable::setOptimizeReadMode( bool optimizeRead )
+{
+  optimize_read_mode = optimizeRead;
+}
+
+//==============================================================================
+//
+//==============================================================================
+bool MKTable::optimizeReadMode()
+{
+  return optimize_read_mode;
 }
 
 //==============================================================================
@@ -633,15 +651,19 @@ cycle_begin:
     mm  = assign_data[i].m_index;
     ss  = assign_data[i].s_index;
 
-    vflag = false;
-    for(j=i; (assign_data[j].m_index == mm ) && ( assign_data[j].s_index == ss ); j++ )
-    { titem = item( assign_data[j].row, assign_data[j].column );
-      if( titem == 0 ) continue;
-      QRect r = visualItemRect( titem );
-      if( vr.intersects(r) )
-      { vflag = true;
-        break;
+    if( optimize_read_mode )
+    { vflag = false;
+      for(j=i; (assign_data[j].m_index == mm ) && ( assign_data[j].s_index == ss ); j++ )
+      { titem = item( assign_data[j].row, assign_data[j].column );
+        if( titem == 0 ) continue;
+        QRect r = visualItemRect( titem );
+        if( vr.intersects(r) )
+        { vflag = true;
+          break;
+        }
       }
+    } else
+    { vflag = true;
     }
 
     if( vflag )

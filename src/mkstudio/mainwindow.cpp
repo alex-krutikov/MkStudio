@@ -1398,6 +1398,7 @@ void MainWindow::on_action_settings_triggered()
   dialog.sb_tw->setValue( tw->font().pointSize() );
   dialog.cb_mbconsole_packets->setChecked( Console::messageTypes() & Console::ModbusPacket );
   dialog.sb_max_packet_len->setValue( mbmaster->maximumPacketLength() );
+  dialog.cb_optimize_read->setChecked( tw->optimizeReadMode() );
 
   if( dialog.exec() != QDialog::Accepted ) return;
 
@@ -1417,6 +1418,7 @@ void MainWindow::on_action_settings_triggered()
   Console::setMessageTypes( Console::ModbusPacket,
                                    dialog.cb_mbconsole_packets->isChecked() );
   mbmaster->setMaximumPacketLength( dialog.sb_max_packet_len->value() );
+  tw->setOptimizeReadMode( dialog.cb_optimize_read->isChecked() );
 }
 
 //==============================================================================
