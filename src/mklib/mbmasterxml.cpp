@@ -146,13 +146,17 @@ void MBMasterXML::loadValues( const QDomDocument &doc )
     QStringList sl = str.split( QChar(';') );
     for(j=0; j<sl.size(); j++ )
     { bool ok;
+      MMValue value;
       int a = sl.at(j).toInt(&ok);
       if(ok)
-      { setSlotValue(mm,ss,j,a);
+      { value = a;
       } else
-      { double x=sl.at(j).toDouble(&ok);
-        if(ok) setSlotValue(mm,ss,j,x);
+      { double x = sl.at(j).toDouble(&ok);
+        if(ok)
+        { value = x;
+        }
       }
+      setSlotValue(mm,ss,j,value);
     }
   }
 }

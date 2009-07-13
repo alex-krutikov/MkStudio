@@ -19,22 +19,27 @@ public:
   enum Status { NotInit=0,Ok,Bad     };
   enum Type   { Invaid=0,Int,Double  };
 
+  inline static MMValue fromInt( int i, int mask = -1 );
+  inline static MMValue fromDouble( double d );
+  inline static MMValue fromString( const QString &str );
+  inline static MMValue fromVariant( const QVariant &var );
+
   inline MMValue();
-  inline MMValue( int i, int mask = -1 );
-  inline MMValue( double d);
-  inline MMValue( const QString &str);
-  inline MMValue( const QVariant &var);
+
   inline MMValue* operator=( char  i );
   inline MMValue* operator=( short i );
   inline MMValue* operator=( int   i );
   inline MMValue* operator=( double d );
   inline MMValue* operator=( QString str );
+
   inline bool operator==( const MMValue &s ) const;
   inline bool operator!=( const MMValue &s ) const;
+
   inline QString toString() const;
   inline int     toInt() const;
   inline unsigned int  toUInt() const;
   inline double  toDouble() const;
+
   inline enum  Status status() const;
   inline void  setStatus( enum  Status status );
   inline bool  isValid() const;
@@ -50,57 +55,68 @@ private:
 };
 
 inline MMValue::MMValue()
-{ type   = Invaid;
+{
   st     = NotInit;
+  type   = Invaid;
 }
 
-inline MMValue::MMValue( int i, int m )
-{ type = Int;
-  v.i  = i;
-  st   = NotInit;
-  mask = m;
+inline MMValue MMValue::fromInt(  int i, int mask )
+{
+  MMValue ret;
+  ret.type = Int;
+  ret.v.i  = i;
+  ret.mask = mask;
+  ret.st   = Ok;
+  return ret;
 }
 
-inline MMValue::MMValue( double d)
-{ type = Double;
-  v.d  = d;
-  st   = NotInit;
+inline MMValue MMValue::fromDouble( double d )
+{
+  MMValue ret;
+  ret.type = Double;
+  ret.v.d  = d;
+  ret.st   = Ok;
+  return ret;
 }
 
-inline MMValue::MMValue( const QString &str)
-{ bool ok;
-  v.i = str.toInt( &ok );
+inline MMValue MMValue::fromString( const QString &str )
+{
+  MMValue ret;
+  bool ok;
+  ret.v.i = str.toInt( &ok );
   if( ok )
-  { type = Int;
+  { ret.type = Int;
+    ret.st   = Ok;
   } else
-  { v.d = str.toDouble( &ok );
+  { ret.v.d = str.toDouble( &ok );
     if( ok )
-    { type = Double;
-    } else
-    { type = Invaid;
+    { ret.type = Double;
+      ret.st   = Ok;
     }
   }
-  st   = NotInit;
+  return ret;
 }
 
-inline MMValue::MMValue( const QVariant &var)
-{ switch( var.type() )
+inline MMValue MMValue::fromVariant( const QVariant &var )
+{ MMValue ret;
+  switch( var.type() )
   { case( QVariant::Int ):
-      type = Int;
-      v.i  = var.toInt();
+      ret.type = Int;
+      ret.st   = Ok;
+      ret.v.i  = var.toInt();
       break;
     case( QVariant::Double ):
-      type = Double;
-      v.d  = var.toDouble();
+      ret.type = Double;
+      ret.st   = Ok;
+      ret.v.d  = var.toDouble();
       break;
     case( QVariant::String ):
-      (*this) = MMValue( var.toString() );
+      ret = MMValue::fromString( var.toString() );
       break;
     default:
-      type = Invaid;
       break;
   }
-  st   = NotInit;
+  return ret;
 }
 
 inline MMValue* MMValue::operator=( char i )

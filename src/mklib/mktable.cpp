@@ -617,7 +617,7 @@ void MKTable::keyPressEvent( QKeyEvent *event )
       mm = assign_data[i].m_index;
       ss = assign_data[i].s_index;
       ii = assign_data[i].i_index;
-      mbmaster->setSlotValue(mm,ss,ii, val );
+      mbmaster->setSlotValue(mm,ss,ii, MMValue::fromInt(val) );
     }
   }else
   { QTableWidget::keyPressEvent( event );
@@ -973,7 +973,7 @@ void MKTableItemDelegate::setModelData ( QWidget *editor, QAbstractItemModel *mo
     mm = table->assign_data[i].m_index;
     ss = table->assign_data[i].s_index;
     ii = table->assign_data[i].i_index;
-    table->mbmaster->setSlotValue(mm,ss,ii, var );
+    table->mbmaster->setSlotValue(mm,ss,ii, MMValue::fromVariant(var) );
   }
 }
 
