@@ -227,21 +227,21 @@ static QString ptr_value( int offset, const char* ptr  )
       break;
     case( Bytes  ):
       if( unsigned_mode )
-      { return QString::number( (unsigned int)(*(char*)(ptr+offset)) );
+      { return QString::number( (unsigned int)(*(unsigned char*)(ptr+offset)) );
       } else
       { return QString::number( (int)(*(char*)(ptr+offset)) );
       }
       break;
     case( Words  ):
       if( unsigned_mode )
-      { return QString::number( (int)(*(short*)(ptr+2*offset)) );
+      { return QString::number( (unsigned int)(*(unsigned short*)(ptr+2*offset)) );
       } else
       { return QString::number( (unsigned int)(*(short*)(ptr+2*offset)) );
       }
       break;
     case( DWords ):
       if( unsigned_mode )
-      { return QString::number( (unsigned int)(*(int*)(ptr+4*offset)) );
+      { return QString::number( (unsigned int)(*(unsigned int*)(ptr+4*offset)) );
       } else
       { return QString::number( (int)(*(int*)(ptr+4*offset)) );
       }
