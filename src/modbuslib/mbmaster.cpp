@@ -550,13 +550,13 @@ bool MBMasterPrivate::process_transaction( MMSlotTransaction &tr )
 exit:
   error_counter++;
   tr.slot->status=MMSlot::Bad;
-  //Console::Print("R:"+QByteArray2QString(tr.request)+"\n");
-  //Console::Print("A:"+QByteArray2QString(tr.answer)+"\n");
-  //Console::Print("i:"+QString::number(i)+"\n");
-  //Console::Print("e:"+QString::number(tr.errorcode)+"\n");
-skiped:
   for(i=0; i<tr.length; i++ )
   { tr.slot->data[i+tr.offset].setStatus( MMValue::Bad );
+  }
+  return false;
+skiped:
+  for(i=0; i<tr.length; i++ )
+  { tr.slot->data[i+tr.offset].setStatus( MMValue::NotInit );
   }
   return false;
 }

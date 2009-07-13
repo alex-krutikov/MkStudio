@@ -13,6 +13,7 @@ struct MKTable::MKTableAssignData
 { int m_index,s_index,i_index; // модуль,слот,индекс
   int row,column;              // ячейка
   MMValue current_value;       // текущее значение
+  bool first_pass_flag;        // флаг первого прохода отображения
   int status;                  // достоверность значения
   int format;                  // формат выдачи
   int ss_enum_index;           // индекс в векторе enum
@@ -444,6 +445,7 @@ void MKTable::setMode( enum Mode m )
         ad.row = i;
         ad.column = j;
         ad.status = -1;
+        ad.first_pass_flag = true;
         //---------------
         str = titem->data(FormatRole).toString();
         ad.format = 0;
@@ -680,13 +682,15 @@ cycle_begin:
       if( ii < slot_size )
       { value = slot.data[ii];
       } else
-      { value.setStatus( MMValue::Bad );
+      { value = MMValue();
       }
+
       titem = item( assign_data[i].row, assign_data[i].column );
       if( titem == 0 ) continue;
 
-      if( value != assign_data[i].current_value )
+      if( assign_data[i].first_pass_flag || (value != assign_data[i].current_value ) )
       { // обновление
+        assign_data[i].first_pass_flag = false;
         if( value.status() == MMValue::Ok )
         { if( assign_data[i].status != 1 )
           { assign_data[i].status = 1;
@@ -705,9 +709,15 @@ cycle_begin:
             }
           }
           titem->setText( str );
-        } else
+        } else if( value.status() == MMValue::NotInit )
         { if( assign_data[i].status != 2 )
           { assign_data[i].status = 2;
+            titem->setFlags( Qt::ItemIsEnabled | Qt::ItemIsSelectable );
+            titem->setText( QString() );
+          }
+        } else
+        { if( assign_data[i].status != 3 )
+          { assign_data[i].status = 3;
             titem->setFlags( Qt::ItemIsEnabled | Qt::ItemIsSelectable );
             titem->setText( "***" );
           }
