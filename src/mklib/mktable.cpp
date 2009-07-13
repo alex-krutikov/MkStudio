@@ -408,7 +408,6 @@ void MKTable::setMode( enum Mode m )
         if( !titem->data(Qt::BackgroundRole).isValid() )
         { titem->setBackgroundColor("antiquewhite");
         }
-        titem->setTextAlignment(Qt::AlignVCenter|Qt::AlignHCenter);
         titem->setText( str );
         titem->setFlags(Qt::ItemIsEnabled|Qt::ItemIsSelectable);
       }
