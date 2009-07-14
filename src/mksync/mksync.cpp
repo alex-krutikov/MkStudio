@@ -274,7 +274,7 @@ bool process_dir( QString path )
 //=============================================================================
 // Синхронизация файла минутного тренда по дате
 //=============================================================================
-static void fast_sync_date( const QDate &date, const QString &ext )
+static int fast_sync_date( const QDate &date, const QString &ext )
 {
   XFiles::Result res;
   XFilesFileInfo fi;
@@ -285,7 +285,7 @@ static void fast_sync_date( const QDate &date, const QString &ext )
   //--- получение описания файла
   res = xf->getFileInfo( remote_path+path+filename, fi );
   xfile_print_error( res );
-  if( res != XFiles::Ok ) return;
+  if( res != XFiles::Ok ) return 1;
 
   //--- создание каталога
   QString dirname = local_path + path;
@@ -296,20 +296,26 @@ static void fast_sync_date( const QDate &date, const QString &ext )
   }
 
   //--- синхронизация файла
-  sync_file(  filename, fi.size, path );
+  bool ok =  sync_file(  filename, fi.size, path );
+  return (ok) ? (0) : (1);
 }
 
 //=============================================================================
 // Быстрая синхронизация на основе анализа текущей даты
 //=============================================================================
-static void fast_sync()
+static int fast_sync()
 {
+  int i;
   QDate date = QDate::currentDate();
-  fast_sync_date( date, ".RPM" );
-  fast_sync_date( date, ".RNM" );
+  i = fast_sync_date( date, ".RPM" );
+  if( i ) return i;
+  i = fast_sync_date( date, ".RNM" );
+  if( i ) return i;
   date = date.addDays(-1);
-  fast_sync_date( date, ".RPM" );
-  fast_sync_date( date, ".RNM" );
+  i = fast_sync_date( date, ".RPM" );
+  if( i ) return i;
+  i = fast_sync_date( date, ".RNM" );
+  return i;
 }
 
 
@@ -325,7 +331,7 @@ int main(int argc, char *argv[])
   cerr.setCodec( QTextCodec::codecForName("CP-866") );
 #endif
 
-  int ret;
+  int ret = 0;
 
   ret = init();
   if( ret ) return ret;
@@ -337,20 +343,15 @@ int main(int argc, char *argv[])
   xf->setTransport( sp );
   xf->setNode( node );
 
-  if( sp->speed() )
-  { //cout << "Serial Port: " << sp->name() << " at " << sp->speed() << endl;
-  } else
-  { //cout << "Modbus TCP host: " << sp->name() << endl;
-  }
-
   if( fastmode )
-  { fast_sync();
+  { ret = fast_sync();
   } else
-  { process_dir("");
+  { bool ok = process_dir("");
+    ret = (ok) ? (0) : (1);
   }
 
   delete xf;
   delete sp;
 
-  return 0;
+  return ret;
 }
