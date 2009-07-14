@@ -66,6 +66,9 @@ void ModbusTcpServerThread::run()
 
   connect( server, SIGNAL( newConnection() ), this, SLOT( newConnection() ) );
 
+
+  startTimer( 1000 );
+
   // запуск цикла сообщеий
   exec();
 
@@ -114,6 +117,7 @@ void ModbusTcpServerThread::readyRead()
   QByteArray &tcp_req = item.req;
   QByteArray &tcp_ans = item.ans;
 
+  item.timeout_timer=0; // сброс счетчика таймаута неактивности
 
   tcp_req.append( socket->readAll() );
 
@@ -170,6 +174,30 @@ void ModbusTcpServerThread::readyRead()
   { Console::Print( Console::ModbusPacket, "################3\n" );
     delete socket;
     return;
+  }
+}
+
+//=============================================================================
+/// Таймер проверки таймаута неактивности клиента
+//=============================================================================
+void ModbusTcpServerThread::timerEvent( QTimerEvent * event )
+{
+  Q_UNUSED( event );
+
+  QMutableMapIterator< QTcpSocket*, ModbusTcpServerThreadItem  > i(map);
+  while (i.hasNext())
+  { i.next();
+    QTcpSocket *socket = (QTcpSocket*)i.key();
+    ModbusTcpServerThreadItem &item = i.value();
+
+    item.timeout_timer++;
+
+    if( item.timeout_timer > 60 ) // 1 минута
+    { Console::Print( Console::Information, "Host: "
+                        + socket->peerAddress().toString() + " - time out.\n");
+      item.timeout_timer=0;
+      socket->disconnectFromHost();
+    }
   }
 }
 

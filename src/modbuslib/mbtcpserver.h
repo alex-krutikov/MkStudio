@@ -16,7 +16,12 @@ class QTcpSocket;
 //=============================================================================
 struct ModbusTcpServerThreadItem
 {
+  ModbusTcpServerThreadItem()
+  { timeout_timer=0;
+  }
+
   QByteArray req,ans;
+  int timeout_timer;
 };
 
 //=============================================================================
@@ -28,6 +33,7 @@ class ModbusTcpServerThread : public QThread
   Q_OBJECT
 protected:
   void run();
+  void timerEvent( QTimerEvent * event );
 public slots:
   void newConnection();
   void readyRead();
