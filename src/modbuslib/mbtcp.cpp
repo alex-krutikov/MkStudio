@@ -162,7 +162,7 @@ int MbTcpPort::query( const QByteArray &request, QByteArray &answer, int *errorc
   j = qMin( tcp_ans.size(), answer.size() );
   tcp_ans.resize( answer.size() );
   answer = tcp_ans;
-  Console::Print( Console::ModbusPacket, "MB_TCP:   mb_answer = " + QByteArray2QString( answer ) +"\n" );
+  Console::Print( Console::ModbusPacket, "MB_TCP:   mb_answer = " + QByteArray2QString( answer.left(j) ) +"\n" );
   return j;
 error:
   Console::Print( Console::Error, "MB_TCP: Error: Wrong tcp anser: " + QByteArray2QString( tcp_ans ) +"\n" );
