@@ -2,8 +2,8 @@ TEMPLATE = lib
 DESTDIR  = ../../lib
 DLLDESTDIR  = ../../bin
 
-win32{ QMAKE_POST_LINK  +=  cd .. }
-win32{ QMAKE_POST_LINK  +=  && cd mkstudio && mingw32-make release && cd .. }
+#win32{ QMAKE_POST_LINK  +=  cd .. }
+#win32{ QMAKE_POST_LINK  +=  && cd mkstudio && mingw32-make release && cd .. }
 
 QT += xml
 CONFIG -= rtti exceptions
