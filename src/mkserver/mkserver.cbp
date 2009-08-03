@@ -21,8 +21,6 @@
 		<Unit filename="main.h" />
 		<Unit filename="mainwindow.cpp" />
 		<Unit filename="mainwindow.h" />
-		<Unit filename="server.cpp" />
-		<Unit filename="server.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
