@@ -38,12 +38,13 @@ class SlotsModel : public QAbstractTableModel
 public:
 
   struct t_slot_desc
-  { QString addr;
+  { QString addr;   //contains address or register number, depending on the type
     int     n;
     MBDataType type;
     QString desc;
     QString attributes;
   };
+
 
   int rowCount    ( const QModelIndex & parent = QModelIndex() ) const
     { Q_UNUSED( parent ); return SLOTS_MAX_N; }
@@ -113,7 +114,11 @@ MBConfigWidget::MBConfigWidget( QWidget *parent )
   ui->tw2->setModel( &d->slots_model );
   ui->tw2->horizontalHeader()->setStretchLastSection( true );
   ui->tw2->horizontalHeader()->resizeSections( QHeaderView::ResizeToContents );
-  ui->tw2->horizontalHeader()->setClickable( false );
+  ui->tw2->horizontalHeader()->setClickable( false );  
+  
+  MBConfigWidgetItemDelegate* delegate = new MBConfigWidgetItemDelegate(this);  
+  connect(ui->tw2, SIGNAL(clicked(QModelIndex)), ui->tw2, SLOT(handleClick(QModelIndex)));
+  ui->tw2->setItemDelegateForColumn(3, delegate);      
 }
 
 //===================================================================
@@ -155,14 +160,6 @@ void MBConfigWidget::on_tw1_customContextMenuRequested ( const QPoint& pos)
     ui->tw1->selectRow(r);
   }
   return;
-}
-
-//===================================================================
-//
-//===================================================================
-void MBConfigWidget::on_tw2_activated ( const QModelIndex & index)
-{
-  ui->tw2->model()->setData( index, 1 , Qt::UserRole );
 }
 
 //===================================================================
@@ -245,7 +242,7 @@ void MBConfigWidget::loadConfiguration( const QDomDocument &doc )
 
   d->modules_model.refresh();
   d->slots_model.set_current_module(0);
-  ui->tw1->selectRow(0);
+  ui->tw1->selectRow(0);  
 }
 
 //===================================================================
@@ -610,6 +607,7 @@ Qt::ItemFlags SlotsModel::flags ( const QModelIndex & index ) const
   Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable ;
   if( column == 1 ) flags |= Qt::ItemIsEditable;
   if( column == 2 ) flags |= Qt::ItemIsEditable;
+  if( column == 3 ) flags |= Qt::ItemIsEditable;
   if( column == 4 ) flags |= Qt::ItemIsEditable;
 
   return flags;
@@ -624,7 +622,8 @@ bool SlotsModel::setData ( const QModelIndex & index,
   if( current_module < 0 ) return false;
   QString str;
   QRegExp rx1("^[0-9A-F]{1,4}$|^$"); // шестнадцатиричное число 1-4 разряда или ничего
-  QRegExp rx2("^[0-9]{1,5}$");       // десятичное число 1-5 разряда или ничего
+  QRegExp rx2("^[0-9]{1,5}$");       // десятичное число 1-5 разряда
+  QRegExp rx3("^[0-9]{1,4}$");       // десятичное число 1-4 разряда
 
   int row = index.row();
   int column = index.column();
@@ -634,35 +633,31 @@ bool SlotsModel::setData ( const QModelIndex & index,
       switch( column )
       { case(1):
           str = value.toString().toUpper();
-          if( !rx1.exactMatch( str ) )
-          { QMessageBox::warning( 0, "MBConfigWidget", "Адрес должен быть шестнадцатиричное числом!" );
+          if( !rx1.exactMatch( str ))
+          { QMessageBox::warning( 0, "MBConfigWidget", "Адрес должен быть шестнадцатиричным числом в диапазоне 0-FFFFF!" );
             break;
           }
           sd[current_module][row].addr = str;
           goto ok;
         case(2):
           if( !rx2.exactMatch( value.toString() ) )
-          { QMessageBox::warning( 0, "MBConfigWidget", "Количество должен быть десятичным числом!" );
+          { QMessageBox::warning( 0, "MBConfigWidget", "Количество должно быть десятичным числом в диапазоне 0-9999!" );
             break;
-          }
+          }        
           sd[current_module][row].n = value.toInt();
           goto ok;
+        case (3):
+          sd[current_module][row].type = MBDataType(value.toInt());          
+          break;
         case(4):
           sd[current_module][row].desc = value.toString();
           goto ok;
       }
-      break;
-    case( Qt::UserRole ):
-      switch( column )
-      { case(3):
-          sd[current_module][row].type.step();
-          goto ok;
-      }
-      break;
+      break;      
   }
   return false;
 ok:
-  emit dataChanged( index, index );
+  emit dataChanged( this->index(row,0), this->index(row,3) );
   return true;
 }
 
@@ -674,4 +669,3 @@ void SlotsModel::set_current_module( int i )
   current_module=i;
   reset();
 }
-

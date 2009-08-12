@@ -33,6 +33,8 @@
 		<Unit filename="mktable_p.h" />
 		<Unit filename="plot.cpp" />
 		<Unit filename="plot.h" />
+		<Unit filename="slotconfigtableview.cpp" />
+		<Unit filename="slotconfigtableview.h" />
 		<Unit filename="slotwidget.cpp" />
 		<Unit filename="slotwidget.h" />
 		<Extensions>

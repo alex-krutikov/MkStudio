@@ -34,7 +34,8 @@ HEADERS = mbconfigwidget.h                      \
           mktable_p.h                           \
           plot.h                                \
           helpwidget.h                          \
-          slotwidget.h
+          slotwidget.h                          \
+          slotconfigtableview.h                 \
           
           
 SOURCES = mbconfigwidget.cpp                    \
@@ -44,7 +45,8 @@ SOURCES = mbconfigwidget.cpp                    \
           mktable.cpp                           \
           plot.cpp                              \
           helpwidget.cpp                        \
-          slotwidget.cpp
+          slotwidget.cpp                        \
+          slotconfigtableview.cpp               \
 
 FORMS   = ui/mbconfigwidget.ui                  \
           ui/mbmasterwidget.ui                  \

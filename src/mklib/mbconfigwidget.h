@@ -19,6 +19,7 @@ class QModelIndex;
 class MK_EXPORT MBConfigWidget : public QWidget
 {
   Q_OBJECT
+  friend class MBConfigWidgetItemDelegate;
 public:
   MBConfigWidget( QWidget *parent = 0 );
   ~MBConfigWidget();
@@ -35,11 +36,9 @@ private:
   Ui::MBConfigWidget    *ui;
   MBConfigWidgetPrivate *d;
 private slots:
-  void on_tw1_customContextMenuRequested ( const QPoint& );
-  void on_tw2_activated( const QModelIndex& );
+  void on_tw1_customContextMenuRequested ( const QPoint& );  
   void tw1_currentRowChanged(const QModelIndex&current,
                              const QModelIndex&previous);
 };
-
 
 #endif

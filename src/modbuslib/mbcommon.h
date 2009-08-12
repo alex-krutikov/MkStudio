@@ -29,6 +29,7 @@ public:
     :  state(init_state), id_str(id_arg), name_str(name_arg), len(len_arg) {}
   QString toTextId() const  { return QString(id_str[state]);   }
   QString toName() const    { return QString(name_str[state]); }
+  int length() const        { return len; }
   void fromTextId( QString &textId )
     { state = 0;
       for( int i=0; i<len; i++ )
