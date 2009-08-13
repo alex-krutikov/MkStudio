@@ -1,7 +1,8 @@
 win32{
 INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/Qwt
-debug:LIBS    += -lqwtd5 
-release:LIBS  += -lqwt5 
+
+CONFIG(debug,debug|release)   : LIBS    += -lqwtd5 
+CONFIG(release,debug|release) : LIBS    += -lqwt5 
 }
 
 unix{
