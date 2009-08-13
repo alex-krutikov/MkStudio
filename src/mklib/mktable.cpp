@@ -654,7 +654,7 @@ cycle_begin:
 
     if( optimize_read_mode )
     { vflag = false;
-      for(j=i; (assign_data[j].m_index == mm ) && ( assign_data[j].s_index == ss ); j++ )
+      for(j=i; (j<assign_data_size) && (assign_data[j].m_index==mm) && (assign_data[j].s_index==ss); j++ )
       { titem = item( assign_data[j].row, assign_data[j].column );
         if( titem == 0 ) continue;
         QRect r = visualItemRect( titem );
