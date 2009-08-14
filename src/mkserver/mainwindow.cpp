@@ -435,6 +435,8 @@ void MainWindow::closeEvent ( QCloseEvent * event )
 {
   Q_UNUSED( event );
 
+  delete tcpserver;
+
   QSettings settings( QSETTINGS_PARAM );
   settings.setValue("pos", pos());
   settings.setValue("size", size());
