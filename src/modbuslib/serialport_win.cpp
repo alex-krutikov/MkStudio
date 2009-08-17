@@ -282,7 +282,7 @@ error3:
 // Посылка запроса и получение ответа (протокол XBee)
 //===================================================================
 int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
-                                       int *errorcode, int xbee_addr)
+                                       int *errorcode, int xbee_addr, int xbee_id)
 {
   bool ok;
   unsigned char crc;
@@ -310,7 +310,7 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
 
   QByteArray ba;
   ba.resize(8);
-  ba[0] = 0x7E;
+  ba[0] = xbee_id;
   ba[3] = 0x01; // API identifier
   ba[4] = 0x00; // Frame ID
   ba[5] = xbee_addr >> 8;
@@ -328,7 +328,7 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
   crc=0xFF-crc;
   ba.append( crc ); // CRC
 
-  Console::Print( Console::ModbusPacket, "MODBUS: Request: "+QByteArray2QString( request )+"\n");
+  Console::Print( Console::ModbusPacket, "XBEE: Request: "+QByteArray2QString( ba )+"\n");
 
   // задержка перед запросом 8 байтовых интервалов на выбранной скорости
   usleep((8 * 10 * 1000000 / sp->speed()));
@@ -338,12 +338,12 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
   if(!ok)
   { if( last_error_id != 2 )
     { last_error_id = 2;
-      Console::Print( Console::Error, "MODBUS: ERROR: WriteFile (return value).\n" );
+      Console::Print( Console::Error, "XBEE: ERROR: WriteFile (return value).\n" );
     }
     return -1;
   }
   if((int)j != ba.length() )
-  { Console::Print( Console::Error, "MODBUS: ERROR: WriteFile (wrong length).\n" );
+  { Console::Print( Console::Error, "XBEE: ERROR: WriteFile (wrong length).\n" );
     return 0;
   }
 
@@ -357,7 +357,7 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
     if(!ok)
     { if( last_error_id != 3 )
       { last_error_id = 3;
-        Console::Print( Console::Error, "MODBUS: ERROR: ReadFile (return value).\n" );
+        Console::Print( Console::Error, "XBEE: ERROR: ReadFile (return value).\n" );
       }
       return 0;
     }
@@ -369,12 +369,12 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
   // анализ первых байт
 
   if( i != 3 )
-  { Console::Print( Console::Error, "MODBUS: ERROR: No answer.\n" );
+  { Console::Print( Console::Error, "XBEE: ERROR: No answer.\n" );
     return 0;
   }
 
   if( ba[0] != (char)0x7E )
-  { Console::Print( Console::Error, "MODBUS: ERROR: Receive packet's first byte is not 0x7E.\n" );
+  { Console::Print( Console::Error, "XBEE: ERROR: Receive packet's first byte is not 0x7E.\n" );
     return 0;
   }
 
@@ -388,7 +388,7 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
     if(!ok)
     { if( last_error_id != 3 )
       { last_error_id = 3;
-        Console::Print( Console::Error, "MODBUS: ERROR: ReadFile (return value).\n" );
+        Console::Print( Console::Error, "XBEE: ERROR: ReadFile (return value).\n" );
       }
       return 0;
     }
@@ -403,14 +403,14 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
   crc=0;
   for( i=3; i<a; i++ ) crc += ba[i];
   if( crc != 0xFF )
-  { Console::Print( Console::Error, "MODBUS: ERROR: XBee CRC error.\n" );
+  { Console::Print( Console::Error, "XBEE: ERROR: XBee CRC error.\n" );
     return 0;
   }
 
   // подготовка ответа
 
+  Console::Print( Console::ModbusPacket, "XBEE: Answer:  "+QByteArray2QString( ba )+"\n");
   ba = ba.mid( 8, a-9 );
-  Console::Print( Console::ModbusPacket, "MODBUS: Answer:  "+QByteArray2QString( ba )+"\n");
 
   answer.replace(0, ba.size(), ba );
   return ba.size();

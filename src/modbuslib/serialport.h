@@ -34,6 +34,7 @@ public:
 
   void clearXBeeRouteTable();
   void addXBeeRoute( int a1, int a2, int addr );
+  void addXBeePostRoute( int a1, int a2, int id );
 //@}
 
 /** @name Работа

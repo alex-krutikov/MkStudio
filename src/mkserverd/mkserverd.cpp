@@ -23,6 +23,16 @@ struct XBeeRoute
   int addr;
 };
 
+struct XBeePostRoute
+{
+  XBeePostRoute() {}
+  XBeePostRoute( int start, int end, int id )
+    : start(start), end(end), id(id) {}
+  int start;
+  int end;
+  int id;
+};
+
 //=============================================================================
 // Вывод информации о программе
 //=============================================================================
@@ -39,6 +49,7 @@ static void print_help()
   "    -host=[Modbus TCP remote server's host name]\n"
   "    -tcpport=[Modbus TCP port number]\n"
   "    -xbeeroute=[start]:[end]:[addr]\n"
+  "    -xbeepostroute=[start]:[end]:[addr]\n"
   "\n\n"
   "  Comments\n\n"
   "    1. \"-host\" option may be used to make the Modbus TCP proxy server.\n\n"
@@ -62,6 +73,7 @@ static int init()
   bool ok;
 
   QVector<XBeeRoute> xbeeroute;
+  QVector<XBeePostRoute> xbeepostroute;
 
   //--- разбор аргументов командной строки
   QStringList command_arguments = QCoreApplication::arguments();
@@ -97,6 +109,15 @@ static int init()
       { cerr << "Error: XBee route format is invalid.";
         return 1;
       }
+    } else if( str.startsWith("-xbeepostroute=") )
+    { str.remove(0,15);
+      QRegExp rx("(\\d+):(\\d+):(\\d+)");
+      if( rx.indexIn( str ) == 0 )
+      { xbeepostroute << XBeePostRoute( rx.cap(1).toInt(), rx.cap(2).toInt(),rx.cap(3).toInt() );
+      } else
+      { cerr << "Error: XBee post route format is invalid.";
+        return 1;
+      }
     } else
     { cerr << "Configuration error: unknown command line argument: " + str;
       print_help();
@@ -127,6 +148,9 @@ static int init()
       p->setMode( SerialPort::XBee );
       foreach( XBeeRoute route, xbeeroute )
       { p->addXBeeRoute( route.start, route.end, route.addr );
+      }
+      foreach( XBeePostRoute route, xbeepostroute )
+      { p->addXBeePostRoute( route.start, route.end, route.id );
       }
     }
 
