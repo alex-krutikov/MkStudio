@@ -603,13 +603,15 @@ Qt::ItemFlags SlotsModel::flags ( const QModelIndex & index ) const
 {
   if( current_module < 0 ) return 0;
   int column = index.column();
+  int row = index.row();
 
   Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable ;
   if( column == 1 ) flags |= Qt::ItemIsEditable;
-  if( column == 2 ) flags |= Qt::ItemIsEditable;
-  if( column == 3 ) flags |= Qt::ItemIsEditable;
-  if( column == 4 ) flags |= Qt::ItemIsEditable;
-
+  if( !sd[current_module][row].addr.isEmpty() )
+  { if( column == 2 ) flags |= Qt::ItemIsEditable;
+    if( column == 3 ) flags |= Qt::ItemIsEditable;
+    if( column == 4 ) flags |= Qt::ItemIsEditable;
+  }
   return flags;
 }
 
@@ -621,6 +623,7 @@ bool SlotsModel::setData ( const QModelIndex & index,
 {
   if( current_module < 0 ) return false;
   QString str;
+  QString was;
   QRegExp rx1("^[0-9A-F]{1,4}$|^$"); // шестнадцатиричное число 1-4 разряда или ничего
   QRegExp rx2("^[0-9]{1,5}$");       // десятичное число 1-5 разряда
   QRegExp rx3("^[0-9]{1,4}$");       // десятичное число 1-4 разряда
@@ -637,7 +640,26 @@ bool SlotsModel::setData ( const QModelIndex & index,
           { QMessageBox::warning( 0, "MBConfigWidget", "Адрес должен быть шестнадцатиричным числом в диапазоне 0-FFFFF!" );
             break;
           }
+          was = data(index, Qt::DisplayRole).toString();
+          if (was.isEmpty() && !(str.isEmpty())) //setting up correct type
+          { MBDataType tta = MBDataType(0);
+            for( int k = row - 1; k >= 0; k --)
+            { MBDataType cand = sd[current_module][k].type;
+              if (!sd[current_module][k].addr.isEmpty())
+              { tta = cand;
+                break;
+              }
+            }
+            sd[current_module][row].type = tta; //substitute for unknown type
+          }
+
           sd[current_module][row].addr = str;
+          if( str.isEmpty() ) //then reset data in a column
+          { sd[current_module][row].desc = "";
+            sd[current_module][row].attributes = "";
+            sd[current_module][row].n = 0;
+            //no type assignations
+          }
           goto ok;
         case(2):
           if( !rx2.exactMatch( value.toString() ) )
