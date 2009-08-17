@@ -245,21 +245,25 @@ public:
           case( 0x01 ): // set
             ans[5] = len;
             for(i=0; i<len; i++) base[addr+i] = req[6+i];
+            for(i=0; i<len; i++) ans[6+i] = base[addr+i];
             ans_len = len + 8;
             break;
           case( 0x03 ): // and
             ans[5] = len;
             for(i=0; i<len; i++) base[addr+i] &= req[6+i];
+            for(i=0; i<len; i++) ans[6+i] = base[addr+i];
             ans_len = len + 8;
             break;
           case( 0x05 ): // or
             ans[5] = len;
             for(i=0; i<len; i++) base[addr+i] |= req[6+i];
+            for(i=0; i<len; i++) ans[6+i] = base[addr+i];
             ans_len = len + 8;
             break;
           case( 0x07 ): // xor
             ans[5] = len;
             for(i=0; i<len; i++) base[addr+i] ^= req[6+i];
+            for(i=0; i<len; i++) ans[6+i] = base[addr+i];
             ans_len = len + 8;
             break;
           default:
