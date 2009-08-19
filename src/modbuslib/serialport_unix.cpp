@@ -162,7 +162,7 @@ int SerialPortPrivate::query( const QByteArray &request,
 // ѕосылка запроса и получение ответа (протокол XBee)
 //===================================================================
 int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
-                                       int *errorcode, int xbee_addr, int xbee_id)
+                                       int *errorcode, int xbee_addr )
 {
   Q_UNUSED( errorcode );
 
@@ -179,7 +179,7 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
 
   QByteArray ba;
   ba.resize(8);
-  ba[0] = xbee_id;
+  ba[0] = 0x7E;
   ba[3] = 0x01; // API identifier
   ba[4] = 0x00; // Frame ID
   ba[5] = xbee_addr >> 8;

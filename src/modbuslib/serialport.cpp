@@ -12,8 +12,6 @@
 SerialPort::SerialPort()
   : d( new SerialPortPrivate(this) )
 {
-  mode                   = ModbusRTU;
-  //mode                   = XBee;
   answer_timeout         = 100;
   current_answer_timeout = -1;
 }
@@ -24,16 +22,6 @@ SerialPort::SerialPort()
 SerialPort::~SerialPort()
 {
   delete d;
-}
-
-//===================================================================
-//!
-//
-//!
-//===================================================================
-void SerialPort::setMode( PortMode mode )
-{
-  this->mode = mode;
 }
 
 //===================================================================
@@ -63,7 +51,6 @@ void SerialPort::setSpeed( const int speed )
 void SerialPort::clearXBeeRouteTable()
 {
   d->xbee_route_table.clear();
-  d->xbee_post_route_table.clear();
 }
 
 //===================================================================
@@ -76,19 +63,6 @@ void SerialPort::addXBeeRoute( int a1, int a2, int addr )
   st.a2   = a2;
   st.addr = addr;
   d->xbee_route_table << st;
-}
-
-//===================================================================
-//!
-//===================================================================
-void SerialPort::addXBeePostRoute( int a1, int a2, int id )
-{
-  st_XBeePostRoute st;
-  st.a1   = a1;
-  st.a2   = a2;
-  st.id   = id;
-  d->xbee_post_route_table << st;
-
 }
 
 //===================================================================
@@ -136,34 +110,28 @@ QStringList SerialPort::queryComPorts()
 int SerialPort::query( const QByteArray &request, QByteArray &answer,
                          int *errorcode)
 {
+  if( !request.size() ) return 0;
+
+  bool xbee_mode = false;
   int xbee_addr = 1;
-  int xbee_id   = 0x7E;
-  if( mode == XBee && request.size() )
-  { int n = d->xbee_route_table.size();
-    int a = request[0];
-    for( int i=0;i<n;i++ )
-    { const st_XBeeRoute &st = d->xbee_route_table.at(i);
-      if( ( a >= st.a1 ) && ( a <= st.a2 ) )
-      { xbee_addr = st.addr;
-        break;
-      }
-    }
-    n = d->xbee_post_route_table.size();
-    for( int i=0;i<n;i++ )
-    { const st_XBeePostRoute &st = d->xbee_post_route_table.at(i);
-      if( ( a >= st.a1 ) && ( a <= st.a2 ) )
-      { xbee_id = st.id;
-        break;
-      }
+  int n = d->xbee_route_table.size();
+  int a = (unsigned char)request[0];
+  for( int i=0; i<n; i++ )
+  { const st_XBeeRoute &st = d->xbee_route_table.at(i);
+    if( ( a >= st.a1 ) && ( a <= st.a2 ) )
+    { xbee_addr = st.addr;
+      xbee_mode = true;
+      break;
     }
   }
 
-
-  switch( mode )
-  { case( ModbusRTU ): return d->query(     request, answer,errorcode );
-    case( XBee      ): return d->queryXBee( request, answer,errorcode, xbee_addr, xbee_id );
+  int ret = 0;
+  if( xbee_mode )
+  { ret = d->queryXBee( request, answer,errorcode, xbee_addr );
+  } else
+  { ret = d->query( request, answer,errorcode );
   }
-  return 0;
+  return ret;
 }
 
 //===================================================================

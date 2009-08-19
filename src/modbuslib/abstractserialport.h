@@ -10,10 +10,6 @@
 class MBL_EXPORT AbstractSerialPort : public QObject
 {
 public:
-  enum PortMode { ModbusRTU=0, XBee };
-
-  virtual void setMode( PortMode ) {}
-
   virtual void setName( const QString &portname ) = 0;
   virtual void setSpeed( const int speed ) = 0;
   virtual void setAnswerTimeout(int timeout ) = 0;

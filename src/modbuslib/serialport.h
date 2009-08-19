@@ -25,7 +25,6 @@ public:
  *
  */
 //@{
-  void setMode( PortMode mode );
   void setName( const QString &portname );
   void setSpeed( const int speed );
   inline void setAnswerTimeout(int timeout );
@@ -34,7 +33,6 @@ public:
 
   void clearXBeeRouteTable();
   void addXBeeRoute( int a1, int a2, int addr );
-  void addXBeePostRoute( int a1, int a2, int id );
 //@}
 
 /** @name Работа
@@ -58,7 +56,6 @@ public:
   static QStringList queryComPorts();
 
 private:
-  PortMode mode;
   int answer_timeout;
   int current_answer_timeout;
   QString portname;

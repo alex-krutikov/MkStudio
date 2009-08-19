@@ -21,13 +21,6 @@ struct st_XBeeRoute
   int addr;
 };
 
-struct st_XBeePostRoute
-{
-  int a1;
-  int a2;
-  int id;
-};
-
 class SerialPortPrivate
 {
   friend class SerialPort;
@@ -44,12 +37,11 @@ class SerialPortPrivate
 
   int  query( const QByteArray &request, QByteArray &answer, int *errorcode);
 
-  int  queryXBee( const QByteArray &request, QByteArray &answer, int *errorcode, int xbee_addr, int xbee_id);
+  int  queryXBee( const QByteArray &request, QByteArray &answer, int *errorcode, int xbee_addr );
 
   static QStringList queryComPorts();
 
   QVector<st_XBeeRoute> xbee_route_table;
-  QVector<st_XBeePostRoute> xbee_post_route_table;
 
 #ifdef Q_OS_WIN32
   void usleep(DWORD us);
