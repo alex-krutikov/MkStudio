@@ -36,6 +36,7 @@ static void print_help()
   "  Options:\n"
   "    -port=[Serial port name]\n"
   "    -baud=[Serial port baud rate]\n"
+  "    -timeout=[Serial port timeout (ms)]\n"
   "    -host=[Modbus TCP remote server's host name]\n"
   "    -tcpport=[Modbus TCP port number]\n"
   "    -xbeeroute=[start]:[end]:[addr]\n"
@@ -59,6 +60,7 @@ static int init()
   QString hostname;
   QString portname;
   int portspeed = 115200;
+  int timeout   = 200;
   bool ok;
 
   QVector<XBeeRoute> xbeeroute;
@@ -81,6 +83,15 @@ static int init()
       { cerr << "Error: port speed is invalid";
         return 1;
       }
+    } else if( str.startsWith("-timeout=") )
+    { str.remove(0,9);
+      timeout = str.toInt(&ok);
+      if( !ok )
+      { cerr << "Error: port timeout is invalid";
+        return 1;
+      }
+      if( timeout < 50 )   timeout=50;
+      if( timeout > 5000 ) timeout=5000;
     } else if( str.startsWith("-tcpport=") )
     { str.remove(0,9);
       tcpport = str.toInt(&ok);
@@ -121,6 +132,7 @@ static int init()
   { sp = new SerialPort();
     sp->setName( portname );
     sp->setSpeed( portspeed );
+    sp->setAnswerTimeout( timeout );
 
     if( xbeeroute.size() )
     { SerialPort *p = qobject_cast<SerialPort*>(sp);
