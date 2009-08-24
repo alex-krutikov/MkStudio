@@ -13,7 +13,7 @@ SerialPort::SerialPort()
   : d( new SerialPortPrivate(this) )
 {
   answer_timeout         = 100;
-  current_answer_timeout = -1;
+  current_answer_timeout = answer_timeout;
 }
 
 //===================================================================

@@ -35,6 +35,8 @@ LRESULT CALLBACK SerialPortWndProc(HWND hwnd, UINT Message, WPARAM wparam,LPARAM
 SerialPortPrivate::SerialPortPrivate( SerialPort *sp_arg )
   : sp( sp_arg )
 {
+  QMutexLocker mutex_locker( &mutex );
+
   hport = 0;
   last_error_id = 0;
 
@@ -70,10 +72,10 @@ SerialPortPrivate::~SerialPortPrivate()
 //===================================================================
 bool SerialPortPrivate::open()
 {
-  close();
+  QMutexLocker mutex_locker( &mutex );
 
-  Sleep(100);
-
+  if( hport ) return true;
+  
   if( GetVersion() & 0x80000000 )
   { // Windows 9X
     hport = CreateFileA( ("\\\\.\\"+sp->portname).toAscii(),
@@ -133,7 +135,7 @@ bool SerialPortPrivate::open()
   // Устанавливаем таймауты.
   COMMTIMEOUTS ct;
   memset( &ct, 0 , sizeof(ct) );
-  ct.ReadTotalTimeoutConstant = 100;
+  ct.ReadTotalTimeoutConstant = sp->current_answer_timeout;
   SetCommTimeouts(hport,&ct);
 
   // Сбрасываем порт.
@@ -160,8 +162,8 @@ bool SerialPortPrivate::reopen()
 void SerialPortPrivate::close()
 {
   if( hport )
-  { CloseHandle( hport );
-    hport = 0;
+  { QMutexLocker mutex_locker( &mutex );
+    if( CloseHandle( hport ) ) hport = 0;
   }
 }
 
@@ -178,6 +180,8 @@ int SerialPortPrivate::query( const QByteArray &request,
   { reopen();
     return 0;
   }
+
+  QMutexLocker mutex_locker( &mutex );
 
   if( sp->answer_timeout != sp->current_answer_timeout )
   { COMMTIMEOUTS ct;
@@ -295,6 +299,8 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
   { reopen();
     return 0;
   }
+  
+  QMutexLocker mutex_locker( &mutex );
 
   if( sp->answer_timeout != sp->current_answer_timeout )
   { COMMTIMEOUTS ct;

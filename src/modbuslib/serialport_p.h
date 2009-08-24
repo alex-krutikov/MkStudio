@@ -42,6 +42,7 @@ class SerialPortPrivate
   static QStringList queryComPorts();
 
   QVector<st_XBeeRoute> xbee_route_table;
+  QMutex mutex;
 
 #ifdef Q_OS_WIN32
   void usleep(DWORD us);

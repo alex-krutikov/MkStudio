@@ -31,6 +31,10 @@ SerialPortPrivate::~SerialPortPrivate()
 //===================================================================
 bool SerialPortPrivate::open()
 {
+  QMutexLocker mutex_locker( &mutex );
+  
+  if( fd ) return true;
+
   struct termios ts;
   fd = ::open( sp->portname.toLocal8Bit() , O_RDWR|O_NOCTTY );
   if( fd < 0 )
@@ -68,7 +72,7 @@ bool SerialPortPrivate::open()
   cfsetospeed( &ts, br );
   ts.c_oflag |= CLOCAL;
   ts.c_oflag |= CREAD;
-  ts.c_cc[VTIME] = 2	; // 200 ms total timeout
+  ts.c_cc[VTIME] = sp->current_answer_timeout/100;
   ts.c_cc[VMIN]  = 0;
   if( tcsetattr( fd, TCSANOW, &ts ) )
   { return false;
@@ -90,7 +94,8 @@ bool SerialPortPrivate::reopen()
 void SerialPortPrivate::close()
 {
   if( fd )
-  { ::close( fd );
+  { QMutexLocker mutex_locker( &mutex );
+    ::close( fd );
     fd = 0;
   }
 }
@@ -112,6 +117,18 @@ int SerialPortPrivate::query( const QByteArray &request,
     open();
     return 0;
   }
+  
+  QMutexLocker mutex_locker( &mutex );
+
+  if( sp->answer_timeout != sp->current_answer_timeout )
+  { sp->current_answer_timeout = sp->answer_timeout;
+
+    struct termios ts;
+    if( tcgetattr( fd, &ts ) ) return 0;
+    ts.c_cc[VTIME] = sp->current_answer_timeout/100;
+    ts.c_cc[VMIN]  = 0;
+    if( tcsetattr( fd, TCSANOW, &ts ) ) return 0;
+  }
 
   Console::Print( Console::ModbusPacket, "MODBUS: Request: "+QByteArray2QString( request )+"\n");
 
@@ -124,7 +141,6 @@ int SerialPortPrivate::query( const QByteArray &request,
   {  ret = write( fd, request.data()+i, request_size-i );
      if( ret < 0 )
      { Console::Print( Console::Error, "MODBUS: ERROR: Can't write to port.\n");
-       close();
        return 0;
      }
      i += ret;
@@ -137,7 +153,6 @@ int SerialPortPrivate::query( const QByteArray &request,
   {  ret = read( fd, answer.data()+i, answer_size-i );
      if( ret < 0 )
      { Console::Print( Console::Error, "MODBUS: ERROR: Can't read from port.\n");
-       close();
        return 0;
      }
      i += ret;
@@ -174,6 +189,18 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
     open();
     return 0;
   }
+  
+  QMutexLocker mutex_locker( &mutex );
+
+  if( sp->answer_timeout != sp->current_answer_timeout )
+  { sp->current_answer_timeout = sp->answer_timeout;
+
+    struct termios ts;
+    if( tcgetattr( fd, &ts ) ) return 0;
+    ts.c_cc[VTIME] = sp->current_answer_timeout/100;
+    ts.c_cc[VMIN]  = 0;
+    if( tcsetattr( fd, TCSANOW, &ts ) ) return 0;
+  }
 
   // подготовка данных
 
@@ -209,7 +236,6 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
   {  ret = write( fd, ba.data()+i, ba.size()-i );
      if( ret < 0 )
      { Console::Print( Console::Error, "XBEE: ERROR: Can't write to port.\n");
-       close();
        return 0;
      }
      i += ret;
@@ -224,7 +250,6 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
   {  ret = read( fd, ba.data()+i, ba.size()-i );
      if( ret < 0 )
      { Console::Print( Console::Error, "XBEE: ERROR: Can't read from port.\n");
-       close();
        return 0;
      }
      i += ret;
@@ -253,7 +278,6 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
   {  ret = read( fd, ba.data()+i, ba.size()-i );
      if( ret < 0 )
      { Console::Print( Console::Error, "XBEE: ERROR: Can't read from port.\n");
-       close();
        return 0;
      }
      i += ret;
