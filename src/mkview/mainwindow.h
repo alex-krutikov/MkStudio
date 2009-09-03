@@ -7,6 +7,7 @@
 
 class MKViewPluginInterface;
 class MKTable;
+class InfoLabel;
 
 //=======================================================================================
 //
@@ -51,10 +52,10 @@ private slots:
 private:
   MKTable *tw;
   QStatusBar *statusbar;
-  QLabel *status_requests;
-  QLabel *status_answers;
-  QLabel *status_errors;
-  QLabel *full_time;
+  InfoLabel *status_requests;
+  InfoLabel *status_answers;
+  InfoLabel *status_errors;
+  InfoLabel *full_time;
   SerialPort port;
   MBMasterXML   mbmaster;
 };
