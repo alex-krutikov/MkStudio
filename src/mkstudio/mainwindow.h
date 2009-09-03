@@ -8,6 +8,8 @@
 
 #include<QtGui>
 
+class InfoLabel;
+
 struct TableClipboardItem
 {
   QTableWidgetItem item;
@@ -84,10 +86,10 @@ private slots:
 public slots:
   void make_undo_point();
 private:
-  QLabel *status_requests;
-  QLabel *status_answers;
-  QLabel *status_errors;
-  QLabel *full_time;
+  InfoLabel *status_requests;
+  InfoLabel *status_answers;
+  InfoLabel *status_errors;
+  InfoLabel *full_time;
   QString current_config_filename;
   QString current_config_values_filename;
   bool play_mode;

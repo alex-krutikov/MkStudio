@@ -12,6 +12,27 @@
 #include "helpwidget.h"
 
 //##############################################################################
+// Информационное поле в строке состяния
+//##############################################################################
+class InfoLabel : public QLineEdit
+{
+public:
+  InfoLabel( QWidget *parent = 0 )
+    : QLineEdit( parent )
+  {
+    setReadOnly( true );
+    setFocusPolicy( Qt::NoFocus );
+    setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
+    setMinimumWidth(130);
+    setFrame( false );
+    QPalette p = palette();
+    p.setColor( QPalette::Base, p.color(QPalette::Window) );
+    setPalette( p );
+  }
+};
+
+
+//##############################################################################
 /// Главное окно
 //##############################################################################
 MainWindow::MainWindow()
@@ -52,10 +73,10 @@ MainWindow::MainWindow()
   action_values_save   -> setEnabled(  false );
   action_values_load   -> setEnabled(  false );
 
-  full_time       = new QLabel;
-  status_requests = new QLabel;
-  status_answers  = new QLabel;
-  status_errors   = new QLabel;
+  full_time       = new InfoLabel;
+  status_requests = new InfoLabel;
+  status_answers  = new InfoLabel;
+  status_errors   = new InfoLabel;
   statusbar->addPermanentWidget( full_time       );
   statusbar->addPermanentWidget( status_requests );
   statusbar->addPermanentWidget( status_answers  );
