@@ -32,5 +32,8 @@ Section "Обновление MKStudio и MKView"
   File ..\..\bin\MKView.exe
   File ..\..\bin\MKStudio.exe
   File ..\..\bin\MKServer.exe
+  File ..\..\bin\mkserverd.exe
+  File ..\..\bin\mkquery.exe
+  File ..\..\bin\mksync.exe
   
 SectionEnd

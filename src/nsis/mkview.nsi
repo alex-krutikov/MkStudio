@@ -3,7 +3,7 @@ OutFile    "../../set/mkview-setup.exe"
 InstallDir $PROGRAMFILES\miksys\umikon\mkview
 
 XpStyle on
-;SetCompressor lzma
+SetCompressor lzma
 
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Russian.nlf"
 
@@ -31,7 +31,6 @@ Section "MKView"
   
   ; Put file there
   File ..\..\bin\mkview.exe
-  File ..\..\bin\*.xml
 
   File ..\..\..\qt\bin\qtcore4.dll
   File ..\..\..\qt\bin\qtgui4.dll
@@ -39,7 +38,10 @@ Section "MKView"
   File ..\..\..\qt\bin\qtnetwork4.dll
   File ..\..\..\qt\bin\mingwm10.dll
   File ..\..\..\qt\bin\qwt5.dll
-  
+
+  SetOutPath $INSTDIR\mikkon
+  File ..\..\bin\mikkon\*.xml
+
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\MKView "Install_Dir" "$INSTDIR"
   
@@ -70,7 +72,17 @@ Section "Uninstall"
   DeleteRegKey HKLM SOFTWARE\MKView
 
   ; Remove files and uninstaller
-  Delete $INSTDIR\*.*
+
+  Delete $INSTDIR\MKView.exe
+  Delete $INSTDIR\uninstall.exe
+  Delete $INSTDIR\qtcore4.dll
+  Delete $INSTDIR\qtgui4.dll
+  Delete $INSTDIR\qtxml4.dll
+  Delete $INSTDIR\qtnetwork4.dll
+  Delete $INSTDIR\mingwm10.dll
+  Delete $INSTDIR\qwt5.dll
+  Delete $INSTDIR\mkview.ini
+  Delete $INSTDIR\mikkon\*.xml
 
   ; Remove shortcuts, if any
   Delete "$SMPROGRAMS\MikSYS\MKView\*.*"
@@ -78,6 +90,7 @@ Section "Uninstall"
 
   ; Remove directories used
   RMDir "$SMPROGRAMS\MikSYS\MKView"
+  RMDir "$INSTDIR\mikkon"
   RMDir "$INSTDIR"
 
 SectionEnd
