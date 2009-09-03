@@ -745,29 +745,41 @@ QString MKTable::format_output( const MMValue &value, const MBDataType &datatype
   switch( type )
   { case(1): // беззнаковый
       switch( datatype_id )
-      { case( MBDataType::Floats ): cf=(char*)"%7.7g";           break;
-        case( MBDataType::Bits   ): cf=(char*)"%u"; d &= 0x01;   break;
-        case( MBDataType::Bytes  ): cf=(char*)"%u"; d &= 0xFF;   break;
-        case( MBDataType::Words  ): cf=(char*)"%u"; d &= 0xFFFF; break;
-        case( MBDataType::Dwords ): cf=(char*)"%u";              break;
+      { case( MBDataType::Floats )          : cf=(char*)"%7.7g";           break;
+        case( MBDataType::Bits   )          : cf=(char*)"%u"; d &= 0x01;   break;
+        case( MBDataType::Bytes  )          : cf=(char*)"%u"; d &= 0xFF;   break;
+        case( MBDataType::Words  )          : cf=(char*)"%u"; d &= 0xFFFF; break;
+        case( MBDataType::Dwords )          : cf=(char*)"%u";              break;
+        case( MBDataType::InputRegisters )  : cf=(char*)"%u"; d &= 0xFFFF; break;
+        case( MBDataType::HoldingRegisters ): cf=(char*)"%u"; d &= 0xFFFF; break;
+        case( MBDataType::DiscreteInputs   ): cf=(char*)"%u"; d &= 0x01;   break;
+        case( MBDataType::Coils)            : cf=(char*)"%u"; d &= 0x01;   break;
       }
       break;
     case(2): // hex
       switch( datatype_id )
-      { case( MBDataType::Floats ): cf=(char*)"%7.7g"; break;
-        case( MBDataType::Bits   ): cf=(char*)"0x%2.2X"; d &= 0x01;   break;
-        case( MBDataType::Bytes  ): cf=(char*)"0x%2.2X"; d &= 0xFF;   break;
-        case( MBDataType::Words  ): cf=(char*)"0x%4.4X"; d &= 0xFFFF; break;
-        case( MBDataType::Dwords ): cf=(char*)"0x%8.8X";              break;
+      { case( MBDataType::Floats )          : cf=(char*)"%7.7g"; break;
+        case( MBDataType::Bits   )          : cf=(char*)"0x%2.2X"; d &= 0x01;   break;
+        case( MBDataType::Bytes  )          : cf=(char*)"0x%2.2X"; d &= 0xFF;   break;
+        case( MBDataType::Words  )          : cf=(char*)"0x%4.4X"; d &= 0xFFFF; break;
+        case( MBDataType::Dwords )          : cf=(char*)"0x%8.8X";              break;
+        case( MBDataType::InputRegisters )  : cf=(char*)"0x%4.4X"; d &= 0xFFFF; break;
+        case( MBDataType::HoldingRegisters ): cf=(char*)"0x%4.4X"; d &= 0xFFFF; break;
+        case( MBDataType::DiscreteInputs   ): cf=(char*)"0x%2.2X"; d &= 0x01;   break;
+        case( MBDataType::Coils   )         : cf=(char*)"0x%2.2X"; d &= 0x01;   break;
       }
       break;
     default: // формат по умолчанию
       switch( datatype_id )
-      { case( MBDataType::Floats ): cf=(char*)"%7.7g"; break;
-        case( MBDataType::Bits   ): cf=(char*)"%d"; break;
-        case( MBDataType::Bytes  ): cf=(char*)"%d"; break;
-        case( MBDataType::Words  ): cf=(char*)"%d"; break;
-        case( MBDataType::Dwords ): cf=(char*)"%d"; break;
+      { case( MBDataType::Floats )          : cf=(char*)"%7.7g"; break;
+        case( MBDataType::Bits   )          : cf=(char*)"%d"; break;
+        case( MBDataType::Bytes  )          : cf=(char*)"%d"; break;
+        case( MBDataType::Words  )          : cf=(char*)"%d"; break;
+        case( MBDataType::Dwords )          : cf=(char*)"%d"; break;
+        case( MBDataType::InputRegisters )  : cf=(char*)"%d"; break;
+        case( MBDataType::HoldingRegisters ): cf=(char*)"%d"; break;
+        case( MBDataType::DiscreteInputs   ): cf=(char*)"%d"; break;
+        case( MBDataType::Coils   )         : cf=(char*)"%d"; break;
       }
       break;
   }
@@ -780,6 +792,8 @@ QString MKTable::format_output( const MMValue &value, const MBDataType &datatype
         case( MBDataType::Bytes  ): mask=1<<7; i=8; break;
         case( MBDataType::Words  ): mask=1<<15;i=16; break;
         case( MBDataType::Dwords ): mask=1<<31;i=32; break;
+        case( MBDataType::DiscreteInputs  ): goto next; break;
+        case( MBDataType::Coils ): goto next; break;
       }
       j = value.toInt();
       for(k=0;k<i;k++)
@@ -794,10 +808,14 @@ next:
   { case( MBDataType::Floats ):
       str.sprintf(cf, value.toDouble() );
       break;
-    case( MBDataType::Bits   ):
-    case( MBDataType::Bytes  ):
-    case( MBDataType::Words  ):
-    case( MBDataType::Dwords ):
+    case( MBDataType::Bits            )  :
+    case( MBDataType::Bytes           )  :
+    case( MBDataType::Words           )  :
+    case( MBDataType::Dwords          )  :
+    case( MBDataType::InputRegisters )   :
+    case( MBDataType::HoldingRegisters ) :
+    case( MBDataType::DiscreteInputs )   :
+    case( MBDataType::Coils )            :
       str.sprintf(cf, d  );
       break;
   }

@@ -69,6 +69,10 @@ private:
   bool process_transaction( MMSlotTransaction &tr );
   void optimize_write();
   void optimize_write_transaction(int i1, int i2);
+  void optimize_write_holding();
+  void optimize_write_transaction_holding(int i1, int i2);
+  void optimize_write_coils();
+  void optimize_write_transaction_coils(int i1, int i2);
 private:
   int answer_timeout;
   QVector<MMModule> mmmodules; //!< модули

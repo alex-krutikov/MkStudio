@@ -99,7 +99,7 @@ public:
         int len  = 2*quantity;
         if( len > 250 ) break;
         ans[2] = len;
-        for(i=0; i<len; i++) ans[3+i] = base[first_reg+(i^1)];
+        for(i=0; i<len; i++) ans[3+i] = base[2*first_reg+(i^1)];
         ans_len = len + 5;
         break;
       }
@@ -137,8 +137,8 @@ public:
 
         int first_reg = (unsigned char)req[2]<<8 | (unsigned char)req[3];
         ans = req;
-        base[first_reg  ] = req[5];
-        base[first_reg+1] = req[4];
+        base[2*first_reg  ] = req[5];
+        base[2*first_reg+1] = req[4];
         ans_len = 8;
         break;
       }
@@ -219,7 +219,7 @@ public:
 
         for( i=0; i<len; i++ )
         {
-          base[first_reg+i] = req[ 7+(i^1) ];
+          base[2*first_reg+i] = req[ 7+(i^1) ];
         }
         ans_len = 8;
         break;

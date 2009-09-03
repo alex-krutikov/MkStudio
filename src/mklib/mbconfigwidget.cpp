@@ -509,6 +509,9 @@ void ModulesModel::refresh()
 //###################################################################
 QVariant SlotsModel::data ( const QModelIndex & index, int role ) const
 {
+  QRegExp rx1("^[0-9A-F]{1,5}$"); // шестнадцатиричное число 1-5 разр€да
+  QRegExp rx2("^[0-9]{1,4}$");       // дес€тичное число 1-4 разр€да
+
   if( current_module < 0 ) return QVariant();
   int row = index.row();
   int column = index.column();
@@ -541,25 +544,15 @@ QVariant SlotsModel::data ( const QModelIndex & index, int role ) const
         case (2): return QVariant(Qt::AlignRight | Qt::AlignVCenter);
       }
       break;
-    case( Qt::ToolTipRole):
-      // прогнозирование следующего адреса
-      if( row > 0 )
-      { QString str;
-        bool ok;
-        str = sd[current_module][row-1].addr;
-        int a   = str.toInt(&ok,16);
-        int len = sd[current_module][row-1].n;
-        if( !ok ) break;
-        switch( sd[current_module][row-1].type.id() )
-        { case( MBDataType::Bits  ):  len /= 8;  break;
-          case( MBDataType::Bytes ):          ;  break;
-          case( MBDataType::Words ):  len *= 2;  break;
-          case( MBDataType::Dwords ):
-          case( MBDataType::Floats ): len *= 4;  break;
-          default: len=0;
-        }
-        str = QString::number( a + len, 16 ).toUpper();
-        return "–асчетный адрес: "+ str;
+    case( Qt::ForegroundRole ):
+      if( column == 1 )
+      {
+        const MBDataType &type = sd[current_module][row].type;
+        const QString &addr = sd[current_module][row].addr;
+        if( type.isRegister() && !rx2.exactMatch(addr) )
+            return QColor("red");
+        if( !type.isRegister() && !rx1.exactMatch(addr) )
+            return QColor("red");        
       }
       break;
   }
@@ -577,7 +570,7 @@ QVariant SlotsModel::headerData ( int section, Qt::Orientation orientation,
   { case( Qt::DisplayRole ):
       switch( section )
       { case (0): return("N");
-        case (1): return("јдрес");
+        case (1): return("јдрес/Ќомер");
         case (2): return(" ол-во");
         case (3): return("“ип");
         case (4): return("ќписание");
@@ -586,9 +579,9 @@ QVariant SlotsModel::headerData ( int section, Qt::Orientation orientation,
     case( Qt::SizeHintRole ):
       switch( section )
       { case (0): return QSize(20,20);
-        case (1): return QSize(50,20);
+        case (1): return QSize(90,20);
         case (2): return QSize(50,20);
-        case (3): return QSize(75,20);
+        case (3): return QSize(100,20);
         case (4): return QSize(100,20);
       }
       break;
@@ -624,10 +617,10 @@ bool SlotsModel::setData ( const QModelIndex & index,
   if( current_module < 0 ) return false;
   QString str;
   QString was;
-  QRegExp rx1("^[0-9A-F]{1,4}$|^$"); // шестнадцатиричное число 1-4 разр€да или ничего
-  QRegExp rx2("^[0-9]{1,5}$");       // дес€тичное число 1-5 разр€да
-  QRegExp rx3("^[0-9]{1,4}$");       // дес€тичное число 1-4 разр€да
-
+  QRegExp rx1("^[0-9]{1,4}$|^$");       // дес€тичное число 1-4 разр€да или ничего
+  QRegExp rx2("^[0-9A-F]{1,5}$|^$"); // шестнадцатиричное число 1-5 разр€да или ничего
+  QRegExp rq("^[0-9]{1,4}$|");
+  MBDataType type1, type2;
   int row = index.row();
   int column = index.column();
 
@@ -636,10 +629,17 @@ bool SlotsModel::setData ( const QModelIndex & index,
       switch( column )
       { case(1):
           str = value.toString().toUpper();
-          if( !rx1.exactMatch( str ))
-          { QMessageBox::warning( 0, "MBConfigWidget", "јдрес должен быть шестнадцатиричным числом в диапазоне 0-FFFFF!" );
-            break;
-          }
+          if( sd[current_module][row].type.isRegister() )
+            { if( !rx1.exactMatch( str ))
+             { QMessageBox::warning( 0, "MBConfigWidget", "Ќомер должен быть дес€тичным числом в диапазоне 0-9999!" );
+               break;
+             }
+            }
+          else if( !rx2.exactMatch( str ))
+               { QMessageBox::warning( 0, "MBConfigWidget", "јдрес должен быть шестнадцатиричным числом в диапазоне 0-FFFFF!" );
+               break;
+               }
+
           was = data(index, Qt::DisplayRole).toString();
           if (was.isEmpty() && !(str.isEmpty())) //setting up correct type
           { MBDataType tta = MBDataType(0);
@@ -662,14 +662,31 @@ bool SlotsModel::setData ( const QModelIndex & index,
           }
           goto ok;
         case(2):
-          if( !rx2.exactMatch( value.toString() ) )
+          if( !rq.exactMatch( value.toString() ) )
           { QMessageBox::warning( 0, "MBConfigWidget", " оличество должно быть дес€тичным числом в диапазоне 0-9999!" );
             break;
           }        
           sd[current_module][row].n = value.toInt();
           goto ok;
         case (3):
-          sd[current_module][row].type = MBDataType(value.toInt());          
+          str = sd[current_module][row].addr;
+          type1 = sd[current_module][row].type;
+          sd[current_module][row].type = MBDataType(value.toInt());
+          type2 = sd[current_module][row].type;
+          if( type1.id() != 0) //type was known
+          { int base1 = 16;
+            int base2 = 16;
+            double coeff = 1;            
+            if (type1.isRegister()) base1 = 10;
+            if (type2.isRegister()) base2 = 10;
+            if (type1.isAnalogRegister() && !type2.isAnalogRegister())
+              coeff = 2;
+            if (!type1.isAnalogRegister() && type2.isAnalogRegister())
+              coeff = 0.5;            
+            int addr = (int) (str.toInt(0, base1) * coeff);
+            str = QString::number(addr, base2).toUpper();
+          }          
+          sd[current_module][row].addr = str;
           break;
         case(4):
           sd[current_module][row].desc = value.toString();

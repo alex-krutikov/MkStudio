@@ -364,9 +364,10 @@ void MBMasterWidgetTableModel::update_slots( MBMasterXML *mm )
     ss.module   = module;
     ss.n        = mm->d->mmslots[i].n;
     ss.mm_index = i;
-    ss.addr     = QString::number( mm->d->mmslots[i].addr,16 ).toUpper();
-    ss.len      = mm->d->mmslots[i].len;
     ss.datatype = mm->d->mmslots[i].datatype;
+    if( ss.datatype.isRegister() ) ss.addr = QString::number( mm->d->mmslots[i].addr,10 );
+    else ss.addr = QString::number( mm->d->mmslots[i].addr,16 ).toUpper();
+    ss.len      = mm->d->mmslots[i].len;    
     ss.desc     = mm->d->mmslots[i].desc;
     table << ss;
   }

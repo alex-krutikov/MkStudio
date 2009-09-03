@@ -65,10 +65,11 @@ void MBMasterXML::load_configuration( QDomDocument &doc )
     { element = slot_list.item( j ).toElement();
       ss.status = MMSlot::NotInit;
       ss.n    = element.attribute("N").toInt();
-      ss.addr = element.attribute("Addr").toInt(&ok,16);
-      ss.len  = element.attribute("Length").toInt();
       str = element.attribute("Type");
       ss.datatype.fromTextId( str );
+      if( ss.datatype.isRegister() ) ss.addr = element.attribute("Addr").toInt(&ok,10);
+      else ss.addr = element.attribute("Addr").toInt(&ok,16);
+      ss.len  = element.attribute("Length").toInt();      
       str = element.attribute("Operation");
       ss.data.resize( ss.len );
       ss.desc       = element.attribute("Desc");

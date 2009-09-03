@@ -31,6 +31,7 @@ Section "MKView"
   
   ; Put file there
   File ..\..\bin\mkview.exe
+  File ..\..\bin\classic_registers.xml
 
   File ..\..\..\qt\bin\qtcore4.dll
   File ..\..\..\qt\bin\qtgui4.dll
@@ -82,6 +83,7 @@ Section "Uninstall"
   Delete $INSTDIR\mingwm10.dll
   Delete $INSTDIR\qwt5.dll
   Delete $INSTDIR\mkview.ini
+  Delete $INSTDIR\classic_registers.xml
   Delete $INSTDIR\mikkon\*.xml
 
   ; Remove shortcuts, if any

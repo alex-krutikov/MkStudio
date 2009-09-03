@@ -36,6 +36,7 @@ Section "MKStudio è MKView"
   File ..\..\bin\mkserverd.exe
   File ..\..\bin\mkquery.exe
   File ..\..\bin\mksync.exe
+  File ..\..\bin\classic_registers.xml
 
   File ..\..\..\qt\bin\qtcore4.dll
   File ..\..\..\qt\bin\qtgui4.dll
@@ -43,7 +44,7 @@ Section "MKStudio è MKView"
   File ..\..\..\qt\bin\qtnetwork4.dll
   File ..\..\..\qt\bin\mingwm10.dll
   File ..\..\..\qt\bin\qwt5.dll
-  
+
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\MKStudio "Install_Dir" "$INSTDIR"
   
@@ -101,6 +102,7 @@ Section "Uninstall"
   Delete $INSTDIR\mkstudio.ini
   Delete $INSTDIR\mkview.ini
   Delete $INSTDIR\mkserver.ini
+  Delete $INSTDIR\classic_registers.xml
 
   ; Remove shortcuts, if any
   Delete "$SMPROGRAMS\MikSYS\MKStudio\*.*"
