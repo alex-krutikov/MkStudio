@@ -8,7 +8,7 @@ RCC_DIR        = build
 UI_HEADERS_DIR = build
 
 TEMPLATE = app
-QT      += xml
+QT      += xml network
 DEPENDPATH  += . ui
 INCLUDEPATH += . ui
 

@@ -80,6 +80,7 @@ int main(int argc, char *argv[])
 
       MainWindowXml mainwindow(0,  initdialog->portname(),
                                    initdialog->portspeed(),
+                                   initdialog->host(),
                                    initdialog->filename(),
                                    initdialog->int_module_node(),
                                    initdialog->int_module_subnode() );

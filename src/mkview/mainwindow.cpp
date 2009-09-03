@@ -4,6 +4,7 @@
 #include "main.h"
 #include "interface.h"
 #include "serialport.h"
+#include "mbtcp.h"
 #include "mbmasterxml.h"
 #include "serialport.h"
 #include "mktable.h"
@@ -59,6 +60,7 @@ InitDialog::InitDialog( QWidget *parent )
     str2.replace(';',"        ( ");
     cb_portname->addItem( str2+" )", str.section(';',0,0) );
   }
+  cb_portname->addItem( "Modbus TCP", "===TCP===" );
   i = cb_portname->findData( settings.value("portname").toString() );
   if( i >= 0 ) cb_portname->setCurrentIndex(i);
   //--------------------------------------------------------
@@ -83,12 +85,28 @@ InitDialog::InitDialog( QWidget *parent )
   i = cb_modulename->findText( settings.value("modulename").toString() );
   if( i >= 0 ) cb_modulename->setCurrentIndex(i);
   //--------------------------------------------------------
+  le_host->setText( settings.value("tcphost","1").toString() );
+  //--------------------------------------------------------
   QRegExp rx("(\\d{1,3})(\\.\\d{1,2})?");
   QValidator *validator = new QRegExpValidator(rx, this);
   le_node->setValidator(validator);
   le_node->setText( settings.value("modulenode","1").toString() );
   //--------------------------------------------------------
   setFocus();
+}
+
+//==============================================================================
+/// Переключение ComboBox'а порта
+//==============================================================================
+void InitDialog::on_cb_portname_currentIndexChanged(int)
+{
+  QString str = cb_portname->itemData( cb_portname->currentIndex() ).toString();
+  bool b = ( str == "===TCP===" );
+
+  cb_portspeed->setHidden(   b );
+  l_speed->setHidden(        b );
+  l_host->setHidden(      !b );
+  le_host->setHidden( !b );
 }
 
 //==============================================================================
@@ -108,6 +126,14 @@ void InitDialog::setModulesComboBox( QComboBox *cb )
   { str2=str.toUpper();
     str2.remove(".XML");
     cb->addItem( str2, current_dir.absoluteFilePath(str) );
+  }
+  //-------------------------------------------------
+  QDir mikkon_dir( qApp->applicationDirPath()+"/mikkon" );
+  sl = mikkon_dir.entryList( QStringList() << "*.xml" );
+  foreach( str, sl )
+  { str2=str.toUpper();
+    str2.remove(".XML");
+    cb->addItem( str2, mikkon_dir.absoluteFilePath(str) );
   }
   //-------------------------------------------------
   sl = current_dir.entryList( QStringList() << PLUGIN_FILE_MASK1 );
@@ -265,6 +291,14 @@ QString InitDialog::module_name()
 //=======================================================================================
 //
 //=======================================================================================
+QString InitDialog::host() const
+{
+  return le_host->text();
+}
+
+//=======================================================================================
+//
+//=======================================================================================
 int InitDialog::int_module_node()
 {
   QRegExp rx("(\\d+)");
@@ -289,6 +323,7 @@ void InitDialog::accept()
   QSettings settings( QSETTINGS_PARAM );
   settings.setValue( "portname",   cb_portname->itemData( cb_portname->currentIndex() ) );
   settings.setValue( "portspeed",  cb_portspeed->currentText() );
+  settings.setValue( "tcphost",    le_host->text() );
   settings.setValue( "modulename", cb_modulename->currentText() );
   settings.setValue( "modulenode", le_node->text() );
   done( QDialog::Accepted );
@@ -297,8 +332,8 @@ void InitDialog::accept()
 //#######################################################################################
 //
 //#######################################################################################
-MainWindowXml::MainWindowXml( QWidget *parent, QString portname, int portspeed,
-                              QString xml_filename, int node, int subnode )
+MainWindowXml::MainWindowXml( QWidget *parent, const QString &portname, int portspeed ,
+                 const QString &host, const QString &xml_filename,int node, int subnode )
   : QMainWindow( parent )
 {
   setupUi( this );
@@ -311,9 +346,17 @@ MainWindowXml::MainWindowXml( QWidget *parent, QString portname, int portspeed,
     qApp->setFont( fnt );
   }
 
-  port.setName( portname );
-  port.setSpeed( portspeed );
-  if( !port.open() )
+  if( portname == "===TCP===" )
+  { port = new MbTcpPort;
+    port->setName( host );
+  } else
+  { port = new SerialPort;
+    port->setName( portname );
+  }
+
+  port->setSpeed( portspeed );
+
+  if( !port->open() )
   { qApp->restoreOverrideCursor();
     QMessageBox::information(0,app_header,
                              "Ошибка открытия порта.\n\n"
@@ -321,7 +364,7 @@ MainWindowXml::MainWindowXml( QWidget *parent, QString portname, int portspeed,
                              "другим приложением.\n\n"
                              "Порт будет автоматически открыт\nпри его освобождении." );
   }
-  mbmaster.setTransport( &port );
+  mbmaster.setTransport( port );
 
   tw = new MKTable;
   tw->setMBMaster( &mbmaster );
@@ -387,6 +430,14 @@ MainWindowXml::MainWindowXml( QWidget *parent, QString portname, int portspeed,
 //==============================================================================
 //
 //==============================================================================
+MainWindowXml::~MainWindowXml()
+{
+  delete port;
+}
+
+//==============================================================================
+//
+//==============================================================================
 void MainWindowXml::on_action_font_increase_activated()
 {
   QFont fnt = qApp->font();
@@ -427,6 +478,8 @@ void MainWindowXml::group_update()
 void MainWindowXml::closeEvent( QCloseEvent *event )
 {
   Q_UNUSED( event );
+
+  mbmaster.polling_stop();
 
   QSettings settings( QSETTINGS_PARAM );
   settings.setValue( "font_size",   qApp->font().pointSize() );

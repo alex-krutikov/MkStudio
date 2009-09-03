@@ -5,6 +5,7 @@
 #include "mbmasterxml.h"
 #include "serialport.h"
 
+class AbstractSerialPort;
 class MKViewPluginInterface;
 class MKTable;
 class InfoLabel;
@@ -24,11 +25,13 @@ public:
   int portspeed();
   QString module_node();
   QString module_name();
+  QString host() const;
   int int_module_node();
   int int_module_subnode();
 private:
   void setModulesComboBox( QComboBox *cb );
 private slots:
+  void on_cb_portname_currentIndexChanged(int);
   void on_tb_modulehelp_clicked();
   void on_tb_moduleinfo_clicked();
 };
@@ -42,8 +45,9 @@ class MainWindowXml : public QMainWindow,
 {
   Q_OBJECT
 public:
-  MainWindowXml( QWidget *parent = 0, QString portname = QString(), int portspeed = 115200,
-                 QString xml_filename = QString(),int node=1, int subnode=0 );
+  MainWindowXml( QWidget *parent = 0, const QString &portname = QString(), int portspeed = 115200,
+                 const QString &host = "localhost", const QString &xml_filename = QString(),int node=1, int subnode=0 );
+  ~MainWindowXml();
   void closeEvent( QCloseEvent *event );
 private slots:
   void group_update();
@@ -56,7 +60,7 @@ private:
   InfoLabel *status_answers;
   InfoLabel *status_errors;
   InfoLabel *full_time;
-  SerialPort port;
+  AbstractSerialPort *port;
   MBMasterXML   mbmaster;
 };
 
