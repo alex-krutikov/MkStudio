@@ -59,106 +59,133 @@ void MBMasterPrivate::polling_start()
  //--- конфигурация транзакций на чтение -------------------------------------------------
  for( i=0; i<mmslots.count(); i++ )
  { MMSlot &ps = mmslots[i];
-   j = ps.len;
-   switch( ps.datatype.id() )
-   { case( MBDataType::Bits   )          : j = j/8; break;
-     case( MBDataType::Bytes  )          : j = j*1; break;
-     case( MBDataType::Words  )          : j = j*2; break;
-     case( MBDataType::Dwords )          : j = j*4; break;
-     case( MBDataType::Floats )          : j = j*4; break;
-     case( MBDataType::InputRegisters)   : j = j*2; break;
-     case( MBDataType::HoldingRegisters) : j = j*2; break;
-     case( MBDataType::DiscreteInputs  ) : j = j/8; break;
-     case( MBDataType::Coils  )          : j = j/8; break;
-     default: break;
-   }
 
-   k=0;
-   while( k < j )
-   { //len = qMin( j-k, 128 );
-     len = qMin( j-k, (int)((max_packet_length&0x7FFFFFFC)-6) );
-     a = k + ps.addr;
-     //--------------------------------
+   if( ps.datatype.isRegister() )
+   { // classic modbus registers
+
+     int regs_per_packet = 1;
      switch( ps.datatype.id() )
-     { case( MBDataType::InputRegisters ) :
-         ba.resize( 6 );
-         ba[0] = ps.module.node;
-         ba[1] = 0x04;
-         ba[2] = a >> 8;
-         ba[3] = a;
-         ba[4] = (len / 2) >> 8;
-         ba[5] = (len / 2);
-         CRC::appendCRC16( ba );
-         //len = ps.len; //wo
-         mmsp.exp_length = len+5;
+     { case( MBDataType::InputRegisters):
+       case( MBDataType::HoldingRegisters):
+         regs_per_packet = ((int)((max_packet_length&0x7FFFFFFC)-5))/2;
          break;
-       case( MBDataType::HoldingRegisters ) :
-         ba.resize( 6 );
-         ba[0] = ps.module.node;
-         ba[1] = 0x03;
-         ba[2] = a >> 8;
-         ba[3] = a;
-         ba[4] = (len / 2) >> 8;
-         ba[5] = (len / 2);
-         CRC::appendCRC16( ba );
-         //len = ps.len; //wo
-         mmsp.exp_length = len+5;         
+       case( MBDataType::DiscreteInputs  ):
+       case( MBDataType::Coils  ):
+         regs_per_packet = ((int)((max_packet_length&0x7FFFFFFC)-5))*8;
          break;
-       case( MBDataType::DiscreteInputs ):
-         ba.resize( 6 );
-         ba[0] = ps.module.node;
-         ba[1] = 0x02;
-         ba[2] = a >> 8;
-         ba[3] = a;
-         ba[4] = (len * 8) >> 8;
-         ba[5] = (len * 8);
-         CRC::appendCRC16( ba );                  
-         mmsp.exp_length = len+5;
-         break;
-       case( MBDataType::Coils ):
-         ba.resize( 6 );
-         ba[0] = ps.module.node;
-         ba[1] = 0x01;
-         ba[2] = a >> 8;
-         ba[3] = a;
-         ba[4] = (len * 8) >> 8;
-         ba[5] = (len * 8);
-         CRC::appendCRC16( ba );
-         mmsp.exp_length = len+5;
-         break;
-       default :
-         ba.resize( 6 );
-         ba[0] = ps.module.node;
-         ba[1] = 0x43;
-         ba[2] = 0x00 | ( ps.module.subnode << 4 );
-         ba[3] = a >> 8;
-         ba[4] = a;
-         ba[5] = len & 0xFF;
-         CRC::appendCRC16( ba );
-         mmsp.exp_length = len+6;
-         break;
-     }     
-     //--------------------------------
-     mmsp.slot = &ps;
-     switch( ps.datatype.id() )
-     { case( MBDataType::Bits   )           : mmsp.offset = k*8; mmsp.length = len*8; break;
-       case( MBDataType::Bytes  )           : mmsp.offset = k/1; mmsp.length = len/1; break;
-       case( MBDataType::Words  )           : mmsp.offset = k/2; mmsp.length = len/2; break;
-       case( MBDataType::Dwords )           : mmsp.offset = k/4; mmsp.length = len/4; break;
-       case( MBDataType::Floats )           : mmsp.offset = k/4; mmsp.length = len/4; break;
-       case( MBDataType::InputRegisters )   : mmsp.offset = k/2; mmsp.length = len/2; break;
-       case( MBDataType::HoldingRegisters ) : mmsp.offset = k/2; mmsp.length = len/2; break;
-       case( MBDataType::DiscreteInputs  )  : mmsp.offset = k*8; mmsp.length = len*8; break;;
-       case( MBDataType::Coils  )           : mmsp.offset = k*8; mmsp.length = len*8; break;;
-       default: break;
+       default: continue; break;
      }
-     mmsp.request = ba;     
-     mmsp.answer.resize( mmsp.exp_length );
-     mmsp.execute_flag = true;
 
-     transactions_read << mmsp;
-     //--------------------------------
-     k = k+len;
+     k=0;
+     while( k < ps.len )
+     { int reg_first = k + ps.addr;
+       int reg_count = qMin( regs_per_packet, ps.len - k );
+       //--------------------------------
+       switch( ps.datatype.id() )
+       { case( MBDataType::InputRegisters ) :
+           ba.resize( 6 );
+           ba[0] = ps.module.node;
+           ba[1] = 0x04;
+           ba[2] = reg_first >> 8;
+           ba[3] = reg_first;
+           ba[4] = reg_count >> 8;
+           ba[5] = reg_count;
+           CRC::appendCRC16( ba );
+           mmsp.exp_length = 2*reg_count+5;
+           break;
+         case( MBDataType::HoldingRegisters ) :
+           ba.resize( 6 );
+           ba[0] = ps.module.node;
+           ba[1] = 0x03;
+           ba[2] = reg_first >> 8;
+           ba[3] = reg_first;
+           ba[4] = reg_count >> 8;
+           ba[5] = reg_count;
+           CRC::appendCRC16( ba );
+           mmsp.exp_length = 2*reg_count+5;
+           break;
+         case( MBDataType::DiscreteInputs ):
+           ba.resize( 6 );
+           ba[0] = ps.module.node;
+           ba[1] = 0x02;
+           ba[2] = reg_first >> 8;
+           ba[3] = reg_first;
+           ba[4] = reg_count >> 8;
+           ba[5] = reg_count;
+           CRC::appendCRC16( ba );
+           mmsp.exp_length = ((reg_count-1)/8+1)+5;
+           break;
+         case( MBDataType::Coils ):
+           ba.resize( 6 );
+           ba[0] = ps.module.node;
+           ba[1] = 0x01;
+           ba[2] = reg_first >> 8;
+           ba[3] = reg_first;
+           ba[4] = reg_count >> 8;
+           ba[5] = reg_count;
+           CRC::appendCRC16( ba );
+           mmsp.exp_length = ((reg_count-1)/8+1)+5;
+           break;
+         default :
+           break;
+       }
+       //--------------------------------
+       mmsp.slot    = &ps;
+       mmsp.offset  = k;
+       mmsp.length  = reg_count;
+       mmsp.request = ba;
+       mmsp.answer.resize( mmsp.exp_length );
+       mmsp.execute_flag = true;
+
+       transactions_read << mmsp;
+       //--------------------------------
+       k = k + reg_count;
+     }
+   } else
+   {  // mikkkon
+
+     j = ps.len;
+     switch( ps.datatype.id() )
+     { case( MBDataType::Bits   )          : j = j/8; break;
+       case( MBDataType::Bytes  )          : j = j*1; break;
+       case( MBDataType::Words  )          : j = j*2; break;
+       case( MBDataType::Dwords )          : j = j*4; break;
+       case( MBDataType::Floats )          : j = j*4; break;
+       default: continue; break;
+     }
+
+     k=0;
+     while( k < j )
+     { len = qMin( j-k, (int)((max_packet_length&0x7FFFFFFC)-6) );
+       a = k + ps.addr;
+       //--------------------------------
+       ba.resize( 6 );
+       ba[0] = ps.module.node;
+       ba[1] = 0x43;
+       ba[2] = 0x00 | ( ps.module.subnode << 4 );
+       ba[3] = a >> 8;
+       ba[4] = a;
+       ba[5] = len & 0xFF;
+       CRC::appendCRC16( ba );
+       mmsp.exp_length = len+6;
+       //--------------------------------
+       mmsp.slot = &ps;
+       switch( ps.datatype.id() )
+       { case( MBDataType::Bits   )           : mmsp.offset = k*8; mmsp.length = len*8; break;
+         case( MBDataType::Bytes  )           : mmsp.offset = k/1; mmsp.length = len/1; break;
+         case( MBDataType::Words  )           : mmsp.offset = k/2; mmsp.length = len/2; break;
+         case( MBDataType::Dwords )           : mmsp.offset = k/4; mmsp.length = len/4; break;
+         case( MBDataType::Floats )           : mmsp.offset = k/4; mmsp.length = len/4; break;
+         default: break;
+       }
+       mmsp.request = ba;
+       mmsp.answer.resize( mmsp.exp_length );
+       mmsp.execute_flag = true;
+
+       transactions_read << mmsp;
+       //--------------------------------
+       k = k+len;
+     }
    }
  }
 
@@ -233,7 +260,7 @@ void MBMasterPrivate::polling_start()
            break;
        }
      }
-     //--------------------------------     
+     //--------------------------------
      transactions_write << mmsp;
      transactions_write_map.insert( ModuleSlotIndex( ps.module.n, ps.n, k ), m );
      m++;
@@ -594,7 +621,7 @@ void MBMasterPrivate::optimize_write_holding()
     { QByteArray &ba1 = transactions_write[i].request;
       QByteArray &ba2 = transactions_write[i+1].request;
       if( ba1[0] != ba2[0] ) goto skip;
-      if( ba1[1] != ba2[1] ) goto skip;      
+      if( ba1[1] != ba2[1] ) goto skip;
       addr1 = ( (unsigned char)ba1[3]) | ((unsigned char)ba1[2] << 8);
       addr2 = ( (unsigned char)ba2[3]) | ((unsigned char)ba2[2] << 8);
       if( ( addr1 + 1 ) != addr2 ) goto skip;
@@ -627,9 +654,9 @@ void MBMasterPrivate::optimize_write_holding()
 void MBMasterPrivate::optimize_write_transaction_holding(int i1, int i2)
 {
   int i,j;
-  QByteArray ba;  
+  QByteArray ba;
   QByteArray ba_copy;
-  QByteArray ba_answer;  
+  QByteArray ba_answer;
   int addr1;
   int s;
 
@@ -639,7 +666,7 @@ void MBMasterPrivate::optimize_write_transaction_holding(int i1, int i2)
 
   for(i=i1; i<=i2; )
   { QByteArray ba = transactions_write[i].request;
-    ba_copy = ba;        
+    ba_copy = ba;
     addr1 = ( (unsigned char)ba[2] << 8)  | ((unsigned char)ba[3]);
     int len;  //number of registers that would fit into one package
     for( len = i2 - i + 1; len > 1; len--)
@@ -729,7 +756,7 @@ void MBMasterPrivate::optimize_write_coils()
 void MBMasterPrivate::optimize_write_transaction_coils(int i1, int i2)
 {
   int i,j;
-  QByteArray ba;  
+  QByteArray ba;
   QByteArray ba_copy;
   QByteArray ba_answer;
   int addr1;
@@ -751,7 +778,7 @@ void MBMasterPrivate::optimize_write_transaction_coils(int i1, int i2)
       if ((n_asterisk + 9) <= (max_packet_length - 4)) break;
     }
     if (len > 1) //generating package
-    {     
+    {
      n_asterisk = ((len - 1)/8 + 1);
      ba.resize(7 + n_asterisk); //w/o CRC
      ba[1] = 0x0F;
@@ -766,14 +793,14 @@ void MBMasterPrivate::optimize_write_transaction_coils(int i1, int i2)
      int unused = 8 * n_asterisk - len;
      ba[6 + j-1] = val >> unused;
      CRC::appendCRC16( ba );
-    }    
+    }
     else ba = ba_copy; //single write
     ba_answer.resize( 6 );
     ba_answer.fill(0);
     if( !transport  ) return;
     int errorcode;
     request_counter++;
-    msleep( transaction_delay );    
+    msleep( transaction_delay );
     transport->query( ba, ba_answer, &errorcode );
     i = i + len;
     addr1 = addr1 + len;
@@ -920,7 +947,7 @@ bool MBMasterPrivate::process_transaction( MMSlotTransaction &tr )
         default:
           goto exit; break;
       }
-    }    
+    }
   }
 
   tr.slot->status=MMSlot::Ok;
@@ -976,7 +1003,7 @@ void MBMasterPrivate::setSlotValue(int module, int slot,int index, const MMValue
    i=transactions_write_map.value( ModuleSlotIndex(module,slot,index), -1 );
    if( (i>=0) && (i<transactions_write.count()) )
    {
-    //Console::Print( QString("Запись: слот найден!\n") );    
+    //Console::Print( QString("Запись: слот найден!\n") );
     if( !transactions_write[i].slot->datatype.isRegister() ) //not a register, means mikkon
     { transactions_write[i].request.resize(6);
       //Console::Print("запись 1:" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
@@ -1007,7 +1034,7 @@ void MBMasterPrivate::setSlotValue(int module, int slot,int index, const MMValue
           (*(short*)buff) = (swap_short(value.toInt()) & 0xFFFF );
           buff_len=2;
           break;
-        case( MBDataType::Coils ):            
+        case( MBDataType::Coils ):
             if (value.toInt() == 0) (*(short*)buff) = 0x0000;
             else (*(short*)buff) = 0x00FF;
             buff_len=2;
