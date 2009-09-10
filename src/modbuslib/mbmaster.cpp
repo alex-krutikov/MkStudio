@@ -67,11 +67,11 @@ void MBMasterPrivate::polling_start()
      switch( ps.datatype.id() )
      { case( MBDataType::InputRegisters):
        case( MBDataType::HoldingRegisters):
-         regs_per_packet = ((int)((max_packet_length&0x7FFFFFFC)-5))/2;
+         regs_per_packet = ((int)((max_packet_length&0x7FFFFFFF)-5))/2;
          break;
        case( MBDataType::DiscreteInputs  ):
        case( MBDataType::Coils  ):
-         regs_per_packet = ((int)((max_packet_length&0x7FFFFFFC)-5))*8;
+         regs_per_packet = ((int)((max_packet_length&0x7FFFFFFF)-5))*8;
          break;
        default: continue; break;
      }
@@ -156,7 +156,7 @@ void MBMasterPrivate::polling_start()
 
      k=0;
      while( k < j )
-     { len = qMin( j-k, (int)((max_packet_length&0x7FFFFFFC)-6) );
+     { len = qMin( j-k, (int)((max_packet_length&0x7FFFFFFC)-8) );
        a = k + ps.addr;
        //--------------------------------
        ba.resize( 6 );
