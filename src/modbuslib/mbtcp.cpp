@@ -88,8 +88,11 @@ void MbTcpPort::resetLastErrorType()
 //=============================================================================
 int MbTcpPort::query( const QByteArray &request, QByteArray &answer, int *errorcode)
 {
-  int j;
+  int j,timeout_counter;
   QByteArray tcp_header,tcp_ans;
+  int tcp_timeout = d->answer_timeout;
+
+  if( tcp_timeout < 2000 ) tcp_timeout=2000;
 
   if( !d->socket )
   { QString host = d->portname.section(':',0,0);
@@ -139,6 +142,7 @@ int MbTcpPort::query( const QByteArray &request, QByteArray &answer, int *errorc
 
   tcp_ans.resize(0);
 
+  timeout_counter=0;
   while(1)
   { if( d->socket->state() != QAbstractSocket::ConnectedState )
     { open();
@@ -147,10 +151,12 @@ int MbTcpPort::query( const QByteArray &request, QByteArray &answer, int *errorc
     }
     d->socket->waitForReadyRead(1000);
     tcp_ans.append( d->socket->readAll() );
+    if( ++timeout_counter >= (tcp_timeout/1000) ) goto error2;
     if( tcp_ans.size() < 6 ) continue;
     if( tcp_ans[2] || tcp_ans[3] || tcp_ans[4] ) goto error;
     if( tcp_ans[0] != tcp_header[0] ) goto error;
     if( tcp_ans[1] != tcp_header[1] ) goto error;
+    if( ( (int)(unsigned char)tcp_ans[5] + 6 ) >  tcp_ans.size() ) continue;
     if( ( (int)(unsigned char)tcp_ans[5] + 6 ) == tcp_ans.size() ) break;
     goto error;
   }
@@ -166,6 +172,10 @@ int MbTcpPort::query( const QByteArray &request, QByteArray &answer, int *errorc
   return j;
 error:
   Console::Print( Console::Error, "MB_TCP: Error: Wrong tcp anser: " + QByteArray2QString( tcp_ans ) +"\n" );
+  close();
+  return 0;
+error2:
+  Console::Print( Console::Error, "MB_TCP: Error: TCP timeout.\n" );
   close();
   return 0;
 }
