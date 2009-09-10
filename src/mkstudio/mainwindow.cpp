@@ -38,13 +38,14 @@ public:
 MainWindow::MainWindow()
 {
   setupUi( this );
+  dw_settingssheet->hide();
   setWindowTitle( app_header );
 
   undo_list_current_point = 0;
 
   QSettings settings( QSETTINGS_PARAM );
-  QPoint pos = settings.value("pos", QPoint(200, 200)).toPoint();
-  QSize size = settings.value("size", QSize(600, 400)).toSize();
+  QPoint pos = settings.value("pos", QPoint(100,100)).toPoint();
+  QSize size = settings.value("size", QSize(1000,800)).toSize();
   move( pos );
   resize( size );
   restoreState( settings.value("mainwindow").toByteArray() );
@@ -1283,7 +1284,7 @@ void MainWindow::on_action_help_about_triggered()
      "Версия программы: " + ProgramInformation::version() + "<br><br>"
      "ЗАО \"Инкоммет\" <br><br>"
      "<table border=0 cellpadding=1 cellspacing=1> "
-     "  <tbody><tr><td>тел.</td><td>(495) 171-97-49</td></tr> "
+     "  <tbody><tr><td>тел.</td><td>(499) 171-97-49</td></tr> "
      "         <tr><td>тел./факс</td><td>(495) 737-56-36</td></tr>"
      "         <tr><td>e-mail&nbsp;&nbsp;</td><td>mail@inkommet.ru</td></tr>"
      "         <tr><td>url</td><td><a href=\"http://www.inkommet.ru\">"
