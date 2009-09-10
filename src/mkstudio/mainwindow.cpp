@@ -1198,6 +1198,7 @@ void MainWindow::on_action_values_save_triggered()
   if( fileName.isEmpty() )
   { fileName="test";
   }
+  if( fileName.endsWith(".values.xml") ) fileName.chop(11);
   fileName = QFileDialog::getSaveFileName(this, "Сохранить",
                             fileName+".values.xml",
                             "Значения (*.values.xml)" );
