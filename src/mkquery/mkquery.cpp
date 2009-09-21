@@ -14,6 +14,7 @@ AbstractSerialPort *sp;
 
 int verb_mode;
 int repeats_count = 5;
+int timeout = 200;
 enum Mode { UnknownMode=0, Read, Write } operation_mode;
 bool unsigned_mode;
 int addr;
@@ -46,6 +47,7 @@ static void print_help()
   "    -write\n"
   "    -unsigned\n"
   "    -repeats=[Repeats count]\n"
+  "    -timeout=[Serial port timeout (ms)]\n"
   "    -v\n"
   ;
   cout << str;
@@ -80,6 +82,15 @@ static int init()
       { cerr << "Error: port speed is invalid";
         return 1;
       }
+    } else if( str.startsWith("-timeout=") )
+    { str.remove(0,9);
+      timeout = str.toInt(&ok);
+      if( !ok )
+      { cerr << "Error: port timeout is invalid";
+        return 1;
+      }
+      if( timeout < 50 )    timeout=50;
+      if( timeout > 30000 ) timeout=30000;
     } else if( str.startsWith("-node=") )
     { str.remove(0,6);
       node = str.toInt(&ok);
@@ -187,6 +198,7 @@ static int init()
   { sp = new SerialPort();
     sp->setName( portname );
     sp->setSpeed( portspeed );
+    sp->setAnswerTimeout( timeout );
 
     ok = sp->open();
     if( !ok )
@@ -200,6 +212,7 @@ static int init()
   if( !hostname.isEmpty() )
   { sp = new MbTcpPort();
     sp->setName( hostname );
+    sp->setAnswerTimeout( timeout );
 
     ok = sp->open();
     if( !ok )
