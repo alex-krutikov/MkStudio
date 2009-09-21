@@ -70,8 +70,10 @@ bool MbTcpPort::open()
 void MbTcpPort::close()
 {
   if( !d->socket ) return;
-  d->socket->disconnect();
-  d->socket->waitForDisconnected(1000);
+  d->socket->disconnectFromHost();
+  if( d->socket->state() != QAbstractSocket::UnconnectedState )
+  {   d->socket->waitForDisconnected(3000);
+  }
   delete d->socket;
   d->socket = 0;
 }
