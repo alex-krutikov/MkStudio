@@ -14,6 +14,7 @@ QString remote_path;
 QString local_path;
 int node=1;
 int maxlen=230;
+int timeout=200;
 bool fastmode;
 
 //=============================================================================
@@ -34,6 +35,7 @@ static void print_help()
   "    -rpath=[Remote path]\n"
   "    -lpath=[Local path]\n"
   "    -maxlen=[Maximum data length in packet]\n"
+  "    -timeout=[Serial port timeout (ms)]\n"
   "    -fast\n"
   ;
   cout << str;
@@ -68,6 +70,15 @@ static int init()
       { cerr << "Error: port speed is invalid";
         return 1;
       }
+    } else if( str.startsWith("-timeout=") )
+    { str.remove(0,9);
+      timeout = str.toInt(&ok);
+      if( !ok )
+      { cerr << "Error: port timeout is invalid";
+        return 1;
+      }
+      if( timeout < 50 )    timeout=50;
+      if( timeout > 30000 ) timeout=30000;
     } else if( str.startsWith("-rpath=") )
     { str.remove(0,7);
       if( str.startsWith('"') ) str.remove(0,1);
@@ -131,6 +142,7 @@ static int init()
   { sp = new SerialPort();
     sp->setName( portname );
     sp->setSpeed( portspeed );
+    sp->setAnswerTimeout( timeout );
 
     ok = sp->open();
     if( !ok )
@@ -144,6 +156,7 @@ static int init()
   if( !hostname.isEmpty() )
   { sp = new MbTcpPort();
     sp->setName( hostname );
+    sp->setAnswerTimeout( timeout );
 
     ok = sp->open();
     if( !ok )
