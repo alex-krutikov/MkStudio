@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="cp-1251"?>
 <!DOCTYPE MKStudio>
 <MKStudio>
-  <Table ColumnCount="9" Labels=";;;;;;;;" RowCount="125" LabelsSize="304;109;103;98;102;90;100;100;100" >
+  <Table ColumnCount="9" Labels=";;;;;;;;" RowCount="127" LabelsSize="304;109;103;98;102;90;100;100;100" >
     <Item Column="0" Row="0" Font="bold;underline;align_right" Text="  Аналоговые Входы  " BackgroundColor="#aaff00" />
     <Item Column="1" Row="0" Font="bold;align_center" Text="1" BackgroundColor="#aaff00" />
     <Item Column="2" Row="0" Font="bold;align_center" Text="2" BackgroundColor="#aaff00" />
@@ -378,8 +378,8 @@
     <Item Column="4" Format="dec" Row="41" SSSelector="КЛА" Font="align_center" Text="1/6/20" Assign="1/6/20" BackgroundColor="#faebd7" />
     <Item Column="5" Format="dec" Row="41" SSSelector="КЛА" Font="align_center" Text="1/6/21" Assign="1/6/21" BackgroundColor="#faebd7" />
     <Item Column="6" Format="dec" Row="41" SSSelector="КЛА" Font="align_center" Text="1/6/22" Assign="1/6/22" BackgroundColor="#faebd7" />
-    <Item Column="7" Format="dec" Row="41" Font="align_center" Text="1/6/23" Assign="1/6/23" BackgroundColor="#faebd7" />
-    <Item Column="8" Format="dec" Row="41" Font="align_center" Text="1/6/24" Assign="1/6/24" BackgroundColor="#faebd7" />
+    <Item Column="7" Format="dec" Row="41" SSSelector="КЛА" Font="align_center" Text="1/6/23" Assign="1/6/23" BackgroundColor="#faebd7" />
+    <Item Column="8" Format="dec" Row="41" SSSelector="КЛА" Font="align_center" Text="1/6/24" Assign="1/6/24" BackgroundColor="#faebd7" />
     <Item Column="0" Row="42" Font="align_right" Text=" Постоянная времени (в мс) экспотенциального фильтра" />
     <Item Column="1" Format="dec" Row="42" Font="align_center" Text="1/6/25" Assign="1/6/25" BackgroundColor="#faebd7" />
     <Item Column="2" Format="dec" Row="42" Font="align_center" Text="1/6/26" Assign="1/6/26" BackgroundColor="#faebd7" />
@@ -453,7 +453,7 @@
     <Item Column="7" Row="49" />
     <Item Column="8" Row="49" />
     <Item Column="0" Row="50" Font="align_right" Text="Чтение/Запись/Стирание - 105/90/75" />
-    <Item Column="1" Row="50" Font="underline;align_center" Text="1/1/3" Assign="1/1/3" BackgroundColor="#ffaa7f" />
+    <Item Column="1" Format="dec" Row="50" Font="underline;align_center" Text="1/1/3" Assign="1/1/3" BackgroundColor="#ffaa7f" />
     <Item Column="2" Row="50" />
     <Item Column="3" Row="50" />
     <Item Column="4" Row="50" />
@@ -470,8 +470,8 @@
     <Item Column="6" Row="51" />
     <Item Column="7" Row="51" />
     <Item Column="8" Row="51" />
-    <Item Column="0" Row="52" Font="align_right" Text=" Требование получить осциллограмму по каналу  " />
-    <Item Column="1" Format="dec" Row="52" SSSelector="mask" Font="align_center" Text="1/8/20" Assign="1/8/20" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="52" Font="align_right" Text="Диапазон входного сигнала АЦП (значение PGA)" />
+    <Item Column="1" Format="dec" Row="52" SSSelector="АЦП_PGA" Font="align_center" Text="1/6/33" Assign="1/6/33" BackgroundColor="#faebd7" />
     <Item Column="2" Row="52" />
     <Item Column="3" Row="52" />
     <Item Column="4" Row="52" />
@@ -479,8 +479,8 @@
     <Item Column="6" Row="52" />
     <Item Column="7" Row="52" />
     <Item Column="8" Row="52" />
-    <Item Column="0" Row="53" Font="align_right" Text=" Признак включения частотного фильтра по каналу  " />
-    <Item Column="1" Format="dec" Row="53" Font="align_center" Text="1/8/17" Assign="1/8/17" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="53" Font="align_right" Text="Коэфф. передачи измерительного тракта" />
+    <Item Column="1" Format="dec" Row="53" Font="align_center" Text="1/7/17" Assign="1/7/17" BackgroundColor="#faebd7" />
     <Item Column="2" Row="53" />
     <Item Column="3" Row="53" />
     <Item Column="4" Row="53" />
@@ -488,8 +488,8 @@
     <Item Column="6" Row="53" />
     <Item Column="7" Row="53" />
     <Item Column="8" Row="53" />
-    <Item Column="0" Row="54" Font="align_right" Text=" Требование считать БПФ по каналу (маска, не более 1 бита)  " />
-    <Item Column="1" Format="dec" Row="54" SSSelector="mask" Font="align_center" Text="1/8/18" Assign="1/8/18" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="54" Font="align_right" Text=" Требование получить осциллограмму по каналу  " />
+    <Item Column="1" Format="dec" Row="54" SSSelector="mask" Font="align_center" Text="1/8/20" Assign="1/8/20" BackgroundColor="#faebd7" />
     <Item Column="2" Row="54" />
     <Item Column="3" Row="54" />
     <Item Column="4" Row="54" />
@@ -497,8 +497,8 @@
     <Item Column="6" Row="54" />
     <Item Column="7" Row="54" />
     <Item Column="8" Row="54" />
-    <Item Column="0" Row="55" Font="align_right" Text=" Умножение частоты БПФ  " />
-    <Item Column="1" Format="dec" Row="55" Font="align_center" Text="1/8/19" Assign="1/8/19" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="55" Font="align_right" Text=" Признак включения частотного фильтра по каналу  " />
+    <Item Column="1" Format="dec" Row="55" Font="align_center" Text="1/8/17" Assign="1/8/17" BackgroundColor="#faebd7" />
     <Item Column="2" Row="55" />
     <Item Column="3" Row="55" />
     <Item Column="4" Row="55" />
@@ -506,8 +506,8 @@
     <Item Column="6" Row="55" />
     <Item Column="7" Row="55" />
     <Item Column="8" Row="55" />
-    <Item Column="0" Row="56" Font="align_right" Text=" Период обновления осциллограммы (сек)  " />
-    <Item Column="1" Format="dec" Row="56" Font="align_center" Text="1/8/21" Assign="1/8/21" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="56" Font="align_right" Text=" Требование считать БПФ по каналу (маска, не более 1 бита)  " />
+    <Item Column="1" Format="dec" Row="56" SSSelector="mask" Font="align_center" Text="1/8/18" Assign="1/8/18" BackgroundColor="#faebd7" />
     <Item Column="2" Row="56" />
     <Item Column="3" Row="56" />
     <Item Column="4" Row="56" />
@@ -515,8 +515,8 @@
     <Item Column="6" Row="56" />
     <Item Column="7" Row="56" />
     <Item Column="8" Row="56" />
-    <Item Column="0" Row="57" Font="align_right" Text=" Зарезервировано: Режим осциллограммы (0-DC, 1-AC, 2-DC+, 3-DC-)  " />
-    <Item Column="1" Format="dec" Row="57" Font="align_center" Text="1/8/22" Assign="1/8/22" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="57" Font="align_right" Text=" Умножение частоты БПФ  " />
+    <Item Column="1" Format="dec" Row="57" Font="align_center" Text="1/8/19" Assign="1/8/19" BackgroundColor="#faebd7" />
     <Item Column="2" Row="57" />
     <Item Column="3" Row="57" />
     <Item Column="4" Row="57" />
@@ -524,8 +524,8 @@
     <Item Column="6" Row="57" />
     <Item Column="7" Row="57" />
     <Item Column="8" Row="57" />
-    <Item Column="0" Row="58" Font="align_right" Text=" Зарезервировано: Выполняется получение осциллограммы  " />
-    <Item Column="1" Format="dec" Row="58" Font="align_center" Text="1/8/23" Assign="1/8/23" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="58" Font="align_right" Text=" Период обновления осциллограммы (сек)  " />
+    <Item Column="1" Format="dec" Row="58" Font="align_center" Text="1/8/21" Assign="1/8/21" BackgroundColor="#faebd7" />
     <Item Column="2" Row="58" />
     <Item Column="3" Row="58" />
     <Item Column="4" Row="58" />
@@ -533,8 +533,8 @@
     <Item Column="6" Row="58" />
     <Item Column="7" Row="58" />
     <Item Column="8" Row="58" />
-    <Item Column="0" Row="59" />
-    <Item Column="1" Row="59" />
+    <Item Column="0" Row="59" Font="align_right" Text=" Зарезервировано: Режим осциллограммы (0-DC, 1-AC, 2-DC+, 3-DC-)  " />
+    <Item Column="1" Format="dec" Row="59" Font="align_center" Text="1/8/22" Assign="1/8/22" BackgroundColor="#faebd7" />
     <Item Column="2" Row="59" />
     <Item Column="3" Row="59" />
     <Item Column="4" Row="59" />
@@ -542,17 +542,17 @@
     <Item Column="6" Row="59" />
     <Item Column="7" Row="59" />
     <Item Column="8" Row="59" />
-    <Item Column="0" Row="60" Font="bold;underline;align_right" Text="  КЛА  " BackgroundColor="#aaff00" />
-    <Item Column="1" Row="60" Font="bold;underline;align_right" BackgroundColor="#aaff00" />
-    <Item Column="2" Row="60" Font="bold;underline;align_right" BackgroundColor="#aaff00" />
-    <Item Column="3" Row="60" Font="bold;underline;align_right" BackgroundColor="#aaff00" />
-    <Item Column="4" Row="60" Font="bold;underline;align_right" BackgroundColor="#aaff00" />
-    <Item Column="5" Row="60" Font="bold;underline;align_right" BackgroundColor="#aaff00" />
-    <Item Column="6" Row="60" Font="bold;underline;align_right" BackgroundColor="#aaff00" />
-    <Item Column="7" Row="60" Font="bold;underline;align_right" BackgroundColor="#aaff00" />
-    <Item Column="8" Row="60" Font="bold;underline;align_right" BackgroundColor="#aaff00" />
-    <Item Column="0" Row="61" Font="align_right" Text="Номер КЛА для записи/чтения  " />
-    <Item Column="1" Format="dec" Row="61" Font="align_center" Text="1/12/1" Assign="1/12/1" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="60" Font="align_right" Text=" Зарезервировано: Выполняется получение осциллограммы  " />
+    <Item Column="1" Format="dec" Row="60" Font="align_center" Text="1/8/23" Assign="1/8/23" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="60" />
+    <Item Column="3" Row="60" />
+    <Item Column="4" Row="60" />
+    <Item Column="5" Row="60" />
+    <Item Column="6" Row="60" />
+    <Item Column="7" Row="60" />
+    <Item Column="8" Row="60" />
+    <Item Column="0" Row="61" />
+    <Item Column="1" Row="61" />
     <Item Column="2" Row="61" />
     <Item Column="3" Row="61" />
     <Item Column="4" Row="61" />
@@ -560,17 +560,17 @@
     <Item Column="6" Row="61" />
     <Item Column="7" Row="61" />
     <Item Column="8" Row="61" />
-    <Item Column="0" Row="62" Font="align_right" Text=" Кол-во точек таблицы КЛА  " />
-    <Item Column="1" Format="dec" Row="62" Font="align_center" Text="1/12/2" Assign="1/12/2" BackgroundColor="#faebd7" />
-    <Item Column="2" Row="62" />
-    <Item Column="3" Row="62" />
-    <Item Column="4" Row="62" />
-    <Item Column="5" Row="62" />
-    <Item Column="6" Row="62" />
-    <Item Column="7" Row="62" />
-    <Item Column="8" Row="62" />
-    <Item Column="0" Row="63" Font="align_right" Text=" Тип таблицы КЛА  " />
-    <Item Column="1" Format="dec" Row="63" SSSelector="КЛА_тип" Font="align_center" Text="1/12/3" Assign="1/12/3" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="62" Font="bold;underline;align_right" Text="  КЛА  " BackgroundColor="#aaff00" />
+    <Item Column="1" Row="62" Font="bold;underline;align_right" BackgroundColor="#aaff00" />
+    <Item Column="2" Row="62" Font="bold;underline;align_right" BackgroundColor="#aaff00" />
+    <Item Column="3" Row="62" Font="bold;underline;align_right" BackgroundColor="#aaff00" />
+    <Item Column="4" Row="62" Font="bold;underline;align_right" BackgroundColor="#aaff00" />
+    <Item Column="5" Row="62" Font="bold;underline;align_right" BackgroundColor="#aaff00" />
+    <Item Column="6" Row="62" Font="bold;underline;align_right" BackgroundColor="#aaff00" />
+    <Item Column="7" Row="62" Font="bold;underline;align_right" BackgroundColor="#aaff00" />
+    <Item Column="8" Row="62" Font="bold;underline;align_right" BackgroundColor="#aaff00" />
+    <Item Column="0" Row="63" Font="align_right" Text="Номер КЛА для записи/чтения  " />
+    <Item Column="1" Format="dec" Row="63" Font="align_center" Text="1/12/1" Assign="1/12/1" BackgroundColor="#faebd7" />
     <Item Column="2" Row="63" />
     <Item Column="3" Row="63" />
     <Item Column="4" Row="63" />
@@ -578,8 +578,8 @@
     <Item Column="6" Row="63" />
     <Item Column="7" Row="63" />
     <Item Column="8" Row="63" />
-    <Item Column="0" Row="64" Font="align_right" Text=" Операции с таблицей (90 - записать, 105 - прочитать, 75 - стереть)  " />
-    <Item Column="1" Format="dec" Row="64" Font="align_center" Text="1/12/4" Assign="1/12/4" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="64" Font="align_right" Text=" Кол-во точек таблицы КЛА  " />
+    <Item Column="1" Format="dec" Row="64" Font="align_center" Text="1/12/2" Assign="1/12/2" BackgroundColor="#faebd7" />
     <Item Column="2" Row="64" />
     <Item Column="3" Row="64" />
     <Item Column="4" Row="64" />
@@ -587,8 +587,8 @@
     <Item Column="6" Row="64" />
     <Item Column="7" Row="64" />
     <Item Column="8" Row="64" />
-    <Item Column="0" Row="65" />
-    <Item Column="1" Row="65" />
+    <Item Column="0" Row="65" Font="align_right" Text=" Тип таблицы КЛА  " />
+    <Item Column="1" Format="dec" Row="65" SSSelector="КЛА_тип" Font="align_center" Text="1/12/3" Assign="1/12/3" BackgroundColor="#faebd7" />
     <Item Column="2" Row="65" />
     <Item Column="3" Row="65" />
     <Item Column="4" Row="65" />
@@ -596,124 +596,124 @@
     <Item Column="6" Row="65" />
     <Item Column="7" Row="65" />
     <Item Column="8" Row="65" />
-    <Item Column="0" Row="66" Text=" " />
-    <Item Column="1" Row="66" Font="bold;align_center" Text="X (1-10)" />
-    <Item Column="2" Row="66" Font="bold;align_center" Text="Y (1-10)" />
-    <Item Column="3" Row="66" Font="bold;align_center" Text="X (11-20)" />
-    <Item Column="4" Row="66" Font="bold;align_center" Text="Y (11-20)" />
-    <Item Column="5" Row="66" Font="bold;align_center" Text="X (21-30)" />
-    <Item Column="6" Row="66" Font="bold;align_center" Text="Y (21-30)" />
-    <Item Column="7" Row="66" Font="bold;align_center" Text="X (31-40)" />
-    <Item Column="8" Row="66" Font="bold;align_center" Text="Y (31-40)" />
-    <Item Column="0" Row="67" Font="bold;align_right" Text="1  " />
-    <Item Column="1" Format="dec" Row="67" Font="align_center" Text="1/13/1" Assign="1/13/1" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="67" Font="align_center" Text="1/13/2" Assign="1/13/2" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="67" Font="align_center" Text="1/13/21" Assign="1/13/21" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="67" Font="align_center" Text="1/13/22" Assign="1/13/22" BackgroundColor="#faebd7" />
-    <Item Column="5" Format="dec" Row="67" Font="align_center" Text="1/13/41" Assign="1/13/41" BackgroundColor="#faebd7" />
-    <Item Column="6" Format="dec" Row="67" Font="align_center" Text="1/13/42" Assign="1/13/42" BackgroundColor="#faebd7" />
-    <Item Column="7" Format="dec" Row="67" Font="align_center" Text="1/13/61" Assign="1/13/61" BackgroundColor="#faebd7" />
-    <Item Column="8" Format="dec" Row="67" Font="align_center" Text="1/13/62" Assign="1/13/62" BackgroundColor="#faebd7" />
-    <Item Column="0" Row="68" Font="bold;align_right" Text="2  " />
-    <Item Column="1" Format="dec" Row="68" Font="align_center" Text="1/13/3" Assign="1/13/3" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="68" Font="align_center" Text="1/13/4" Assign="1/13/4" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="68" Font="align_center" Text="1/13/23" Assign="1/13/23" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="68" Font="align_center" Text="1/13/24" Assign="1/13/24" BackgroundColor="#faebd7" />
-    <Item Column="5" Format="dec" Row="68" Font="align_center" Text="1/13/43" Assign="1/13/43" BackgroundColor="#faebd7" />
-    <Item Column="6" Format="dec" Row="68" Font="align_center" Text="1/13/44" Assign="1/13/44" BackgroundColor="#faebd7" />
-    <Item Column="7" Format="dec" Row="68" Font="align_center" Text="1/13/63" Assign="1/13/63" BackgroundColor="#faebd7" />
-    <Item Column="8" Format="dec" Row="68" Font="align_center" Text="1/13/64" Assign="1/13/64" BackgroundColor="#faebd7" />
-    <Item Column="0" Row="69" Font="bold;align_right" Text="3  " />
-    <Item Column="1" Format="dec" Row="69" Font="align_center" Text="1/13/5" Assign="1/13/5" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="69" Font="align_center" Text="1/13/6" Assign="1/13/6" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="69" Font="align_center" Text="1/13/25" Assign="1/13/25" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="69" Font="align_center" Text="1/13/26" Assign="1/13/26" BackgroundColor="#faebd7" />
-    <Item Column="5" Format="dec" Row="69" Font="align_center" Text="1/13/45" Assign="1/13/45" BackgroundColor="#faebd7" />
-    <Item Column="6" Format="dec" Row="69" Font="align_center" Text="1/13/46" Assign="1/13/46" BackgroundColor="#faebd7" />
-    <Item Column="7" Format="dec" Row="69" Font="align_center" Text="1/13/65" Assign="1/13/65" BackgroundColor="#faebd7" />
-    <Item Column="8" Format="dec" Row="69" Font="align_center" Text="1/13/66" Assign="1/13/66" BackgroundColor="#faebd7" />
-    <Item Column="0" Row="70" Font="bold;align_right" Text="4  " />
-    <Item Column="1" Format="dec" Row="70" Font="align_center" Text="1/13/7" Assign="1/13/7" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="70" Font="align_center" Text="1/13/8" Assign="1/13/8" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="70" Font="align_center" Text="1/13/27" Assign="1/13/27" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="70" Font="align_center" Text="1/13/28" Assign="1/13/28" BackgroundColor="#faebd7" />
-    <Item Column="5" Format="dec" Row="70" Font="align_center" Text="1/13/47" Assign="1/13/47" BackgroundColor="#faebd7" />
-    <Item Column="6" Format="dec" Row="70" Font="align_center" Text="1/13/48" Assign="1/13/48" BackgroundColor="#faebd7" />
-    <Item Column="7" Format="dec" Row="70" Font="align_center" Text="1/13/67" Assign="1/13/67" BackgroundColor="#faebd7" />
-    <Item Column="8" Format="dec" Row="70" Font="align_center" Text="1/13/68" Assign="1/13/68" BackgroundColor="#faebd7" />
-    <Item Column="0" Row="71" Font="bold;align_right" Text="5  " />
-    <Item Column="1" Format="dec" Row="71" Font="align_center" Text="1/13/9" Assign="1/13/9" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="71" Font="align_center" Text="1/13/10" Assign="1/13/10" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="71" Font="align_center" Text="1/13/29" Assign="1/13/29" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="71" Font="align_center" Text="1/13/30" Assign="1/13/30" BackgroundColor="#faebd7" />
-    <Item Column="5" Format="dec" Row="71" Font="align_center" Text="1/13/49" Assign="1/13/49" BackgroundColor="#faebd7" />
-    <Item Column="6" Format="dec" Row="71" Font="align_center" Text="1/13/50" Assign="1/13/50" BackgroundColor="#faebd7" />
-    <Item Column="7" Format="dec" Row="71" Font="align_center" Text="1/13/69" Assign="1/13/69" BackgroundColor="#faebd7" />
-    <Item Column="8" Format="dec" Row="71" Font="align_center" Text="1/13/70" Assign="1/13/70" BackgroundColor="#faebd7" />
-    <Item Column="0" Row="72" Font="bold;align_right" Text="6  " />
-    <Item Column="1" Format="dec" Row="72" Font="align_center" Text="1/13/11" Assign="1/13/11" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="72" Font="align_center" Text="1/13/12" Assign="1/13/12" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="72" Font="align_center" Text="1/13/31" Assign="1/13/31" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="72" Font="align_center" Text="1/13/32" Assign="1/13/32" BackgroundColor="#faebd7" />
-    <Item Column="5" Format="dec" Row="72" Font="align_center" Text="1/13/51" Assign="1/13/51" BackgroundColor="#faebd7" />
-    <Item Column="6" Format="dec" Row="72" Font="align_center" Text="1/13/52" Assign="1/13/52" BackgroundColor="#faebd7" />
-    <Item Column="7" Format="dec" Row="72" Font="align_center" Text="1/13/71" Assign="1/13/71" BackgroundColor="#faebd7" />
-    <Item Column="8" Format="dec" Row="72" Font="align_center" Text="1/13/72" Assign="1/13/72" BackgroundColor="#faebd7" />
-    <Item Column="0" Row="73" Font="bold;align_right" Text="7  " />
-    <Item Column="1" Format="dec" Row="73" Font="align_center" Text="1/13/13" Assign="1/13/13" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="73" Font="align_center" Text="1/13/14" Assign="1/13/14" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="73" Font="align_center" Text="1/13/33" Assign="1/13/33" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="73" Font="align_center" Text="1/13/34" Assign="1/13/34" BackgroundColor="#faebd7" />
-    <Item Column="5" Format="dec" Row="73" Font="align_center" Text="1/13/53" Assign="1/13/53" BackgroundColor="#faebd7" />
-    <Item Column="6" Format="dec" Row="73" Font="align_center" Text="1/13/54" Assign="1/13/54" BackgroundColor="#faebd7" />
-    <Item Column="7" Format="dec" Row="73" Font="align_center" Text="1/13/73" Assign="1/13/73" BackgroundColor="#faebd7" />
-    <Item Column="8" Format="dec" Row="73" Font="align_center" Text="1/13/74" Assign="1/13/74" BackgroundColor="#faebd7" />
-    <Item Column="0" Row="74" Font="bold;align_right" Text="8  " />
-    <Item Column="1" Format="dec" Row="74" Font="align_center" Text="1/13/15" Assign="1/13/15" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="74" Font="align_center" Text="1/13/16" Assign="1/13/16" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="74" Font="align_center" Text="1/13/35" Assign="1/13/35" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="74" Font="align_center" Text="1/13/36" Assign="1/13/36" BackgroundColor="#faebd7" />
-    <Item Column="5" Format="dec" Row="74" Font="align_center" Text="1/13/55" Assign="1/13/55" BackgroundColor="#faebd7" />
-    <Item Column="6" Format="dec" Row="74" Font="align_center" Text="1/13/56" Assign="1/13/56" BackgroundColor="#faebd7" />
-    <Item Column="7" Format="dec" Row="74" Font="align_center" Text="1/13/75" Assign="1/13/75" BackgroundColor="#faebd7" />
-    <Item Column="8" Format="dec" Row="74" Font="align_center" Text="1/13/76" Assign="1/13/76" BackgroundColor="#faebd7" />
-    <Item Column="0" Row="75" Font="bold;align_right" Text="9  " />
-    <Item Column="1" Format="dec" Row="75" Font="align_center" Text="1/13/17" Assign="1/13/17" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="75" Font="align_center" Text="1/13/18" Assign="1/13/18" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="75" Font="align_center" Text="1/13/37" Assign="1/13/37" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="75" Font="align_center" Text="1/13/38" Assign="1/13/38" BackgroundColor="#faebd7" />
-    <Item Column="5" Format="dec" Row="75" Font="align_center" Text="1/13/57" Assign="1/13/57" BackgroundColor="#faebd7" />
-    <Item Column="6" Format="dec" Row="75" Font="align_center" Text="1/13/58" Assign="1/13/58" BackgroundColor="#faebd7" />
-    <Item Column="7" Format="dec" Row="75" Font="align_center" Text="1/13/77" Assign="1/13/77" BackgroundColor="#faebd7" />
-    <Item Column="8" Format="dec" Row="75" Font="align_center" Text="1/13/78" Assign="1/13/78" BackgroundColor="#faebd7" />
-    <Item Column="0" Row="76" Font="bold;align_right" Text="10  " />
-    <Item Column="1" Format="dec" Row="76" Font="align_center" Text="1/13/19" Assign="1/13/19" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="76" Font="align_center" Text="1/13/20" Assign="1/13/20" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="76" Font="align_center" Text="1/13/39" Assign="1/13/39" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="76" Font="align_center" Text="1/13/40" Assign="1/13/40" BackgroundColor="#faebd7" />
-    <Item Column="5" Format="dec" Row="76" Font="align_center" Text="1/13/59" Assign="1/13/59" BackgroundColor="#faebd7" />
-    <Item Column="6" Format="dec" Row="76" Font="align_center" Text="1/13/60" Assign="1/13/60" BackgroundColor="#faebd7" />
-    <Item Column="7" Format="dec" Row="76" Font="align_center" Text="1/13/79" Assign="1/13/79" BackgroundColor="#faebd7" />
-    <Item Column="8" Format="dec" Row="76" Font="align_center" Text="1/13/80" Assign="1/13/80" BackgroundColor="#faebd7" />
-    <Item Column="0" Row="77" />
-    <Item Column="1" Row="77" />
-    <Item Column="2" Row="77" />
-    <Item Column="3" Row="77" />
-    <Item Column="4" Row="77" />
-    <Item Column="5" Row="77" />
-    <Item Column="6" Row="77" />
-    <Item Column="7" Row="77" />
-    <Item Column="8" Row="77" />
-    <Item Column="0" Row="78" BackgroundColor="#00007f" />
-    <Item Column="1" Row="78" BackgroundColor="#00007f" />
-    <Item Column="2" Row="78" BackgroundColor="#00007f" />
-    <Item Column="3" Row="78" BackgroundColor="#00007f" />
-    <Item Column="4" Row="78" BackgroundColor="#00007f" />
-    <Item Column="5" Row="78" BackgroundColor="#00007f" />
-    <Item Column="6" Row="78" BackgroundColor="#00007f" />
-    <Item Column="7" Row="78" BackgroundColor="#00007f" />
-    <Item Column="8" Row="78" BackgroundColor="#00007f" />
-    <Item Column="0" Row="79" Font="bold;underline;align_right" Text="Настройки в ППЗУ" />
+    <Item Column="0" Row="66" Font="align_right" Text=" Операции с таблицей (90 - записать, 105 - прочитать, 75 - стереть)  " />
+    <Item Column="1" Format="dec" Row="66" Font="align_center" Text="1/12/4" Assign="1/12/4" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="66" />
+    <Item Column="3" Row="66" />
+    <Item Column="4" Row="66" />
+    <Item Column="5" Row="66" />
+    <Item Column="6" Row="66" />
+    <Item Column="7" Row="66" />
+    <Item Column="8" Row="66" />
+    <Item Column="0" Row="67" />
+    <Item Column="1" Row="67" />
+    <Item Column="2" Row="67" />
+    <Item Column="3" Row="67" />
+    <Item Column="4" Row="67" />
+    <Item Column="5" Row="67" />
+    <Item Column="6" Row="67" />
+    <Item Column="7" Row="67" />
+    <Item Column="8" Row="67" />
+    <Item Column="0" Row="68" Text=" " />
+    <Item Column="1" Row="68" Font="bold;align_center" Text="X (1-10)" />
+    <Item Column="2" Row="68" Font="bold;align_center" Text="Y (1-10)" />
+    <Item Column="3" Row="68" Font="bold;align_center" Text="X (11-20)" />
+    <Item Column="4" Row="68" Font="bold;align_center" Text="Y (11-20)" />
+    <Item Column="5" Row="68" Font="bold;align_center" Text="X (21-30)" />
+    <Item Column="6" Row="68" Font="bold;align_center" Text="Y (21-30)" />
+    <Item Column="7" Row="68" Font="bold;align_center" Text="X (31-40)" />
+    <Item Column="8" Row="68" Font="bold;align_center" Text="Y (31-40)" />
+    <Item Column="0" Row="69" Font="bold;align_right" Text="1  " />
+    <Item Column="1" Format="dec" Row="69" Font="align_center" Text="1/13/1" Assign="1/13/1" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="69" Font="align_center" Text="1/13/2" Assign="1/13/2" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="69" Font="align_center" Text="1/13/21" Assign="1/13/21" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="69" Font="align_center" Text="1/13/22" Assign="1/13/22" BackgroundColor="#faebd7" />
+    <Item Column="5" Format="dec" Row="69" Font="align_center" Text="1/13/41" Assign="1/13/41" BackgroundColor="#faebd7" />
+    <Item Column="6" Format="dec" Row="69" Font="align_center" Text="1/13/42" Assign="1/13/42" BackgroundColor="#faebd7" />
+    <Item Column="7" Format="dec" Row="69" Font="align_center" Text="1/13/61" Assign="1/13/61" BackgroundColor="#faebd7" />
+    <Item Column="8" Format="dec" Row="69" Font="align_center" Text="1/13/62" Assign="1/13/62" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="70" Font="bold;align_right" Text="2  " />
+    <Item Column="1" Format="dec" Row="70" Font="align_center" Text="1/13/3" Assign="1/13/3" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="70" Font="align_center" Text="1/13/4" Assign="1/13/4" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="70" Font="align_center" Text="1/13/23" Assign="1/13/23" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="70" Font="align_center" Text="1/13/24" Assign="1/13/24" BackgroundColor="#faebd7" />
+    <Item Column="5" Format="dec" Row="70" Font="align_center" Text="1/13/43" Assign="1/13/43" BackgroundColor="#faebd7" />
+    <Item Column="6" Format="dec" Row="70" Font="align_center" Text="1/13/44" Assign="1/13/44" BackgroundColor="#faebd7" />
+    <Item Column="7" Format="dec" Row="70" Font="align_center" Text="1/13/63" Assign="1/13/63" BackgroundColor="#faebd7" />
+    <Item Column="8" Format="dec" Row="70" Font="align_center" Text="1/13/64" Assign="1/13/64" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="71" Font="bold;align_right" Text="3  " />
+    <Item Column="1" Format="dec" Row="71" Font="align_center" Text="1/13/5" Assign="1/13/5" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="71" Font="align_center" Text="1/13/6" Assign="1/13/6" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="71" Font="align_center" Text="1/13/25" Assign="1/13/25" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="71" Font="align_center" Text="1/13/26" Assign="1/13/26" BackgroundColor="#faebd7" />
+    <Item Column="5" Format="dec" Row="71" Font="align_center" Text="1/13/45" Assign="1/13/45" BackgroundColor="#faebd7" />
+    <Item Column="6" Format="dec" Row="71" Font="align_center" Text="1/13/46" Assign="1/13/46" BackgroundColor="#faebd7" />
+    <Item Column="7" Format="dec" Row="71" Font="align_center" Text="1/13/65" Assign="1/13/65" BackgroundColor="#faebd7" />
+    <Item Column="8" Format="dec" Row="71" Font="align_center" Text="1/13/66" Assign="1/13/66" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="72" Font="bold;align_right" Text="4  " />
+    <Item Column="1" Format="dec" Row="72" Font="align_center" Text="1/13/7" Assign="1/13/7" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="72" Font="align_center" Text="1/13/8" Assign="1/13/8" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="72" Font="align_center" Text="1/13/27" Assign="1/13/27" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="72" Font="align_center" Text="1/13/28" Assign="1/13/28" BackgroundColor="#faebd7" />
+    <Item Column="5" Format="dec" Row="72" Font="align_center" Text="1/13/47" Assign="1/13/47" BackgroundColor="#faebd7" />
+    <Item Column="6" Format="dec" Row="72" Font="align_center" Text="1/13/48" Assign="1/13/48" BackgroundColor="#faebd7" />
+    <Item Column="7" Format="dec" Row="72" Font="align_center" Text="1/13/67" Assign="1/13/67" BackgroundColor="#faebd7" />
+    <Item Column="8" Format="dec" Row="72" Font="align_center" Text="1/13/68" Assign="1/13/68" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="73" Font="bold;align_right" Text="5  " />
+    <Item Column="1" Format="dec" Row="73" Font="align_center" Text="1/13/9" Assign="1/13/9" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="73" Font="align_center" Text="1/13/10" Assign="1/13/10" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="73" Font="align_center" Text="1/13/29" Assign="1/13/29" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="73" Font="align_center" Text="1/13/30" Assign="1/13/30" BackgroundColor="#faebd7" />
+    <Item Column="5" Format="dec" Row="73" Font="align_center" Text="1/13/49" Assign="1/13/49" BackgroundColor="#faebd7" />
+    <Item Column="6" Format="dec" Row="73" Font="align_center" Text="1/13/50" Assign="1/13/50" BackgroundColor="#faebd7" />
+    <Item Column="7" Format="dec" Row="73" Font="align_center" Text="1/13/69" Assign="1/13/69" BackgroundColor="#faebd7" />
+    <Item Column="8" Format="dec" Row="73" Font="align_center" Text="1/13/70" Assign="1/13/70" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="74" Font="bold;align_right" Text="6  " />
+    <Item Column="1" Format="dec" Row="74" Font="align_center" Text="1/13/11" Assign="1/13/11" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="74" Font="align_center" Text="1/13/12" Assign="1/13/12" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="74" Font="align_center" Text="1/13/31" Assign="1/13/31" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="74" Font="align_center" Text="1/13/32" Assign="1/13/32" BackgroundColor="#faebd7" />
+    <Item Column="5" Format="dec" Row="74" Font="align_center" Text="1/13/51" Assign="1/13/51" BackgroundColor="#faebd7" />
+    <Item Column="6" Format="dec" Row="74" Font="align_center" Text="1/13/52" Assign="1/13/52" BackgroundColor="#faebd7" />
+    <Item Column="7" Format="dec" Row="74" Font="align_center" Text="1/13/71" Assign="1/13/71" BackgroundColor="#faebd7" />
+    <Item Column="8" Format="dec" Row="74" Font="align_center" Text="1/13/72" Assign="1/13/72" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="75" Font="bold;align_right" Text="7  " />
+    <Item Column="1" Format="dec" Row="75" Font="align_center" Text="1/13/13" Assign="1/13/13" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="75" Font="align_center" Text="1/13/14" Assign="1/13/14" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="75" Font="align_center" Text="1/13/33" Assign="1/13/33" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="75" Font="align_center" Text="1/13/34" Assign="1/13/34" BackgroundColor="#faebd7" />
+    <Item Column="5" Format="dec" Row="75" Font="align_center" Text="1/13/53" Assign="1/13/53" BackgroundColor="#faebd7" />
+    <Item Column="6" Format="dec" Row="75" Font="align_center" Text="1/13/54" Assign="1/13/54" BackgroundColor="#faebd7" />
+    <Item Column="7" Format="dec" Row="75" Font="align_center" Text="1/13/73" Assign="1/13/73" BackgroundColor="#faebd7" />
+    <Item Column="8" Format="dec" Row="75" Font="align_center" Text="1/13/74" Assign="1/13/74" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="76" Font="bold;align_right" Text="8  " />
+    <Item Column="1" Format="dec" Row="76" Font="align_center" Text="1/13/15" Assign="1/13/15" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="76" Font="align_center" Text="1/13/16" Assign="1/13/16" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="76" Font="align_center" Text="1/13/35" Assign="1/13/35" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="76" Font="align_center" Text="1/13/36" Assign="1/13/36" BackgroundColor="#faebd7" />
+    <Item Column="5" Format="dec" Row="76" Font="align_center" Text="1/13/55" Assign="1/13/55" BackgroundColor="#faebd7" />
+    <Item Column="6" Format="dec" Row="76" Font="align_center" Text="1/13/56" Assign="1/13/56" BackgroundColor="#faebd7" />
+    <Item Column="7" Format="dec" Row="76" Font="align_center" Text="1/13/75" Assign="1/13/75" BackgroundColor="#faebd7" />
+    <Item Column="8" Format="dec" Row="76" Font="align_center" Text="1/13/76" Assign="1/13/76" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="77" Font="bold;align_right" Text="9  " />
+    <Item Column="1" Format="dec" Row="77" Font="align_center" Text="1/13/17" Assign="1/13/17" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="77" Font="align_center" Text="1/13/18" Assign="1/13/18" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="77" Font="align_center" Text="1/13/37" Assign="1/13/37" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="77" Font="align_center" Text="1/13/38" Assign="1/13/38" BackgroundColor="#faebd7" />
+    <Item Column="5" Format="dec" Row="77" Font="align_center" Text="1/13/57" Assign="1/13/57" BackgroundColor="#faebd7" />
+    <Item Column="6" Format="dec" Row="77" Font="align_center" Text="1/13/58" Assign="1/13/58" BackgroundColor="#faebd7" />
+    <Item Column="7" Format="dec" Row="77" Font="align_center" Text="1/13/77" Assign="1/13/77" BackgroundColor="#faebd7" />
+    <Item Column="8" Format="dec" Row="77" Font="align_center" Text="1/13/78" Assign="1/13/78" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="78" Font="bold;align_right" Text="10  " />
+    <Item Column="1" Format="dec" Row="78" Font="align_center" Text="1/13/19" Assign="1/13/19" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="78" Font="align_center" Text="1/13/20" Assign="1/13/20" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="78" Font="align_center" Text="1/13/39" Assign="1/13/39" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="78" Font="align_center" Text="1/13/40" Assign="1/13/40" BackgroundColor="#faebd7" />
+    <Item Column="5" Format="dec" Row="78" Font="align_center" Text="1/13/59" Assign="1/13/59" BackgroundColor="#faebd7" />
+    <Item Column="6" Format="dec" Row="78" Font="align_center" Text="1/13/60" Assign="1/13/60" BackgroundColor="#faebd7" />
+    <Item Column="7" Format="dec" Row="78" Font="align_center" Text="1/13/79" Assign="1/13/79" BackgroundColor="#faebd7" />
+    <Item Column="8" Format="dec" Row="78" Font="align_center" Text="1/13/80" Assign="1/13/80" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="79" />
     <Item Column="1" Row="79" />
     <Item Column="2" Row="79" />
     <Item Column="3" Row="79" />
@@ -722,17 +722,17 @@
     <Item Column="6" Row="79" />
     <Item Column="7" Row="79" />
     <Item Column="8" Row="79" />
-    <Item Column="0" Row="80" Font="align_right" Text="Чтение/Запись/Стирание - 105/90/75" />
-    <Item Column="1" Row="80" Font="underline;align_center" Text="1/1/3" Assign="1/1/3" BackgroundColor="#ffaa7f" />
-    <Item Column="2" Row="80" Font="align_right" Text="Кол-во записей" />
-    <Item Column="3" Format="dec" Row="80" Font="align_center" Text="1/12/2" Assign="1/12/2" BackgroundColor="#faebd7" />
-    <Item Column="4" Row="80" />
-    <Item Column="5" Row="80" />
-    <Item Column="6" Row="80" />
-    <Item Column="7" Row="80" />
-    <Item Column="8" Row="80" />
-    <Item Column="0" Row="81" Font="align_right" Text="Автомат. запись базы (#0 - минуты)" />
-    <Item Column="1" Row="81" Font="align_center" Text="1/1/4" Assign="1/1/4" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="80" BackgroundColor="#00007f" />
+    <Item Column="1" Row="80" BackgroundColor="#00007f" />
+    <Item Column="2" Row="80" BackgroundColor="#00007f" />
+    <Item Column="3" Row="80" BackgroundColor="#00007f" />
+    <Item Column="4" Row="80" BackgroundColor="#00007f" />
+    <Item Column="5" Row="80" BackgroundColor="#00007f" />
+    <Item Column="6" Row="80" BackgroundColor="#00007f" />
+    <Item Column="7" Row="80" BackgroundColor="#00007f" />
+    <Item Column="8" Row="80" BackgroundColor="#00007f" />
+    <Item Column="0" Row="81" Font="bold;underline;align_right" Text="Настройки в ППЗУ" />
+    <Item Column="1" Row="81" />
     <Item Column="2" Row="81" />
     <Item Column="3" Row="81" />
     <Item Column="4" Row="81" />
@@ -740,393 +740,411 @@
     <Item Column="6" Row="81" />
     <Item Column="7" Row="81" />
     <Item Column="8" Row="81" />
-    <Item Column="0" Row="82" />
-    <Item Column="1" Row="82" />
-    <Item Column="2" Row="82" />
-    <Item Column="3" Row="82" />
+    <Item Column="0" Row="82" Font="align_right" Text="Чтение/Запись/Стирание - 105/90/75" />
+    <Item Column="1" Row="82" Font="underline;align_center" Text="1/1/3" Assign="1/1/3" BackgroundColor="#ffaa7f" />
+    <Item Column="2" Row="82" Font="align_right" Text="Кол-во записей" />
+    <Item Column="3" Format="dec" Row="82" Font="align_center" Text="1/12/2" Assign="1/12/2" BackgroundColor="#faebd7" />
     <Item Column="4" Row="82" />
     <Item Column="5" Row="82" />
     <Item Column="6" Row="82" />
     <Item Column="7" Row="82" />
     <Item Column="8" Row="82" />
-    <Item Column="0" Row="83" Font="bold;underline;align_right" Text="Времена выполнения, мксек" />
-    <Item Column="1" Row="83" Font="align_center" Text="Минимум" />
-    <Item Column="2" Row="83" Font="align_center" Text="Среднее" />
-    <Item Column="3" Row="83" Font="align_center" Text="Максимум" />
+    <Item Column="0" Row="83" Font="align_right" Text="Автомат. запись базы (#0 - минуты)" />
+    <Item Column="1" Row="83" Font="align_center" Text="1/1/4" Assign="1/1/4" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="83" />
+    <Item Column="3" Row="83" />
     <Item Column="4" Row="83" />
-    <Item Column="5" Row="83" Font="bold;underline;align_right" Text="Статистика" />
+    <Item Column="5" Row="83" />
     <Item Column="6" Row="83" />
     <Item Column="7" Row="83" />
     <Item Column="8" Row="83" />
-    <Item Column="0" Row="84" Font="align_right" Text="Timer IRQ" />
-    <Item Column="1" Format="dec" Row="84" Font="align_center" Text="1/50/17" Assign="1/50/17" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="84" Font="align_center" Text="1/50/33" Assign="1/50/33" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="84" Font="align_center" Text="1/50/49" Assign="1/50/49" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="84" />
+    <Item Column="1" Row="84" />
+    <Item Column="2" Row="84" />
+    <Item Column="3" Row="84" />
     <Item Column="4" Row="84" />
-    <Item Column="5" Row="84" Font="align_right" Text="Запросы" />
-    <Item Column="6" Format="dec" Row="84" Font="align_center" Text="1/50/1" Assign="1/50/1" BackgroundColor="#faebd7" />
+    <Item Column="5" Row="84" />
+    <Item Column="6" Row="84" />
     <Item Column="7" Row="84" />
     <Item Column="8" Row="84" />
-    <Item Column="0" Row="85" Font="align_right" Text="USART IRQ" />
-    <Item Column="1" Format="dec" Row="85" Font="align_center" Text="1/50/18" Assign="1/50/18" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="85" Font="align_center" Text="1/50/34" Assign="1/50/34" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="85" Font="align_center" Text="1/50/50" Assign="1/50/50" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="85" Font="bold;underline;align_right" Text="Времена выполнения, мксек" />
+    <Item Column="1" Row="85" Font="align_center" Text="Минимум" />
+    <Item Column="2" Row="85" Font="align_center" Text="Среднее" />
+    <Item Column="3" Row="85" Font="align_center" Text="Максимум" />
     <Item Column="4" Row="85" />
-    <Item Column="5" Row="85" Font="align_right" Text="Ответы" />
-    <Item Column="6" Format="dec" Row="85" Font="align_center" Text="1/50/2" Assign="1/50/2" BackgroundColor="#faebd7" />
+    <Item Column="5" Row="85" Font="bold;underline;align_right" Text="Статистика" />
+    <Item Column="6" Row="85" />
     <Item Column="7" Row="85" />
     <Item Column="8" Row="85" />
-    <Item Column="0" Row="86" Font="align_right" Text="USB IRQ (поллинг)" />
-    <Item Column="1" Format="dec" Row="86" Font="align_center" Text="1/50/19" Assign="1/50/19" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="86" Font="align_center" Text="1/50/35" Assign="1/50/35" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="86" Font="align_center" Text="1/50/51" Assign="1/50/51" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="86" Font="align_right" Text="Timer IRQ" />
+    <Item Column="1" Format="dec" Row="86" Font="align_center" Text="1/50/17" Assign="1/50/17" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="86" Font="align_center" Text="1/50/33" Assign="1/50/33" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="86" Font="align_center" Text="1/50/49" Assign="1/50/49" BackgroundColor="#faebd7" />
     <Item Column="4" Row="86" />
-    <Item Column="5" Row="86" Font="align_right" Text="Ошибки Frame" />
-    <Item Column="6" Format="dec" Row="86" Font="align_center" Text="1/50/3" Assign="1/50/3" BackgroundColor="#faebd7" />
+    <Item Column="5" Row="86" Font="align_right" Text="Запросы" />
+    <Item Column="6" Format="dec" Row="86" Font="align_center" Text="1/50/1" Assign="1/50/1" BackgroundColor="#faebd7" />
     <Item Column="7" Row="86" />
     <Item Column="8" Row="86" />
-    <Item Column="0" Row="87" Font="align_right" Text="I2C IRQ" />
-    <Item Column="1" Format="dec" Row="87" Font="align_center" Text="1/50/20" Assign="1/50/20" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="87" Font="align_center" Text="1/50/36" Assign="1/50/36" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="87" Font="align_center" Text="1/50/52" Assign="1/50/52" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="87" Font="align_right" Text="USART IRQ" />
+    <Item Column="1" Format="dec" Row="87" Font="align_center" Text="1/50/18" Assign="1/50/18" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="87" Font="align_center" Text="1/50/34" Assign="1/50/34" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="87" Font="align_center" Text="1/50/50" Assign="1/50/50" BackgroundColor="#faebd7" />
     <Item Column="4" Row="87" />
-    <Item Column="5" Row="87" Font="align_right" Text="Ошибки Overrun" />
-    <Item Column="6" Format="dec" Row="87" Font="align_center" Text="1/50/4" Assign="1/50/4" BackgroundColor="#faebd7" />
+    <Item Column="5" Row="87" Font="align_right" Text="Ответы" />
+    <Item Column="6" Format="dec" Row="87" Font="align_center" Text="1/50/2" Assign="1/50/2" BackgroundColor="#faebd7" />
     <Item Column="7" Row="87" />
     <Item Column="8" Row="87" />
-    <Item Column="0" Row="88" Font="align_right" Text="Зарезервировано" />
-    <Item Column="1" Format="dec" Row="88" Font="align_center" Text="1/50/21" Assign="1/50/21" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="88" Font="align_center" Text="1/50/37" Assign="1/50/37" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="88" Font="align_center" Text="1/50/53" Assign="1/50/53" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="88" Font="align_right" Text="USB IRQ (поллинг)" />
+    <Item Column="1" Format="dec" Row="88" Font="align_center" Text="1/50/19" Assign="1/50/19" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="88" Font="align_center" Text="1/50/35" Assign="1/50/35" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="88" Font="align_center" Text="1/50/51" Assign="1/50/51" BackgroundColor="#faebd7" />
     <Item Column="4" Row="88" />
-    <Item Column="5" Row="88" Font="align_right" Text="Ошибки CRC" />
-    <Item Column="6" Format="dec" Row="88" Font="align_center" Text="1/50/5" Assign="1/50/5" BackgroundColor="#faebd7" />
+    <Item Column="5" Row="88" Font="align_right" Text="Ошибки Frame" />
+    <Item Column="6" Format="dec" Row="88" Font="align_center" Text="1/50/3" Assign="1/50/3" BackgroundColor="#faebd7" />
     <Item Column="7" Row="88" />
     <Item Column="8" Row="88" />
-    <Item Column="0" Row="89" Font="align_right" Text="Зарезервировано" />
-    <Item Column="1" Format="dec" Row="89" Font="align_center" Text="1/50/22" Assign="1/50/22" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="89" Font="align_center" Text="1/50/38" Assign="1/50/38" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="89" Font="align_center" Text="1/50/54" Assign="1/50/54" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="89" Font="align_right" Text="I2C IRQ" />
+    <Item Column="1" Format="dec" Row="89" Font="align_center" Text="1/50/20" Assign="1/50/20" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="89" Font="align_center" Text="1/50/36" Assign="1/50/36" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="89" Font="align_center" Text="1/50/52" Assign="1/50/52" BackgroundColor="#faebd7" />
     <Item Column="4" Row="89" />
-    <Item Column="5" Row="89" Font="align_right" Text="Ошибки Sequence" />
-    <Item Column="6" Format="dec" Row="89" Font="align_center" Text="1/50/6" Assign="1/50/6" BackgroundColor="#faebd7" />
+    <Item Column="5" Row="89" Font="align_right" Text="Ошибки Overrun" />
+    <Item Column="6" Format="dec" Row="89" Font="align_center" Text="1/50/4" Assign="1/50/4" BackgroundColor="#faebd7" />
     <Item Column="7" Row="89" />
     <Item Column="8" Row="89" />
-    <Item Column="0" Row="90" Font="align_right" Text="Интерфейсный IRQ" />
-    <Item Column="1" Format="dec" Row="90" Font="align_center" Text="1/50/23" Assign="1/50/23" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="90" Font="align_center" Text="1/50/39" Assign="1/50/39" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="90" Font="align_center" Text="1/50/55" Assign="1/50/55" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="90" Font="align_right" Text="Зарезервировано" />
+    <Item Column="1" Format="dec" Row="90" Font="align_center" Text="1/50/21" Assign="1/50/21" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="90" Font="align_center" Text="1/50/37" Assign="1/50/37" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="90" Font="align_center" Text="1/50/53" Assign="1/50/53" BackgroundColor="#faebd7" />
     <Item Column="4" Row="90" />
-    <Item Column="5" Row="90" Font="align_right" Text="Ошибки Reply" />
-    <Item Column="6" Format="dec" Row="90" Font="align_center" Text="1/50/7" Assign="1/50/7" BackgroundColor="#faebd7" />
+    <Item Column="5" Row="90" Font="align_right" Text="Ошибки CRC" />
+    <Item Column="6" Format="dec" Row="90" Font="align_center" Text="1/50/5" Assign="1/50/5" BackgroundColor="#faebd7" />
     <Item Column="7" Row="90" />
     <Item Column="8" Row="90" />
-    <Item Column="0" Row="91" Font="align_right" Text="Автомат ESR ввод завершен на базовом" />
-    <Item Column="1" Format="dec" Row="91" Font="align_center" Text="1/50/24" Assign="1/50/24" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="91" Font="align_center" Text="1/50/40" Assign="1/50/40" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="91" Font="align_center" Text="1/50/56" Assign="1/50/56" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="91" Font="align_right" Text="Зарезервировано" />
+    <Item Column="1" Format="dec" Row="91" Font="align_center" Text="1/50/22" Assign="1/50/22" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="91" Font="align_center" Text="1/50/38" Assign="1/50/38" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="91" Font="align_center" Text="1/50/54" Assign="1/50/54" BackgroundColor="#faebd7" />
     <Item Column="4" Row="91" />
-    <Item Column="5" Row="91" Font="align_right" Text="Ошибки SignatureTO" />
-    <Item Column="6" Format="dec" Row="91" Font="align_center" Text="1/50/8" Assign="1/50/8" BackgroundColor="#faebd7" />
+    <Item Column="5" Row="91" Font="align_right" Text="Ошибки Sequence" />
+    <Item Column="6" Format="dec" Row="91" Font="align_center" Text="1/50/6" Assign="1/50/6" BackgroundColor="#faebd7" />
     <Item Column="7" Row="91" />
     <Item Column="8" Row="91" />
-    <Item Column="0" Row="92" Font="align_right" Text="Автомат ESR вывод завершен" />
-    <Item Column="1" Format="dec" Row="92" Font="align_center" Text="1/50/25" Assign="1/50/25" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="92" Font="align_center" Text="1/50/41" Assign="1/50/41" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="92" Font="align_center" Text="1/50/57" Assign="1/50/57" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="92" Font="align_right" Text="Интерфейсный IRQ" />
+    <Item Column="1" Format="dec" Row="92" Font="align_center" Text="1/50/23" Assign="1/50/23" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="92" Font="align_center" Text="1/50/39" Assign="1/50/39" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="92" Font="align_center" Text="1/50/55" Assign="1/50/55" BackgroundColor="#faebd7" />
     <Item Column="4" Row="92" />
-    <Item Column="5" Row="92" Font="align_right" Text="Ошибки Signature" />
-    <Item Column="6" Format="dec" Row="92" Font="align_center" Text="1/50/9" Assign="1/50/9" BackgroundColor="#faebd7" />
+    <Item Column="5" Row="92" Font="align_right" Text="Ошибки Reply" />
+    <Item Column="6" Format="dec" Row="92" Font="align_center" Text="1/50/7" Assign="1/50/7" BackgroundColor="#faebd7" />
     <Item Column="7" Row="92" />
     <Item Column="8" Row="92" />
-    <Item Column="0" Row="93" Font="align_right" Text="Автомат ESR ввод завершен" />
-    <Item Column="1" Format="dec" Row="93" Font="align_center" Text="1/50/26" Assign="1/50/26" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="93" Font="align_center" Text="1/50/42" Assign="1/50/42" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="93" Font="align_center" Text="1/50/58" Assign="1/50/58" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="93" Font="align_right" Text="Автомат ESR ввод завершен на базовом" />
+    <Item Column="1" Format="dec" Row="93" Font="align_center" Text="1/50/24" Assign="1/50/24" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="93" Font="align_center" Text="1/50/40" Assign="1/50/40" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="93" Font="align_center" Text="1/50/56" Assign="1/50/56" BackgroundColor="#faebd7" />
     <Item Column="4" Row="93" />
-    <Item Column="5" Row="93" Font="align_right" Text="Ошибки TO" />
-    <Item Column="6" Format="dec" Row="93" Font="align_center" Text="1/50/10" Assign="1/50/10" BackgroundColor="#faebd7" />
+    <Item Column="5" Row="93" Font="align_right" Text="Ошибки SignatureTO" />
+    <Item Column="6" Format="dec" Row="93" Font="align_center" Text="1/50/8" Assign="1/50/8" BackgroundColor="#faebd7" />
     <Item Column="7" Row="93" />
     <Item Column="8" Row="93" />
-    <Item Column="0" Row="94" Font="align_right" Text="Автомат ESR вывод завершен на базовом" />
-    <Item Column="1" Format="dec" Row="94" Font="align_center" Text="1/50/27" Assign="1/50/27" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="94" Font="align_center" Text="1/50/43" Assign="1/50/43" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="94" Font="align_center" Text="1/50/59" Assign="1/50/59" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="94" Font="align_right" Text="Автомат ESR вывод завершен" />
+    <Item Column="1" Format="dec" Row="94" Font="align_center" Text="1/50/25" Assign="1/50/25" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="94" Font="align_center" Text="1/50/41" Assign="1/50/41" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="94" Font="align_center" Text="1/50/57" Assign="1/50/57" BackgroundColor="#faebd7" />
     <Item Column="4" Row="94" />
-    <Item Column="5" Row="94" Font="align_right" Text="Вр. работы модуля" />
-    <Item Column="6" Format="dec" Row="94" Font="align_center" Text="1/50/11" Assign="1/50/11" BackgroundColor="#faebd7" />
+    <Item Column="5" Row="94" Font="align_right" Text="Ошибки Signature" />
+    <Item Column="6" Format="dec" Row="94" Font="align_center" Text="1/50/9" Assign="1/50/9" BackgroundColor="#faebd7" />
     <Item Column="7" Row="94" />
     <Item Column="8" Row="94" />
-    <Item Column="0" Row="95" Font="align_right" Text="Обслуживание DIO (в PWM IRQ)" />
-    <Item Column="1" Format="dec" Row="95" Font="align_center" Text="1/50/28" Assign="1/50/28" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="95" Font="align_center" Text="1/50/44" Assign="1/50/44" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="95" Font="align_center" Text="1/50/60" Assign="1/50/60" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="95" Font="align_right" Text="Автомат ESR ввод завершен" />
+    <Item Column="1" Format="dec" Row="95" Font="align_center" Text="1/50/26" Assign="1/50/26" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="95" Font="align_center" Text="1/50/42" Assign="1/50/42" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="95" Font="align_center" Text="1/50/58" Assign="1/50/58" BackgroundColor="#faebd7" />
     <Item Column="4" Row="95" />
-    <Item Column="5" Row="95" Font="align_right" Text="Вр. от пред.старта" />
-    <Item Column="6" Format="dec" Row="95" Font="align_center" Text="1/50/12" Assign="1/50/12" BackgroundColor="#faebd7" />
+    <Item Column="5" Row="95" Font="align_right" Text="Ошибки TO" />
+    <Item Column="6" Format="dec" Row="95" Font="align_center" Text="1/50/10" Assign="1/50/10" BackgroundColor="#faebd7" />
     <Item Column="7" Row="95" />
     <Item Column="8" Row="95" />
-    <Item Column="0" Row="96" Font="align_right" Text="Период обслуживания DIO (в PWM IRQ)" />
-    <Item Column="1" Format="dec" Row="96" Font="align_center" Text="1/50/29" Assign="1/50/29" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="96" Font="align_center" Text="1/50/45" Assign="1/50/45" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="96" Font="align_center" Text="1/50/61" Assign="1/50/61" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="96" Font="align_right" Text="Автомат ESR вывод завершен на базовом" />
+    <Item Column="1" Format="dec" Row="96" Font="align_center" Text="1/50/27" Assign="1/50/27" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="96" Font="align_center" Text="1/50/43" Assign="1/50/43" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="96" Font="align_center" Text="1/50/59" Assign="1/50/59" BackgroundColor="#faebd7" />
     <Item Column="4" Row="96" />
-    <Item Column="5" Row="96" Font="align_right" Text="Время от тек.старта" />
-    <Item Column="6" Format="dec" Row="96" Font="align_center" Text="1/50/13" Assign="1/50/13" BackgroundColor="#faebd7" />
+    <Item Column="5" Row="96" Font="align_right" Text="Вр. работы модуля" />
+    <Item Column="6" Format="dec" Row="96" Font="align_center" Text="1/50/11" Assign="1/50/11" BackgroundColor="#faebd7" />
     <Item Column="7" Row="96" />
     <Item Column="8" Row="96" />
-    <Item Column="0" Row="97" Font="align_right" Text="Зарезервировано" />
-    <Item Column="1" Format="dec" Row="97" Font="align_center" Text="1/50/30" Assign="1/50/30" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="97" Font="align_center" Text="1/50/46" Assign="1/50/46" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="97" Font="align_center" Text="1/50/62" Assign="1/50/62" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="97" Font="align_right" Text="Обслуживание DIO (в PWM IRQ)" />
+    <Item Column="1" Format="dec" Row="97" Font="align_center" Text="1/50/28" Assign="1/50/28" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="97" Font="align_center" Text="1/50/44" Assign="1/50/44" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="97" Font="align_center" Text="1/50/60" Assign="1/50/60" BackgroundColor="#faebd7" />
     <Item Column="4" Row="97" />
-    <Item Column="5" Row="97" Font="align_right" Text="Кол-во рестартов" />
-    <Item Column="6" Format="dec" Row="97" Font="align_center" Text="1/50/14" Assign="1/50/14" BackgroundColor="#faebd7" />
+    <Item Column="5" Row="97" Font="align_right" Text="Вр. от пред.старта" />
+    <Item Column="6" Format="dec" Row="97" Font="align_center" Text="1/50/12" Assign="1/50/12" BackgroundColor="#faebd7" />
     <Item Column="7" Row="97" />
     <Item Column="8" Row="97" />
-    <Item Column="0" Row="98" Font="align_right" Text="Основной цикл" />
-    <Item Column="1" Format="dec" Row="98" Font="align_center" Text="1/50/31" Assign="1/50/31" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="98" Font="align_center" Text="1/50/47" Assign="1/50/47" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="98" Font="align_center" Text="1/50/63" Assign="1/50/63" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="98" Font="align_right" Text="Период обслуживания DIO (в PWM IRQ)" />
+    <Item Column="1" Format="dec" Row="98" Font="align_center" Text="1/50/29" Assign="1/50/29" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="98" Font="align_center" Text="1/50/45" Assign="1/50/45" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="98" Font="align_center" Text="1/50/61" Assign="1/50/61" BackgroundColor="#faebd7" />
     <Item Column="4" Row="98" />
-    <Item Column="5" Row="98" Font="align_right" Text="К-во записей в ППЗУ" />
-    <Item Column="6" Format="dec" Row="98" Font="align_center" Text="1/50/15" Assign="1/50/15" BackgroundColor="#faebd7" />
+    <Item Column="5" Row="98" Font="align_right" Text="Время от тек.старта" />
+    <Item Column="6" Format="dec" Row="98" Font="align_center" Text="1/50/13" Assign="1/50/13" BackgroundColor="#faebd7" />
     <Item Column="7" Row="98" />
     <Item Column="8" Row="98" />
-    <Item Column="0" Row="99" Font="align_right" Text="Стабильность таймера (=10000 - стабилен)" />
-    <Item Column="1" Format="dec" Row="99" Font="align_center" Text="1/50/32" Assign="1/50/32" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="99" Font="align_center" Text="1/50/48" Assign="1/50/48" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="99" Font="align_center" Text="1/50/64" Assign="1/50/64" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="99" Font="align_right" Text="Зарезервировано" />
+    <Item Column="1" Format="dec" Row="99" Font="align_center" Text="1/50/30" Assign="1/50/30" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="99" Font="align_center" Text="1/50/46" Assign="1/50/46" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="99" Font="align_center" Text="1/50/62" Assign="1/50/62" BackgroundColor="#faebd7" />
     <Item Column="4" Row="99" />
-    <Item Column="5" Row="99" Font="align_right" Text="Отладочный счетчик" />
-    <Item Column="6" Format="dec" Row="99" Font="align_center" Text="1/50/16" Assign="1/50/16" BackgroundColor="#faebd7" />
+    <Item Column="5" Row="99" Font="align_right" Text="Кол-во рестартов" />
+    <Item Column="6" Format="dec" Row="99" Font="align_center" Text="1/50/14" Assign="1/50/14" BackgroundColor="#faebd7" />
     <Item Column="7" Row="99" />
     <Item Column="8" Row="99" />
-    <Item Column="0" Row="100" />
-    <Item Column="1" Row="100" />
-    <Item Column="2" Row="100" />
-    <Item Column="3" Row="100" />
+    <Item Column="0" Row="100" Font="align_right" Text="Основной цикл" />
+    <Item Column="1" Format="dec" Row="100" Font="align_center" Text="1/50/31" Assign="1/50/31" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="100" Font="align_center" Text="1/50/47" Assign="1/50/47" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="100" Font="align_center" Text="1/50/63" Assign="1/50/63" BackgroundColor="#faebd7" />
     <Item Column="4" Row="100" />
-    <Item Column="5" Row="100" />
-    <Item Column="6" Row="100" />
+    <Item Column="5" Row="100" Font="align_right" Text="К-во записей в ППЗУ" />
+    <Item Column="6" Format="dec" Row="100" Font="align_center" Text="1/50/15" Assign="1/50/15" BackgroundColor="#faebd7" />
     <Item Column="7" Row="100" />
     <Item Column="8" Row="100" />
-    <Item Column="0" Row="101" Font="bold;underline;align_right" Text="Использование динамической памяти" />
-    <Item Column="1" Row="101" Font="align_center" Text="Всего" />
-    <Item Column="2" Row="101" Font="align_center" Text="Остаток" />
-    <Item Column="3" Row="101" Font="align_center" Text="Кол-во элементов" />
-    <Item Column="4" Row="101" Font="align_center" Text="Занято в ППЗУ" />
-    <Item Column="5" Row="101" />
-    <Item Column="6" Row="101" />
+    <Item Column="0" Row="101" Font="align_right" Text="Стабильность таймера (=10000 - стабилен)" />
+    <Item Column="1" Format="dec" Row="101" Font="align_center" Text="1/50/32" Assign="1/50/32" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="101" Font="align_center" Text="1/50/48" Assign="1/50/48" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="101" Font="align_center" Text="1/50/64" Assign="1/50/64" BackgroundColor="#faebd7" />
+    <Item Column="4" Row="101" />
+    <Item Column="5" Row="101" Font="align_right" Text="Отладочный счетчик" />
+    <Item Column="6" Format="dec" Row="101" Font="align_center" Text="1/50/16" Assign="1/50/16" BackgroundColor="#faebd7" />
     <Item Column="7" Row="101" />
     <Item Column="8" Row="101" />
-    <Item Column="0" Row="102" Font="align_right" Text="байт" />
-    <Item Column="1" Format="dec" Row="102" Font="align_center" Text="1/51/1" Assign="1/51/1" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="102" Font="align_center" Text="1/51/2" Assign="1/51/2" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="102" Font="align_center" Text="1/51/3" Assign="1/51/3" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="102" Font="align_center" Text="1/51/4" Assign="1/51/4" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="102" />
+    <Item Column="1" Row="102" />
+    <Item Column="2" Row="102" />
+    <Item Column="3" Row="102" />
+    <Item Column="4" Row="102" />
     <Item Column="5" Row="102" />
     <Item Column="6" Row="102" />
     <Item Column="7" Row="102" />
     <Item Column="8" Row="102" />
-    <Item Column="0" Row="103" />
-    <Item Column="1" Row="103" />
-    <Item Column="2" Row="103" />
-    <Item Column="3" Row="103" />
-    <Item Column="4" Row="103" />
+    <Item Column="0" Row="103" Font="bold;underline;align_right" Text="Использование динамической памяти" />
+    <Item Column="1" Row="103" Font="align_center" Text="Всего" />
+    <Item Column="2" Row="103" Font="align_center" Text="Остаток" />
+    <Item Column="3" Row="103" Font="align_center" Text="Кол-во элементов" />
+    <Item Column="4" Row="103" Font="align_center" Text="Занято в ППЗУ" />
     <Item Column="5" Row="103" />
     <Item Column="6" Row="103" />
     <Item Column="7" Row="103" />
     <Item Column="8" Row="103" />
-    <Item Column="0" Row="104" Font="bold;underline;align_right" Text="Остатки стеков" />
-    <Item Column="1" Row="104" Font="align_center" Text="Основной" />
-    <Item Column="2" Row="104" Font="align_center" Text="IRQ" />
-    <Item Column="3" Row="104" Font="align_center" Text="FIQ" />
-    <Item Column="4" Row="104" Font="align_center" Text="SVC" />
+    <Item Column="0" Row="104" Font="align_right" Text="байт" />
+    <Item Column="1" Format="dec" Row="104" Font="align_center" Text="1/51/1" Assign="1/51/1" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="104" Font="align_center" Text="1/51/2" Assign="1/51/2" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="104" Font="align_center" Text="1/51/3" Assign="1/51/3" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="104" Font="align_center" Text="1/51/4" Assign="1/51/4" BackgroundColor="#faebd7" />
     <Item Column="5" Row="104" />
     <Item Column="6" Row="104" />
     <Item Column="7" Row="104" />
     <Item Column="8" Row="104" />
-    <Item Column="0" Row="105" Font="align_right" Text="байт" />
-    <Item Column="1" Format="dec" Row="105" Font="align_center" Text="1/52/1" Assign="1/52/1" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="105" Font="align_center" Text="1/52/2" Assign="1/52/2" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="105" Font="align_center" Text="1/52/3" Assign="1/52/3" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="105" Font="align_center" Text="1/52/4" Assign="1/52/4" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="105" />
+    <Item Column="1" Row="105" />
+    <Item Column="2" Row="105" />
+    <Item Column="3" Row="105" />
+    <Item Column="4" Row="105" />
     <Item Column="5" Row="105" />
     <Item Column="6" Row="105" />
     <Item Column="7" Row="105" />
     <Item Column="8" Row="105" />
-    <Item Column="0" Row="106" />
-    <Item Column="1" Row="106" />
-    <Item Column="2" Row="106" />
-    <Item Column="3" Row="106" />
-    <Item Column="4" Row="106" />
+    <Item Column="0" Row="106" Font="bold;underline;align_right" Text="Остатки стеков" />
+    <Item Column="1" Row="106" Font="align_center" Text="Основной" />
+    <Item Column="2" Row="106" Font="align_center" Text="IRQ" />
+    <Item Column="3" Row="106" Font="align_center" Text="FIQ" />
+    <Item Column="4" Row="106" Font="align_center" Text="SVC" />
     <Item Column="5" Row="106" />
     <Item Column="6" Row="106" />
     <Item Column="7" Row="106" />
     <Item Column="8" Row="106" />
-    <Item Column="0" Row="107" Font="bold;underline;align_right" Text="Статистика Интерфейсов" />
-    <Item Column="1" Row="107" Font="align_center" Text="USB" />
-    <Item Column="2" Row="107" Font="align_center" Text="RS485 # 1" />
-    <Item Column="3" Row="107" Font="align_center" Text="SPI 0" />
-    <Item Column="4" Row="107" Font="align_center" Text="SPI 1" />
+    <Item Column="0" Row="107" Font="align_right" Text="байт" />
+    <Item Column="1" Format="dec" Row="107" Font="align_center" Text="1/52/1" Assign="1/52/1" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="107" Font="align_center" Text="1/52/2" Assign="1/52/2" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="107" Font="align_center" Text="1/52/3" Assign="1/52/3" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="107" Font="align_center" Text="1/52/4" Assign="1/52/4" BackgroundColor="#faebd7" />
     <Item Column="5" Row="107" />
     <Item Column="6" Row="107" />
-    <Item Column="7" Row="107" Font="align_center" />
+    <Item Column="7" Row="107" />
     <Item Column="8" Row="107" />
-    <Item Column="0" Row="108" Font="align_right" Text="Принято пакетов всего" />
-    <Item Column="1" Format="dec" Row="108" Font="align_center" Text="1/53/1" Assign="1/53/1" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="108" Font="align_center" Text="1/53/17" Assign="1/53/17" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="108" Font="align_center" Text="1/53/33" Assign="1/53/33" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="108" Font="align_center" Text="1/53/49" Assign="1/53/49" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="108" />
+    <Item Column="1" Row="108" />
+    <Item Column="2" Row="108" />
+    <Item Column="3" Row="108" />
+    <Item Column="4" Row="108" />
     <Item Column="5" Row="108" />
     <Item Column="6" Row="108" />
     <Item Column="7" Row="108" />
     <Item Column="8" Row="108" />
-    <Item Column="0" Row="109" Font="align_right" Text="Принято пакетов без ошибок" />
-    <Item Column="1" Format="dec" Row="109" Font="align_center" Text="1/53/2" Assign="1/53/2" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="109" Font="align_center" Text="1/53/18" Assign="1/53/18" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="109" Font="align_center" Text="1/53/34" Assign="1/53/34" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="109" Font="align_center" Text="1/53/50" Assign="1/53/50" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="109" Font="bold;underline;align_right" Text="Статистика Интерфейсов" />
+    <Item Column="1" Row="109" Font="align_center" Text="USB" />
+    <Item Column="2" Row="109" Font="align_center" Text="RS485 # 1" />
+    <Item Column="3" Row="109" Font="align_center" Text="SPI 0" />
+    <Item Column="4" Row="109" Font="align_center" Text="SPI 1" />
     <Item Column="5" Row="109" />
     <Item Column="6" Row="109" />
-    <Item Column="7" Row="109" />
+    <Item Column="7" Row="109" Font="align_center" />
     <Item Column="8" Row="109" />
-    <Item Column="0" Row="110" Font="align_right" Text="Принято байт всего" />
-    <Item Column="1" Format="dec" Row="110" Font="align_center" Text="1/53/3" Assign="1/53/3" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="110" Font="align_center" Text="1/53/19" Assign="1/53/19" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="110" Font="align_center" Text="1/53/35" Assign="1/53/35" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="110" Font="align_center" Text="1/53/51" Assign="1/53/51" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="110" Font="align_right" Text="Принято пакетов всего" />
+    <Item Column="1" Format="dec" Row="110" Font="align_center" Text="1/53/1" Assign="1/53/1" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="110" Font="align_center" Text="1/53/17" Assign="1/53/17" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="110" Font="align_center" Text="1/53/33" Assign="1/53/33" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="110" Font="align_center" Text="1/53/49" Assign="1/53/49" BackgroundColor="#faebd7" />
     <Item Column="5" Row="110" />
     <Item Column="6" Row="110" />
     <Item Column="7" Row="110" />
     <Item Column="8" Row="110" />
-    <Item Column="0" Row="111" Font="align_right" Text="Ошибки аппаратуры запуска приема" />
-    <Item Column="1" Format="dec" Row="111" Font="align_center" Text="1/53/4" Assign="1/53/4" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="111" Font="align_center" Text="1/53/20" Assign="1/53/20" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="111" Font="align_center" Text="1/53/36" Assign="1/53/36" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="111" Font="align_center" Text="1/53/52" Assign="1/53/52" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="111" Font="align_right" Text="Принято пакетов без ошибок" />
+    <Item Column="1" Format="dec" Row="111" Font="align_center" Text="1/53/2" Assign="1/53/2" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="111" Font="align_center" Text="1/53/18" Assign="1/53/18" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="111" Font="align_center" Text="1/53/34" Assign="1/53/34" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="111" Font="align_center" Text="1/53/50" Assign="1/53/50" BackgroundColor="#faebd7" />
     <Item Column="5" Row="111" />
     <Item Column="6" Row="111" />
     <Item Column="7" Row="111" />
     <Item Column="8" Row="111" />
-    <Item Column="0" Row="112" Font="align_right" Text="Ошибки Frame" />
-    <Item Column="1" Format="dec" Row="112" Font="align_center" Text="1/53/5" Assign="1/53/5" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="112" Font="align_center" Text="1/53/21" Assign="1/53/21" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="112" Font="align_center" Text="1/53/37" Assign="1/53/37" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="112" Font="align_center" Text="1/53/53" Assign="1/53/53" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="112" Font="align_right" Text="Принято байт всего" />
+    <Item Column="1" Format="dec" Row="112" Font="align_center" Text="1/53/3" Assign="1/53/3" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="112" Font="align_center" Text="1/53/19" Assign="1/53/19" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="112" Font="align_center" Text="1/53/35" Assign="1/53/35" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="112" Font="align_center" Text="1/53/51" Assign="1/53/51" BackgroundColor="#faebd7" />
     <Item Column="5" Row="112" />
     <Item Column="6" Row="112" />
     <Item Column="7" Row="112" />
     <Item Column="8" Row="112" />
-    <Item Column="0" Row="113" Font="align_right" Text="Ошибки Overrun" />
-    <Item Column="1" Format="dec" Row="113" Font="align_center" Text="1/53/6" Assign="1/53/6" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="113" Font="align_center" Text="1/53/22" Assign="1/53/22" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="113" Font="align_center" Text="1/53/38" Assign="1/53/38" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="113" Font="align_center" Text="1/53/54" Assign="1/53/54" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="113" Font="align_right" Text="Ошибки аппаратуры запуска приема" />
+    <Item Column="1" Format="dec" Row="113" Font="align_center" Text="1/53/4" Assign="1/53/4" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="113" Font="align_center" Text="1/53/20" Assign="1/53/20" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="113" Font="align_center" Text="1/53/36" Assign="1/53/36" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="113" Font="align_center" Text="1/53/52" Assign="1/53/52" BackgroundColor="#faebd7" />
     <Item Column="5" Row="113" />
     <Item Column="6" Row="113" />
     <Item Column="7" Row="113" />
     <Item Column="8" Row="113" />
-    <Item Column="0" Row="114" Font="align_right" Text="Ошибки Parity" />
-    <Item Column="1" Format="dec" Row="114" Font="align_center" Text="1/53/7" Assign="1/53/7" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="114" Font="align_center" Text="1/53/23" Assign="1/53/23" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="114" Font="align_center" Text="1/53/39" Assign="1/53/39" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="114" Font="align_center" Text="1/53/55" Assign="1/53/55" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="114" Font="align_right" Text="Ошибки Frame" />
+    <Item Column="1" Format="dec" Row="114" Font="align_center" Text="1/53/5" Assign="1/53/5" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="114" Font="align_center" Text="1/53/21" Assign="1/53/21" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="114" Font="align_center" Text="1/53/37" Assign="1/53/37" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="114" Font="align_center" Text="1/53/53" Assign="1/53/53" BackgroundColor="#faebd7" />
     <Item Column="5" Row="114" />
     <Item Column="6" Row="114" />
     <Item Column="7" Row="114" />
     <Item Column="8" Row="114" />
-    <Item Column="0" Row="115" Font="align_right" Text="Ошибки Overflow" />
-    <Item Column="1" Format="dec" Row="115" Font="align_center" Text="1/53/8" Assign="1/53/8" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="115" Font="align_center" Text="1/53/24" Assign="1/53/24" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="115" Font="align_center" Text="1/53/40" Assign="1/53/40" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="115" Font="align_center" Text="1/53/56" Assign="1/53/56" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="115" Font="align_right" Text="Ошибки Overrun" />
+    <Item Column="1" Format="dec" Row="115" Font="align_center" Text="1/53/6" Assign="1/53/6" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="115" Font="align_center" Text="1/53/22" Assign="1/53/22" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="115" Font="align_center" Text="1/53/38" Assign="1/53/38" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="115" Font="align_center" Text="1/53/54" Assign="1/53/54" BackgroundColor="#faebd7" />
     <Item Column="5" Row="115" />
     <Item Column="6" Row="115" />
     <Item Column="7" Row="115" />
     <Item Column="8" Row="115" />
-    <Item Column="0" Row="116" Font="align_right" Text="Ошибки тайм-аута" />
-    <Item Column="1" Format="dec" Row="116" Font="align_center" Text="1/53/9" Assign="1/53/9" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="116" Font="align_center" Text="1/53/25" Assign="1/53/25" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="116" Font="align_center" Text="1/53/41" Assign="1/53/41" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="116" Font="align_center" Text="1/53/57" Assign="1/53/57" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="116" Font="align_right" Text="Ошибки Parity" />
+    <Item Column="1" Format="dec" Row="116" Font="align_center" Text="1/53/7" Assign="1/53/7" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="116" Font="align_center" Text="1/53/23" Assign="1/53/23" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="116" Font="align_center" Text="1/53/39" Assign="1/53/39" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="116" Font="align_center" Text="1/53/55" Assign="1/53/55" BackgroundColor="#faebd7" />
     <Item Column="5" Row="116" />
     <Item Column="6" Row="116" />
     <Item Column="7" Row="116" />
     <Item Column="8" Row="116" />
-    <Item Column="0" Row="117" Font="align_right" Text="Ошибки CRC" />
-    <Item Column="1" Format="dec" Row="117" Font="align_center" Text="1/53/10" Assign="1/53/10" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="117" Font="align_center" Text="1/53/26" Assign="1/53/26" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="117" Font="align_center" Text="1/53/42" Assign="1/53/42" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="117" Font="align_center" Text="1/53/58" Assign="1/53/58" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="117" Font="align_right" Text="Ошибки Overflow" />
+    <Item Column="1" Format="dec" Row="117" Font="align_center" Text="1/53/8" Assign="1/53/8" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="117" Font="align_center" Text="1/53/24" Assign="1/53/24" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="117" Font="align_center" Text="1/53/40" Assign="1/53/40" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="117" Font="align_center" Text="1/53/56" Assign="1/53/56" BackgroundColor="#faebd7" />
     <Item Column="5" Row="117" />
     <Item Column="6" Row="117" />
     <Item Column="7" Row="117" />
     <Item Column="8" Row="117" />
-    <Item Column="0" Row="118" Font="align_right" Text="Ошибки формирования пакета" />
-    <Item Column="1" Format="dec" Row="118" Font="align_center" Text="1/53/11" Assign="1/53/11" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="118" Font="align_center" Text="1/53/27" Assign="1/53/27" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="118" Font="align_center" Text="1/53/43" Assign="1/53/43" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="118" Font="align_center" Text="1/53/59" Assign="1/53/59" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="118" Font="align_right" Text="Ошибки тайм-аута" />
+    <Item Column="1" Format="dec" Row="118" Font="align_center" Text="1/53/9" Assign="1/53/9" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="118" Font="align_center" Text="1/53/25" Assign="1/53/25" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="118" Font="align_center" Text="1/53/41" Assign="1/53/41" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="118" Font="align_center" Text="1/53/57" Assign="1/53/57" BackgroundColor="#faebd7" />
     <Item Column="5" Row="118" />
     <Item Column="6" Row="118" />
     <Item Column="7" Row="118" />
     <Item Column="8" Row="118" />
-    <Item Column="0" Row="119" Font="align_right" Text="Передано пакетов всего" />
-    <Item Column="1" Format="dec" Row="119" Font="align_center" Text="1/53/12" Assign="1/53/12" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="119" Font="align_center" Text="1/53/28" Assign="1/53/28" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="119" Font="align_center" Text="1/53/44" Assign="1/53/44" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="119" Font="align_center" Text="1/53/60" Assign="1/53/60" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="119" Font="align_right" Text="Ошибки CRC" />
+    <Item Column="1" Format="dec" Row="119" Font="align_center" Text="1/53/10" Assign="1/53/10" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="119" Font="align_center" Text="1/53/26" Assign="1/53/26" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="119" Font="align_center" Text="1/53/42" Assign="1/53/42" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="119" Font="align_center" Text="1/53/58" Assign="1/53/58" BackgroundColor="#faebd7" />
     <Item Column="5" Row="119" />
     <Item Column="6" Row="119" />
     <Item Column="7" Row="119" />
     <Item Column="8" Row="119" />
-    <Item Column="0" Row="120" Font="align_right" Text="Передано пакетов без ошибок" />
-    <Item Column="1" Format="dec" Row="120" Font="align_center" Text="1/53/13" Assign="1/53/13" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="120" Font="align_center" Text="1/53/29" Assign="1/53/29" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="120" Font="align_center" Text="1/53/45" Assign="1/53/45" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="120" Font="align_center" Text="1/53/61" Assign="1/53/61" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="120" Font="align_right" Text="Ошибки формирования пакета" />
+    <Item Column="1" Format="dec" Row="120" Font="align_center" Text="1/53/11" Assign="1/53/11" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="120" Font="align_center" Text="1/53/27" Assign="1/53/27" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="120" Font="align_center" Text="1/53/43" Assign="1/53/43" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="120" Font="align_center" Text="1/53/59" Assign="1/53/59" BackgroundColor="#faebd7" />
     <Item Column="5" Row="120" />
     <Item Column="6" Row="120" />
     <Item Column="7" Row="120" />
     <Item Column="8" Row="120" />
-    <Item Column="0" Row="121" Font="align_right" Text="Передано байт всего" />
-    <Item Column="1" Format="dec" Row="121" Font="align_center" Text="1/53/14" Assign="1/53/14" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="121" Font="align_center" Text="1/53/30" Assign="1/53/30" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="121" Font="align_center" Text="1/53/46" Assign="1/53/46" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="121" Font="align_center" Text="1/53/62" Assign="1/53/62" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="121" Font="align_right" Text="Передано пакетов всего" />
+    <Item Column="1" Format="dec" Row="121" Font="align_center" Text="1/53/12" Assign="1/53/12" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="121" Font="align_center" Text="1/53/28" Assign="1/53/28" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="121" Font="align_center" Text="1/53/44" Assign="1/53/44" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="121" Font="align_center" Text="1/53/60" Assign="1/53/60" BackgroundColor="#faebd7" />
     <Item Column="5" Row="121" />
     <Item Column="6" Row="121" />
     <Item Column="7" Row="121" />
     <Item Column="8" Row="121" />
-    <Item Column="0" Row="122" Font="align_right" Text="Ошибки аппаратуры запуска передачи" />
-    <Item Column="1" Format="dec" Row="122" Font="align_center" Text="1/53/15" Assign="1/53/15" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="122" Font="align_center" Text="1/53/31" Assign="1/53/31" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="122" Font="align_center" Text="1/53/47" Assign="1/53/47" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="122" Font="align_center" Text="1/53/63" Assign="1/53/63" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="122" Font="align_right" Text="Передано пакетов без ошибок" />
+    <Item Column="1" Format="dec" Row="122" Font="align_center" Text="1/53/13" Assign="1/53/13" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="122" Font="align_center" Text="1/53/29" Assign="1/53/29" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="122" Font="align_center" Text="1/53/45" Assign="1/53/45" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="122" Font="align_center" Text="1/53/61" Assign="1/53/61" BackgroundColor="#faebd7" />
     <Item Column="5" Row="122" />
     <Item Column="6" Row="122" />
     <Item Column="7" Row="122" />
     <Item Column="8" Row="122" />
-    <Item Column="0" Row="123" Font="align_right" Text="Зарезервировано" />
-    <Item Column="1" Format="dec" Row="123" Font="align_center" Text="1/53/16" Assign="1/53/16" BackgroundColor="#faebd7" />
-    <Item Column="2" Format="dec" Row="123" Font="align_center" Text="1/53/32" Assign="1/53/32" BackgroundColor="#faebd7" />
-    <Item Column="3" Format="dec" Row="123" Font="align_center" Text="1/53/48" Assign="1/53/48" BackgroundColor="#faebd7" />
-    <Item Column="4" Format="dec" Row="123" Font="align_center" Text="1/53/64" Assign="1/53/64" BackgroundColor="#faebd7" />
+    <Item Column="0" Row="123" Font="align_right" Text="Передано байт всего" />
+    <Item Column="1" Format="dec" Row="123" Font="align_center" Text="1/53/14" Assign="1/53/14" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="123" Font="align_center" Text="1/53/30" Assign="1/53/30" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="123" Font="align_center" Text="1/53/46" Assign="1/53/46" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="123" Font="align_center" Text="1/53/62" Assign="1/53/62" BackgroundColor="#faebd7" />
     <Item Column="5" Row="123" />
     <Item Column="6" Row="123" />
     <Item Column="7" Row="123" />
     <Item Column="8" Row="123" />
-    <Item Column="0" Row="124" />
-    <Item Column="1" Row="124" />
-    <Item Column="2" Row="124" />
-    <Item Column="3" Row="124" />
-    <Item Column="4" Row="124" />
+    <Item Column="0" Row="124" Font="align_right" Text="Ошибки аппаратуры запуска передачи" />
+    <Item Column="1" Format="dec" Row="124" Font="align_center" Text="1/53/15" Assign="1/53/15" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="124" Font="align_center" Text="1/53/31" Assign="1/53/31" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="124" Font="align_center" Text="1/53/47" Assign="1/53/47" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="124" Font="align_center" Text="1/53/63" Assign="1/53/63" BackgroundColor="#faebd7" />
     <Item Column="5" Row="124" />
     <Item Column="6" Row="124" />
     <Item Column="7" Row="124" />
     <Item Column="8" Row="124" />
+    <Item Column="0" Row="125" Font="align_right" Text="Зарезервировано" />
+    <Item Column="1" Format="dec" Row="125" Font="align_center" Text="1/53/16" Assign="1/53/16" BackgroundColor="#faebd7" />
+    <Item Column="2" Format="dec" Row="125" Font="align_center" Text="1/53/32" Assign="1/53/32" BackgroundColor="#faebd7" />
+    <Item Column="3" Format="dec" Row="125" Font="align_center" Text="1/53/48" Assign="1/53/48" BackgroundColor="#faebd7" />
+    <Item Column="4" Format="dec" Row="125" Font="align_center" Text="1/53/64" Assign="1/53/64" BackgroundColor="#faebd7" />
+    <Item Column="5" Row="125" />
+    <Item Column="6" Row="125" />
+    <Item Column="7" Row="125" />
+    <Item Column="8" Row="125" />
+    <Item Column="0" Row="126" />
+    <Item Column="1" Row="126" />
+    <Item Column="2" Row="126" />
+    <Item Column="3" Row="126" />
+    <Item Column="4" Row="126" />
+    <Item Column="5" Row="126" />
+    <Item Column="6" Row="126" />
+    <Item Column="7" Row="126" />
+    <Item Column="8" Row="126" />
     <SettingsSheet>enum AI_mode
 {
   =-1: Откл
@@ -1195,6 +1213,16 @@ enum mask
   =32:  канал 6
   =64:  канал 7
   =128: канал 8
+}
+
+enum АЦП_PGA
+{
+  =0:   2500 mV
+  =1:   1250 mV
+  =2:    625 mV
+  =3:    312 mV
+  =4:    156 mV
+  =5:     78 mV
 }</SettingsSheet>
   </Table>
   <MBConfig>
@@ -1204,8 +1232,8 @@ enum mask
       <Slot Desc="Признаки выхода за уставки" Length="64" Type="bits" N="3" Addr="126" />
       <Slot Desc="Калибровки" Length="32" Type="floats" N="4" Addr="12E" />
       <Slot Desc="Нормировки" Length="32" Type="floats" N="5" Addr="1AE" />
-      <Slot Desc="Настройки - слова" Length="32" Type="words" N="6" Addr="22E" />
-      <Slot Desc="Настройки - вещ.числа" Length="16" Type="floats" N="7" Addr="28E" />
+      <Slot Desc="Настройки - слова" Length="33" Type="words" N="6" Addr="22E" />
+      <Slot Desc="Настройки - вещ.числа" Length="17" Type="floats" N="7" Addr="28E" />
       <Slot Desc="Настройки - байты" Length="23" Type="bytes" N="8" Addr="30E" />
       <Slot Desc="Уставки - вещ.числа" Length="128" Type="floats" N="9" Addr="33E" />
       <Slot Desc="Уставки - дв.слова" Length="64" Type="dwords" N="10" Addr="53E" />
