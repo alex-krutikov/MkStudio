@@ -682,7 +682,7 @@ void MBMasterPrivate::optimize_write_transaction_holding(int i1, int i2)
       {  QByteArray &ba2 = transactions_write[j].request;
          s = ba2.size() - 6;
          if (s < 0) return;
-         ba.append(ba2.constData() + 4, s);
+         ba.append( QByteArray( ba2.constData() + 4, s) );
       }
       CRC::appendCRC16( ba );
     }
