@@ -17,7 +17,7 @@ static int expected_answer_size( const QByteArray &ba )
   if( len < 3 ) return 255;
   if(     ( ba[1] == 0x41 )
        || ( ba[1] == 0x43 ) )
-  { int dsize = ba[5];
+  { int dsize = (unsigned char)ba[5];
     switch( ba[2] & 0x0F )
     { case( 0x00 ): // read
         return dsize + 6;
@@ -33,7 +33,20 @@ static int expected_answer_size( const QByteArray &ba )
 
   if( ba[1] == 0x45 )
   { switch( ba[2] )
-    { case( 33 ): return ba.size()+2;                      // create/open file
+    { case(  0 ): return (1+1+1)+4+2;                      // firmware: request for reset
+      case(  1 ): return (1+1+1)+4+2;                      // firmware: response for reset
+      case(  2 ): return (1+1+1)+4+2;                      // firmware: request for firmware
+      case(  3 ): return (1+1+1)+4+2;                      // firmware: response for firmware
+      case(  4 ): return (1+1+1)+1+(unsigned char)ba[7]+2; // firmware: read
+      case(  5 ): return (1+1+1)+4+4+2;                    // firmware: erase sectors
+      case(  6 ): return (1+1+1)+1+(unsigned char)ba[5]+2; // firmware: write to buffer
+      case(  7 ): return (1+1+1)+4+4+2;                    // firmware: flash buffer
+      case(  8 ): return (1+1+1)+1+(unsigned char)ba[3]+2; // firmware: information
+      case(  9 ): return (1+1+1)+2+2+4+2;                  // firmware: flash loader
+      case( 12 ): return (1+1+1)+1+4+(unsigned char)ba[7]+2;  // firmware: read (version 2)
+      case( 14 ): return (1+1+1)+2+1+(unsigned char)ba[5]+2;  // firmware: write to buffer (version 2)
+      
+      case( 33 ): return ba.size()+2;                      // create/open file
       case( 34 ): return ba.size()+1;                      // close file
       case( 35 ): return ba.size()+2+(unsigned char)ba[8]; // read file
       case( 36 ): return (1+1+1)+1+4+1+1+1+2;              // write file
