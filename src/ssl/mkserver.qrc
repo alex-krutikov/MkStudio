@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/icons" >
-    </qresource>
-    <qresource prefix="/tr" >
-        <file>qt_ru.qm</file>
-    </qresource>
-</RCC>
