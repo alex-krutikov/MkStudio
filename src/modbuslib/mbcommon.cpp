@@ -5,8 +5,47 @@
 //===================================================================
 //
 //===================================================================
-const char * const MBDataType_id[]    = { "unknown", "bits", "bytes", "words", "dwords",   "floats",    "discrete_inputs", "coils",       "input_registers",  "holding_registers" };
-const char * const MBDataType_names[] = { "?",       "биты", "байты", "слова", "дв.слова", "вещ.числа", "дискр. входы",    "рег. флагов", "рег. ввода",   "рег. хранения" };
+const char * const MBDataType_id[]    = {
+  "unknown",
+  "bits",
+  "bytes",
+  "words",
+  "dwords",
+  "floats",
+  "discrete_inputs",
+  "coils",
+  "input_registers",
+  "holding_registers",
+  "dwords_iregs_hl", // рег.вв. дв.слова  ст./мл.
+  "dwords_iregs_lh", // рег.вв. дв.слова  мл./ст.
+  "floats_iregs_hl", // рег.вв. вещ.числа ст./мл.
+  "floats_iregs_lh", // рег.вв. вещ.числа мл./ст.
+  "dwords_hregs_hl", // рег.хр. дв.слова  ст./мл.
+  "dwords_hregs_lh", // рег.хр. дв.слова  мл./ст.
+  "floats_hregs_hl", // рег.хр. вещ.числа ст./мл.
+  "floats_hregs_lh", // рег.хр. вещ.числа мл./ст.
+  };
+
+const char * const MBDataType_names[] = {
+  "?",
+  "биты",
+  "байты",
+  "слова",
+  "дв.слова",
+  "вещ.числа",
+  "дискр. входы",
+  "рег. флагов",
+  "рег. ввода",
+  "рег. хранения",
+  "рег.вв. дв.слова  ст./мл.",
+  "рег.вв. дв.слова  мл./ст.",
+  "рег.вв. вещ.числа ст./мл.",
+  "рег.вв. вещ.числа мл./ст.",
+  "рег.хр. дв.слова  ст./мл.",
+  "рег.хр. дв.слова  мл./ст.",
+  "рег.хр. вещ.числа ст./мл.",
+  "рег.хр. вещ.числа мл./ст.",
+  };
 
 //==============================================================================
 // массив ==> строка шестнадцатеричных чисел
@@ -35,10 +74,17 @@ bool MBDataType::isRegister() const
     case MBDataType::Coils :
     case MBDataType::InputRegisters :
     case MBDataType::HoldingRegisters :
+    case MBDataType::DwordsInputRegHiLo :
+    case MBDataType::FloatsInputRegHiLo :
+    case MBDataType::DwordsHoldingRegHiLo :
+    case MBDataType::FloatsHoldingRegHiLo :
+    case MBDataType::DwordsInputRegLoHi :
+    case MBDataType::FloatsInputRegLoHi :
+    case MBDataType::DwordsHoldingRegLoHi :
+    case MBDataType::FloatsHoldingRegLoHi :
       return true;
-    default:
-     return false;
   }
+  return false;
 }
 
 bool MBDataType::isAnalogRegister() const
@@ -46,8 +92,41 @@ bool MBDataType::isAnalogRegister() const
   switch( state )
   { case MBDataType::InputRegisters :
     case MBDataType::HoldingRegisters :
+    case MBDataType::DwordsInputRegHiLo :
+    case MBDataType::FloatsInputRegHiLo :
+    case MBDataType::DwordsHoldingRegHiLo :
+    case MBDataType::FloatsHoldingRegHiLo :
+    case MBDataType::DwordsInputRegLoHi :
+    case MBDataType::FloatsInputRegLoHi :
+    case MBDataType::DwordsHoldingRegLoHi :
+    case MBDataType::FloatsHoldingRegLoHi :
       return true;
-    default:
-     return false;
   }
+  return false;
+}
+
+bool MBDataType::isDiscreteRegister() const
+{
+  switch( state )
+  { case MBDataType::DiscreteInputs :
+    case MBDataType::Coils :
+      return true;
+  }
+  return false;
+}
+
+bool MBDataType::isExtendedRegister() const
+{
+  switch( state )
+  { case MBDataType::DwordsInputRegHiLo :
+    case MBDataType::FloatsInputRegHiLo :
+    case MBDataType::DwordsHoldingRegHiLo :
+    case MBDataType::FloatsHoldingRegHiLo :
+    case MBDataType::DwordsInputRegLoHi :
+    case MBDataType::FloatsInputRegLoHi :
+    case MBDataType::DwordsHoldingRegLoHi :
+    case MBDataType::FloatsHoldingRegLoHi :
+      return true;
+  }
+  return false;
 }

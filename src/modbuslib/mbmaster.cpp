@@ -63,83 +63,139 @@ void MBMasterPrivate::polling_start()
    if( ps.datatype.isRegister() )
    { // classic modbus registers
 
-     int regs_per_packet = 1;
-     switch( ps.datatype.id() )
-     { case( MBDataType::InputRegisters):
-       case( MBDataType::HoldingRegisters):
-         regs_per_packet = ((int)((max_packet_length&0x7FFFFFFF)-5))/2;
-         break;
-       case( MBDataType::DiscreteInputs  ):
-       case( MBDataType::Coils  ):
-         regs_per_packet = ((int)((max_packet_length&0x7FFFFFFF)-5))*8;
-         break;
-       default: continue; break;
-     }
+     if( ps.datatype.isExtendedRegister() )
+     { // extended modbus registers
 
-     k=0;
-     while( k < ps.len )
-     { int reg_first = k + ps.addr;
-       int reg_count = qMin( regs_per_packet, ps.len - k );
-       //--------------------------------
-       switch( ps.datatype.id() )
-       { case( MBDataType::InputRegisters ) :
-           ba.resize( 6 );
-           ba[0] = ps.module.node;
-           ba[1] = 0x04;
-           ba[2] = reg_first >> 8;
-           ba[3] = reg_first;
-           ba[4] = reg_count >> 8;
-           ba[5] = reg_count;
-           CRC::appendCRC16( ba );
-           mmsp.exp_length = 2*reg_count+5;
-           break;
-         case( MBDataType::HoldingRegisters ) :
-           ba.resize( 6 );
-           ba[0] = ps.module.node;
-           ba[1] = 0x03;
-           ba[2] = reg_first >> 8;
-           ba[3] = reg_first;
-           ba[4] = reg_count >> 8;
-           ba[5] = reg_count;
-           CRC::appendCRC16( ba );
-           mmsp.exp_length = 2*reg_count+5;
-           break;
-         case( MBDataType::DiscreteInputs ):
-           ba.resize( 6 );
-           ba[0] = ps.module.node;
-           ba[1] = 0x02;
-           ba[2] = reg_first >> 8;
-           ba[3] = reg_first;
-           ba[4] = reg_count >> 8;
-           ba[5] = reg_count;
-           CRC::appendCRC16( ba );
-           mmsp.exp_length = ((reg_count-1)/8+1)+5;
-           break;
-         case( MBDataType::Coils ):
-           ba.resize( 6 );
-           ba[0] = ps.module.node;
-           ba[1] = 0x01;
-           ba[2] = reg_first >> 8;
-           ba[3] = reg_first;
-           ba[4] = reg_count >> 8;
-           ba[5] = reg_count;
-           CRC::appendCRC16( ba );
-           mmsp.exp_length = ((reg_count-1)/8+1)+5;
-           break;
-         default :
-           break;
+       int regs_per_packet = ((int)((max_packet_length&0x7FFFFFFF)-5))/4;
+       k=0;
+       while( k < ps.len )
+       { int reg_first = 2*k + ps.addr;
+         int reg_count = 2*qMin( regs_per_packet, ps.len - k );
+         //--------------------------------
+         switch( ps.datatype.id() )
+         {
+           case( MBDataType::DwordsInputRegHiLo   ):
+           case( MBDataType::FloatsInputRegHiLo   ):
+           case( MBDataType::DwordsInputRegLoHi   ):
+           case( MBDataType::FloatsInputRegLoHi   ):
+             ba.resize( 6 );
+             ba[0] = ps.module.node;
+             ba[1] = 0x04;
+             ba[2] = reg_first >> 8;
+             ba[3] = reg_first;
+             ba[4] = reg_count >> 8;
+             ba[5] = reg_count;
+             CRC::appendCRC16( ba );
+             mmsp.exp_length = 2*reg_count+5;
+             break;
+           case( MBDataType::DwordsHoldingRegHiLo ):
+           case( MBDataType::FloatsHoldingRegHiLo ):
+           case( MBDataType::DwordsHoldingRegLoHi ):
+           case( MBDataType::FloatsHoldingRegLoHi ):
+             ba.resize( 6 );
+             ba[0] = ps.module.node;
+             ba[1] = 0x03;
+             ba[2] = reg_first >> 8;
+             ba[3] = reg_first;
+             ba[4] = reg_count >> 8;
+             ba[5] = reg_count;
+             CRC::appendCRC16( ba );
+             mmsp.exp_length = 2*reg_count+5;
+             break;
+          default:
+            break;
+          }
+         //--------------------------------
+         mmsp.slot    = &ps;
+         mmsp.offset  = k;
+         mmsp.length  = reg_count/2;
+         mmsp.request = ba;
+         mmsp.answer.resize( mmsp.exp_length );
+         mmsp.execute_flag = true;
+         transactions_read << mmsp;
+         //--------------------------------
+         k = k + reg_count/2;
        }
-       //--------------------------------
-       mmsp.slot    = &ps;
-       mmsp.offset  = k;
-       mmsp.length  = reg_count;
-       mmsp.request = ba;
-       mmsp.answer.resize( mmsp.exp_length );
-       mmsp.execute_flag = true;
+     } else
+     { // standart modbus registers
+       int regs_per_packet = 1;
+       switch( ps.datatype.id() )
+       { case( MBDataType::InputRegisters):
+         case( MBDataType::HoldingRegisters):
+           regs_per_packet = ((int)((max_packet_length&0x7FFFFFFF)-5))/2;
+           break;
+         case( MBDataType::DiscreteInputs  ):
+         case( MBDataType::Coils  ):
+           regs_per_packet = ((int)((max_packet_length&0x7FFFFFFF)-5))*8;
+           break;
+         default: continue; break;
+       }
 
-       transactions_read << mmsp;
-       //--------------------------------
-       k = k + reg_count;
+       k=0;
+       while( k < ps.len )
+       { int reg_first = k + ps.addr;
+         int reg_count = qMin( regs_per_packet, ps.len - k );
+         //--------------------------------
+         switch( ps.datatype.id() )
+         { case( MBDataType::InputRegisters ) :
+             ba.resize( 6 );
+             ba[0] = ps.module.node;
+             ba[1] = 0x04;
+             ba[2] = reg_first >> 8;
+             ba[3] = reg_first;
+             ba[4] = reg_count >> 8;
+             ba[5] = reg_count;
+             CRC::appendCRC16( ba );
+             mmsp.exp_length = 2*reg_count+5;
+             break;
+           case( MBDataType::HoldingRegisters ) :
+             ba.resize( 6 );
+             ba[0] = ps.module.node;
+             ba[1] = 0x03;
+             ba[2] = reg_first >> 8;
+             ba[3] = reg_first;
+             ba[4] = reg_count >> 8;
+             ba[5] = reg_count;
+             CRC::appendCRC16( ba );
+             mmsp.exp_length = 2*reg_count+5;
+             break;
+           case( MBDataType::DiscreteInputs ):
+             ba.resize( 6 );
+             ba[0] = ps.module.node;
+             ba[1] = 0x02;
+             ba[2] = reg_first >> 8;
+             ba[3] = reg_first;
+             ba[4] = reg_count >> 8;
+             ba[5] = reg_count;
+             CRC::appendCRC16( ba );
+             mmsp.exp_length = ((reg_count-1)/8+1)+5;
+             break;
+           case( MBDataType::Coils ):
+             ba.resize( 6 );
+             ba[0] = ps.module.node;
+             ba[1] = 0x01;
+             ba[2] = reg_first >> 8;
+             ba[3] = reg_first;
+             ba[4] = reg_count >> 8;
+             ba[5] = reg_count;
+             CRC::appendCRC16( ba );
+             mmsp.exp_length = ((reg_count-1)/8+1)+5;
+             break;
+           default :
+             break;
+         }
+         //--------------------------------
+         mmsp.slot    = &ps;
+         mmsp.offset  = k;
+         mmsp.length  = reg_count;
+         mmsp.request = ba;
+         mmsp.answer.resize( mmsp.exp_length );
+         mmsp.execute_flag = true;
+
+         transactions_read << mmsp;
+         //--------------------------------
+         k = k + reg_count;
+       }
      }
    } else
    {  // mikkkon
@@ -199,11 +255,15 @@ void MBMasterPrivate::polling_start()
      case( MBDataType::Words  )           : j = 2; break;
      case( MBDataType::Dwords )           : j = 4; break;
      case( MBDataType::Floats )           : j = 4; break;
-     case( MBDataType::InputRegisters )   : continue; break;
-     case( MBDataType::DiscreteInputs )   : continue; break;
      case( MBDataType::HoldingRegisters ) : j = 2; break;
      case( MBDataType::Coils )            : j = 2; break;
-     default:  break;
+     case( MBDataType::DwordsHoldingRegHiLo ):
+     case( MBDataType::FloatsHoldingRegHiLo ):
+     case( MBDataType::DwordsHoldingRegLoHi ):
+     case( MBDataType::FloatsHoldingRegLoHi ):
+       j=4;
+       break;
+     default:  continue;
    }
 
    for( k=0; k<ps.len; k++ )
@@ -258,6 +318,26 @@ void MBMasterPrivate::polling_start()
            mmsp.answer.resize( mmsp.exp_length );
            mmsp.execute_flag = false;
            break;
+         case( MBDataType::DwordsHoldingRegHiLo ):
+         case( MBDataType::FloatsHoldingRegHiLo ):
+         case( MBDataType::DwordsHoldingRegLoHi ):
+         case( MBDataType::FloatsHoldingRegLoHi ):
+           ba.resize( 7 );
+           ba[0] = ps.module.node;
+           ba[1] = 0x10;
+           ba[2] = ( ps.addr + 2*k ) >> 8;
+           ba[3] = ( ps.addr + 2*k );
+           ba[4] = 0;
+           ba[5] = 2;
+           ba[6] = 4;
+           mmsp.slot = &ps;
+           mmsp.offset = k;
+           mmsp.length = 1;
+           mmsp.request = ba;
+           mmsp.exp_length = 8;
+           mmsp.answer.resize( mmsp.exp_length );
+           mmsp.execute_flag = false;
+           break;
        }
      }
      //--------------------------------
@@ -267,7 +347,7 @@ void MBMasterPrivate::polling_start()
    }
  }
  //for( i=0; i<transactions_write.count(); i++ )
- //{ Console::Print("çàïèñü:" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
+ //{ Console::Print( Console::Debug, "çàïèñü:" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
  //}
  start( QThread::HighPriority );
 }
@@ -424,6 +504,7 @@ void MBMasterPrivate::run()
     optimize_write();
     optimize_write_holding();
     optimize_write_coils();
+    optimize_write_holding_ext();
 
     if( !disable_write_transactions )
     { // òðàíçàêöèè íà çàïèñü
@@ -702,6 +783,119 @@ void MBMasterPrivate::optimize_write_transaction_holding(int i1, int i2)
 //===================================================================
 //
 //===================================================================
+void MBMasterPrivate::optimize_write_holding_ext()
+{
+  QVector<int> flags_array;
+
+  int i,j,k;
+  int addr1,addr2,count1;
+  int ni = transactions_write.count();
+  flags_array.resize( ni );
+  flags_array.fill( 0 );
+
+  // ýòàï 1: àíàëèç
+  k=1;
+  for( i=0; i<(ni-1); i++ )
+  { if( !transactions_write[i].execute_flag   ) goto skip;
+    switch( transactions_write[i].slot->datatype.id() )
+    { case( MBDataType::DwordsHoldingRegHiLo ):
+      case( MBDataType::FloatsHoldingRegHiLo ):
+      case( MBDataType::DwordsHoldingRegLoHi ):
+      case( MBDataType::FloatsHoldingRegLoHi ):
+        break;
+      default:
+        goto skip;
+        break;
+    }
+    if( !transactions_write[i+1].execute_flag )
+    { goto skip;
+    } else
+    { QByteArray &ba1 = transactions_write[i].request;
+      QByteArray &ba2 = transactions_write[i+1].request;
+      if( ba1[0] != ba2[0] ) goto skip;
+      if( ba1[1] != ba2[1] ) goto skip;
+      addr1  = ( (unsigned char)ba1[3]) | ((unsigned char)ba1[2] << 8);
+      addr2  = ( (unsigned char)ba2[3]) | ((unsigned char)ba2[2] << 8);
+      count1 = ( (unsigned char)ba1[5]) | ((unsigned char)ba1[4] << 8);
+      if( ( addr1 + count1 ) != addr2 ) goto skip;
+      flags_array[i]   = k;
+      flags_array[i+1] = k;
+    }
+    continue;
+  skip:
+    k++;
+  }
+
+  // ýòàï 2: ïîñòðîåíèå òðàíçàêöèé
+  k=0;
+  for( i=0; i<ni; i++ )
+  { if( flags_array[i] == 0 ) continue;
+    { k = flags_array[i];
+      j = i;
+      while( ( j < ni ) && ( flags_array[j] == k ) ) j++;
+      j--;
+      //Console::Print( Console::Debug, QString("ÎÏÒÈÌÈÇÈÐÎÂÀÍÍÀß ÇÀÏÈÑÜ [%1;%2] (%3)\n").arg(i).arg(j).arg(k) );
+      optimize_write_transaction_holding_ext( i,j );
+      i=j;
+    }
+  }
+}
+
+//===================================================================
+//
+//===================================================================
+void MBMasterPrivate::optimize_write_transaction_holding_ext(int i1, int i2)
+{
+  int i,j;
+  QByteArray ba;
+  QByteArray ba_copy;
+  QByteArray ba_answer;
+  int addr1;
+  int s;
+
+  for(i=i1; i<=i2; i++)
+  { transactions_write[i].execute_flag = false;
+  }
+
+  for(i=i1; i<=i2; )
+  { QByteArray ba = transactions_write[i].request;
+    ba_copy = ba;
+    addr1 = ( (unsigned char)ba[2] << 8)  | ((unsigned char)ba[3]);
+    int len;  //number of registers that would fit into one package
+    for( len = i2 - i + 1; len > 1; len--)
+    { if ((len*4 + 9) <= (max_packet_length - 4)) break;
+    }
+    if (len > 1) //generating package
+    { ba[1] = 0x10;
+      ba[4] = (2*len) >> 8;
+      ba[5] = (2*len);
+      ba[6] = (len * 4);
+      ba.resize(7);
+      for (j = i; j < i+len; j++)
+      {  const QByteArray &ba2 = transactions_write[j].request;
+         s = ba2.size() - 9;
+         if (s < 0) return;
+         ba.append( QByteArray( ba2.constData() + 7, s) );
+      }
+      CRC::appendCRC16( ba );
+    }else
+    { ba = ba_copy; //single write
+    }
+    ba_answer.resize( 8 );
+    ba_answer.fill(0);
+    if( !transport  ) return;
+    int errorcode;
+    request_counter++;
+    msleep( transaction_delay );
+    transport->query( ba, ba_answer, &errorcode );
+    i = i + len;
+    addr1 = addr1 + 2*len;
+  }
+}
+
+//===================================================================
+//
+//===================================================================
 void MBMasterPrivate::optimize_write_coils()
 {
   QVector<int> flags_array;
@@ -743,7 +937,7 @@ void MBMasterPrivate::optimize_write_coils()
       j = i;
       while( ( j < ni ) && ( flags_array[j] == k ) ) j++;
       j--;
-      //Console::Print( QString("ÎÏÒÈÌÈÇÈÐÎÂÀÍÍÀß ÇÀÏÈÑÜ [%1;%2] (%3)\n").arg(i).arg(j).arg(k) );
+      //Console::Print( Console::Debug, QString("ÎÏÒÈÌÈÇÈÐÎÂÀÍÍÀß ÇÀÏÈÑÜ [%1;%2] (%3)\n").arg(i).arg(j).arg(k) );
       optimize_write_transaction_coils( i,j );
       i=j;
     }
@@ -810,19 +1004,106 @@ void MBMasterPrivate::optimize_write_transaction_coils(int i1, int i2)
 //===================================================================
 //
 //===================================================================
+inline static float ptr2float( const char *ptr, bool mode )
+{
+  union
+  { char  b[4];
+    float f;
+  } u;
+
+  if( mode )
+  { u.b[0] = ptr[1];
+    u.b[1] = ptr[0];
+    u.b[2] = ptr[3];
+    u.b[3] = ptr[2];
+  } else
+  { u.b[0] = ptr[3];
+    u.b[1] = ptr[2];
+    u.b[2] = ptr[1];
+    u.b[3] = ptr[0];
+  }
+  return u.f;
+}
+
+//===================================================================
+//
+//===================================================================
+inline static qint32 ptr2dword( const char *ptr, bool mode )
+{
+  union
+  { char   b[4];
+    qint32 dw;
+  } u;
+
+  if( mode )
+  { u.b[0] = ptr[1];
+    u.b[1] = ptr[0];
+    u.b[2] = ptr[3];
+    u.b[3] = ptr[2];
+  } else
+  { u.b[0] = ptr[3];
+    u.b[1] = ptr[2];
+    u.b[2] = ptr[0];
+    u.b[3] = ptr[1];
+  }
+  return u.dw;
+}
+
+//===================================================================
+//
+//===================================================================
+inline static void float2ptr( float f, char *ptr, bool mode )
+{
+  union
+  { char  b[4];
+    float f;
+  } u;
+
+  u.f = f;
+
+  if( mode )
+  { ptr[0] = u.b[1];
+    ptr[1] = u.b[0];
+    ptr[2] = u.b[3];
+    ptr[3] = u.b[2];
+  } else
+  { ptr[0] = u.b[3];
+    ptr[1] = u.b[2];
+    ptr[2] = u.b[1];
+    ptr[3] = u.b[0];
+  }
+}
+
+//===================================================================
+//
+//===================================================================
+inline static void dword2ptr( qint32 dw, char *ptr, bool mode )
+{
+  union
+  { char   b[4];
+    qint32 dw;
+  } u;
+
+  u.dw = dw;
+
+  if( mode )
+  { ptr[0] = u.b[1];
+    ptr[1] = u.b[0];
+    ptr[2] = u.b[3];
+    ptr[3] = u.b[2];
+  } else
+  { ptr[0] = u.b[3];
+    ptr[1] = u.b[2];
+    ptr[2] = u.b[1];
+    ptr[3] = u.b[0];
+  }
+}
+
+//===================================================================
+//
+//===================================================================
 bool MBMasterPrivate::process_transaction( MMSlotTransaction &tr )
 {
-  QByteArray classic_readcodes(4, 0);
-  QByteArray classic_writecodes(4, 0);
-  classic_readcodes[0] = 0x01;  //a bit rough
-  classic_readcodes[1] = 0x02;
-  classic_readcodes[2] = 0x03;
-  classic_readcodes[3] = 0x04;
-  classic_writecodes[0] = 0x05;
-  classic_writecodes[1] = 0x06;
-  classic_writecodes[2] = 0x0F;
-  classic_writecodes[3] = 0x10;
-
   int i;
   int data_offset;
 
@@ -905,48 +1186,100 @@ bool MBMasterPrivate::process_transaction( MMSlotTransaction &tr )
   }
   else  //classic modbus
   {
-    if( i != tr.exp_length )            goto exit;
-    if( i != tr.answer.length() )       goto exit;
-    if(! (classic_readcodes.contains(tr.request[1]) || classic_writecodes.contains(tr.request[1])) )
-      goto exit;
     if( tr.answer[0] != tr.request[0] ) goto exit;
     if( tr.answer[1] != tr.request[1] ) goto exit;
     if( CRC::CRC16( tr.answer ) )       goto exit;
 
-    if( classic_writecodes.contains(tr.request[1]) ) //writing
-    { //yet to be implemented
-    }
-    if( classic_readcodes.contains(tr.request[1]) ) //reading
-    { switch( tr.slot->datatype.id() )
-      { case( MBDataType::InputRegisters ) :
-          data_offset = 3;
-          for(i=0; i<tr.length; i++ )
-          { tr.slot->data[i+tr.offset] = swap_short(*((short*)(tr.answer.data()+data_offset+2*i)));
-          }
-          break;
-        case( MBDataType::HoldingRegisters ) :
-          data_offset = 3;
-          for(i=0; i<tr.length; i++ )
-          { tr.slot->data[i+tr.offset] = swap_short(*((short*)(tr.answer.data()+data_offset+2*i)));
-          }
-          break;
-        case( MBDataType::DiscreteInputs ) :
-          data_offset = 3;
-          for(i=0; i<tr.length; i++ )
-          {  tr.slot->data[i+tr.offset]  =
-                 ((*((char*)(tr.answer.data()+data_offset+i/8)))&(1<<(i&7)))?(1):(0);
-          }
-          break;
-        case( MBDataType::Coils ) :
-          data_offset = 3;
-          for(i=0; i<tr.length; i++ )
-          {  tr.slot->data[i+tr.offset]  =
-                 ((*((char*)(tr.answer.data()+data_offset+i/8)))&(1<<(i&7)))?(1):(0);
-          }
-          break;
-        default:
-          goto exit; break;
-      }
+    switch( tr.answer[1] )
+    {
+      case( 0x01 ): // Read Coils
+        if( tr.slot->datatype.id() != MBDataType::Coils ) goto exit;
+        for(i=0; i<tr.length; i++ )
+        {  tr.slot->data[i+tr.offset]  =
+               ((*((char*)(tr.answer.data()+3+i/8)))&(1<<(i&7)))?(1):(0);
+        }
+        break;
+      case( 0x02 ): // Read Discrete Inputs
+        if( tr.slot->datatype.id() != MBDataType::DiscreteInputs ) goto exit;
+        for(i=0; i<tr.length; i++ )
+        {  tr.slot->data[i+tr.offset]  =
+               ((*((char*)(tr.answer.data()+3+i/8)))&(1<<(i&7)))?(1):(0);
+        }
+        break;
+      case( 0x03 ): // Read Holding Registers
+        switch( tr.slot->datatype.id() )
+        { case( MBDataType::HoldingRegisters ):
+            for(i=0; i<tr.length; i++ )
+            { tr.slot->data[i+tr.offset] = swap_short(*((short*)(tr.answer.data()+3+2*i)));
+            }
+            break;
+          case( MBDataType::FloatsHoldingRegHiLo ):
+            for(i=0; i<tr.length; i++ )
+            { tr.slot->data[i+tr.offset] = ptr2float( tr.answer.constData()+3+4*i, false );
+            }
+            break;
+          case( MBDataType::FloatsHoldingRegLoHi ):
+            for(i=0; i<tr.length; i++ )
+            { tr.slot->data[i+tr.offset] = ptr2float( tr.answer.constData()+3+4*i, true );
+            }
+            break;
+          case( MBDataType::DwordsHoldingRegHiLo ):
+            for(i=0; i<tr.length; i++ )
+            { tr.slot->data[i+tr.offset] = ptr2dword( tr.answer.constData()+3+4*i, false );
+            }
+            break;
+          case( MBDataType::DwordsHoldingRegLoHi ):
+            for(i=0; i<tr.length; i++ )
+            { tr.slot->data[i+tr.offset] = ptr2dword( tr.answer.constData()+3+4*i, true );
+            }
+            break;
+          default:
+            goto exit;
+            break;
+        }
+        break;
+      case( 0x04 ): // Read Input Registers
+         switch( tr.slot->datatype.id() )
+        { case( MBDataType::InputRegisters ):
+            for(i=0; i<tr.length; i++ )
+            { tr.slot->data[i+tr.offset] = swap_short(*((short*)(tr.answer.data()+3+2*i)));
+            }
+            break;
+          case( MBDataType::FloatsInputRegHiLo ):
+            for(i=0; i<tr.length; i++ )
+            { tr.slot->data[i+tr.offset] = ptr2float( tr.answer.constData()+3+4*i, false );
+            }
+            break;
+          case( MBDataType::FloatsInputRegLoHi ):
+            for(i=0; i<tr.length; i++ )
+            { tr.slot->data[i+tr.offset] = ptr2float( tr.answer.constData()+3+4*i, true );
+            }
+            break;
+          case( MBDataType::DwordsInputRegHiLo ):
+            for(i=0; i<tr.length; i++ )
+            { tr.slot->data[i+tr.offset] = ptr2dword( tr.answer.constData()+3+4*i, false );
+            }
+            break;
+          case( MBDataType::DwordsInputRegLoHi ):
+            for(i=0; i<tr.length; i++ )
+            { tr.slot->data[i+tr.offset] = ptr2dword( tr.answer.constData()+3+4*i, true );
+            }
+            break;
+          default:
+            goto exit;
+            break;
+        }
+        break;
+      case( 0x05 ): // Write Single Coil
+        break;
+      case( 0x06 ): // Write Single Register
+        break;
+      case( 0x0F ): // Write Multiple Coils
+        break;
+      case( 0x10 ): // Write Multiple registers
+        break;
+      default:
+        goto exit; break;
     }
   }
 
@@ -1006,7 +1339,7 @@ void MBMasterPrivate::setSlotValue(int module, int slot,int index, const MMValue
     //Console::Print( QString("Çàïèñü: ñëîò íàéäåí!\n") );
     if( !transactions_write[i].slot->datatype.isRegister() ) //not a register, means mikkon
     { transactions_write[i].request.resize(6);
-      //Console::Print("çàïèñü 1:" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
+      //Console::Print(Console::Debug, "çàïèñü 1:" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
       switch( transactions_write[i].slot->datatype.id() )
       { case( MBDataType::Bits   ):
           if( value.toInt() != 0 )
@@ -1028,24 +1361,52 @@ void MBMasterPrivate::setSlotValue(int module, int slot,int index, const MMValue
       }
     }
     else //work with registers
-    { transactions_write[i].request.resize(4);
+    { switch( transactions_write[i].slot->datatype.id() )
+      { case( MBDataType::HoldingRegisters ):
+        case( MBDataType::Coils ):
+          transactions_write[i].request.resize(4);
+          break;
+        case( MBDataType::DwordsHoldingRegHiLo ):
+        case( MBDataType::DwordsHoldingRegLoHi ):
+        case( MBDataType::FloatsHoldingRegHiLo ):
+        case( MBDataType::FloatsHoldingRegLoHi ):
+          transactions_write[i].request.resize(7);
+          break;
+      }
       switch( transactions_write[i].slot->datatype.id() )
       { case( MBDataType::HoldingRegisters ):
           (*(short*)buff) = (swap_short(value.toInt()) & 0xFFFF );
           buff_len=2;
           break;
         case( MBDataType::Coils ):
-            if (value.toInt() == 0) (*(short*)buff) = 0x0000;
-            else (*(short*)buff) = 0x00FF;
-            buff_len=2;
-            break;
+          if (value.toInt() == 0) (*(short*)buff) = 0x0000;
+          else (*(short*)buff) = 0x00FF;
+          buff_len=2;
+          break;
+        case( MBDataType::DwordsHoldingRegHiLo ):
+          dword2ptr( value.toInt(), buff, false );
+          //Console::Print( Console::Debug, "çàïèñü :" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
+          buff_len=4;
+          break;
+        case( MBDataType::DwordsHoldingRegLoHi ):
+          dword2ptr( value.toInt(), buff, true  );
+          buff_len=4;
+          break;
+        case( MBDataType::FloatsHoldingRegHiLo ):
+          float2ptr( (float)value.toDouble(), buff, false );
+          buff_len=4;
+          break;
+        case( MBDataType::FloatsHoldingRegLoHi ):
+          float2ptr( (float)value.toDouble(), buff, true  );
+          buff_len=4;
+          break;
       }
     }
 
     for(j=0; j<buff_len; j++ ) transactions_write[i].request.append( buff[j] );
     CRC::appendCRC16( transactions_write[i].request );
     transactions_write[i].execute_flag=true;
-    //Console::Print("çàïèñü 2:" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
+    //Console::Print( Console::Debug, "çàïèñü 2:" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
   }
 }
 

@@ -43,6 +43,8 @@ QWidget* MBConfigWidgetItemDelegate::createEditor(QWidget *parent, const QStyleO
   for (int i = 1; i < mb.length(); i++)
   {
     w->addItem( mb.toName(), i );
+    if( mb.isRegister() )         w->setItemData(i-1,QColor("bisque"),Qt::BackgroundRole);
+    if( mb.isExtendedRegister() ) w->setItemData(i-1,QColor("lavender"),Qt::BackgroundRole);
     mb.step();
   }
   w->setCurrentIndex( w->findText( current_text ) );

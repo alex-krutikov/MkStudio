@@ -43,7 +43,7 @@ MKTable::MKTable( QWidget *parent )
   connect(&timer, SIGNAL(timeout()), this, SLOT(refresh()));
 
   setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
-  
+
   optimize_read_mode = true;
 }
 
@@ -741,6 +741,21 @@ QString MKTable::format_output( const MMValue &value, const MBDataType &datatype
   int d = value.toInt();
 
   cf = (char*)"";
+
+  switch( datatype_id )
+  { case( MBDataType::DwordsInputRegHiLo   ):
+    case( MBDataType::DwordsHoldingRegHiLo ):
+    case( MBDataType::DwordsInputRegLoHi   ):
+    case( MBDataType::DwordsHoldingRegLoHi ):
+      datatype_id = MBDataType::Dwords;
+      break;
+    case( MBDataType::FloatsInputRegHiLo   ):
+    case( MBDataType::FloatsHoldingRegHiLo ):
+    case( MBDataType::FloatsInputRegLoHi   ):
+    case( MBDataType::FloatsHoldingRegLoHi ):
+      datatype_id = MBDataType::Floats;
+      break;
+  }
 
   switch( type )
   { case(1): // беззнаковый

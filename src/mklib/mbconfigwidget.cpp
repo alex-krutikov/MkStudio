@@ -114,11 +114,11 @@ MBConfigWidget::MBConfigWidget( QWidget *parent )
   ui->tw2->setModel( &d->slots_model );
   ui->tw2->horizontalHeader()->setStretchLastSection( true );
   ui->tw2->horizontalHeader()->resizeSections( QHeaderView::ResizeToContents );
-  ui->tw2->horizontalHeader()->setClickable( false );  
-  
-  MBConfigWidgetItemDelegate* delegate = new MBConfigWidgetItemDelegate(this);  
+  ui->tw2->horizontalHeader()->setClickable( false );
+
+  MBConfigWidgetItemDelegate* delegate = new MBConfigWidgetItemDelegate(this);
   connect(ui->tw2, SIGNAL(clicked(QModelIndex)), ui->tw2, SLOT(handleClick(QModelIndex)));
-  ui->tw2->setItemDelegateForColumn(3, delegate);      
+  ui->tw2->setItemDelegateForColumn(3, delegate);
 }
 
 //===================================================================
@@ -242,7 +242,7 @@ void MBConfigWidget::loadConfiguration( const QDomDocument &doc )
 
   d->modules_model.refresh();
   d->slots_model.set_current_module(0);
-  ui->tw1->selectRow(0);  
+  ui->tw1->selectRow(0);
 }
 
 //===================================================================
@@ -552,7 +552,7 @@ QVariant SlotsModel::data ( const QModelIndex & index, int role ) const
         if( type.isRegister() && !rx2.exactMatch(addr) )
             return QColor("red");
         if( !type.isRegister() && !rx1.exactMatch(addr) )
-            return QColor("red");        
+            return QColor("red");
       }
       break;
   }
@@ -581,7 +581,7 @@ QVariant SlotsModel::headerData ( int section, Qt::Orientation orientation,
       { case (0): return QSize(20,20);
         case (1): return QSize(90,20);
         case (2): return QSize(50,20);
-        case (3): return QSize(100,20);
+        case (3): return QSize(170,20);
         case (4): return QSize(100,20);
       }
       break;
@@ -665,7 +665,7 @@ bool SlotsModel::setData ( const QModelIndex & index,
           if( !rq.exactMatch( value.toString() ) )
           { QMessageBox::warning( 0, "MBConfigWidget", "Количество должно быть десятичным числом в диапазоне 0-9999!" );
             break;
-          }        
+          }
           sd[current_module][row].n = value.toInt();
           goto ok;
         case (3):
@@ -676,23 +676,22 @@ bool SlotsModel::setData ( const QModelIndex & index,
           if( type1.id() != 0) //type was known
           { int base1 = 16;
             int base2 = 16;
-            double coeff = 1;            
-            if (type1.isRegister()) base1 = 10;
-            if (type2.isRegister()) base2 = 10;
-            if (type1.isAnalogRegister() && !type2.isAnalogRegister())
-              coeff = 2;
-            if (!type1.isAnalogRegister() && type2.isAnalogRegister())
-              coeff = 0.5;            
-            int addr = (int) (str.toInt(0, base1) * coeff);
+            if( type1.isRegister() ) base1 = 10;
+            if( type2.isRegister() ) base2 = 10;
+            int addr = str.toInt(0, base1);
+            if(  type1.isAnalogRegister()   ) addr *= 2;
+            if( !type1.isDiscreteRegister() ) addr *= 8; // все кроме дискретных регистров
+            if(  type2.isAnalogRegister()   ) addr /= 2;
+            if( !type2.isDiscreteRegister() ) addr /= 8; // все кроме дискретных регистров
             str = QString::number(addr, base2).toUpper();
-          }          
+          }
           sd[current_module][row].addr = str;
           break;
         case(4):
           sd[current_module][row].desc = value.toString();
           goto ok;
       }
-      break;      
+      break;
   }
   return false;
 ok:

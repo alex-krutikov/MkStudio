@@ -71,6 +71,8 @@ private:
   void optimize_write_transaction(int i1, int i2);
   void optimize_write_holding();
   void optimize_write_transaction_holding(int i1, int i2);
+  void optimize_write_holding_ext();
+  void optimize_write_transaction_holding_ext(int i1, int i2);
   void optimize_write_coils();
   void optimize_write_transaction_coils(int i1, int i2);
 private:
