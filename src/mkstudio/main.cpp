@@ -50,7 +50,12 @@ int main(int argc, char *argv[])
     goto exit;
   }
 
-  app_header = QString("%1 %2 - MKStudio").arg(port->name()).arg(port->speed() );
+  {
+  QString portname = port->name();
+  QString portspeed = QString::number(port->speed());
+  if(portspeed=="0" ) portspeed.clear();
+  app_header = QString("%1 %2 - MKStudio").arg(portname).arg(portspeed);
+  }
 
   mbmaster = new MBMasterXML;
   mbmaster->setTransport( port );
