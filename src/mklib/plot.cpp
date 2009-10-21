@@ -88,7 +88,7 @@ Plot::Plot( QWidget *parent, MBMasterXML *mbmaster, const QString &config )
   pb_pause = new QToolButton;
   pb_pause->setText("Пауза");
   pb_pause->setToolTip("Пауза");
-  pb->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
+  pb_pause->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
   pb_pause->setIcon( QIcon(":/icons/res/media_pause.png" ) );
   connect( pb_pause, SIGNAL( clicked() ), this, SLOT( pb_pause_clicked() ) );
 

@@ -30,9 +30,11 @@ private slots:
   void format_changed();
   void on_action_set_scale_triggered();
   void export_data();
+  void pb_pause_clicked();
 signals:
   void attributes_saved(int,int,QString);
 private:
+  QToolButton *pb_pause;
   void save_settings();
   void timerEvent( QTimerEvent *event);
   void configure_table();
@@ -49,6 +51,7 @@ private:
   struct {int m,s,n;} scale_base_x, scale_base_y;
   enum {None, Coeff, Interval, Base} scale_mode_x,scale_mode_y;
   bool plot2_unsigned;
+  bool pause_flag;
 
   QMap<QString,QString> settings;
 };

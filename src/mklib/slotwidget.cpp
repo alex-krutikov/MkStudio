@@ -50,6 +50,17 @@ SlotWidget::SlotWidget( QWidget *parent, MBMasterXML *mm, int module, int slot )
     { settings[ rx.cap(1) ] = rx.cap(2);
     }
   }
+  //кнопка Пауза
+  pb_pause = new QToolButton( ui->plot );
+  pb_pause->move(5,5);
+  pb_pause->setText("Пауза");
+  pb_pause->setToolTip("Пауза");
+  pb_pause->setCursor( QCursor( Qt::ArrowCursor ) );
+  pb_pause->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
+  pb_pause->setIcon( QIcon(":/icons/res/media_pause.png" ) );
+  connect( pb_pause, SIGNAL( clicked() ), this, SLOT( pb_pause_clicked() ) );
+
+  pause_flag = false;
 
   // обработка меню
   connect( ui->action_view_table, SIGNAL( activated() ), this, SLOT( view_changed() ) );
@@ -174,8 +185,12 @@ void SlotWidget::view_changed()
   { ui->stackedWidget->setCurrentIndex(0);
   } else if( act == ui->action_view_plot1 )
   { ui->stackedWidget->setCurrentIndex(1);
+      pb_pause->setParent( ui->plot->canvas() );
+      pb_pause->show();
   } else if( act == ui->action_view_plot2 )
   { ui->stackedWidget->setCurrentIndex(2);
+      pb_pause->setParent( ui->plot2->canvas() );
+      pb_pause->show();
   }
   save_settings();
 }
@@ -241,7 +256,23 @@ void SlotWidget::export_data()
   QApplication::clipboard()->setText( str );
   QMessageBox::information( this, "Слот", "Данные скопированы в буфер обмена." );
 }
-
+//==============================================================================
+//
+//==============================================================================
+void SlotWidget::pb_pause_clicked()
+{
+  if( pause_flag )
+  { pause_flag = false;
+    pb_pause->setText("Пауза");
+    pb_pause->setToolTip("Пауза");
+    pb_pause->setIcon( QIcon(":/icons/res/media_pause.png" ) );
+  } else
+  { pause_flag = true;
+    pb_pause->setText("Пуск");
+    pb_pause->setToolTip("Пуск");
+    pb_pause->setIcon( QIcon(":/icons/res/media_play.png" ) );
+  }
+}
 //==============================================================================
 /// Подготовка и выдача (сигналом) текущих настроек окна
 //==============================================================================
@@ -371,7 +402,6 @@ lab2:;
 lab3:;
   plot2_unsigned = ( settings["yunsigned"] == "1" );
 }
-
 //==============================================================================
 /// Настройка таблицы
 //==============================================================================
@@ -434,6 +464,7 @@ void SlotWidget::timerEvent( QTimerEvent *event)
   Q_UNUSED( event );
 
   if( !mm ) return;
+  if( pause_flag ) return;
 
   //----------- подготовка данных --------------------
 
