@@ -50,7 +50,6 @@ SOURCES = mbconfigwidget.cpp                    \
 
 FORMS   = ui/mbconfigwidget.ui                  \
           ui/mbmasterwidget.ui                  \
-          ui/mbmslotwidget.ui                   \
           ui/mbmslotexportdialog.ui             \
           ui/plot.ui                            \
           ui/consolewidget.ui                   \
