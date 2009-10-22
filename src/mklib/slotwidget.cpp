@@ -67,6 +67,8 @@ SlotWidget::SlotWidget( QWidget *parent, MBMasterXML *mm, int module, int slot )
   connect( ui->action_view_plot1, SIGNAL( activated() ), this, SLOT( view_changed() ) );
   connect( ui->action_view_plot2, SIGNAL( activated() ), this, SLOT( view_changed() ) );
 
+  connect(ui->action_stat_show, SIGNAL( toggled(bool) ), ui->statGroupBox, SLOT( setVisible(bool) ) );
+
   connect( ui->action_format_bin,      SIGNAL( activated() ), this, SLOT( format_changed() ) );
   connect( ui->action_format_dec,      SIGNAL( activated() ), this, SLOT( format_changed() ) );
   connect( ui->action_format_unsigned, SIGNAL( activated() ), this, SLOT( format_changed() ) );
@@ -144,7 +146,21 @@ SlotWidget::SlotWidget( QWidget *parent, MBMasterXML *mm, int module, int slot )
   grid2->setMajPen(QPen(Qt::black, 1, Qt::DotLine));
   grid2->setMinPen(QPen(Qt::gray, 1,  Qt::DotLine));
   grid2->attach(ui->plot2);
+  //настройка гисограммы
+  for(int i=0; i<hist_plot_data_y_len;i++) hist_plot_data_x[i]=i;
 
+  ui->hist->setCanvasBackground(QColor("linen"));
+  ui->hist->enableAxis(QwtPlot::xTop,      false );
+  ui->hist->enableAxis(QwtPlot::xBottom,   false );
+  ui->hist->enableAxis(QwtPlot::yRight,    false );
+  ui->hist->enableAxis(QwtPlot::yLeft,     false );
+
+  QwtPlotCurve *hist_data = new QwtPlotCurve("Curve 2");
+  hist_data->setPen( Qt::NoPen );
+  hist_data->setStyle( QwtPlotCurve::Steps );
+  hist_data->setBrush( QColor( "lightslategrey" ) );
+  hist_data->setRawData( hist_plot_data_x, hist_plot_data_y, hist_plot_data_y_len );
+  hist_data->attach(ui->hist);
   // применение настроек
   QMap<QString,QString> settings2 = settings;
   str = settings2["view"];
@@ -247,8 +263,8 @@ void SlotWidget::export_data()
     const QwtData &d = curve->data();
     n = d.size();
     for(i=1; i<n; i++ )
-    { str += QString::number( d.x(i-1) ) + "\t";
-      str += QString::number( d.y(i  ) ) + "\n";
+    { str += QString::number( d.x(i-1),'g',14 ) + "\t";
+      str += QString::number( d.y(i  ),'g',14 ) + "\n";
     }
     str.chop(1);
   }
@@ -500,6 +516,7 @@ void SlotWidget::timerEvent( QTimerEvent *event)
   plot_data_y[0] = plot_data_y[1];
   plot_curve->setData( plot_data_x.constData(), plot_data_y.constData(),n );
   ui->plot->replot();
+  if( ui->action_view_plot1->isChecked() ) calc_statistic();
 
   //------------ вывод масштабированного графика -------------
 
@@ -555,8 +572,53 @@ void SlotWidget::timerEvent( QTimerEvent *event)
   }
   plot2_curve->setData( plot_data_x.constData(), plot_data_y.constData(),n );
   ui->plot2->replot();
+  if( ui->action_view_plot2->isChecked() ) calc_statistic();
 }
+//==============================================================================
+// Расчет статистики
+//==============================================================================
+void SlotWidget::calc_statistic()
+{
+  y_mean=0;y_std=0;
+  y_min=y_max=plot_data_y.value(0);
+  foreach( double y, plot_data_y )
+  { y_mean += y;
+    y_std  += y*y;
+    if( y > y_max ) y_max = y;
+    if( y < y_min ) y_min = y;
+  }
 
+  y_mean /= plot_data_y.size();
+  y_std  /= plot_data_y.size();
+  y_std  -= y_mean*y_mean;
+  y_std = sqrt( y_std );
+
+  ui->le_mean          -> setText( QString::number( y_mean ) );
+  ui->le_diff          -> setText( QString::number( y_max-y_min ) );
+  ui->le_std           -> setText( QString::number( y_std ) );
+  if( ( y_mean != 0 ) && (y_max != y_min ) )
+  { ui->le_noise_percent -> setText( QString::number( fabs((y_max-y_min) / y_mean )*100 ) );
+    ui->le_noise_db      -> setText( QString::number( -20*log10( fabs( (y_max-y_min) / y_mean ) ),'f' ,1 ) );
+  } else
+  { ui->le_noise_percent->clear();
+    ui->le_noise_db->clear();
+  }
+
+  // расчет гистограммы
+  double a;
+  int i,j;
+  a = (y_max-y_min)/(hist_plot_data_y_len-1);
+  memset( hist_plot_data_y, 0 , sizeof( hist_plot_data_y ) );
+  if(a)
+  { for(i=0;i<plot_data_y.size();i++ )
+    { j = (int)((plot_data_y[i] - y_min) / a)+1;
+      if( j < 0 ) j=0;
+      if( j > (hist_plot_data_y_len-1) ) j=(hist_plot_data_y_len-1);
+      hist_plot_data_y[j]+=1;
+    }
+  }
+  ui->hist->replot();
+}
 //###################################################################
 /// Диалог о масштабировании графика
 //###################################################################

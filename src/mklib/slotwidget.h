@@ -52,7 +52,14 @@ private:
   enum {None, Coeff, Interval, Base} scale_mode_x,scale_mode_y;
   bool plot2_unsigned;
   bool pause_flag;
-
+  double y_max;
+  double y_min;
+  double y_mean;
+  double y_std;
+  static const int hist_plot_data_y_len = 17;
+  double hist_plot_data_x[ hist_plot_data_y_len ];
+  double hist_plot_data_y[ hist_plot_data_y_len ];
+  void calc_statistic();
   QMap<QString,QString> settings;
 };
 
