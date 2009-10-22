@@ -599,9 +599,11 @@ void SlotWidget::calc_statistic()
   if( ( y_mean != 0 ) && (y_max != y_min ) )
   { ui->le_noise_percent -> setText( QString::number( fabs((y_max-y_min) / y_mean )*100 ) );
     ui->le_noise_db      -> setText( QString::number( -20*log10( fabs( (y_max-y_min) / y_mean ) ),'f' ,1 ) );
+    ui->le_eff_bits      ->setText(QString::number( ( -20*log10( fabs( (y_max-y_min) / y_mean ) )) / 6.0206,'f' ,1 ) );
   } else
   { ui->le_noise_percent->clear();
     ui->le_noise_db->clear();
+    ui->le_eff_bits->clear();
   }
 
   // расчет гистограммы
