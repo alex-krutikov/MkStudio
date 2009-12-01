@@ -163,7 +163,8 @@ void SerialPortPrivate::close()
 {
   if( hport )
   { QMutexLocker mutex_locker( &mutex );
-    if( CloseHandle( hport ) ) hport = 0;
+    CloseHandle( hport );
+    hport = 0;
   }
 }
 
@@ -215,6 +216,12 @@ int SerialPortPrivate::query( const QByteArray &request,
   // ответ: чтение первых 5 байт
   answer_size = answer.length();
   if(errorcode) *errorcode=0;
+  if( !answer_size && sp->portname.contains("COM") )
+  { CloseHandle( hport );
+    hport = 0;
+    return 0;
+  }
+
   i=0;
   if( answer_size > 5 )
   { ok = ReadFile( hport, answer.data(), 5, &i, 0 );
