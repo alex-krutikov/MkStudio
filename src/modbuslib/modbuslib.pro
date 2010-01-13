@@ -1,27 +1,16 @@
-TEMPLATE = lib
-DESTDIR  = ../../lib
-DLLDESTDIR  = ../../bin
+MKROOT = ../..
 
-#win32{ QMAKE_POST_LINK  +=  cd .. }
-#win32{ QMAKE_POST_LINK  +=  && cd mklib    && mingw32-make release && cd .. }
-#win32{ QMAKE_POST_LINK  +=  && cd mkstudio && mingw32-make release && cd .. }
+include( $${MKROOT}/mk.pri )
+
+TEMPLATE = lib
+
+TARGET = modbuslib$${SUFFIX_STR}
+DESTDIR  = $${MKROOT}/lib
 
 QT -= gui
 QT += network
 CONFIG -= rtti exceptions
-unix { CONFIG += static }
-
-### DEFINES += MBL_DLL MBL_DLLEXPORT
 CONFIG += static
-
-INCLUDEPATH  = .
-DEPENDPATH   = .
-
-OBJECTS_DIR    = build
-UI_HEADERS_DIR = build
-MOC_DIR        = build
-RCC_DIR        = build
-UI_HEADERS_DIR = build
 
 PRECOMPILED_HEADER = pch.h
 

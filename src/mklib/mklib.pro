@@ -1,28 +1,18 @@
-TEMPLATE = lib
-DESTDIR  = ../../lib
-DLLDESTDIR  = ../../bin
+MKROOT = ../..
 
-#win32{ QMAKE_POST_LINK  +=  cd .. }
-#win32{ QMAKE_POST_LINK  +=  && cd mkstudio && mingw32-make release && cd .. }
+include( $${MKROOT}/mk.pri )
+
+TEMPLATE = lib
+
+TARGET   = mklib$${SUFFIX_STR}
+DESTDIR  = $${MKROOT}/lib
 
 QT += xml
 CONFIG -= rtti exceptions
-unix { CONFIG += static }
-
-DEFINES += MKLIB_DLL
 CONFIG += static
 
-include( ../qwt.pri )
-include( ../modbuslib.pri )
-
-INCLUDEPATH  += .
-DEPENDPATH   += .
-
-OBJECTS_DIR    = build
-UI_HEADERS_DIR = build
-MOC_DIR        = build
-RCC_DIR        = build
-UI_HEADERS_DIR = build
+include( $${MKROOT}/src/qwt.pri )
+include( $${MKROOT}/src/modbuslib.pri )
 
 PRECOMPILED_HEADER = pch.h
 

@@ -1508,8 +1508,8 @@ int MBMasterPrivate::maximumPacketLength() const
 //===================================================================
 MikkonModuleDefinition MBMasterPrivate::decodeModuleDefinition( const QByteArray &ba )
 {
-  //struct PACKED ModuleDefinition
-  struct __attribute__(( packed )) ModuleDefinition
+#include "packed_struct_begin.h"
+  struct PACKED_STRUCT_HEADER ModuleDefinition
   { quint8   StructureLength;              // Structure Length(=128)
     quint16  ID;                           // Module ID
     quint8   MajorVersion;                 // Version Major
@@ -1522,7 +1522,7 @@ MikkonModuleDefinition MBMasterPrivate::decodeModuleDefinition( const QByteArray
     char     LegalCopyright[16];           // Legal Copyright
   } *st;
   MikkonModuleDefinition md;
-
+#include "packed_struct_end.h"
   if( ba.count() < (int)sizeof(st) ) return md;
 
   st = (ModuleDefinition*)ba.data();

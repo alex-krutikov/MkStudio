@@ -1,1 +1,0 @@
-makensis mkstudio-up.nsi

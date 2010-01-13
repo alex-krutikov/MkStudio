@@ -1,7 +1,4 @@
-INCLUDEPATH += ../modbuslib
-DEPENDPATH  += ../modbuslib
-LIBS += -L../../lib -lmodbuslib
-
-PRE_TARGETDEPS += ../../lib/libmodbuslib.a
-
-CONFIG -= rtti exceptions
+INCLUDEPATH += $${MKROOT}/src/modbuslib
+DEPENDPATH  += $${MKROOT}/src/modbuslib
+LIBS += -L$${MKROOT}/lib -lmodbuslib$${SUFFIX_STR}
+LIBS += -luser32 -ladvapi32
