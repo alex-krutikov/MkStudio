@@ -11,7 +11,11 @@ win32{
   }
 
   nsis.depends  = release
-  nsis.commands = makensis.exe /DMKROOT=\"$${PWD}\" $${NSIS_QT_DLL} $${PWD}/src/nsis/mkstudio.nsi
+  nsis.commands  =    makensis.exe /DMKROOT=\"$${PWD}\" /DOUTFILE=\"mkstudio-setup.exe\" $${NSIS_QT_DLL} $${PWD}/src/nsis/mkstudio.nsi
+
+  !isEmpty(NSIS_QT_DLL) {
+    nsis.commands += && makensis.exe /DMKROOT=\"$${PWD}\" /DOUTFILE=\"mkstudio-upgrade.exe\" $${PWD}/src/nsis/mkstudio.nsi
+  }
 
   QMAKE_EXTRA_TARGETS += nsis
 }

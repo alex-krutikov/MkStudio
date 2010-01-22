@@ -1,5 +1,5 @@
 Name       "MKStudio"
-OutFile    "${MKROOT}\set\mkstudio-setup.exe"
+OutFile    "${MKROOT}\set\${OUTFILE}"
 InstallDir $PROGRAMFILES\miksys\umikon\mkstudio
 
 XpStyle on
