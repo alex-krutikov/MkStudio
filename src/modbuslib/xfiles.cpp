@@ -203,7 +203,8 @@ XFiles::Result XFiles::readDirectory(int id, QList<XFilesFileInfo> &fi_list )
   Result ret;
   XFilesFileInfo fi;
 
-  struct __attribute__(( packed ))
+#include "packed_struct_begin.h"
+  struct PACKED_STRUCT_HEADER
   { int size;
     short date;
     short time;
@@ -211,6 +212,7 @@ XFiles::Result XFiles::readDirectory(int id, QList<XFilesFileInfo> &fi_list )
     char filenamesize;
     char filename[13];
   } st;
+#include "packed_struct_end.h"
 
   Console::Print( Console::Information, "# XFILES 41 - Read a Directory.\n" );
 
@@ -381,7 +383,8 @@ XFiles::Result XFiles::getFileInfo( const QString &filename, XFilesFileInfo &fi 
 
   if( path_size > 100 ) return XFiles::InvalidName;
 
-  struct __attribute__(( packed ))
+#include "packed_struct_begin.h"
+  struct PACKED_STRUCT_HEADER
   { int size;
     short date;
     short time;
@@ -389,6 +392,7 @@ XFiles::Result XFiles::getFileInfo( const QString &filename, XFilesFileInfo &fi 
     char filenamesize;
     char filename[13];
   } st;
+#include "packed_struct_end.h"
 
   Console::Print( Console::Information, "# XFILES 43 - Get File Status.\n" );
 

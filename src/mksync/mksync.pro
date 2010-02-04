@@ -1,20 +1,17 @@
-include( ../modbuslib.pri )
+MKROOT = ../..
+include( $${MKROOT}/mk.pri )
 
-OBJECTS_DIR    = build
-UI_HEADERS_DIR = build
-MOC_DIR        = build
-RCC_DIR        = build
-UI_HEADERS_DIR = build
+TEMPLATE = app
 
-DESTDIR = ../../bin
+TARGET  = mksync$${SUFFIX_STR}
+DESTDIR = $${MKROOT}/bin
+
+include( $${MKROOT}/src/modbuslib.pri )
 
 QT -= gui
 QT += network
 QT += xml
 CONFIG += console
-
-TEMPLATE = app
-TARGET   = mksync
 
 # Input
 SOURCES = mksync.cpp

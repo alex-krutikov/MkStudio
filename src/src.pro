@@ -1,6 +1,7 @@
 TEMPLATE = subdirs
 CONFIG  += ordered
-SUBDIRS  = modbuslib        \
+SUBDIRS  = 3rdparty/qwt/src \
+           modbuslib        \
            mklib            \
            mkstudio         \
            mkview           \

@@ -1,19 +1,14 @@
-include( ../modbuslib.pri )
-
-QT += network
+MKROOT = ../..
+include( $${MKROOT}/mk.pri )
 
 TEMPLATE = app
-TARGET   = mkserver
-DEPENDPATH  += . build
-INCLUDEPATH += . build
 
-OBJECTS_DIR    = build
-UI_HEADERS_DIR = build
-MOC_DIR        = build
-DESTDIR        = build
-RCC_DIR        = build
+TARGET  = mkserver$${SUFFIX_STR}
+DESTDIR = $${MKROOT}/bin
 
-DESTDIR = ../../bin
+include( $${MKROOT}/src/modbuslib.pri )
+
+QT += network
 
 CONFIG -= exceptions rtti
 

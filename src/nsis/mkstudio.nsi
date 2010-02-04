@@ -1,5 +1,5 @@
 Name       "MKStudio"
-OutFile    "..\..\set\mkstudio-setup.exe"
+OutFile    "${MKROOT}\set\${OUTFILE}"
 InstallDir $PROGRAMFILES\miksys\umikon\mkstudio
 
 XpStyle on
@@ -30,20 +30,22 @@ Section "MKStudio è MKView"
   SetOutPath $INSTDIR
   
   ; Put file there
-  File ..\..\bin\MKView.exe
-  File ..\..\bin\MKStudio.exe
-  File ..\..\bin\MKServer.exe
-  File ..\..\bin\mkserverd.exe
-  File ..\..\bin\mkquery.exe
-  File ..\..\bin\mksync.exe
-  File ..\..\bin\classic_registers.xml
+  File ${MKROOT}\bin\MKView.exe
+  File ${MKROOT}\bin\MKStudio.exe
+  File ${MKROOT}\bin\MKServer.exe
+  File ${MKROOT}\bin\mkserverd.exe
+  File ${MKROOT}\bin\mkquery.exe
+  File ${MKROOT}\bin\mksync.exe
+  File ${MKROOT}\bin\classic_registers.xml
 
-  File ..\..\..\qt\bin\qtcore4.dll
-  File ..\..\..\qt\bin\qtgui4.dll
-  File ..\..\..\qt\bin\qtxml4.dll
-  File ..\..\..\qt\bin\qtnetwork4.dll
-  File ..\..\..\qt\bin\mingwm10.dll
-  File ..\..\..\qt\bin\qwt5.dll
+!ifdef QT_DLL_DIR
+  File ${QT_DLL_DIR}\qtcore4.dll
+  File ${QT_DLL_DIR}\qtgui4.dll
+  File ${QT_DLL_DIR}\qtxml4.dll
+  File ${QT_DLL_DIR}\qtnetwork4.dll
+  File /nonfatal ${QT_DLL_DIR}\mingwm10.dll
+!endif
+
 
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\MKStudio "Install_Dir" "$INSTDIR"
@@ -93,12 +95,15 @@ Section "Uninstall"
   Delete $INSTDIR\mkquery.exe
   Delete $INSTDIR\mksync.exe
   Delete $INSTDIR\uninstall.exe
+
+!ifdef QT_DLL_DIR
   Delete $INSTDIR\qtcore4.dll
   Delete $INSTDIR\qtgui4.dll
   Delete $INSTDIR\qtxml4.dll
   Delete $INSTDIR\qtnetwork4.dll
   Delete $INSTDIR\mingwm10.dll
-  Delete $INSTDIR\qwt5.dll
+!endif
+
   Delete $INSTDIR\mkstudio.ini
   Delete $INSTDIR\mkview.ini
   Delete $INSTDIR\mkserver.ini

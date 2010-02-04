@@ -1,20 +1,17 @@
-include( ../modbuslib.pri )
-include( ../mklib.pri )
+MKROOT = ../..
 
-OBJECTS_DIR    = build
-UI_HEADERS_DIR = build
-MOC_DIR        = build
-RCC_DIR        = build
-UI_HEADERS_DIR = build
+include( $${MKROOT}/mk.pri )
 
 TEMPLATE = app
+
+TARGET  = mkstudio$${SUFFIX_STR}
+DESTDIR = $${MKROOT}/bin
+
+include( $${MKROOT}/src/modbuslib.pri )
+include( $${MKROOT}/src/mklib.pri )
+include( $${MKROOT}/src/qwt.pri )
+
 QT      += xml network
-DEPENDPATH  += . ui
-INCLUDEPATH += . ui
-
-### CONFIG += console
-
-DESTDIR = ../../bin
 
 PRECOMPILED_HEADER = pch.h
 

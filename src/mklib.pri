@@ -1,9 +1,5 @@
-INCLUDEPATH += ../mklib
-DEPENDPATH  += ../mklib
-LIBS += -L../../lib -lmklib
-
-PRE_TARGETDEPS += ../../lib/libmklib.a
+INCLUDEPATH += $${MKROOT}/src/mklib
+DEPENDPATH  += $${MKROOT}/src/mklib
+LIBS += -L$${MKROOT}/lib -lmklib$${SUFFIX_STR}
 
 include( qwt.pri )
-
-CONFIG -= rtti exceptions

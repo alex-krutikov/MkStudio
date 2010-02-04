@@ -295,6 +295,8 @@ error3:
 int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
                                        int *errorcode, int xbee_addr )
 {
+  Q_UNUSED(errorcode);
+
   bool ok;
   unsigned char crc;
   int i,a;
