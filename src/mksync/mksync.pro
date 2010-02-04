@@ -10,6 +10,7 @@ DESTDIR = ../../bin
 
 QT -= gui
 QT += network
+QT += xml
 CONFIG += console
 
 TEMPLATE = app
