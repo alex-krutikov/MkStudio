@@ -27,10 +27,11 @@ class MK_EXPORT MKTable : public QTableWidget
   friend class MKTableItemDelegate;
 public:
   enum Mode { Edit = 0, Polling };
-  enum { IndexRole      = Qt::UserRole,
-         FormatRole     = Qt::UserRole+1,
-         AssignRole     = Qt::UserRole+2,
-         SSSelectorRole = Qt::UserRole+3 };
+  enum { IndexRole         = Qt::UserRole,
+         FormatRole        = Qt::UserRole+1,
+         AssignRole        = Qt::UserRole+2,
+         SSSelectorRole    = Qt::UserRole+3,
+         SSConfirmEditRole = Qt::UserRole+4};
   MKTable( QWidget *parent = 0 );
   ~MKTable();
   bool loadConfiguration( const QDomDocument &doc );
@@ -46,6 +47,7 @@ public:
   bool optimizeReadMode();
 
   QSize sizeHint() const;
+  bool getCurrentItemConfirmEdit(){return currentItemConfirmEdit;}
 private:
   void mouseMoveEvent( QMouseEvent *event );
   void mousePressEvent( QMouseEvent *event );
@@ -60,12 +62,22 @@ private:
   QTimer timer;
   MBMasterXML *mbmaster;
   MKTableItemDelegate *delegate;
+  bool currentItemConfirmEdit;
 
-  struct MKTable_SS_Enum
+  /*struct MKTable_SS_Enum
   { QMap<int,QString> map_display;
     QMap<int,QString> map_menu;
+  };*/
+  struct MapEmul
+  {
+    int key;
+    QString value;
   };
 
+  struct MKTable_SS_Enum
+  { QVector<MapEmul> map_display;
+    QVector<MapEmul> map_menu;
+  };
   struct MKTableAssignData;
 
   QVector<MKTableAssignData> assign_data;

@@ -31,10 +31,12 @@ public:
                 const QString &assign = QString(),
                 const QString &format = QString(),
                 const QString &ss     = QString(),
-                const QStringList &sl = QStringList() );
+                const QStringList &sl = QStringList(),
+                const bool &ss_confirm = bool() );
   QString assign;
   QString format;
   QString ss;
+  bool    ss_confirm;
 private:
   void accept();
 };

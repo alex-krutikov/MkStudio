@@ -129,11 +129,10 @@ void InitDialog::accept()
 //##############################################################################
 AssignDialog::AssignDialog( QWidget *parent, const QString &assign_arg,
                            const QString &format_arg,  const QString &ss_arg,
-                           const QStringList &sl_arg )
-  : QDialog( parent ), assign( assign_arg ), format( format_arg ), ss( ss_arg )
+                           const QStringList &sl_arg, const bool &ss_confirm_arg )
+  : QDialog( parent ), assign( assign_arg ), format( format_arg ), ss( ss_arg ), ss_confirm(ss_confirm_arg)
 {
   setupUi( this );
-  setWindowTitle("Привязка");
   QRegExp rx("^(\\d+)/(\\d+)/(\\d+)$");
   rx.indexIn( assign );
   le1->setText( rx.cap(1) );
@@ -145,6 +144,7 @@ AssignDialog::AssignDialog( QWidget *parent, const QString &assign_arg,
   if( format.contains("bin") )      cb_format   -> setCurrentIndex(3);
 
   le_ss->setText(ss);
+  cbox_confirm->setChecked( ss_confirm );
   QCompleter *completer = new QCompleter(sl_arg, this);
   completer->setCaseSensitivity(Qt::CaseInsensitive);
   le_ss->setCompleter(completer);
@@ -209,6 +209,7 @@ void AssignDialog::accept()
   }
 
   ss = le_ss->text();
+  ss_confirm = cbox_confirm->isChecked();
 
   done( QDialog::Accepted );
 }

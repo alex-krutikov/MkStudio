@@ -40,6 +40,7 @@ class MKTableItemCBWidget : public QListWidget
   Q_OBJECT
 public:
   MKTableItemCBWidget( QWidget *parent = 0 );
+  void setConfirmEdit( bool confEdit ){ confirmEdit = confEdit; }
   void highlightcursor();
 signals:
   void editingFinished();
@@ -55,6 +56,7 @@ protected:
    }
 private:
   int row_under_mouse;
+  bool confirmEdit;
 };
 
 /*! \page xml_table_desc Формат XML документа таблицы

@@ -43,7 +43,7 @@ MKTable::MKTable( QWidget *parent )
   connect(&timer, SIGNAL(timeout()), this, SLOT(refresh()));
 
   setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
-
+  
   optimize_read_mode = true;
 }
 
@@ -106,6 +106,7 @@ bool MKTable::loadConfiguration( const QDomDocument &doc )
  int i,row,col;
  QTableWidgetItem *titem;
  QString str;
+ QString confirm;
  QFont fnt;
  QDomElement element;
  QColor color;
@@ -157,6 +158,8 @@ bool MKTable::loadConfiguration( const QDomDocument &doc )
    if( !str.isEmpty() )
    { titem->setData( SSSelectorRole, str );
    }
+   confirm = element.attribute("SSConfirmEdit");
+   titem->setData( SSConfirmEditRole, confirm );
 
    setItem( row,col,titem );
 /*
@@ -187,6 +190,7 @@ void MKTable::saveConfiguration( QDomDocument &doc )
  int i,j;
  QStringList sl = getHorizontalHeaderLabels();
  QString str;
+ bool confirm;
  QTableWidgetItem *titem;
  QVariant var;
  QColor color_white( "white" );
@@ -238,8 +242,10 @@ void MKTable::saveConfiguration( QDomDocument &doc )
        { tag_item.setAttribute("ForegroundColor", var.toString() );
        }
      }
-     str = titem->data(SSSelectorRole).toString();
+     str     = titem->data(SSSelectorRole).toString();
+     confirm = titem->data(SSConfirmEditRole).toBool();
      if( !str.isEmpty() ) tag_item.setAttribute("SSSelector", str );
+     if( confirm )        tag_item.setAttribute("SSConfirmEdit", confirm );
      // tag_item.setAttribute("Span",  QString("%1,%2").arg(rowSpan(i,j)).arg(columnSpan(i,j)));
      tag_table.appendChild(tag_item);
    }
@@ -357,13 +363,17 @@ void MKTable::ss_process()
       { if( v_flags[j] != 0 ) break;
       }
       str2 = str.mid( p1, j-p1 ).simplified();
+      MapEmul me;
+      me.key = v_n[k];
+      me.value = str2;
       if( str2.startsWith(":") )
       { str2.remove(0,1);
         str2 = str2.simplified();
-        t.map_display.insert( v_n[k], str2 );
+        me.value = str2;
+        t.map_display.append( me );
       } else
-      { t.map_display.insert( v_n[k], str2 );
-        t.map_menu.insert( v_n[k], str2 );
+      { t.map_display.append( me );
+        t.map_menu.append( me );
       }
       //qDebug() << v_n[k] << p1<<j << str2;
       pos=j;
@@ -575,7 +585,9 @@ void MKTable::mouseReleaseEvent( QMouseEvent *event )
   { if( event->button() == Qt::LeftButton )
     { QTableWidgetItem *titem = itemAt( event->pos() );
       if( titem )
-      { editItem( titem );
+      {
+        currentItemConfirmEdit = titem->data( MKTable::SSConfirmEditRole ).toBool();
+        editItem( titem );
       }
     }
   }
@@ -698,14 +710,20 @@ cycle_begin:
           if( assign_data[i].ss_enum_index < 0 )
           { str = format_output( value, slot.datatype, assign_data[i].format );
           } else
-          { QMap<int,QString> &m = ss_enum[assign_data[i].ss_enum_index].map_display;
-            if( m.contains( value.toInt() ) )
-            { str = m.value( value.toInt() );
-            } else if( m.contains( value.toUInt() ) )
-            { str = m.value( value.toUInt() );
-            } else
-            { str.clear();
+          { QVector<MapEmul> &m = ss_enum[assign_data[i].ss_enum_index].map_display;
+            MapEmul me;
+            QString strValue;
+            foreach(me, m)
+            {
+              if( me.key == value.toInt()
+                  || me.key == value.toUInt() )
+              {
+                strValue = me.value;
+                break;
+              }
             }
+            if( strValue.isEmpty() ) str.clear();
+            else str = strValue;
           }
           titem->setText( str );
         } else if( value.status() == MMValue::NotInit )
@@ -741,21 +759,6 @@ QString MKTable::format_output( const MMValue &value, const MBDataType &datatype
   int d = value.toInt();
 
   cf = (char*)"";
-
-  switch( datatype_id )
-  { case( MBDataType::DwordsInputRegHiLo   ):
-    case( MBDataType::DwordsHoldingRegHiLo ):
-    case( MBDataType::DwordsInputRegLoHi   ):
-    case( MBDataType::DwordsHoldingRegLoHi ):
-      datatype_id = MBDataType::Dwords;
-      break;
-    case( MBDataType::FloatsInputRegHiLo   ):
-    case( MBDataType::FloatsHoldingRegHiLo ):
-    case( MBDataType::FloatsInputRegLoHi   ):
-    case( MBDataType::FloatsHoldingRegLoHi ):
-      datatype_id = MBDataType::Floats;
-      break;
-  }
 
   switch( type )
   { case(1): // беззнаковый
@@ -870,14 +873,28 @@ QWidget* MKTableItemDelegate::createEditor(QWidget *parent, const QStyleOptionVi
     if( i >= 0 )
     {
       MKTableItemCBWidget *w = new MKTableItemCBWidget( parent );
+      w->setConfirmEdit( table->getCurrentItemConfirmEdit() );
       connect( w, SIGNAL( editingFinished() ), this, SLOT( commitAndCloseEditor() ) );
 
       MKTable::MKTable_SS_Enum &ss_enum = table->ss_enum[i];
-      QList<int> keys = ss_enum.map_menu.uniqueKeys();
+      QList<int> keys;
+      MKTable::MapEmul me;
+      foreach( me, ss_enum.map_menu)
+      {
+        keys << me.key;
+      }
       QString current_text = index.data( Qt::DisplayRole ).toString();
       QString str;
       foreach(i,keys)
-      { str = ss_enum.map_menu.value(i);
+      {
+        foreach(me, ss_enum.map_menu)
+        {
+          if( me.key == i )
+          {
+            str = me.value;
+            break;
+          }
+        }
         QListWidgetItem *litem =  new QListWidgetItem;
         litem->setText( str );
         litem->setData( Qt::UserRole, i );
@@ -1045,7 +1062,7 @@ bool MKTableItemDelegate::eventFilter(QObject *obj, QEvent *event)
 //##############################################################################
 //
 //##############################################################################
-MKTableItemCBWidget::MKTableItemCBWidget( QWidget *parent  )
+MKTableItemCBWidget::MKTableItemCBWidget( QWidget *parent )
   : QListWidget( parent )
 {
   row_under_mouse = -1;
@@ -1063,7 +1080,18 @@ MKTableItemCBWidget::MKTableItemCBWidget( QWidget *parent  )
 void MKTableItemCBWidget::mouseReleaseEvent( QMouseEvent * event )
 {
   QListWidget::mouseReleaseEvent( event );
-  emit editingFinished();
+  if( confirmEdit )
+  {
+      if( QMessageBox::question(this,"редактирование €чейки",
+          "¬ы действительно хотите изменить значение данной €чейки",
+          QMessageBox::Yes|QMessageBox::Default,
+          QMessageBox::No|QMessageBox::Escape)==QMessageBox::Yes)
+      {
+        emit editingFinished();
+      }
+      else deleteLater();
+  }
+  else emit editingFinished();
 }
 
 //==============================================================================
