@@ -5,6 +5,7 @@
 #include "mbmaster_p.h"
 #include "console.h"
 
+#include "slotwidget.h"
 //###################################################################
 //
 //###################################################################
@@ -116,6 +117,7 @@ void MBMasterXML::saveValues( QDomDocument &doc )
   { QDomElement slot = doc.createElement("Slot");
     slot.setAttribute("Module",d->mmslots[i].module.n);
     slot.setAttribute("Slot",d->mmslots[i].n);
+    slot.setAttribute("Attribute", d->mmslots[i].attributes);
     str.clear();
     for( j=0; j<d->mmslots[i].data.size(); j++ )
     { if( d->mmslots[i].data[j].status() == MMValue::Ok ) str += d->mmslots[i].data[j].toString();
@@ -135,7 +137,7 @@ void MBMasterXML::loadValues( const QDomDocument &doc )
   int i,j,mm,ss;
   QDomElement element;
   QDomNodeList slot_list;
-  QString str;
+  QString str,attr;
 
   QDomElement docElem = doc.documentElement();
   QDomNodeList module_list = doc.elementsByTagName("Slot");
@@ -144,6 +146,7 @@ void MBMasterXML::loadValues( const QDomDocument &doc )
     mm = element.attribute("Module").toInt();
     ss = element.attribute("Slot").toInt();
     str = element.attribute("Values");
+    attr = element.attribute("Attribute");
     QStringList sl = str.split( QChar(';') );
     for(j=0; j<sl.size(); j++ )
     { bool ok;
@@ -159,10 +162,9 @@ void MBMasterXML::loadValues( const QDomDocument &doc )
       }
       setSlotValue(mm,ss,j,value);
     }
+    setSlotAttributes(mm,ss,attr);
   }
 }
-
-
 /*! \page xml_opros_desc Формат XML документа конфигурации опроса модулей
 
   Документ заключается в тег \b MBConfig и состоит из тегов \b Module, в которых описываются модули.

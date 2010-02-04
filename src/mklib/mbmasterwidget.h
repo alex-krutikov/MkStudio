@@ -45,6 +45,8 @@ public slots:
   void stateUpdate();
 signals:
   void attributes_saved( int module, int slot, QString attribute );
+  void signalGetEffBitsRef( quint32, quint32 );
+  void signalSendEffBitsRef( double );
 };
 
 #endif

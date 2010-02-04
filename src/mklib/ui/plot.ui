@@ -1,22 +1,23 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>Plot</class>
- <widget class="QWidget" name="Plot" >
-  <property name="geometry" >
+ <widget class="QWidget" name="Plot">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>838</width>
-    <height>355</height>
+    <height>357</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QHBoxLayout" >
+  <layout class="QHBoxLayout">
    <item>
-    <widget class="QwtPlot" name="plot" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+    <widget class="QwtPlot" name="plot">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -24,254 +25,295 @@
     </widget>
    </item>
    <item>
-    <widget class="Line" name="line" >
-     <property name="orientation" >
+    <widget class="Line" name="line">
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
     </widget>
    </item>
    <item>
-    <layout class="QVBoxLayout" >
+    <layout class="QVBoxLayout">
      <item>
-      <layout class="QGridLayout" >
-       <item row="0" column="0" >
-        <widget class="QLabel" name="label_6" >
-         <property name="text" >
+      <layout class="QGridLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
           <string>Длительность:</string>
          </property>
-         <property name="alignment" >
+         <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
-       <item row="0" column="1" >
-        <widget class="QComboBox" name="cb_speed" >
-         <property name="focusPolicy" >
+       <item row="0" column="1">
+        <widget class="QComboBox" name="cb_speed">
+         <property name="focusPolicy">
           <enum>Qt::NoFocus</enum>
          </property>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>20 сек</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>1 мин</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>5 мин</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>20 мин</string>
           </property>
          </item>
          <item>
-          <property name="text" >
+          <property name="text">
            <string>1 час</string>
           </property>
          </item>
         </widget>
        </item>
-       <item row="1" column="0" colspan="2" >
-        <widget class="Line" name="line_3" >
-         <property name="orientation" >
+       <item row="1" column="0" colspan="2">
+        <widget class="Line" name="line_3">
+         <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
-       <item row="2" column="0" >
-        <widget class="QLabel" name="label" >
-         <property name="text" >
+       <item row="2" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
           <string>Среднее значение:</string>
          </property>
-         <property name="alignment" >
+         <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
-       <item row="2" column="1" >
-        <widget class="QLineEdit" name="le_mean" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="le_mean">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="maximumSize" >
+         <property name="maximumSize">
           <size>
            <width>80</width>
            <height>16777215</height>
           </size>
          </property>
-         <property name="cursor" >
+         <property name="cursor">
           <cursorShape>ArrowCursor</cursorShape>
          </property>
-         <property name="focusPolicy" >
+         <property name="focusPolicy">
           <enum>Qt::NoFocus</enum>
          </property>
-         <property name="frame" >
+         <property name="frame">
           <bool>false</bool>
          </property>
-         <property name="readOnly" >
+         <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="3" column="0" >
-        <widget class="QLabel" name="label_2" >
-         <property name="text" >
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
           <string>Разброс:</string>
          </property>
-         <property name="alignment" >
+         <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
-       <item row="3" column="1" >
-        <widget class="QLineEdit" name="le_diff" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="le_diff">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="maximumSize" >
+         <property name="maximumSize">
           <size>
            <width>80</width>
            <height>16777215</height>
           </size>
          </property>
-         <property name="cursor" >
+         <property name="cursor">
           <cursorShape>ArrowCursor</cursorShape>
          </property>
-         <property name="focusPolicy" >
+         <property name="focusPolicy">
           <enum>Qt::NoFocus</enum>
          </property>
-         <property name="frame" >
+         <property name="frame">
           <bool>false</bool>
          </property>
-         <property name="readOnly" >
+         <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="4" column="0" >
-        <widget class="QLabel" name="label_3" >
-         <property name="toolTip" >
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="toolTip">
           <string>Среднеквадратичное отклонение</string>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>СКО:</string>
          </property>
-         <property name="alignment" >
+         <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
-       <item row="4" column="1" >
-        <widget class="QLineEdit" name="le_std" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="le_std">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="maximumSize" >
+         <property name="maximumSize">
           <size>
            <width>80</width>
            <height>16777215</height>
           </size>
          </property>
-         <property name="cursor" >
+         <property name="cursor">
           <cursorShape>ArrowCursor</cursorShape>
          </property>
-         <property name="focusPolicy" >
+         <property name="focusPolicy">
           <enum>Qt::NoFocus</enum>
          </property>
-         <property name="frame" >
+         <property name="frame">
           <bool>false</bool>
          </property>
-         <property name="readOnly" >
+         <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="5" column="0" >
-        <widget class="QLabel" name="label_4" >
-         <property name="text" >
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
           <string>Шум (%):</string>
          </property>
-         <property name="alignment" >
+         <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
-       <item row="5" column="1" >
-        <widget class="QLineEdit" name="le_noise_percent" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+       <item row="5" column="1">
+        <widget class="QLineEdit" name="le_noise_percent">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="maximumSize" >
+         <property name="maximumSize">
           <size>
            <width>80</width>
            <height>16777215</height>
           </size>
          </property>
-         <property name="cursor" >
+         <property name="cursor">
           <cursorShape>ArrowCursor</cursorShape>
          </property>
-         <property name="focusPolicy" >
+         <property name="focusPolicy">
           <enum>Qt::NoFocus</enum>
          </property>
-         <property name="frame" >
+         <property name="frame">
           <bool>false</bool>
          </property>
-         <property name="readOnly" >
+         <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="6" column="0" >
-        <widget class="QLabel" name="label_7" >
-         <property name="text" >
+       <item row="6" column="0">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
           <string>Шум (дБ):</string>
          </property>
-         <property name="alignment" >
+         <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
-       <item row="6" column="1" >
-        <widget class="QLineEdit" name="le_noise_db" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+       <item row="6" column="1">
+        <widget class="QLineEdit" name="le_noise_db">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="maximumSize" >
+         <property name="maximumSize">
           <size>
            <width>80</width>
            <height>16777215</height>
           </size>
          </property>
-         <property name="cursor" >
+         <property name="cursor">
           <cursorShape>ArrowCursor</cursorShape>
          </property>
-         <property name="focusPolicy" >
+         <property name="focusPolicy">
           <enum>Qt::NoFocus</enum>
          </property>
-         <property name="frame" >
+         <property name="frame">
           <bool>false</bool>
          </property>
-         <property name="readOnly" >
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="label_8">
+         <property name="acceptDrops">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Разряды:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QLineEdit" name="le_eff_bits">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>80</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
+         <property name="frame">
+          <bool>false</bool>
+         </property>
+         <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
@@ -279,35 +321,35 @@
       </layout>
      </item>
      <item>
-      <widget class="Line" name="line_2" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Fixed" hsizetype="Ignored" >
+      <widget class="Line" name="line_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_5" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Preferred" hsizetype="Maximum" >
+      <widget class="QLabel" name="label_5">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Гистограмма:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QwtPlot" name="hist" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Expanding" hsizetype="Ignored" >
+      <widget class="QwtPlot" name="hist">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -318,7 +360,7 @@
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="6" margin="6" />
+ <layoutdefault spacing="6" margin="6"/>
  <customwidgets>
   <customwidget>
    <class>QwtPlot</class>

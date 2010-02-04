@@ -54,7 +54,6 @@ MBMasterWidget::MBMasterWidget( QWidget *parent )
   : QWidget( parent ), ui( new Ui::MBMasterWidget )
 {
   ui->setupUi( this );
-
   mbmaster = 0;
   mbmodel = new MBMasterWidgetTableModel( this );
 
@@ -152,10 +151,14 @@ void MBMasterWidget::on_tw_doubleClicked ( const QModelIndex & index)
 	int row = index.row();
 	if( row >= mbmodel->table.count() ) return;
 	const MTMSlot slot = mbmodel->table[row];
-
   SlotWidget *p = new SlotWidget( this, mbmaster, slot.module.n, slot.n );
   connect( p,    SIGNAL( attributes_saved(int,int,QString) ),
            this, SIGNAL( attributes_saved(int,int,QString) ) );
+  connect( p,    SIGNAL( signalGetEffBitsRef( quint32, quint32 ) ),
+           this, SIGNAL( signalGetEffBitsRef( quint32, quint32 ) ) );
+  connect( this, SIGNAL( signalSendEffBitsRef( double ) ),
+           p,    SLOT( slotSendEffBitsRef(   double ) ) );
+
   slotwidgets.add( p );
   p->show();
   p->activateWindow();

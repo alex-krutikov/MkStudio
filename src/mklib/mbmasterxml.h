@@ -35,6 +35,7 @@ public:
 
   void saveValues( QDomDocument &doc );
   void loadValues( const QDomDocument &doc );
+
 };
 
 #endif

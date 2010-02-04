@@ -287,6 +287,7 @@ void Plot::timerEvent ( QTimerEvent * event )
   }
   // расчет среднего и дисперсии
   y_mean=0;y_std=0;
+
   for( i=y_data_len-points_counter;i<y_data_len;i++ )
   { y_mean += y_data[i];
     y_std  += y_data[i]*y_data[i];
@@ -317,9 +318,11 @@ void Plot::timerEvent ( QTimerEvent * event )
   if( ( y_mean != 0 ) && (y_max != y_min ) )
   { ui->le_noise_percent -> setText( QString::number( fabs((y_max-y_min) / y_mean )*100 ) );
     ui->le_noise_db      -> setText( QString::number( -20*log10( fabs( (y_max-y_min) / y_mean ) ),'f' ,1 ) );
+    ui->le_eff_bits      -> setText( QString::number( ( -20*log10( fabs( (y_max-y_min) / y_mean ) )) / 6.0205999,'f' ,1 ) );
   } else
   { ui->le_noise_percent->clear();
     ui->le_noise_db->clear();
+    ui->le_eff_bits->clear();
   }
 }
 

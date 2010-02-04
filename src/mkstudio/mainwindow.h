@@ -83,6 +83,9 @@ private slots:
   void context_menu();
   void slot_attributes_saved( int module, int slot, QString attributes );
   //void on_action_cells_span_triggered();
+  void slotGetEffBitsRef( quint32 column, quint32 row );
+signals:
+  void signalSendEffBitsRef( double );
 public slots:
   void make_undo_point();
 private:

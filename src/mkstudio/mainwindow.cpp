@@ -46,6 +46,7 @@ MainWindow::MainWindow()
   QSettings settings( QSETTINGS_PARAM );
   QPoint pos = settings.value("pos", QPoint(100,100)).toPoint();
   QSize size = settings.value("size", QSize(1000,800)).toSize();
+  current_config_values_filename = settings.value( "values_file", "").toString();
   move( pos );
   resize( size );
   restoreState( settings.value("mainwindow").toByteArray() );
@@ -61,6 +62,11 @@ MainWindow::MainWindow()
 
   connect( mbmasterwidget, SIGNAL( attributes_saved(int,int,QString) ),
            this,       SLOT(  slot_attributes_saved(int,int,QString) ) );
+  connect( mbmasterwidget, SIGNAL( signalGetEffBitsRef( quint32, quint32 ) ),
+           this,       SLOT(  slotGetEffBitsRef( quint32, quint32 ) ) );
+  connect( this, SIGNAL( signalSendEffBitsRef( double ) ),
+           mbmasterwidget, SIGNAL( signalSendEffBitsRef( double ) ) );
+
 
   action_copy  -> setShortcut( QKeySequence::Copy  );
   action_cut   -> setShortcut( QKeySequence::Cut   );
@@ -118,7 +124,22 @@ MainWindow::MainWindow()
   te_settingssheet->setLineWrapMode( QTextEdit::NoWrap );
   new ScriptHighlighter(te_settingssheet->document());
 }
-
+//==============================================================================
+/// запрос значени€ €чейки
+//==============================================================================
+void MainWindow::slotGetEffBitsRef( quint32 column, quint32 row )
+{
+   double ref;
+   QString hlpStr;
+   bool ok;
+   QString valStr = tw->item( row, column )->text();
+   QStringList sl;
+   sl = valStr.split(" ");
+   hlpStr=sl.at(0);
+   ref = hlpStr.toDouble( &ok );
+   if( !ok ) ref = 0.0;
+   emit signalSendEffBitsRef( ref );
+}
 //==============================================================================
 /// ѕункт меню " оличество строк"
 //==============================================================================
@@ -674,6 +695,7 @@ void MainWindow::on_action_link_triggered()
   int pos,i,j;
   QTableWidgetItem *titem;
   QString str_assign,str_assign_right,str_assign_down,str_format,str_ss;
+  bool ss_confirm;
   QTableWidgetSelectionRange sr0 = sr.at(0);
 
   // разбор значени€ левой верхней €чейки и двух соседних
@@ -688,6 +710,7 @@ void MainWindow::on_action_link_triggered()
   { str_assign  = titem->data(MKTable::AssignRole).toString();
     str_format  = titem->data(MKTable::FormatRole).toString();
     str_ss      = titem->data(MKTable::SSSelectorRole).toString();
+    ss_confirm  = titem->data(MKTable::SSConfirmEditRole).toBool();
   }
   if( rightColumn > leftColumn )
   { titem = tw->item( topRow, leftColumn+1 );
@@ -732,8 +755,18 @@ void MainWindow::on_action_link_triggered()
   }
 
   // создание диалога
+  QString posAddress;
+  if( tw->selectedItems().count() == 1 )
+  {
+    posAddress = QString("(%1;%2)").arg(titem->column()+1).arg(titem->row()+1);
+  }
+  else
+  {
+    posAddress = "(-;-)";
+  }
 
-  AssignDialog dialog( this, str_assign,str_format,str_ss,sl );
+  AssignDialog dialog( this, str_assign,str_format,str_ss,sl,ss_confirm );
+  dialog.setWindowTitle("ѕрив€зка. ячейка:"+posAddress);
 
   // настройка параметров заполнени€ €чеек
 
@@ -783,6 +816,7 @@ void MainWindow::on_action_link_triggered()
   str_assign  = dialog.assign;
   str_format  = dialog.format;
   str_ss      = dialog.ss;
+  ss_confirm  = dialog.ss_confirm;
 
   if( !rx_assign.exactMatch( str_assign ) ) return;
 
@@ -851,6 +885,7 @@ void MainWindow::on_action_link_triggered()
                       QString().sprintf("%d/%d/%d",module_titem,slot_titem,n_titem) );
       titem->setData( MKTable::FormatRole, str_format );
       titem->setData( MKTable::SSSelectorRole, str_ss );
+      titem->setData( MKTable::SSConfirmEditRole, ss_confirm );
     }
   }
   tw->setMode( MKTable::Edit );
@@ -1203,9 +1238,10 @@ void MainWindow::on_action_values_save_triggered()
   fileName = QFileDialog::getSaveFileName(this, "—охранить",
                             fileName+".values.xml",
                             "«начени€ (*.values.xml)" );
-  current_config_values_filename = fileName;
+
   if( !fileName.isEmpty() )
-  { QFile file(fileName);
+  { current_config_values_filename = fileName;
+    QFile file(fileName);
     file.open( QIODevice::WriteOnly | QIODevice::Truncate);
     file.write(doc.toByteArray(2) );
   }
@@ -1467,6 +1503,7 @@ void MainWindow::slot_attributes_saved( int module, int slot, QString attributes
 {
   mbconfigwidget -> setSlotAttributes( module, slot, attributes );
   mbmaster       -> setSlotAttributes( module, slot, attributes );
+
 }
 
 //==============================================================================
@@ -1519,4 +1556,6 @@ void MainWindow::closeEvent ( QCloseEvent * event )
   settings.setValue("size", size());
   settings.setValue("mainwindow", saveState() );
   settings.setValue("conf_file", current_config_filename );
+  settings.setValue("values_file", current_config_values_filename );
+
 }

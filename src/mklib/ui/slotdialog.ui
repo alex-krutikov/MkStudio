@@ -1,155 +1,156 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>SlotDialog</class>
- <widget class="QDialog" name="SlotDialog" >
-  <property name="geometry" >
+ <widget class="QDialog" name="SlotDialog">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>360</width>
-    <height>493</height>
+    <width>357</width>
+    <height>664</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_3" >
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QGroupBox" name="groupBox_2" >
-     <property name="title" >
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
       <string>Ось X</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout" >
-      <property name="topMargin" >
+     <layout class="QGridLayout" name="gridLayout_5">
+      <property name="topMargin">
        <number>2</number>
       </property>
-      <item>
-       <widget class="QLabel" name="label_5" >
-        <property name="text" >
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
          <string>Название:</string>
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QLineEdit" name="xname" />
+      <item row="1" column="0">
+       <widget class="QLineEdit" name="xname"/>
       </item>
-      <item>
-       <widget class="QGroupBox" name="groupBox_3" >
-        <property name="title" >
+      <item row="2" column="0">
+       <widget class="QGroupBox" name="groupBox_3">
+        <property name="title">
          <string>Масштабирование</string>
         </property>
-        <property name="flat" >
+        <property name="flat">
          <bool>false</bool>
         </property>
-        <layout class="QGridLayout" name="gridLayout" >
-         <item row="0" column="0" >
-          <widget class="QRadioButton" name="xscale_none" >
-           <property name="text" >
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0">
+          <widget class="QRadioButton" name="xscale_none">
+           <property name="text">
             <string>Нет</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="0" >
-          <widget class="QRadioButton" name="xscale_int" >
-           <property name="text" >
+         <item row="1" column="0">
+          <widget class="QRadioButton" name="xscale_int">
+           <property name="text">
             <string>Диапазон:</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1" >
-          <layout class="QHBoxLayout" name="horizontalLayout_3" >
+         <item row="1" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
-            <widget class="QLabel" name="label_9" >
-             <property name="text" >
+            <widget class="QLabel" name="label_9">
+             <property name="text">
               <string>от:</string>
              </property>
-             <property name="alignment" >
+             <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="xscale_int_a" />
+            <widget class="QLineEdit" name="xscale_int_a"/>
            </item>
            <item>
-            <widget class="QLabel" name="label_10" >
-             <property name="text" >
+            <widget class="QLabel" name="label_10">
+             <property name="text">
               <string>  до:</string>
              </property>
-             <property name="alignment" >
+             <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="xscale_int_b" />
+            <widget class="QLineEdit" name="xscale_int_b"/>
            </item>
           </layout>
          </item>
-         <item row="2" column="0" >
-          <widget class="QRadioButton" name="xscale_coeff" >
-           <property name="text" >
+         <item row="2" column="0">
+          <widget class="QRadioButton" name="xscale_coeff">
+           <property name="text">
             <string>Коэффициент:</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="1" >
-          <widget class="QLineEdit" name="xscale_coeff_value" />
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="xscale_coeff_value"/>
          </item>
-         <item row="3" column="0" >
-          <widget class="QRadioButton" name="xscale_base" >
-           <property name="text" >
+         <item row="3" column="0">
+          <widget class="QRadioButton" name="xscale_base">
+           <property name="text">
             <string>Значение из базы:</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="1" >
-          <layout class="QHBoxLayout" name="horizontalLayout_2" >
+         <item row="3" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
-            <widget class="QSpinBox" name="xscale_base_m" >
-             <property name="toolTip" >
+            <widget class="QSpinBox" name="xscale_base_m">
+             <property name="toolTip">
               <string>Номер модуля</string>
              </property>
-             <property name="minimum" >
+             <property name="minimum">
               <number>1</number>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_7" >
-             <property name="text" >
+            <widget class="QLabel" name="label_7">
+             <property name="text">
               <string>/</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="xscale_base_s" >
-             <property name="toolTip" >
+            <widget class="QSpinBox" name="xscale_base_s">
+             <property name="toolTip">
               <string>Номер слота</string>
              </property>
-             <property name="minimum" >
+             <property name="minimum">
               <number>1</number>
              </property>
-             <property name="maximum" >
+             <property name="maximum">
               <number>999</number>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_8" >
-             <property name="text" >
+            <widget class="QLabel" name="label_8">
+             <property name="text">
               <string>/</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="xscale_base_n" >
-             <property name="toolTip" >
+            <widget class="QSpinBox" name="xscale_base_n">
+             <property name="toolTip">
               <string>Номер параметра</string>
              </property>
-             <property name="minimum" >
+             <property name="minimum">
               <number>1</number>
              </property>
-             <property name="maximum" >
+             <property name="maximum">
               <number>9999</number>
              </property>
             </widget>
@@ -163,14 +164,14 @@
     </widget>
    </item>
    <item>
-    <spacer name="verticalSpacer" >
-     <property name="orientation" >
+    <spacer name="verticalSpacer">
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeType" >
+     <property name="sizeType">
       <enum>QSizePolicy::Fixed</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>10</height>
@@ -179,105 +180,105 @@
     </spacer>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_4" >
-     <property name="title" >
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="title">
       <string>Ось Y</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2" >
-      <property name="topMargin" >
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="topMargin">
        <number>2</number>
       </property>
       <item>
-       <widget class="QLabel" name="label_6" >
-        <property name="text" >
+       <widget class="QLabel" name="label_6">
+        <property name="text">
          <string>Название:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="yname" />
+       <widget class="QLineEdit" name="yname"/>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBox_5" >
-        <property name="title" >
+       <widget class="QGroupBox" name="groupBox_5">
+        <property name="title">
          <string>Масштабирование</string>
         </property>
-        <property name="flat" >
+        <property name="flat">
          <bool>false</bool>
         </property>
-        <layout class="QGridLayout" name="gridLayout_2" >
-         <item row="0" column="0" >
-          <widget class="QRadioButton" name="yscale_none" >
-           <property name="text" >
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="0" column="0">
+          <widget class="QRadioButton" name="yscale_none">
+           <property name="text">
             <string>Нет</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="0" >
-          <widget class="QRadioButton" name="yscale_coeff" >
-           <property name="text" >
+         <item row="1" column="0">
+          <widget class="QRadioButton" name="yscale_coeff">
+           <property name="text">
             <string>Коэффициент:</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1" >
-          <widget class="QLineEdit" name="yscale_coeff_value" />
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="yscale_coeff_value"/>
          </item>
-         <item row="2" column="0" >
-          <widget class="QRadioButton" name="yscale_base" >
-           <property name="text" >
+         <item row="2" column="0">
+          <widget class="QRadioButton" name="yscale_base">
+           <property name="text">
             <string>Значение из базы:</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="1" >
-          <layout class="QHBoxLayout" name="horizontalLayout_5" >
+         <item row="2" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
-            <widget class="QSpinBox" name="yscale_base_m" >
-             <property name="toolTip" >
+            <widget class="QSpinBox" name="yscale_base_m">
+             <property name="toolTip">
               <string>Номер модуля</string>
              </property>
-             <property name="minimum" >
+             <property name="minimum">
               <number>1</number>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_13" >
-             <property name="text" >
+            <widget class="QLabel" name="label_13">
+             <property name="text">
               <string>/</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="yscale_base_s" >
-             <property name="toolTip" >
+            <widget class="QSpinBox" name="yscale_base_s">
+             <property name="toolTip">
               <string>Номер слота</string>
              </property>
-             <property name="minimum" >
+             <property name="minimum">
               <number>1</number>
              </property>
-             <property name="maximum" >
+             <property name="maximum">
               <number>999</number>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_14" >
-             <property name="text" >
+            <widget class="QLabel" name="label_14">
+             <property name="text">
               <string>/</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="yscale_base_n" >
-             <property name="toolTip" >
+            <widget class="QSpinBox" name="yscale_base_n">
+             <property name="toolTip">
               <string>Номер параметра</string>
              </property>
-             <property name="minimum" >
+             <property name="minimum">
               <number>1</number>
              </property>
-             <property name="maximum" >
+             <property name="maximum">
               <number>9999</number>
              </property>
             </widget>
@@ -288,8 +289,8 @@
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="yunsigned" >
-        <property name="text" >
+       <widget class="QCheckBox" name="yunsigned">
+        <property name="text">
          <string>Беззнаковые числа</string>
         </property>
        </widget>
@@ -298,11 +299,235 @@
     </widget>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="buttonBox" >
-     <property name="orientation" >
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>10</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_7">
+     <property name="title">
+      <string>Диапазон входного сигнала</string>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <widget class="QSpinBox" name="eff_bits_ref_column">
+          <property name="toolTip">
+           <string>Номер модуля</string>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>строка:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="eff_bits_ref_row">
+          <property name="toolTip">
+           <string>Номер слота</string>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Укажите ячейку -   столбец:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>10</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_8">
+     <property name="title">
+      <string>Линейное преобразование</string>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QCheckBox" name="chb_line_trans">
+        <property name="text">
+         <string>Включить линейное преобразование</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="maximumSize">
+           <size>
+            <width>20</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>x1:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="le_x1">
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_12">
+          <property name="maximumSize">
+           <size>
+            <width>20</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>x2:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QLineEdit" name="le_x2">
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_11">
+          <property name="maximumSize">
+           <size>
+            <width>20</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>y1:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="le_y1">
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_15">
+          <property name="maximumSize">
+           <size>
+            <width>20</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>y2:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QLineEdit" name="le_y2">
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <property name="standardButtons" >
+     <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
@@ -340,11 +565,11 @@
    <receiver>SlotDialog</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>257</x>
      <y>483</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>157</x>
      <y>274</y>
     </hint>
@@ -356,11 +581,11 @@
    <receiver>SlotDialog</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>325</x>
      <y>483</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
     </hint>
