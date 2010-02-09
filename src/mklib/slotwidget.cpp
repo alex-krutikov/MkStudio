@@ -686,9 +686,9 @@ void SlotWidget::calc_statistic()
        if( eb_ref != 0.0 )
        {
          ui->le_noise_percent -> setText( QString::number( fabs((y_max-y_min) / eb_ref )*100 ) );
-         ui->le_noise_db -> setText( QString::number( (6.020599913*(log(eb_ref/(y_max-y_min))/log(2))+1.76),'f',1));
+         ui->le_noise_db -> setText( QString::number( (6.020599913*(log(eb_ref/(y_max-y_min))/log(2.0))+1.76),'f',1));
          //-20*log10( fabs( (y_max-y_min) / y_mean ) ),'f' ,1 ) );old variant
-         ui->le_eff_bits -> setText( QString::number( log(eb_ref/(y_max-y_min))/log(2),'f' ,1 ) );
+         ui->le_eff_bits -> setText( QString::number( log(eb_ref/(y_max-y_min))/log(2.0),'f' ,1 ) );
          //( -20*log10( fabs( (y_max-y_min) / y_mean ) )) / 6.0205999,'f' ,1 ) ); старый расчет эфф. разрядов
        }
        else
