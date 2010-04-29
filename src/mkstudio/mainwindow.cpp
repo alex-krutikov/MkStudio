@@ -62,11 +62,6 @@ MainWindow::MainWindow()
 
   connect( mbmasterwidget, SIGNAL( attributes_saved(int,int,QString) ),
            this,       SLOT(  slot_attributes_saved(int,int,QString) ) );
-  connect( mbmasterwidget, SIGNAL( signalGetEffBitsRef( quint32, quint32 ) ),
-           this,       SLOT(  slotGetEffBitsRef( quint32, quint32 ) ) );
-  connect( this, SIGNAL( signalSendEffBitsRef( double ) ),
-           mbmasterwidget, SIGNAL( signalSendEffBitsRef( double ) ) );
-
 
   action_copy  -> setShortcut( QKeySequence::Copy  );
   action_cut   -> setShortcut( QKeySequence::Cut   );
@@ -100,6 +95,16 @@ MainWindow::MainWindow()
   connect( tw->horizontalHeader(),
            SIGNAL(  sectionDoubleClicked(int) ),
            SLOT(    action_tw_header_double_clicked(int) ) );
+  connect( tw,             SIGNAL( signalMinimizeStateChange( bool ) ),
+           mbmasterwidget, SLOT  ( slotMkTableMinimizeStateChange(bool) ) );
+  connect( tw,             SIGNAL( signalMinimizeAllHide(bool) ),
+           mbmasterwidget, SLOT  ( slotMkTableMinimizeAllHide(bool)) );
+  connect( mbmasterwidget, SIGNAL( signalMinimize( bool ) ),
+           tw,             SLOT(     slotMinimize( bool ) ) );
+  connect( mbmasterwidget, SIGNAL( signalOstsOpen() ),
+           tw,             SLOT(   slotPlotOpen() ) );
+  connect( mbmasterwidget, SIGNAL( signalOstsClose() ),
+           tw,             SLOT(   slotPlotClose() ) );
 
   startTimer(500);
 
@@ -123,22 +128,6 @@ MainWindow::MainWindow()
   te_settingssheet->setFont( QFont("Courier",10 ) );
   te_settingssheet->setLineWrapMode( QTextEdit::NoWrap );
   new ScriptHighlighter(te_settingssheet->document());
-}
-//==============================================================================
-/// запрос значения ячейки
-//==============================================================================
-void MainWindow::slotGetEffBitsRef( quint32 column, quint32 row )
-{
-   double ref;
-   QString hlpStr;
-   bool ok;
-   QString valStr = tw->item( row, column )->text();
-   QStringList sl;
-   sl = valStr.split(" ");
-   hlpStr=sl.at(0);
-   ref = hlpStr.toDouble( &ok );
-   if( !ok ) ref = 0.0;
-   emit signalSendEffBitsRef( ref );
 }
 //==============================================================================
 /// Пункт меню "Количество строк"
@@ -244,7 +233,7 @@ bool MainWindow::load_conf( const QString &filename )
 /// Очистка конфигурации
 //==============================================================================
 void MainWindow::on_action_new_triggered()
-{
+{ tw->closeAllRecorders();
   action_play->setChecked( false );
   current_config_filename.clear();
   setWindowTitle( app_header );
@@ -268,6 +257,9 @@ void MainWindow::on_action_load_triggered()
                          "Конфигурация (*.xml)"  );
 
   if( filename.isEmpty() ) return;
+
+  tw->closeAllRecorders();
+
   if( play_mode ) on_action_play_triggered();
   load_conf( filename );
 }
@@ -1505,7 +1497,6 @@ void MainWindow::slot_attributes_saved( int module, int slot, QString attributes
   mbmaster       -> setSlotAttributes( module, slot, attributes );
 
 }
-
 //==============================================================================
 /// Таймер (500 мс)
 //==============================================================================

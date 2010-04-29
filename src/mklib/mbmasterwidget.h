@@ -39,14 +39,19 @@ private:
   MBMasterXML *mbmaster;
   MBMasterWidgetTableModel *mbmodel;
   QObjectCleanupHandler slotwidgets;
+  bool mktable_minimize_flag;
 private slots:
   void on_tw_doubleClicked ( const QModelIndex & );
+  void slotMkTableMinimizeStateChange( bool state );
+  void slotMkTableMinimizeAllHide( bool state );
 public slots:
   void stateUpdate();
 signals:
   void attributes_saved( int module, int slot, QString attribute );
-  void signalGetEffBitsRef( quint32, quint32 );
-  void signalSendEffBitsRef( double );
+  void signalMkTableMinimizeStateChange( bool state );
+  void signalMinimize( bool is_minimize );
+  void signalOstsOpen();
+  void signalOstsClose();
 };
 
 #endif

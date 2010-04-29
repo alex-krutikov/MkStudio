@@ -20,12 +20,12 @@
 //###################################################################
 ///Окно с представлением слота (используется по двойному нажатию на слот)
 //###################################################################
-SlotWidget::SlotWidget( QWidget *parent, MBMasterXML *mm, int module, int slot )
+SlotWidget::SlotWidget( QWidget *parent, MBMasterXML *mm, int module, int slot, bool min_flag )
   : QMainWindow( parent ), ui( new Ui::SlotWidget )
 {
   ui->setupUi(this);
   ui->stackedWidget->setCurrentIndex(0);
-  setWindowFlags( Qt::Tool );
+  setWindowFlags( Qt::Window | Qt::WindowMinimizeButtonHint );
   setAttribute( Qt::WA_DeleteOnClose, true );
   resize( 800,400 );
 
@@ -34,6 +34,7 @@ SlotWidget::SlotWidget( QWidget *parent, MBMasterXML *mm, int module, int slot )
   this->mm = mm;
   kx=ky=1;
   ax=0;
+  minimize_flag = min_flag;
 
   const MMSlot slot2 = mm->getSlot( module_n, slot_n );
   // меню "экспорт"
@@ -50,8 +51,7 @@ SlotWidget::SlotWidget( QWidget *parent, MBMasterXML *mm, int module, int slot )
     }
   }
   //кнопка Пауза
-  pb_pause = new QToolButton( ui->plot );
-  pb_pause->move(5,5);
+  pb_pause = new QToolButton;
   pb_pause->setText("Пауза");
   pb_pause->setToolTip("Пауза");
   pb_pause->setCursor( QCursor( Qt::ArrowCursor ) );
@@ -61,13 +61,30 @@ SlotWidget::SlotWidget( QWidget *parent, MBMasterXML *mm, int module, int slot )
 
   pause_flag = false;
 
+  //кнопка Минимизация таблицы опроса
+  pb_minimize = new QToolButton;
+  pb_minimize->setCursor( QCursor( Qt::ArrowCursor ) );
+  pb_minimize->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
+  connect( pb_minimize, SIGNAL(clicked()), this, SLOT(pb_minimize_clicked()) );
+  updateMinimizeButtonState( minimize_flag );
+
+  toolWidget = new QWidget( ui->plot );
+  QHBoxLayout *layout = new QHBoxLayout;
+
+  layout->addWidget( pb_pause    );
+  layout->addWidget( pb_minimize );
+  layout->setSpacing(5);
+  layout->setContentsMargins(0,0,0,0);
+  toolWidget->setLayout( layout );
+  toolWidget->move(5,5);
+
   // обработка меню
   connect( ui->action_view_table, SIGNAL( activated() ), this, SLOT( view_changed() ) );
   connect( ui->action_view_plot1, SIGNAL( activated() ), this, SLOT( view_changed() ) );
   connect( ui->action_view_plot2, SIGNAL( activated() ), this, SLOT( view_changed() ) );
 
-  connect(ui->action_stat_show, SIGNAL( toggled(bool) ), ui->statGroupBox, SLOT( setVisible(bool) ) );
-  connect( ui->chb_line_trans_use, SIGNAL( toggled(bool)), this, SLOT ( slot_line_trans_used(bool)) );
+  connect(ui->action_stat_show,    SIGNAL( toggled(bool) ), this, SLOT( slot_statistic_show(bool) ) );
+  connect( ui->chb_line_trans_use, SIGNAL( toggled(bool) ), this, SLOT( slot_line_trans_used(bool)) );
 
   connect( ui->action_format_bin,      SIGNAL( activated() ), this, SLOT( format_changed() ) );
   connect( ui->action_format_dec,      SIGNAL( activated() ), this, SLOT( format_changed() ) );
@@ -118,6 +135,7 @@ SlotWidget::SlotWidget( QWidget *parent, MBMasterXML *mm, int module, int slot )
   ui->plot->setCanvasBackground(QColor("linen"));
   ui->plot->enableAxis(QwtPlot::yRight, false);
   ui->plot->enableAxis(QwtPlot::yLeft,  true );
+  ui->plot->setAxisAutoScale( QwtPlot::yLeft );
 
   plot_curve = new QwtPlotCurve("");
   plot_curve->setPen(QPen(Qt::darkBlue,2));
@@ -134,6 +152,7 @@ SlotWidget::SlotWidget( QWidget *parent, MBMasterXML *mm, int module, int slot )
   ui->plot2->setCanvasBackground(QColor("linen"));
   ui->plot2->enableAxis(QwtPlot::yRight, false);
   ui->plot2->enableAxis(QwtPlot::yLeft,  true );
+  ui->plot2->setAxisAutoScale( QwtPlot::yLeft );
 
   plot2_curve = new QwtPlotCurve("");
   plot2_curve->setPen(QPen(Qt::darkBlue,2));
@@ -176,6 +195,15 @@ SlotWidget::SlotWidget( QWidget *parent, MBMasterXML *mm, int module, int slot )
   if( str == "float"     ) ui->action_format_float    -> activate(QAction::Trigger);
   applay_settings();
 
+  int a;
+  bool ok;
+  if( settings.contains("statistic_show") )
+  { a = settings["statistic_show"].toInt( &ok );
+    if( ok && !a )
+    {  ui->action_stat_show->setChecked( false );
+       slot_statistic_show( false );
+    }
+  }
   // таймер перерисовки графиков
   startTimer( 1000 );
 }
@@ -202,12 +230,12 @@ void SlotWidget::view_changed()
   { ui->stackedWidget->setCurrentIndex(0);
   } else if( act == ui->action_view_plot1 )
   { ui->stackedWidget->setCurrentIndex(1);
-      pb_pause->setParent( ui->plot->canvas() );
-      pb_pause->show();
+      toolWidget->setParent( ui->plot->canvas() );
+      toolWidget->show();
   } else if( act == ui->action_view_plot2 )
   { ui->stackedWidget->setCurrentIndex(2);
-      pb_pause->setParent( ui->plot2->canvas() );
-      pb_pause->show();
+      toolWidget->setParent( ui->plot2->canvas() );
+      toolWidget->show();
   }
   save_settings();
 }
@@ -264,8 +292,8 @@ void SlotWidget::export_data()
     const QwtData &d = curve->data();
     n = d.size();
     for(i=1; i<n; i++ )
-    { str += QString::number( d.x(i-1),'g',14 ) + "\t";
-      str += QString::number( d.y(i  ),'g',14 ) + "\n";
+    { str += QString::number( d.x(i-1) ) + "\t";
+      str += QString::number( d.y(i  ),'f',8 ) + "\n";
     }
     str.chop(1);
   }
@@ -290,6 +318,14 @@ void SlotWidget::pb_pause_clicked()
     pb_pause->setIcon( QIcon(":/icons/res/media_play.png" ) );
   }
 }
+//==============================================================================
+//
+//==============================================================================
+void SlotWidget::pb_minimize_clicked()
+{
+  emit signalMinimize( !minimize_flag );
+}
+
 //==============================================================================
 /// Подготовка и выдача (сигналом) текущих настроек окна
 //==============================================================================
@@ -316,7 +352,6 @@ void SlotWidget::save_settings()
   { str += key + "=" + settings[key].remove(';') + ";";
   }
   if( str.endsWith(";") ) str.chop(1);
-
   // вызов сигнала
   emit attributes_saved( module_n, slot_n, str );
 }
@@ -326,7 +361,7 @@ void SlotWidget::save_settings()
 //==============================================================================
 void SlotWidget::on_action_set_scale_triggered()
 {
-  SlotDialog dialog(0,&settings );
+  SlotDialog dialog( this,0,&settings );
   if( dialog.exec() != QDialog::Accepted ) return;
 
   applay_settings();
@@ -420,20 +455,16 @@ lab2:;
 lab3:;
   plot2_unsigned = ( settings["yunsigned"] == "1" );
 
- str = settings["eff_bits_ref"];
-  if( rx1.indexIn( str ) == 0 )
-  { ia = rx1.cap(1).toInt( &ok );
-    if( !ok )  ia=0;
-    ib = rx1.cap(2).toInt( &ok );
-    if( !ok )  ib=0;
-    eff_bits_ref.column = ia;
-    eff_bits_ref.row    = ib;
+  str = settings["input_signal_range"];
+
+  if( str.isEmpty())
+  {eb_ref = 0.0;
   }
   else
-  {
-    eff_bits_ref.column = 1;
-    eff_bits_ref.row    = 1;
+  {eb_ref = str.toDouble( &ok );
+   if( !ok ) eb_ref = 0.0;
   }
+
   use_line_trans = ( settings["use_line_trans"] == "1" );
 
   ui->chb_line_trans_use->setChecked( use_line_trans );
@@ -453,7 +484,16 @@ lab3:;
     line_trans_x2 = c;
     line_trans_y2 = d;
   }
+
+  if( settings.contains("pen_width") )
+  { ia = settings["pen_width"].toInt( &ok );
+    if( ok )
+    { plot_curve->setPen(QPen(Qt::darkBlue,ia));
+      plot2_curve->setPen(QPen(Qt::darkBlue,ia));
+    }
+  }
 }
+
 //==============================================================================
 /// Настройка таблицы
 //==============================================================================
@@ -568,7 +608,7 @@ void SlotWidget::timerEvent( QTimerEvent *event)
     plot_curve->setData( plot_data_x.constData(), plot_data_y.constData(),n );
   }
   ui->plot->replot();
-  if( ui->action_view_plot1->isChecked() ) calc_statistic();
+  if(ui->action_view_plot1->isChecked() && ui->action_stat_show->isChecked()) calc_statistic();
 
   //------------ вывод масштабированного графика -------------
 
@@ -640,7 +680,7 @@ void SlotWidget::timerEvent( QTimerEvent *event)
     plot2_curve->setData( plot_data_x.constData(), plot_data_y.constData(),n );
   }
   ui->plot2->replot();
-  if( ui->action_view_plot2->isChecked() ) calc_statistic();
+  if( ui->action_view_plot2->isChecked() && ui->action_stat_show->isChecked()) calc_statistic();
 }
 //==============================================================================
 // Расчет статистики
@@ -668,13 +708,13 @@ void SlotWidget::calc_statistic()
   }
 
   y_mean /= plot_data_y.size();
+  no_trans_y_mean = y_mean-y_offset;
   y_std  /= plot_data_y.size();
   y_std  -= y_mean*y_mean;
   y_std   = sqrt( y_std );
 
   if( !use_line_trans)
-  {
-    ui->le_mean        -> setText( QString::number( y_mean-y_offset ) );
+  { ui->le_mean        -> setText( QString::number( y_mean-y_offset ) );
     ui->le_diff        -> setText( QString::number( y_max-y_min ) );
   }
 
@@ -682,7 +722,6 @@ void SlotWidget::calc_statistic()
 
   if( ( y_mean != 0 ) && (y_max != y_min ) )
   {
-       emit signalGetEffBitsRef( eff_bits_ref.column-1, eff_bits_ref.row-1 );
        if( eb_ref != 0.0 )
        {
          ui->le_noise_percent -> setText( QString::number( fabs((y_max-y_min) / eb_ref )*100 ) );
@@ -703,6 +742,8 @@ void SlotWidget::calc_statistic()
     ui->le_eff_bits->clear();
   }
 
+  y_max -= y_offset;
+  y_min -= y_offset;
   // расчет гистограммы
   double a;
   int i,j;
@@ -714,56 +755,6 @@ void SlotWidget::calc_statistic()
       if( j < 0 ) j=0;
       if( j > (hist_plot_data_y_len-1) ) j=(hist_plot_data_y_len-1);
       hist_plot_data_y[j]+=1;
-    }
-
-    static const int hist_sqr_len=8;
-    int hist_sqr[hist_sqr_len];
-    int hist_sqr_sum=0;
-    int ind,sqr_sum_part,diff;
-    for(i=0;i<8;i++)
-    {
-      hist_sqr[i]   = (int)(( hist_plot_data_y[i+1] - hist_plot_data_y[i] ) / 2);
-      hist_sqr_sum += hist_sqr[i];
-    }
-
-    diff = hist_sqr_sum;
-    ind = 1;
-    for(i=1;i<8;i++)
-    {
-      sqr_sum_part = 0;
-      for(j=0;j<=i;j++)
-      {
-        sqr_sum_part += hist_sqr[j];
-      }
-      if(abs(sqr_sum_part - (hist_sqr_sum-sqr_sum_part)) < diff )
-      {
-        diff = abs(sqr_sum_part - (hist_sqr_sum-sqr_sum_part));
-        ind  = i;
-      }
-    }
-    ui->le_eff_bits->setText( QString::number( ind ));
-
-    if( ind < 8 )
-    {
-      for(i=ind;i<=8;i++)
-      {
-        for(j=15;j>0;j--)
-        {
-          hist_plot_data_y[j] = hist_plot_data_y[j-1];
-        }
-        hist_plot_data_y[0] = 0;
-      }
-    }
-    else if( ind > 8 )
-    {
-       for(i=8;i<ind;i++)
-      {
-        for(j=0;j<15;j++)
-        {
-          hist_plot_data_y[j] = hist_plot_data_y[j+1];
-        }
-        hist_plot_data_y[15] = 0;
-      }
     }
   }
   ui->hist->replot();
@@ -799,39 +790,105 @@ void SlotWidget::calc_statistic()
 //==============================================================================
 //
 //==============================================================================
-void SlotWidget::slotSendEffBitsRef( double ref )
-{
-  eb_ref = ref;
-}
-//==============================================================================
-//
-//==============================================================================
 void SlotWidget::slot_line_trans_used( bool us )
 {
+  if( us )
+  {
+    QRegExp rx("^(.+)/(.+)/(.+)/(.+)$");
+    QString str = settings["line_trans_coords"];
+    if( rx.indexIn( str ) != 0 )
+    {
+        QMessageBox::warning(this,"Линейное преобразование",
+        "Операция прервана: не указана одна или несколько координат линейного преобразования.");
+        ui->chb_line_trans_use->setChecked( false );
+        return;
+    }
+  }
   use_line_trans = us;
   settings.remove( "use_line_trans" );
   if( us ) settings["use_line_trans"] = "1";
 }
+//==============================================================================
+//
+//==============================================================================
+void SlotWidget::slot_statistic_show( bool isVisible )
+{
+  ui->statGroupBox->setVisible( isVisible );
+
+  if( settings.contains( "statistic_show" ) )
+  { settings.remove( "statistic_show" );
+  }
+
+  if( isVisible )
+  { settings["statistic_show"] = "1";
+  } else
+  { settings["statistic_show"] = "0";
+  }
+
+  save_settings();
+}
+//==============================================================================
+//
+//==============================================================================
+void SlotWidget::updateMinimizeButtonState( bool state )
+{ minimize_flag = state;
+  if( minimize_flag )
+  { pb_minimize->setText("Развернуть");
+    pb_minimize->setToolTip("Развернуть таблицу");
+    pb_minimize->setIcon( QIcon(":/icons/res/window_max.png") );
+  } else
+  { pb_minimize->setText("Свернуть");
+    pb_minimize->setToolTip("Свернуть таблицу");
+    pb_minimize->setIcon( QIcon(":/icons/res/window_min.png") );
+  }
+}
+//==============================================================================
+//
+//==============================================================================
+void SlotWidget::changeEvent( QEvent * event )
+{
+  if ( event->type() == QEvent::WindowStateChange )
+  {
+    if( windowState() == Qt::WindowMinimized )
+    { emit signalOstsClose();
+    }
+    if( windowState() == Qt::WindowNoState )
+    { emit signalOstsOpen();
+      if( minimize_flag ) signalMinimize( true );
+    }
+  }
+}
+//==============================================================================
+//
+//==============================================================================
+void SlotWidget::closeEvent( QCloseEvent * event )
+{ Q_UNUSED( event );
+  if ( windowState() != Qt::WindowMinimized ) emit signalOstsClose();
+}
 //###################################################################
 /// Диалог о масштабировании графика
 //###################################################################
-SlotDialog::SlotDialog( QWidget *parent, QMap<QString,QString> *settings )
+SlotDialog::SlotDialog( SlotWidget *slotw, QWidget *parent, QMap<QString,QString> *settings )
   : QDialog( parent ), ui( new Ui::SlotDialog )
 {
   ui->setupUi( this );
   setWindowTitle("Масштабирование графика");
 
+  slotwidget = slotw;
+
   this->settings = settings;
 
-  ui->xscale_int_a       -> setValidator( new QDoubleValidator( this ) );
-  ui->xscale_int_b       -> setValidator( new QDoubleValidator( this ) );
-  ui->xscale_coeff_value -> setValidator( new QDoubleValidator( this ) );
-  ui->yscale_coeff_value -> setValidator( new QDoubleValidator( this ) );
+  ui->xscale_int_a          -> setValidator( new QDoubleValidator( this ) );
+  ui->xscale_int_b          -> setValidator( new QDoubleValidator( this ) );
+  ui->xscale_coeff_value    -> setValidator( new QDoubleValidator( this ) );
+  ui->yscale_coeff_value    -> setValidator( new QDoubleValidator( this ) );
 
-  ui->le_x1              -> setValidator( new QDoubleValidator( this ) );
-  ui->le_x2              -> setValidator( new QDoubleValidator( this ) );
-  ui->le_y1              -> setValidator( new QDoubleValidator( this ) );
-  ui->le_y2              -> setValidator( new QDoubleValidator( this ) );
+  ui->le_input_signal_range -> setValidator( new QDoubleValidator( this ));
+
+  ui->le_x1                 -> setValidator( new QDoubleValidator( this ) );
+  ui->le_x2                 -> setValidator( new QDoubleValidator( this ) );
+  ui->le_y1                 -> setValidator( new QDoubleValidator( this ) );
+  ui->le_y2                 -> setValidator( new QDoubleValidator( this ) );
 
 
   connect( ui->xscale_none,    SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
@@ -841,7 +898,9 @@ SlotDialog::SlotDialog( QWidget *parent, QMap<QString,QString> *settings )
   connect( ui->xscale_int,     SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
   connect( ui->xscale_base,    SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
   connect( ui->yscale_base,    SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
-  connect( ui->chb_line_trans, SIGNAL( toggled(bool)) , this, SLOT( radio_buttons() ) );
+  connect( ui->chb_line_trans, SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
+
+  connect( ui->pb_line_trans_correct, SIGNAL( clicked()), this, SLOT( linear_transformation_correct()) );
 
   ui->xscale_none->setChecked( true );
   ui->yscale_none->setChecked( true );
@@ -895,12 +954,7 @@ SlotDialog::SlotDialog( QWidget *parent, QMap<QString,QString> *settings )
   ui->yunsigned->setChecked( csettings["yunsigned"] == "1" );
 
   //диапазон входного сигнала
-  str = csettings["eff_bits_ref"];
-  if( rx1.indexIn( str ) == 0 )
-  {
-    ui->eff_bits_ref_column->setValue( rx1.cap(1).toInt() );
-    ui->eff_bits_ref_row   ->setValue( rx1.cap(2).toInt() );
-  }
+  ui->le_input_signal_range->setText( csettings["input_signal_range"] );
 
   ui->chb_line_trans->setChecked( csettings["use_line_trans"] == "1" );
 
@@ -911,6 +965,9 @@ SlotDialog::SlotDialog( QWidget *parent, QMap<QString,QString> *settings )
     ui->le_y1->setText( rx3.cap(2) );
     ui->le_x2->setText( rx3.cap(3) );
     ui->le_y2->setText( rx3.cap(4) );
+  }
+  if( csettings.contains("pen_width") )
+  { ui->sb_pen_width->setValue( csettings["pen_width"].toInt() );
   }
 }
 
@@ -927,22 +984,22 @@ SlotDialog::~SlotDialog()
 //==============================================================================
 void SlotDialog::radio_buttons()
 {
-  ui->xscale_coeff_value -> setEnabled( ui->xscale_coeff->isChecked()   );
-  ui->xscale_int_a       -> setEnabled( ui->xscale_int->isChecked()     );
-  ui->xscale_int_b       -> setEnabled( ui->xscale_int->isChecked()     );
-  ui->xscale_base_m      -> setEnabled( ui->xscale_base->isChecked()    );
-  ui->xscale_base_s      -> setEnabled( ui->xscale_base->isChecked()    );
-  ui->xscale_base_n      -> setEnabled( ui->xscale_base->isChecked()    );
-  ui->yscale_coeff_value -> setEnabled( ui->yscale_coeff->isChecked()   );
-  ui->yscale_base_m      -> setEnabled( ui->yscale_base->isChecked()    );
-  ui->yscale_base_s      -> setEnabled( ui->yscale_base->isChecked()    );
-  ui->yscale_base_n      -> setEnabled( ui->yscale_base->isChecked()    );
-  ui->le_x1              -> setEnabled( ui->chb_line_trans->isChecked() );
-  ui->le_x2              -> setEnabled( ui->chb_line_trans->isChecked() );
-  ui->le_y1              -> setEnabled( ui->chb_line_trans->isChecked() );
-  ui->le_y2              -> setEnabled( ui->chb_line_trans->isChecked() );
+  ui->xscale_coeff_value    -> setEnabled( ui->xscale_coeff->isChecked()   );
+  ui->xscale_int_a          -> setEnabled( ui->xscale_int->isChecked()     );
+  ui->xscale_int_b          -> setEnabled( ui->xscale_int->isChecked()     );
+  ui->xscale_base_m         -> setEnabled( ui->xscale_base->isChecked()    );
+  ui->xscale_base_s         -> setEnabled( ui->xscale_base->isChecked()    );
+  ui->xscale_base_n         -> setEnabled( ui->xscale_base->isChecked()    );
+  ui->yscale_coeff_value    -> setEnabled( ui->yscale_coeff->isChecked()   );
+  ui->yscale_base_m         -> setEnabled( ui->yscale_base->isChecked()    );
+  ui->yscale_base_s         -> setEnabled( ui->yscale_base->isChecked()    );
+  ui->yscale_base_n         -> setEnabled( ui->yscale_base->isChecked()    );
+  ui->le_x1                 -> setEnabled( ui->chb_line_trans->isChecked() );
+  ui->le_x2                 -> setEnabled( ui->chb_line_trans->isChecked() );
+  ui->le_y1                 -> setEnabled( ui->chb_line_trans->isChecked() );
+  ui->le_y2                 -> setEnabled( ui->chb_line_trans->isChecked() );
+  ui->pb_line_trans_correct -> setEnabled( ui->chb_line_trans->isChecked() );
 }
-
 
 //==============================================================================
 // Нажатие кнопки OK
@@ -950,6 +1007,33 @@ void SlotDialog::radio_buttons()
 void SlotDialog::accept()
 {
   if( !settings ) return;
+
+  if( ui->le_input_signal_range->text().isEmpty() )
+  { QMessageBox::warning(this,"Диапазон входного сигнала",
+    "Операция прервана: не указан диапазон входного сигнала.");
+    return;
+  }
+  if( ui->chb_line_trans->isChecked() )
+  {
+    QString str_x1, str_x2,str_y1,str_y2;
+    str_x1 = ui->le_x1->text();
+    str_x2 = ui->le_x2->text();
+    str_y1 = ui->le_y1->text();
+    str_y2 = ui->le_y2->text();
+    if( str_x1.isEmpty() || str_x2.isEmpty() || str_y1.isEmpty() || str_y2.isEmpty() )
+    {
+      QMessageBox::warning(this,"Линейное преобразование",
+      "Операция прервана: не указана одна или несколько координат линейного преобразования.");
+      return;
+    }
+    if( str_x1 == str_x2 || str_y1 == str_y2 )
+    {
+      QMessageBox::warning(this,"Линейное преобразование",
+      "Операция прервана: обнаружено равенство координат одной из осей линейного преобразования.");
+      return;
+    }
+  }
+
   QMap<QString,QString> &isettings = *settings;
 
   QString str;
@@ -962,9 +1046,10 @@ void SlotDialog::accept()
   isettings.remove("xscale_base");
   isettings.remove("yscale_base");
   isettings.remove("yunsigned");
-  isettings.remove("eff_bits_ref");
+  isettings.remove("input_signal_range");
   isettings.remove("use_line_trans");
   isettings.remove("line_trans_coords");
+  isettings.remove("pen_width");
 
 
   // названия осей
@@ -998,8 +1083,7 @@ void SlotDialog::accept()
   { isettings["yunsigned"] = "1";
   }
 
-  isettings["eff_bits_ref"] = QString().sprintf("%d/%d", ui->eff_bits_ref_column->value(),
-                                                            ui->eff_bits_ref_row->value());
+  isettings["input_signal_range"] = ui->le_input_signal_range->text();
 
   if( ui->chb_line_trans->isChecked() )
   { isettings["use_line_trans"] = "1";
@@ -1008,5 +1092,15 @@ void SlotDialog::accept()
   isettings["line_trans_coords"] = ui->le_x1->text()+"/"+ui->le_y1->text()+"/"+
                                    ui->le_x2->text()+"/"+ui->le_y2->text();
 
+  isettings["pen_width"] = QString::number( ui->sb_pen_width->value() );
+
   done( QDialog::Accepted );
+}
+//==============================================================================
+// Нажатие кнопки Скорректировать ноль
+//==============================================================================
+void SlotDialog::linear_transformation_correct()
+{
+    ui->le_x1->setText( slotwidget->get_mean() );
+    ui->le_x2->setText( QString::number( (ui->le_x1->text().toDouble() + 1.),'f', 8 ) );
 }

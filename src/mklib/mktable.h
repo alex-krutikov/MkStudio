@@ -27,11 +27,12 @@ class MK_EXPORT MKTable : public QTableWidget
   friend class MKTableItemDelegate;
 public:
   enum Mode { Edit = 0, Polling };
-  enum { IndexRole         = Qt::UserRole,
-         FormatRole        = Qt::UserRole+1,
-         AssignRole        = Qt::UserRole+2,
-         SSSelectorRole    = Qt::UserRole+3,
-         SSConfirmEditRole = Qt::UserRole+4};
+  enum { IndexRole          = Qt::UserRole,
+         FormatRole         = Qt::UserRole+1,
+         AssignRole         = Qt::UserRole+2,
+         SSSelectorRole     = Qt::UserRole+3,
+         SSConfirmEditRole  = Qt::UserRole+4,
+         RecorderParamsRole = Qt::UserRole+5};
   MKTable( QWidget *parent = 0 );
   ~MKTable();
   bool loadConfiguration( const QDomDocument &doc );
@@ -48,6 +49,7 @@ public:
 
   QSize sizeHint() const;
   bool getCurrentItemConfirmEdit(){return currentItemConfirmEdit;}
+  void closeAllRecorders();
 private:
   void mouseMoveEvent( QMouseEvent *event );
   void mousePressEvent( QMouseEvent *event );
@@ -86,10 +88,17 @@ private:
 
   QString settingssheet_str;
   bool optimize_read_mode;
+  quint32 plots_count;
 private slots:
   void refresh();
+  void slotMinimize(bool);
+  void slotPlotClose();
+  void slotPlotOpen();
 signals:
   void item_changed_by_editor();
+  void signalCloseAllRecorders();
+  void signalMinimizeStateChange( bool state );
+  void signalMinimizeAllHide( bool state );
 };
 
 /*! \page xml_table_desc Формат XML документа таблицы

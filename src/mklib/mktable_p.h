@@ -48,6 +48,7 @@ protected:
   void mouseReleaseEvent( QMouseEvent * event );
   void mouseMoveEvent ( QMouseEvent * event );
   void leaveEvent ( QEvent * event );
+  void showEvent( QShowEvent * event );
 
    QStyleOptionViewItem viewOptions() const
    { QStyleOptionViewItem option = QListView::viewOptions();

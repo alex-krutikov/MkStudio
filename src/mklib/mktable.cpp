@@ -43,8 +43,10 @@ MKTable::MKTable( QWidget *parent )
   connect(&timer, SIGNAL(timeout()), this, SLOT(refresh()));
 
   setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
+  setSelectionMode( QAbstractItemView::ExtendedSelection );
   
   optimize_read_mode = true;
+  plots_count = 0;
 }
 
 //==============================================================================
@@ -81,6 +83,15 @@ QSize MKTable::sizeHint() const
 
         verticalHeader()->length()
         +70 + horizontalHeader()->height() );
+}
+//==============================================================================
+//
+//==============================================================================
+void MKTable::closeAllRecorders()
+{
+  emit signalCloseAllRecorders();
+  plots_count = 0;
+  slotMinimize( false );
 }
 
 //==============================================================================
@@ -161,6 +172,8 @@ bool MKTable::loadConfiguration( const QDomDocument &doc )
    confirm = element.attribute("SSConfirmEdit");
    titem->setData( SSConfirmEditRole, confirm );
 
+   str = element.attribute("RecorderParams");
+   if( !str.isEmpty() ) titem->setData( RecorderParamsRole, str );
    setItem( row,col,titem );
 /*
    // НЕПОНЯТКИ С ОБЪЕДИНЕНИЕМ ЯЧЕЕК
@@ -242,10 +255,12 @@ void MKTable::saveConfiguration( QDomDocument &doc )
        { tag_item.setAttribute("ForegroundColor", var.toString() );
        }
      }
-     str     = titem->data(SSSelectorRole).toString();
-     confirm = titem->data(SSConfirmEditRole).toBool();
+     str = titem->data(SSSelectorRole).toString();
      if( !str.isEmpty() ) tag_item.setAttribute("SSSelector", str );
-     if( confirm )        tag_item.setAttribute("SSConfirmEdit", confirm );
+     confirm = titem->data(SSConfirmEditRole).toBool();
+     if( confirm ) tag_item.setAttribute("SSConfirmEdit", confirm );
+     str = titem->data(RecorderParamsRole).toString();
+     if( !str.isEmpty() ) tag_item.setAttribute("RecorderParams", str );
      // tag_item.setAttribute("Span",  QString("%1,%2").arg(rowSpan(i,j)).arg(columnSpan(i,j)));
      tag_table.appendChild(tag_item);
    }
@@ -400,8 +415,7 @@ void MKTable::setMode( enum Mode m )
   mode=m;
 
   if( m == MKTable::Edit )
-  { setSelectionMode( QAbstractItemView::ExtendedSelection );
-    clearSelection();
+  { clearSelection();
     unsetCursor();
     timer.stop();
     for( i=0; i<rowCount();i++ )
@@ -431,7 +445,6 @@ void MKTable::setMode( enum Mode m )
   if( m == MKTable::Polling )
   { assign_data.clear();
     ss_process();
-    setSelectionMode( QAbstractItemView::ContiguousSelection );
     clearSelection();
     unsetCursor();
     for( i=0; i<rowCount();i++ )
@@ -523,8 +536,8 @@ void MKTable::contextMenuEvent( QContextMenuEvent *e )
 
   QList<QTableWidgetItem *> si = QTableWidget::selectedItems();
   if( si.count() == 0 ) return;
-  if( si.count() >  1 )
-  { QMessageBox::information( this,"Ошибка", "Должна быть выделена только одна ячейка." );
+  if( si.count() >  4 )
+  { QMessageBox::information( this,"Ошибка", "Должно быть выделено не более 4 ячеек." );
     return;
   }
 
@@ -538,36 +551,64 @@ void MKTable::contextMenuEvent( QContextMenuEvent *e )
   if( act == 0 ) return;
   if( act == action1 )
   { //---------- вывод графика ------------------------------------------------------------------------
-    Plot *plot = new Plot(this,mbmaster, si.value(0)->data(AssignRole).toString() );
-    QString str, str_column, str_row;
-    int i,j;
-    //-------------------- название столбца --------
-    j = si.value(0)->column();
-    for( i = si.value(0)->row(); i>=0; i-- )
-    { if( item(i,j)->data(IndexRole).isValid() ) continue;
-      if( item(i,j)->text().isEmpty() ) continue;
-      str_column = item(i,j)->text();
-      break;
-    }
-    if( str_column.isEmpty() )  { str_column = model()->headerData( j, Qt::Horizontal ).toString();  }
-    //-------------------- название строки --------
-    i = si.value(0)->row();
-    for( j = si.value(0)->column(); j>=0; j-- )
-    { if( item(i,j)->data(IndexRole).isValid() ) continue;
-      if( item(i,j)->text().isEmpty() ) continue;
-      str_row = item(i,j)->text();
-      break;
-    }
-    //-------------------- вывод графика ----------
-    str = "Самописец";
-    if( !str_row.isEmpty() )    str += " ( " + str_row.simplified() + " )";
-    if( !str_column.isEmpty() ) str += " ( " + str_column.simplified() + " )";
 
-    plot->setWindowTitle( str );
+    QString str, str_column, str_row, str_title;
+    int i,j,si_count;
+    si_count=0;
+    str_title = "Самописец";
+    foreach( QTableWidgetItem * t, si )
+    {
+      //-------------------- название столбца --------
+      j = t->column();
+      for( i = t->row(); i>=0; i-- )
+      { if( item(i,j)->data(IndexRole).isValid() ) continue;
+        if( item(i,j)->text().isEmpty() ) continue;
+        str_column = item(i,j)->text();
+        break;
+      }
+      if( str_column.isEmpty() )  { str_column = model()->headerData( j, Qt::Horizontal ).toString();  }
+      //-------------------- название строки --------
+      i = t->row();
+      for( j = t->column(); j>=0; j-- )
+      { if( item(i,j)->data(IndexRole).isValid() ) continue;
+        if( item(i,j)->text().isEmpty() ) continue;
+        str_row = item(i,j)->text();
+        break;
+      }
+      //------добавление составляющей цвета графика----
+      switch(si_count)
+      { case 0: str += "синий самописец:     ";break;
+        case 1: str += "зеленый самописец:";break;
+        case 2: str += "красный самописец:";break;
+        case 3: str += "черный самописец:  ";break;
+      }
+        si_count++;
+      //-------------------- вывод графика ----------
+      if( !str_row.isEmpty() )    str += " ( " + str_row.simplified() + " )";
+      if( !str_column.isEmpty() ) str += " ( " + str_column.simplified() + " )\n";
+      //-------------------- определение заголовка ----------
+      if( si.count() == 1 )
+      { if( !str_row.isEmpty() )    str_title += " ( " + str_row.simplified() + " )";
+        if( !str_column.isEmpty() ) str_title += " ( " + str_column.simplified() + " )";
+      }
+    }
+    str.remove(str.length()-1,1);
+    bool is_minimize = ( size() == QSize(0,0) ) ? true : false;
+    Plot *plot = new Plot( str_title, si, is_minimize, this, mbmaster );//si.value(0)->data(AssignRole).toString() );
+    if( si.count() > 1 ) plot->setPlotList( str );
+
+    slotPlotOpen();
+
+    connect( plot, SIGNAL(signalPlotClose()),     this, SLOT(slotPlotClose()) );
+    connect( plot, SIGNAL(signalPlotOpen()),      this, SLOT(slotPlotOpen() ) );
+    connect( plot, SIGNAL(signalMinimize(bool)), this, SLOT(slotMinimize(bool)) );
+    connect( this, SIGNAL( signalCloseAllRecorders()), plot, SLOT( close() ));
+    connect( this, SIGNAL( signalMinimizeStateChange( bool ) ),
+             plot, SLOT  ( updateMinimizeButtonState( bool ) ) );
+
     plot->show();
   }
 }
-
 //==============================================================================
 //
 //==============================================================================
@@ -575,7 +616,6 @@ void MKTable::mousePressEvent( QMouseEvent *event )
 {
   QTableWidget::mousePressEvent( event );
 }
-
 //==============================================================================
 //
 //==============================================================================
@@ -585,8 +625,7 @@ void MKTable::mouseReleaseEvent( QMouseEvent *event )
   { if( event->button() == Qt::LeftButton )
     { QTableWidgetItem *titem = itemAt( event->pos() );
       if( titem )
-      {
-        currentItemConfirmEdit = titem->data( MKTable::SSConfirmEditRole ).toBool();
+      { currentItemConfirmEdit = titem->data( MKTable::SSConfirmEditRole ).toBool();
         editItem( titem );
       }
     }
@@ -839,7 +878,38 @@ next:
   }
   return str;
 }
+//==============================================================================
+//
+//==============================================================================
+void MKTable::slotMinimize( bool to_minimize )
+{
+  if( to_minimize )
+  { setFixedSize(0,0);
+  } else
+  { setMinimumSize(0,0);
+    setMaximumSize(16777215,16777215);
+  }
 
+  if( plots_count ) emit signalMinimizeStateChange(  to_minimize );
+}
+
+//==============================================================================
+//
+//==============================================================================
+void MKTable::slotPlotClose()
+{
+  plots_count--;
+  if( !plots_count )
+  { slotMinimize( false );
+    emit signalMinimizeAllHide( false );
+  }
+}
+//==============================================================================
+//
+//==============================================================================
+void MKTable::slotPlotOpen()
+{ plots_count++;
+}
 //##############################################################################
 //
 //##############################################################################
@@ -865,7 +935,6 @@ QWidget* MKTableItemDelegate::createEditor(QWidget *parent, const QStyleOptionVi
                                             const QModelIndex &index ) const
 {
   Q_UNUSED( option );
-
   int i;
   if( table->mode == MKTable::Polling )
   { i = index.data( MKTable::IndexRole ).toInt();
@@ -1066,12 +1135,13 @@ MKTableItemCBWidget::MKTableItemCBWidget( QWidget *parent )
   : QListWidget( parent )
 {
   row_under_mouse = -1;
-  setFrameStyle( QFrame::StyledPanel | QFrame::Raised );
+  setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
   setEditTriggers(QAbstractItemView::NoEditTriggers);
   setTextElideMode(Qt::ElideNone);
   setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
   setMouseTracking( true );
   setSpacing( 1 );
+  setWindowFlags( Qt::Dialog | Qt::FramelessWindowHint );
 }
 
 //==============================================================================
@@ -1083,7 +1153,7 @@ void MKTableItemCBWidget::mouseReleaseEvent( QMouseEvent * event )
   if( confirmEdit )
   {
       if( QMessageBox::question(this,"редактирование ячейки",
-          "Вы действительно хотите изменить значение данной ячейки",
+          "Вы действительно хотите изменить значение данной ячейки ?",
           QMessageBox::Yes|QMessageBox::Default,
           QMessageBox::No|QMessageBox::Escape)==QMessageBox::Yes)
       {
@@ -1114,6 +1184,13 @@ void MKTableItemCBWidget::leaveEvent ( QEvent * event )
   row_under_mouse = -1;
 }
 
+//==============================================================================
+//
+//==============================================================================
+void MKTableItemCBWidget::showEvent( QShowEvent * event )
+{ QListWidget::showEvent( event );
+  move( QCursor::pos() );
+}
 //==============================================================================
 //
 //==============================================================================
