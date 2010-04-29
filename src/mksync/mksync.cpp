@@ -174,7 +174,7 @@ static int init()
   }
 
   if( fastmode && dtmode )
-  { cout << getCoutParams() + " Configuration error: sinchronization on date\time not supported in fast mode." << endl;
+  { cout << getCoutParams() + " Configuration error: sinchronization on date-time not supported in fast mode." << endl;
     print_help();
     return 1;
   }
