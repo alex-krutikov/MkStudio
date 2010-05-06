@@ -740,6 +740,8 @@ void Plot::timerEvent( QTimerEvent *event )
    // масштабирование
    double koeff = 1.0;
    double y_mn, y_mx;
+   int plot_index;
+   plot_index = ui->cb_plot_stat->currentIndex();
    if( plots_count > 1 && ui->cb_use_match->isChecked() )
    {
      y_min1 = y_max1 = y_data1[0];
@@ -751,11 +753,6 @@ void Plot::timerEvent( QTimerEvent *event )
        if( y_max1 < y_data1[i] ) y_max1 = y_data1[i];
        if( y_max2 < y_data2[i] ) y_max2 = y_data2[i];
      }
-     y_mn = y_min1;
-     if( y_min1 > y_min2 ) y_mn = y_min2;
-
-     y_mx = y_max1;
-     if( y_max1 < y_max2 ) y_mx = y_max2;
 
      if( plots_count > 2 )
      { y_min3 = y_max3 = y_data3[0];
@@ -764,8 +761,6 @@ void Plot::timerEvent( QTimerEvent *event )
        { if( y_min3 > y_data3[i] ) y_min3 = y_data3[i];
          if( y_max3 < y_data3[i] ) y_max3 = y_data3[i];
        }
-       if( y_mn > y_min3 ) y_mn = y_min3;
-       if( y_mn < y_max3 ) y_mx = y_max3;
      }
      if( plots_count > 3 )
      { y_min4 = y_max4 = y_data4[0];
@@ -774,32 +769,81 @@ void Plot::timerEvent( QTimerEvent *event )
        { if( y_min4 > y_data4[i] ) y_min4 = y_data4[i];
          if( y_max4 < y_data4[i] ) y_max4 = y_data4[i];
        }
-       if( y_mn > y_min4 ) y_mn = y_min4;
-       if( y_mn < y_max4 ) y_mx = y_max4;
      }
-     koeff = y_mx - y_mn;
 
-     if( y_min1!=y_max1 )
-     { for(i=0;i<y_data_len;i++)
-       { y_data1[i] = koeff*(y_data1[i]-y_min1)/(y_max1-y_min1);
+       switch( plot_index )
+       { case 0:
+         { y_mx = y_max1;
+           y_mn = y_min1;
+           break;
+         }
+         case 1:
+         { y_mx = y_max2;
+           y_mn = y_min2;
+           break;
+         }
+         case 2:
+         { y_mx = y_max3;
+           y_mn = y_min3;
+           break;
+         }
+         case 3:
+         { y_mx = y_max4;
+           y_mn = y_min4;
+           break;
+         }
+         default:
+         { y_mx = 1.0;
+           y_mn = 0.0;
+         }
        }
+     koeff = y_mx - y_mn;
      }
-     if( y_min2!=y_max2 )
-     { for(i=0;i<y_data_len;i++)
-       { y_data2[i] = koeff*(y_data2[i]-y_min2)/(y_max2-y_min2);
-       }
-     }
-     if( plots_count > 2 )
-     { if( y_min3!=y_max3 )
+
+     if( ui->cb_use_match->isChecked() && ( koeff!=0 ) )
+     {
+     if( plot_index!=0 )
+     { if(y_min1!=y_max1)
        { for(i=0;i<y_data_len;i++)
-         { y_data3[i] = koeff*(y_data3[i]-y_min3)/(y_max3-y_min3);
+         { y_data1[i] = (koeff*(y_data1[i]-y_min1)/(y_max1-y_min1))+y_mn;
+         }
+       } else
+       { for(i=0;i<y_data_len;i++)
+         { y_data1[i] = y_mn+((y_mx-y_mn)/2);
+         }
+       }
+
+     }
+     if( plot_index!=1 )
+     { if(y_min2!=y_max2)
+       { for(i=0;i<y_data_len;i++)
+         { y_data2[i] = koeff*(y_data2[i]-y_min2)/(y_max2-y_min2)+y_mn;
+         }
+       } else
+       { for(i=0;i<y_data_len;i++)
+         { y_data2[i] = y_mn+((y_mx-y_mn)/2);
          }
        }
      }
-     if( plots_count > 3 )
+     if( (plots_count>2) && (plot_index!=2) )
+     { if( y_min3!=y_max3 )
+       { for(i=0;i<y_data_len;i++)
+         { y_data3[i] = (koeff*(y_data3[i]-y_min3)/(y_max3-y_min3))+y_mn;
+         }
+       } else
+       { for(i=0;i<y_data_len;i++)
+         { y_data3[i] = y_mn+((y_mx-y_mn)/2);
+         }
+       }
+     }
+     if( (plots_count>3) && (plot_index!=3) )
      { if( y_min4!=y_max4 )
        { for(i=0;i<y_data_len;i++)
-         { y_data4[i] = koeff*(y_data4[i]-y_min4)/(y_max4-y_min4);
+         { y_data4[i] = (koeff*(y_data4[i]-y_min4)/(y_max4-y_min4))+y_mn;
+         }
+       }else
+       { for(i=0;i<y_data_len;i++)
+         { y_data4[i] = y_mn+((y_mx-y_mn)/2);
          }
        }
      }
@@ -808,29 +852,49 @@ void Plot::timerEvent( QTimerEvent *event )
    ui->plot->replot();
 
    // возврат в исходное состояние из масштабированного графика
-   if( plots_count > 1 && ui->cb_use_match->isChecked() )
-   {
-     if( y_min1!=y_max1 )
-     { for( i=0; i<y_data_len; i++ )
-       { y_data1[i] = (y_data1[i]*(y_max1-y_min1)/koeff)+y_min1;
-       }
-     }
-     if( y_min2!=y_max2 )
-     { for( i=0; i<y_data_len; i++ )
-       { y_data2[i] = (y_data2[i]*(y_max2-y_min2)/koeff)+y_min2;
-       }
-     }
-     if( plots_count > 2 )
-     { if( y_min3!=y_max3 )
+   if( (plots_count>1) && (koeff!=0) && ui->cb_use_match->isChecked() )
+   { if( plot_index != 0 )
+     { if( y_min1!=y_max1 )
        { for( i=0; i<y_data_len; i++ )
-         { y_data3[i] = (y_data3[i]*(y_max3-y_min3)/koeff)+y_min3;
+         { y_data1[i] = ((y_data1[i]-y_mn)*(y_max1-y_min1)/koeff)+y_min1;
+         }
+       } else
+       { for( i=0; i<y_data_len; i++ )
+         { y_data1[i] = y_min1;
          }
        }
      }
-     if( plots_count > 3 )
+     if( plot_index != 1 )
+     { if( y_min2!=y_max2 )
+       { for( i=0; i<y_data_len; i++ )
+         { y_data2[i] = ((y_data2[i]-y_mn)*(y_max2-y_min2)/koeff)+y_min2;
+         }
+       } else
+       { for( i=0; i<y_data_len; i++ )
+         { y_data2[i] = y_min2;
+         }
+       }
+     }
+
+     if( (plots_count>2) && (plot_index!=2) )
+     { if( y_min3!=y_max3 )
+       { for( i=0; i<y_data_len; i++ )
+         { y_data3[i] = ((y_data3[i]-y_mn)*(y_max3-y_min3)/koeff)+y_min3;
+         }
+       } else
+       { for( i=0; i<y_data_len; i++ )
+         { y_data3[i] = y_min3;
+         }
+       }
+     }
+     if( (plots_count>3) && (plot_index!=3) )
      { if( y_min4!=y_max4 )
        { for( i=0; i<y_data_len; i++ )
-         { y_data4[i] = (y_data4[i]*(y_max4-y_min4)/koeff)+y_min4;
+         { y_data4[i] = ((y_data4[i]-y_mn)*(y_max4-y_min4)/koeff)+y_min4;
+         }
+       } else
+       { for( i=0; i<y_data_len; i++ )
+         { y_data4[i] = y_min4;
          }
        }
      }
