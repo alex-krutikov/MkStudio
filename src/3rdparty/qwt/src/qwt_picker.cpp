@@ -764,8 +764,20 @@ void QwtPicker::drawTracker(QPainter *painter) const
             QFont fnt = label.usedFont(painter->font());
             fnt.setStyleStrategy(QFont::NoAntialias);
             label.setFont(fnt);
+
 #endif
 #endif
+            int linescount = label.text().count('\n') + 1;
+            int heightstep = textRect.height()/linescount;
+            painter->fillRect(textRect.x(),textRect.y(),textRect.width(),heightstep, QBrush(Qt::darkGray));
+            painter->fillRect(textRect.x(),textRect.y()+heightstep,
+                              textRect.width(),heightstep, QBrush(Qt::darkBlue));
+            if( linescount>2 ) painter->fillRect(textRect.x(),textRect.y()+heightstep*2,
+                                                 textRect.width(),heightstep, QBrush(Qt::darkGreen));
+            if( linescount>3 ) painter->fillRect(textRect.x(),textRect.y()+heightstep*3,
+                                                 textRect.width(),heightstep, QBrush(Qt::darkRed));
+            if( linescount>4 ) painter->fillRect(textRect.x(),textRect.y()+heightstep*4,
+                                                 textRect.width(),heightstep, QBrush(Qt::black));
             label.draw(painter, textRect);
 
             painter->restore();
@@ -1145,6 +1157,7 @@ void QwtPicker::transition(const QEvent *e)
 */
 void QwtPicker::begin()
 {
+    d_data->isActive = false;//Добавлено в целях реализации постоянного перекрестия
     if ( d_data->isActive )
         return;
 
@@ -1153,12 +1166,12 @@ void QwtPicker::begin()
 
     if ( trackerMode() != AlwaysOff )
     {
-        if ( d_data->trackerPosition.x() < 0 || d_data->trackerPosition.y() < 0 ) 
-        {
+        //if ( d_data->trackerPosition.x() < 0 || d_data->trackerPosition.y() < 0 )
+        //{
             QWidget *w = parentWidget();
             if ( w )
                 d_data->trackerPosition = w->mapFromGlobal(QCursor::pos());
-        }
+        //}Закомментировано в целях реализации постоянного перекрестия
     }
 
     updateDisplay();
