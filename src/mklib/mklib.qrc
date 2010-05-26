@@ -11,5 +11,18 @@
         <file>res/paste.png</file>
         <file>res/window_max.png</file>
         <file>res/window_min.png</file>
+        <file>res/arrow_up.png</file>
+        <file>res/grid.png</file>
+        <file>res/pause.png</file>
+        <file>res/play.png</file>
+        <file>res/arrow_down.png</file>
+        <file>res/nogrid.png</file>
+        <file>res/nocrosshair.png</file>
+        <file>res/crosshair.png</file>
+        <file>res/picker_data.png</file>
+        <file>res/nopicker_data.png</file>
+    </qresource>
+    <qresource prefix="/qss">
+        <file>res/toolbuttons.qss</file>
     </qresource>
 </RCC>

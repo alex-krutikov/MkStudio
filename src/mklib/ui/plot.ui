@@ -64,7 +64,7 @@
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>2</number>
          </property>
          <item>
           <property name="text">
@@ -108,7 +108,7 @@
        <item row="6" column="0">
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>Среднее значение:</string>
+          <string>Среднее:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -361,7 +361,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_6">
          <property name="text">
-          <string>Длительность:</string>
+          <string>Окно:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -390,14 +390,14 @@
           <number>5</number>
          </property>
          <property name="value">
-          <number>2</number>
+          <number>1</number>
          </property>
         </widget>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_11">
          <property name="text">
-          <string>Толщина, пиксел:</string>
+          <string>Линия:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -458,7 +458,7 @@
        <item row="9" column="0">
         <widget class="QLabel" name="label_10">
          <property name="text">
-          <string>Диапазон сигнала:</string>
+          <string>Диапазон:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -508,7 +508,7 @@
      <item>
       <widget class="QCheckBox" name="cb_use_match">
        <property name="text">
-        <string>использовать масштабирование</string>
+        <string>групповой масштаб</string>
        </property>
       </widget>
      </item>
@@ -516,26 +516,6 @@
       <widget class="Line" name="line_4">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="Line" name="line_5">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_5">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Гистограмма:</string>
        </property>
       </widget>
      </item>

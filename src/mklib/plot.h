@@ -5,8 +5,10 @@
 #include <QWidget>
 
 #include "mk_global.h"
+#include "mkpicker.h"
 
 #include <qwt_plot_curve.h>
+#include <qwt_plot_grid.h>
 class MBMasterXML;
 class QTimerEvent;
 class QTableWidgetItem;
@@ -15,6 +17,7 @@ class QFile;
 class QTextStream;
 class QwtPlotZoomer;
 class QwtPlotPicker;
+class MKPicker;
 
 //---------------------------------------------------------------------------
 //
@@ -31,11 +34,16 @@ public:
   QSize sizeHint () const;
   double noise() const;
   void setPlotList( QString list );
+  int plotsCount(){ return plots_count;}
+  qreal getYcoord( qreal xcoord, int y_data_index );
 private slots:
   void pb_clear_clicked();
   void pb_pause_clicked();
   void pb_export_clicked();
   void pb_minimize_clicked();
+  void pb_crosshair_toggled(bool);
+  void pb_grid_toggled(bool);
+  void pb_picker_data_toggled(bool);
   void updateMinimizeButtonState( bool state );
   void on_cb_speed_currentIndexChanged( int );
   void on_sb_tact_valueChanged( int );
@@ -48,12 +56,16 @@ private slots:
   bool save_recorder_params();
   void set_file_for_write();
   void file_write_start_stop();
+  void setWindow(int);
 private:
   Ui::Plot *ui;
   QToolButton *pb_clear;
   QToolButton *pb_pause;
   QToolButton *pb_export;
   QToolButton *pb_minimize;
+  QToolButton *pb_grid;
+  QToolButton *pb_crosshair;
+  QToolButton *pb_picker_data;
   QwtPlotCurve *plot_data1;
   QwtPlotCurve *plot_data2;
   QwtPlotCurve *plot_data3;
@@ -97,16 +109,16 @@ private:
   int timerId, timerInterval;
   quint64 time_append;
   QwtPlotZoomer *zoomer;
-  QwtPlotPicker *picker;
-
+  MKPicker *picker;
+  QwtPlotGrid  *grid;
 signals:
   void signalMinimize( bool is_minimize );
   void signalPlotClose();
   void signalPlotOpen();
 protected:
-  void timerEvent  ( QTimerEvent  * event );
-  void closeEvent  ( QCloseEvent  * event );
-  void changeEvent ( QEvent       * event );
+  void timerEvent  (   QTimerEvent * event );
+  void closeEvent  (   QCloseEvent * event );
+  void changeEvent (   QEvent      * event );
 };
 
 #endif

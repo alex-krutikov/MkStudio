@@ -5,13 +5,13 @@
 #include "plot.h"
 #include "mktable.h"
 #include "mbmasterxml.h"
+#include "scaledraw.h"
 
 #include <qwt_plot.h>
 #include <qwt_painter.h>
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_marker.h>
 #include <qwt_plot_curve.h>
-#include <qwt_plot_grid.h>
 #include <qwt_scale_widget.h>
 #include <qwt_scale_engine.h>
 #include <qwt_legend.h>
@@ -59,6 +59,13 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   if( plots_count > 2 ) ui->cb_plot_stat->addItem( "красный" );
   if( plots_count > 3 ) ui->cb_plot_stat->addItem( "черный"  );
 
+  ui->cb_speed->setItemData(0, "sec", Qt::UserRole);
+  ui->cb_speed->setItemData(1, "sec", Qt::UserRole);
+  ui->cb_speed->setItemData(2, "sec", Qt::UserRole);
+  ui->cb_speed->setItemData(3, "min", Qt::UserRole);
+  ui->cb_speed->setItemData(4, "min", Qt::UserRole);
+  ui->cb_speed->setItemData(5, "min", Qt::UserRole);
+
   module_index = new int[ plots_count ];
   slot_index   = new int[ plots_count ];
   value_index  = new int[ plots_count ];
@@ -86,17 +93,28 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   zoomer->setSelectionFlags( QwtPicker::DragSelection | QwtPicker::CornerToCorner );
   zoomer->setTrackerMode( QwtPicker::AlwaysOff );
 
-  picker = new QwtPlotPicker(QwtPlot::xBottom, QwtPlot::yRight,
+  picker = new MKPicker(QwtPlot::xBottom, QwtPlot::yRight,
                              QwtPicker::NoSelection,
-                             QwtPlotPicker::NoRubberBand,
+                             QwtPlotPicker::CrossRubberBand,
                              QwtPicker::AlwaysOn,
                              ui->plot->canvas());
-  picker->setTrackerPen(QColor(Qt::darkMagenta));
+  picker->setTrackerPen(QColor(Qt::white));
+  picker->setWindow(ui->cb_speed->itemData(ui->cb_speed->currentIndex(), Qt::UserRole).toString());
+  picker->setPlot( this );
+  picker->setTrakerDataVisible( true );
+  picker->startTimer(30);
+
+  grid = new QwtPlotGrid;
+  grid->enableXMin(true);
+  grid->enableYMin(true);
+  grid->setMajPen(QPen(Qt::darkGray,  0, Qt::DotLine));
+  grid->setMinPen(QPen(Qt::lightGray, 0, Qt::DotLine));
+  grid->attach(ui->plot);
 
   ui->le_input_signal_range->setValidator( new QDoubleValidator( this ) );
   ui->pb_file_write->setEnabled( false );
   eb_ref = 0.0;
-  y_data_len = 200;
+  y_data_len = 600;
 
   x_data  = new double[ y_data_len ];
   y_data1 = new double[ y_data_len ];
@@ -114,15 +132,19 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
     if( plots_count > 3 ) y_data4[i] = 0.0;
   }
 
+  QwtScaleDraw *sqls = new QwtScaleDraw();
+  sqls->setLength(10);
+  ui->plot->setAxisScaleDraw(QwtPlot::yRight, sqls);
+
   for( i=0; i < y_hist_data_len; i++ ) x_hist_data[i] = i;
   //--------------------------------------------
-  ui->plot->setCanvasBackground(QColor("linen"));
+  ui->plot->setCanvasBackground(QColor("white"));
   ui->plot->enableAxis(QwtPlot::yRight);
   ui->plot->enableAxis(QwtPlot::yLeft, false );
-  ui->plot->setAxisScale(QwtPlot::xBottom,20,0);
+  ui->plot->setAxisScale(QwtPlot::xBottom,60,0);
 
   plot_data1 = new QwtPlotCurve("Curve 1");
-  plot_data1->setPen(QPen(Qt::blue,2));
+  plot_data1->setPen(QPen(Qt::blue,1));
   plot_data1->setYAxis(QwtPlot::yRight);
   plot_data1->setRawData( x_data, y_data1, y_data_len );
   plot_data1->attach( ui->plot );
@@ -130,7 +152,7 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   if( plots_count > 1 )
   {
   plot_data2 = new QwtPlotCurve("Curve 2");
-  plot_data2->setPen(QPen(Qt::green,2));
+  plot_data2->setPen(QPen(Qt::green,1));
   plot_data2->setYAxis(QwtPlot::yRight);
   plot_data2->setRawData( x_data, y_data2, y_data_len );
   plot_data2->attach( ui->plot );
@@ -138,7 +160,7 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   if( plots_count > 2 )
   {
   plot_data3 = new QwtPlotCurve("Curve 3");
-  plot_data3->setPen(QPen(Qt::red,2));
+  plot_data3->setPen(QPen(Qt::red,1));
   plot_data3->setYAxis(QwtPlot::yRight);
   plot_data3->setRawData( x_data, y_data3, y_data_len );
   plot_data3->attach( ui->plot );
@@ -146,7 +168,7 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   if( plots_count > 3 )
   {
   plot_data4 = new QwtPlotCurve("Curve 4");
-  plot_data4->setPen(QPen(Qt::black,2));
+  plot_data4->setPen(QPen(Qt::black,1));
   plot_data4->setYAxis(QwtPlot::yRight);
   plot_data4->setRawData( x_data, y_data4, y_data_len );
   plot_data4->attach( ui->plot );
@@ -166,31 +188,72 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   hist_data->attach( ui->hist );
   //---------
 
+  ScaleDraw *scaledraw = new ScaleDraw();
+  ui->plot->setAxisScaleDraw(QwtPlot::yRight, scaledraw);
+
+  ui->plot->canvas()->setCursor(Qt::BlankCursor);
+
+  QFile qss(":/qss/res/toolbuttons.qss");
+  qss.open(QFile::ReadOnly);
+  QString tb_qss = QLatin1String(qss.readAll());
+  qss.close();
+
   QWidget *w = new QWidget( ui->plot );
   QHBoxLayout *layout = new QHBoxLayout;
 
   pb_clear = new QToolButton;
   pb_clear->setText("Очистить");
   pb_clear->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
+  pb_clear->setStyleSheet(tb_qss);
   connect( pb_clear, SIGNAL( clicked() ), this, SLOT( pb_clear_clicked() ) );
 
   pb_export = new QToolButton;
   pb_export->setText("Экспорт");
   pb_export->setToolTip("Экспорт данных в буфер обмена");
   pb_export->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
+  pb_export->setStyleSheet(tb_qss);
   connect( pb_export, SIGNAL( clicked() ), this, SLOT( pb_export_clicked() ) );
 
   pb_pause = new QToolButton;
   pb_pause->setText("Пауза");
   pb_pause->setToolTip("Пауза");
   pb_pause->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
-  pb_pause->setIcon( QIcon(":/icons/res/media_pause.png" ) );
+  pb_pause->setIcon( QIcon(":/icons/res/pause.png" ) );
+  pb_pause->setStyleSheet(tb_qss);
   connect( pb_pause, SIGNAL( clicked() ), this, SLOT( pb_pause_clicked() ) );
 
   pb_minimize = new QToolButton;
   pb_minimize->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
+  pb_minimize->setStyleSheet(tb_qss);
   connect( pb_minimize, SIGNAL( clicked() ), this, SLOT( pb_minimize_clicked()) );
   updateMinimizeButtonState( minimize_flag );
+
+  pb_grid = new QToolButton;
+  pb_grid->setCheckable(true);
+  pb_grid->setChecked(true);
+  pb_grid->setIcon( QIcon(":/icons/res/nogrid.png") );
+  pb_grid->setToolTip("Сетка");
+  pb_grid->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
+  pb_grid->setStyleSheet(tb_qss);
+  connect(pb_grid, SIGNAL(toggled(bool)), this, SLOT(pb_grid_toggled(bool)));
+
+  pb_crosshair = new QToolButton;
+  pb_crosshair->setCheckable(true);
+  pb_crosshair->setChecked(true);
+  pb_crosshair->setIcon( QIcon(":/icons/res/nocrosshair.png") );
+  pb_crosshair->setToolTip("Курсор");
+  pb_crosshair->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
+  pb_crosshair->setStyleSheet(tb_qss);
+  connect(pb_crosshair, SIGNAL(toggled(bool)), this, SLOT(pb_crosshair_toggled(bool)));
+  
+  pb_picker_data = new QToolButton;
+  pb_picker_data->setCheckable(true);
+  pb_picker_data->setChecked(true);
+  pb_picker_data->setIcon( QIcon(":/icons/res/nopicker_data.png") );
+  pb_picker_data->setToolTip("Данные курсора");
+  pb_picker_data->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
+  pb_picker_data->setStyleSheet(tb_qss);
+  connect(pb_picker_data, SIGNAL(toggled(bool)), this, SLOT(pb_picker_data_toggled(bool)));
 
   connect( ui->cb_plot_stat, SIGNAL(currentIndexChanged(int)) ,
            this,             SLOT(change_current_plot(int)));
@@ -200,10 +263,13 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
 
   change_current_plot( 0 );
 
-  layout->addWidget( pb_clear    );
+  layout->addWidget( pb_clear       );
   layout->addSpacing(30);
-  layout->addWidget( pb_pause    );
-  layout->addWidget( pb_minimize );
+  layout->addWidget( pb_pause       );
+  layout->addWidget( pb_minimize    );
+  layout->addWidget( pb_grid );
+  layout->addWidget( pb_crosshair   );
+  layout->addWidget( pb_picker_data );
   layout->addSpacing(30);
   layout->addWidget( pb_export   );
   layout->setSpacing(5);
@@ -324,12 +390,12 @@ void Plot::pb_pause_clicked()
   { pause_flag = false;
     pb_pause->setText("Пауза");
     pb_pause->setToolTip("Пауза");
-    pb_pause->setIcon( QIcon(":/icons/res/media_pause.png" ) );
+    pb_pause->setIcon( QIcon(":/icons/res/pause.png" ) );
   } else
   { pause_flag = true;
     pb_pause->setText("Пуск");
     pb_pause->setToolTip("Пуск");
-    pb_pause->setIcon( QIcon(":/icons/res/media_play.png" ) );
+    pb_pause->setIcon( QIcon(":/icons/res/play.png" ) );
   }
 }
 //==============================================================================
@@ -342,17 +408,55 @@ void Plot::pb_minimize_clicked()
 //==============================================================================
 //
 //==============================================================================
+void Plot::pb_grid_toggled(bool state)
+{ grid->setVisible(state);
+  if( state )
+  { pb_grid->setIcon( QIcon(":/icons/res/nogrid.png") );
+  } else
+  { pb_grid->setIcon( QIcon(":/icons/res/grid.png") );
+  }
+
+  ui->plot->replot();
+}
+//==============================================================================
+//
+//==============================================================================
+void Plot::pb_crosshair_toggled(bool state)
+{ if(state)
+  { ui->plot->canvas()->setCursor(Qt::BlankCursor);
+    picker->setRubberBand(QwtPicker::CrossRubberBand);
+    pb_crosshair->setIcon( QIcon(":/icons/res/nocrosshair.png") );
+  }else
+  { ui->plot->canvas()->setCursor(Qt::CrossCursor);
+    picker->setRubberBand(QwtPicker::NoRubberBand);
+    pb_crosshair->setIcon( QIcon(":/icons/res/crosshair.png") );
+  }
+}
+//==============================================================================
+//
+//==============================================================================
+void Plot::pb_picker_data_toggled(bool state)
+{ picker->setTrakerDataVisible( state );
+  if(state)
+  { pb_picker_data->setIcon( QIcon(":/icons/res/nopicker_data.png") );
+  }else
+  { pb_picker_data->setIcon( QIcon(":/icons/res/picker_data.png") );
+  }
+}
+//==============================================================================
+//
+//==============================================================================
 void Plot::updateMinimizeButtonState( bool state )
 {
   minimize_flag = state;
   if( minimize_flag )
   { pb_minimize->setText("Развернуть");
     pb_minimize->setToolTip("Развернуть таблицу");
-    pb_minimize->setIcon( QIcon(":/icons/res/window_max.png") );
+    pb_minimize->setIcon( QIcon(":/icons/res/arrow_down.png") );
   } else
   { pb_minimize->setText("Свернуть");
     pb_minimize->setToolTip("Свернуть таблицу");
-    pb_minimize->setIcon( QIcon(":/icons/res/window_min.png") );
+    pb_minimize->setIcon( QIcon(":/icons/res/arrow_up.png") );
   }
 }
 //==============================================================================
@@ -362,7 +466,7 @@ void Plot::pb_export_clicked()
 { QT_TRY{
   QString str;
   int i,j,k;
-  double scale_x = 20;
+  double scale_x = 60;
   double x_value;
 
   switch( ui->cb_speed->currentIndex() )
@@ -391,10 +495,10 @@ void Plot::pb_export_clicked()
   while( i >= (y_data_len - points_counter) )
   { x_value = k*(scale_x/y_data_len);
     str += QString::number(  x_value );
-    str += "\t" + QString::number( y_data1[j],'f',8 );
-    if( plots_count > 1 ) str += "\t" + QString::number( y_data2[j],'f',8 );
-    if( plots_count > 2 ) str += "\t" + QString::number( y_data3[j],'f',8 );
-    if( plots_count > 3 ) str += "\t" + QString::number( y_data4[j],'f',8 );
+    str += "\t" + QString::number( y_data1[j],'g',8 );
+    if( plots_count > 1 ) str += "\t" + QString::number( y_data2[j],'g',8 );
+    if( plots_count > 2 ) str += "\t" + QString::number( y_data3[j],'g',8 );
+    if( plots_count > 3 ) str += "\t" + QString::number( y_data4[j],'g',8 );
     str += "\n";
     i--;
     j++;
@@ -410,7 +514,7 @@ void Plot::pb_export_clicked()
 //==============================================================================
 void Plot::on_cb_speed_currentIndexChanged( int index )
 {
-  Q_UNUSED( index );
+  setWindow( index );
   params_change();
 }
 //==============================================================================
@@ -503,7 +607,7 @@ void Plot::on_le_input_signal_range_textChanged( QString signal )
 //==============================================================================
 void Plot::params_change()
 { QT_TRY{
-  int sc_x = 20000;
+  int sc_x = 60000;
   switch( ui->cb_speed->currentIndex() )
   { case(0): // 5 сек
       sc_x = 5000;
@@ -536,7 +640,7 @@ void Plot::params_change()
       case(3): a=5;  break; // 5 мин
       case(4): a=20; break; // 20 мин
       case(5): a=60; break; // 1 час
-      default: a=20;
+      default: a=60;
     }
   ui->plot->setAxisScale(QwtPlot::xBottom,a,0);
 
@@ -579,7 +683,7 @@ void Plot::params_change()
 //==============================================================================
 void Plot::calc_statistic()
 { QT_TRY{
-  double scale_x = 20.0;
+  double scale_x = 60.0;
   int i,j;
   switch( ui->cb_speed->currentIndex() )
   { case(0): scale_x = 5.0 ;break;
@@ -594,7 +698,7 @@ void Plot::calc_statistic()
   for( i=0; i < y_data_len; i++ )
   { if( y_data_stat[i] > y_max ) y_max = y_data_stat[i];
     if( y_data_stat[i] < y_min ) y_min = y_data_stat[i];
-    x_data[i]=((double)(y_data_len-i)/y_data_len)*scale_x;
+    x_data[i]=((double)(y_data_len-i-1)/y_data_len)*scale_x;
   }
   for(i=0; i<(y_data_len-points_counter); i++ )
   { x_data[i]=x_data[y_data_len-points_counter];
@@ -672,7 +776,7 @@ void Plot::timerEvent( QTimerEvent *event )
     a_value[i] = value.toDouble();
   }
 
-  int zoomScale = 20;
+  int zoomScale = 60;
   switch( ui->cb_speed->currentIndex() )
   { case 0: zoomScale = 5;  break; // 5 сек
     case 1: zoomScale = 20; break; // 20 сек
@@ -687,7 +791,7 @@ void Plot::timerEvent( QTimerEvent *event )
   if( file_write_flag )
   { file_stream << time_append;
     for( i=0; i<plots_count; i++ )
-    { file_stream << "\t" << QString::number( a_value[i], 'f', 8 );
+    { file_stream << "\t" << QString::number( a_value[i], 'g', 8 );
     }
     file_stream << "\r\n";
     file_write_counter++;
@@ -850,7 +954,7 @@ void Plot::timerEvent( QTimerEvent *event )
    }
   // обновление графика
    ui->plot->replot();
-
+   picker->refresh();
    // возврат в исходное состояние из масштабированного графика
    if( (plots_count>1) && (koeff!=0) && ui->cb_use_match->isChecked() )
    { if( plot_index != 0 )
@@ -947,7 +1051,7 @@ bool Plot::load_recorder_params()
 
   currentParams = separatedParams.at(4);
   dobl = currentParams.toDouble( &ok );
-  if( ok ) ui->le_input_signal_range->setText( QString::number( dobl,'f', 8 ) );
+  if( ok ) ui->le_input_signal_range->setText( QString::number( dobl,'g', 8 ) );
 
   if((separatedParams.at(5)=="1") && (plots_count>1)) ui->cb_use_match->setChecked( true );
 
@@ -1058,4 +1162,52 @@ void Plot::file_write_start_stop()
 QSize Plot::sizeHint() const
 {
   return QSize(500,250);
+}
+//==============================================================================
+//
+//==============================================================================
+void Plot::setWindow(int id)
+{
+  picker->setWindow(ui->cb_speed->itemData(id, Qt::UserRole).toString());
+}
+//==============================================================================
+//
+//==============================================================================
+qreal Plot::getYcoord( qreal xcoord, int y_data_index )
+{ if( xcoord < 0.0 ) return 0.0;
+  int pos=-1;
+  for(int i=0; i<y_data_len-1; i++)
+  { if( ((double)xcoord >= x_data[i+1]) && ((double)xcoord <= x_data[i]) )
+    { pos = i;
+      break;
+    }
+  }
+
+  if( pos < 0 ) return 0.0;
+
+  double *y_data_cur;
+  switch( y_data_index)
+  { case 0: y_data_cur = y_data1;break;
+    case 1: y_data_cur = y_data2;break;
+    case 2: y_data_cur = y_data3;break;
+    case 3: y_data_cur = y_data4;break;
+   default: y_data_cur = y_data1;
+  }
+
+  if((double)xcoord == x_data[pos]) return (qreal)y_data_cur[pos];
+  if((double)xcoord == x_data[pos+1]) return (qreal)y_data_cur[pos+1];
+
+  double x1,x2,y1,y2;
+  x1 = x_data[pos];
+  x2 = x_data[pos+1];
+  y1 = y_data_cur[pos];
+  y2 = y_data_cur[pos+1];
+
+  double res = ( ( fabs(y2-y1)*fabs((double)xcoord-x2) )/fabs(x2-x1) );
+
+  if( y1 < y2 ) res *= (-1);
+
+  res += y2;
+
+  return (qreal)res;
 }
