@@ -258,9 +258,9 @@ void MainWindow::on_action_load_triggered()
 
   if( filename.isEmpty() ) return;
 
-  tw->closeAllRecorders();
-
   if( play_mode ) on_action_play_triggered();
+
+  tw->closeAllRecorders();
   load_conf( filename );
 }
 
@@ -1537,6 +1537,7 @@ void MainWindow::closeEvent ( QCloseEvent * event )
 {
   Q_UNUSED( event );
 
+  tw->closeAllRecorders();
   action_play->setChecked( false );
   mbmasterwidget->clear_config();
 

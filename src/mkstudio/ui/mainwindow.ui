@@ -290,7 +290,7 @@
   </widget>
   <action name="action_load">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/folder.png</normaloff>:/icons/res/folder.png</iconset>
    </property>
    <property name="text">
@@ -305,7 +305,7 @@
   </action>
   <action name="action_save">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/disk_blue.png</normaloff>:/icons/res/disk_blue.png</iconset>
    </property>
    <property name="text">
@@ -320,7 +320,7 @@
   </action>
   <action name="action_play">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../mklib/mklib.qrc">
      <normaloff>:/icons/res/media_play.png</normaloff>:/icons/res/media_play.png</iconset>
    </property>
    <property name="text">
@@ -332,7 +332,7 @@
   </action>
   <action name="action_tw_rows">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/row.png</normaloff>:/icons/res/row.png</iconset>
    </property>
    <property name="text">
@@ -344,7 +344,7 @@
   </action>
   <action name="action_tw_columns">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/column.png</normaloff>:/icons/res/column.png</iconset>
    </property>
    <property name="text">
@@ -356,7 +356,7 @@
   </action>
   <action name="action_link">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/refresh.png</normaloff>:/icons/res/refresh.png</iconset>
    </property>
    <property name="text">
@@ -371,7 +371,7 @@
   </action>
   <action name="action_bold">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/text_bold.png</normaloff>:/icons/res/text_bold.png</iconset>
    </property>
    <property name="text">
@@ -386,7 +386,7 @@
   </action>
   <action name="action_align_left">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/text_align_left.png</normaloff>:/icons/res/text_align_left.png</iconset>
    </property>
    <property name="text">
@@ -401,7 +401,7 @@
   </action>
   <action name="action_align_center">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/text_align_center.png</normaloff>:/icons/res/text_align_center.png</iconset>
    </property>
    <property name="text">
@@ -416,7 +416,7 @@
   </action>
   <action name="action_align_right">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/text_align_right.png</normaloff>:/icons/res/text_align_right.png</iconset>
    </property>
    <property name="text">
@@ -431,7 +431,7 @@
   </action>
   <action name="action_underline">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/text_underlined.png</normaloff>:/icons/res/text_underlined.png</iconset>
    </property>
    <property name="text">
@@ -456,7 +456,7 @@
   </action>
   <action name="action_settings">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/preferences.png</normaloff>:/icons/res/preferences.png</iconset>
    </property>
    <property name="text">
@@ -465,7 +465,7 @@
   </action>
   <action name="action_row_add">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/row_add.png</normaloff>:/icons/res/row_add.png</iconset>
    </property>
    <property name="text">
@@ -477,7 +477,7 @@
   </action>
   <action name="action_column_add">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/column_add.png</normaloff>:/icons/res/column_add.png</iconset>
    </property>
    <property name="text">
@@ -489,7 +489,7 @@
   </action>
   <action name="action_cell_add_right">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/cell_add_right.png</normaloff>:/icons/res/cell_add_right.png</iconset>
    </property>
    <property name="text">
@@ -501,7 +501,7 @@
   </action>
   <action name="action_cell_add_down">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/cell_add_down.png</normaloff>:/icons/res/cell_add_down.png</iconset>
    </property>
    <property name="text">
@@ -513,7 +513,7 @@
   </action>
   <action name="action_row_delete">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/row_delete.png</normaloff>:/icons/res/row_delete.png</iconset>
    </property>
    <property name="text">
@@ -525,7 +525,7 @@
   </action>
   <action name="action_column_delete">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/column_delete.png</normaloff>:/icons/res/column_delete.png</iconset>
    </property>
    <property name="text">
@@ -537,7 +537,7 @@
   </action>
   <action name="action_cell_delete_left">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/cell_delete_left.png</normaloff>:/icons/res/cell_delete_left.png</iconset>
    </property>
    <property name="text">
@@ -549,7 +549,7 @@
   </action>
   <action name="action_cell_delete_up">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/cell_delete_up.png</normaloff>:/icons/res/cell_delete_up.png</iconset>
    </property>
    <property name="text">
@@ -561,7 +561,7 @@
   </action>
   <action name="action_cells_span">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/table_selection_block.png</normaloff>:/icons/res/table_selection_block.png</iconset>
    </property>
    <property name="text">
@@ -579,7 +579,7 @@
   </action>
   <action name="action_italic">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/text_italics.png</normaloff>:/icons/res/text_italics.png</iconset>
    </property>
    <property name="text">
@@ -591,7 +591,7 @@
   </action>
   <action name="action_copy">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../mklib/mklib.qrc">
      <normaloff>:/icons/res/copy.png</normaloff>:/icons/res/copy.png</iconset>
    </property>
    <property name="text">
@@ -600,7 +600,7 @@
   </action>
   <action name="action_cut">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/cut.png</normaloff>:/icons/res/cut.png</iconset>
    </property>
    <property name="text">
@@ -609,7 +609,7 @@
   </action>
   <action name="action_paste">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../mklib/mklib.qrc">
      <normaloff>:/icons/res/paste.png</normaloff>:/icons/res/paste.png</iconset>
    </property>
    <property name="text">
@@ -618,7 +618,7 @@
   </action>
   <action name="action_background_color">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/brush4.png</normaloff>:/icons/res/brush4.png</iconset>
    </property>
    <property name="text">
@@ -630,7 +630,7 @@
   </action>
   <action name="action_foreground_color">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/pencil.png</normaloff>:/icons/res/pencil.png</iconset>
    </property>
    <property name="text">
@@ -642,7 +642,7 @@
   </action>
   <action name="action_undo">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/undo.png</normaloff>:/icons/res/undo.png</iconset>
    </property>
    <property name="text">
@@ -654,7 +654,7 @@
   </action>
   <action name="action_redo">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/redo.png</normaloff>:/icons/res/redo.png</iconset>
    </property>
    <property name="text">
@@ -666,7 +666,7 @@
   </action>
   <action name="action_values_save">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/box_out.png</normaloff>:/icons/res/box_out.png</iconset>
    </property>
    <property name="text">
@@ -675,7 +675,7 @@
   </action>
   <action name="action_values_load">
    <property name="icon">
-    <iconset>
+    <iconset resource="../mkstudio.qrc">
      <normaloff>:/icons/res/box_into.png</normaloff>:/icons/res/box_into.png</iconset>
    </property>
    <property name="text">
@@ -684,7 +684,7 @@
   </action>
   <action name="action_help">
    <property name="icon">
-    <iconset>
+    <iconset resource="../../mklib/mklib.qrc">
      <normaloff>:/icons/res/help2.png</normaloff>:/icons/res/help2.png</iconset>
    </property>
    <property name="text">
@@ -738,6 +738,9 @@
    <header>mbmasterwidget.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../../mklib/mklib.qrc"/>
+  <include location="../mkstudio.qrc"/>
+ </resources>
  <connections/>
 </ui>
