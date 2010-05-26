@@ -293,7 +293,7 @@ void SlotWidget::export_data()
     n = d.size();
     for(i=1; i<n; i++ )
     { str += QString::number( d.x(i-1) ) + "\t";
-      str += QString::number( d.y(i  ),'f',8 ) + "\n";
+      str += QString::number( d.y(i  ),'g',8 ) + "\n";
     }
     str.chop(1);
   }
