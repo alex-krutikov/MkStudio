@@ -284,6 +284,7 @@ public:
 
     virtual QwtText trackerText(const QPoint &pos) const;
     QPoint trackerPosition() const;
+    QPoint lastTrackerPosition() const;
     QRect trackerRect(const QFont &) const;
 
 

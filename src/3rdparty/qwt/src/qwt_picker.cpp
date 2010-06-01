@@ -70,6 +70,8 @@ public:
     QwtPolygon selection;
     bool isActive;
     QPoint trackerPosition;
+    QPoint lastTrackerPosition;
+    int trackerAlignment;
 
     bool mouseTracking; // used to save previous value
 
@@ -790,7 +792,11 @@ QPoint QwtPicker::trackerPosition() const
 {
     return d_data->trackerPosition;
 }
-
+//! \return Last position of the tracker
+QPoint QwtPicker::lastTrackerPosition() const
+{
+    return d_data->lastTrackerPosition;
+}
 /*!
    Calculate the bounding rectangle for the tracker text
    from the current position of the tracker
@@ -819,8 +825,8 @@ QRect QwtPicker::trackerRect(const QFont &font) const
 
     const QPoint &pos = d_data->trackerPosition;
 
-    int alignment = 0;
-    if ( isActive() && d_data->selection.count() > 1 
+    /*int alignment = 0;
+    if ( isActive() && d_data->selection.count() > 1
         && rubberBand() != NoRubberBand )
     {
         const QPoint last = 
@@ -831,19 +837,35 @@ QRect QwtPicker::trackerRect(const QFont &font) const
     }
     else
         alignment = Qt::AlignTop | Qt::AlignRight;
+   */
+    const QPoint last = d_data->lastTrackerPosition;
+    int savedAlign = d_data->trackerAlignment;
+    d_data->trackerAlignment = 0;
+
+    if( (pos.x() > last.x() ) ||
+      ( (pos.x() == last.x()) && (savedAlign & Qt::AlignLeft) ) )
+        d_data->trackerAlignment |= Qt::AlignLeft;
+    else
+        d_data->trackerAlignment |= Qt::AlignRight;
+
+    if( (pos.y() < last.y() ) ||
+      ( (pos.y() == last.y()) && (savedAlign & Qt::AlignBottom) ) )
+        d_data->trackerAlignment |= Qt::AlignBottom;
+    else
+        d_data->trackerAlignment |= Qt::AlignTop;
 
     const int margin = 5;
 
     int x = pos.x();
-    if ( alignment & Qt::AlignLeft )
+    if ( d_data->trackerAlignment & Qt::AlignLeft )
         x -= textRect.width() + margin;
-    else if ( alignment & Qt::AlignRight )
+    else if ( d_data->trackerAlignment & Qt::AlignRight )
         x += margin;
 
     int y = pos.y();
-    if ( alignment & Qt::AlignBottom )
+    if ( d_data->trackerAlignment & Qt::AlignBottom )
         y += margin;
-    else if ( alignment & Qt::AlignTop )
+    else if ( d_data->trackerAlignment & Qt::AlignTop )
         y -= textRect.height() + margin;
     
     textRect.moveTopLeft(QPoint(x, y));
@@ -948,9 +970,15 @@ void QwtPicker::widgetMousePressEvent(QMouseEvent *e)
 void QwtPicker::widgetMouseMoveEvent(QMouseEvent *e)
 {
     if ( pickRect().contains(e->pos()) )
+    {   if( pickRect().contains( d_data->trackerPosition ))
+        {  d_data->lastTrackerPosition = d_data->trackerPosition;
+        }
         d_data->trackerPosition = e->pos();
+    }
     else
-        d_data->trackerPosition = QPoint(-1, -1);
+    {   d_data->trackerPosition     = QPoint(-1, -1);
+        d_data->lastTrackerPosition = QPoint(-1, -1);
+    }
 
     if ( !isActive() )
         updateDisplay();
