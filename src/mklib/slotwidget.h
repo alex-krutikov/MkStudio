@@ -60,8 +60,9 @@ private:
   QVector<double> plot_data_y;
   QVector<double> plot_data_y_trans;
   double ax,bx,kx,ky;
-  struct {int m,s,n;} scale_base_x, scale_base_y;
+  struct {int m,s,n;} scale_base_x, scale_base_y, isr_base; //isr - input signal range
   enum {None, Coeff, Interval, Base} scale_mode_x,scale_mode_y;
+  enum {ISRPress, ISRBase} isr_mode;
   bool plot2_unsigned;
   bool pause_flag;
   bool use_line_trans;

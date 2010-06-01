@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>680</width>
-    <height>408</height>
+    <height>432</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -474,25 +474,80 @@
        <property name="flat">
         <bool>false</bool>
        </property>
-       <layout class="QGridLayout" name="gridLayout_3">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label">
-          <property name="maximumSize">
-           <size>
-            <width>210</width>
-            <height>16777215</height>
-           </size>
-          </property>
+       <layout class="QFormLayout" name="formLayout">
+        <item row="1" column="0">
+         <widget class="QRadioButton" name="rb_isr_press">
           <property name="text">
-           <string>Укажите диапазон входного сигнала:</string>
+           <string>Установить вручную:</string>
           </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          <property name="checked">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
+        <item row="1" column="1">
          <widget class="QLineEdit" name="le_input_signal_range"/>
+        </item>
+        <item row="2" column="0">
+         <widget class="QRadioButton" name="rb_isr_base">
+          <property name="text">
+           <string>Значение из базы:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QSpinBox" name="sb_isr_m">
+            <property name="toolTip">
+             <string>Номер модуля</string>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_16">
+            <property name="text">
+             <string>/</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="sb_isr_s">
+            <property name="toolTip">
+             <string>Номер слота</string>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>999</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_17">
+            <property name="text">
+             <string>/</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="sb_isr_n">
+            <property name="toolTip">
+             <string>Номер параметра</string>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>9999</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
@@ -502,13 +557,10 @@
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
        <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
-         <height>10</height>
+         <height>40</height>
         </size>
        </property>
       </spacer>

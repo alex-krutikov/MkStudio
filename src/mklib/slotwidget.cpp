@@ -455,14 +455,41 @@ lab2:;
 lab3:;
   plot2_unsigned = ( settings["yunsigned"] == "1" );
 
-  str = settings["input_signal_range"];
+  str = settings["isr_method"];
+  eb_ref = 0.0;
 
-  if( str.isEmpty())
-  {eb_ref = 0.0;
-  }
-  else
-  {eb_ref = str.toDouble( &ok );
-   if( !ok ) eb_ref = 0.0;
+  if( str == "0" )
+  { isr_mode = ISRPress;
+    str = settings["isr_value"];
+    eb_ref = str.toDouble( &ok );
+    if( !ok ) eb_ref = 0.0;
+  } else if( str == "1" )
+  { isr_mode = ISRBase;
+    str = settings["isr_value"];
+    ia = 0;
+    ib = 0;
+    ic = 0;
+    if( rx2.indexIn( str ) == 0 )
+    { ia = rx2.cap(1).toInt( &ok );
+      if( !ok )  ia = 0;
+      ib = rx2.cap(2).toInt( &ok );
+      if( !ok )  ib = 0;
+      ic = rx2.cap(3).toInt( &ok );
+      if( !ok )  ic = 0;
+
+      if( !ia || !ib || !ic )
+      { ia = 0;
+        ib = 0;
+        ic = 0;
+      }
+    }
+
+    isr_base.m = ia;
+    isr_base.s = ib;
+    isr_base.n = ic;
+  } else
+  { isr_mode = ISRPress;
+    eb_ref = 0.0;
   }
 
   use_line_trans = ( settings["use_line_trans"] == "1" );
@@ -722,6 +749,15 @@ void SlotWidget::calc_statistic()
 
   if( ( y_mean != 0 ) && (y_max != y_min ) )
   {
+       if( (isr_mode == ISRBase) && (isr_base.m*isr_base.s*isr_base.n > 0) )
+       { MMValue v = mm->getSlotValue( isr_base.m, isr_base.s, isr_base.n-1 );
+         if( v.isValid() )
+         { eb_ref = v.toDouble();
+         } else
+         { eb_ref = 0.0;
+         }
+       }
+
        if( eb_ref != 0.0 )
        {
          ui->le_noise_percent -> setText( QString::number( fabs((y_max-y_min) / eb_ref )*100 ) );
@@ -899,6 +935,8 @@ SlotDialog::SlotDialog( SlotWidget *slotw, QWidget *parent, QMap<QString,QString
   connect( ui->xscale_base,    SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
   connect( ui->yscale_base,    SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
   connect( ui->chb_line_trans, SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
+  connect( ui->rb_isr_base,    SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
+  connect( ui->rb_isr_press,   SIGNAL( toggled(bool) ), this, SLOT( radio_buttons() ) );
 
   connect( ui->pb_line_trans_correct, SIGNAL( clicked()), this, SLOT( linear_transformation_correct()) );
 
@@ -954,8 +992,23 @@ SlotDialog::SlotDialog( SlotWidget *slotw, QWidget *parent, QMap<QString,QString
   ui->yunsigned->setChecked( csettings["yunsigned"] == "1" );
 
   //диапазон входного сигнала
-  ui->le_input_signal_range->setText( csettings["input_signal_range"] );
-
+  str = csettings["isr_method"];
+  if ( str == "0" )
+  { ui->rb_isr_press->setChecked( true );
+    ui->le_input_signal_range->setText( csettings["isr_value"] );
+  } else if ( str == "1" )
+  { ui->rb_isr_base->setChecked( true );
+    str = csettings["isr_value"];
+    if( rx2.indexIn( str ) == 0 )
+    { ui->sb_isr_m->setValue( rx2.cap(1).toInt() );
+      ui->sb_isr_s->setValue( rx2.cap(2).toInt() );
+      ui->sb_isr_n->setValue( rx2.cap(3).toInt() );
+    }
+  } else
+  { ui->rb_isr_press->setChecked( true );
+    ui->le_input_signal_range->setText( "0.0" );
+  }
+  //линейное преобразование
   ui->chb_line_trans->setChecked( csettings["use_line_trans"] == "1" );
 
   str = csettings["line_trans_coords"];
@@ -999,6 +1052,10 @@ void SlotDialog::radio_buttons()
   ui->le_y1                 -> setEnabled( ui->chb_line_trans->isChecked() );
   ui->le_y2                 -> setEnabled( ui->chb_line_trans->isChecked() );
   ui->pb_line_trans_correct -> setEnabled( ui->chb_line_trans->isChecked() );
+  ui->le_input_signal_range -> setEnabled( ui->rb_isr_press->isChecked()   );
+  ui->sb_isr_m              -> setEnabled( ui->rb_isr_base->isChecked()    );
+  ui->sb_isr_s              -> setEnabled( ui->rb_isr_base->isChecked()    );
+  ui->sb_isr_n              -> setEnabled( ui->rb_isr_base->isChecked()    );
 }
 
 //==============================================================================
@@ -1008,7 +1065,8 @@ void SlotDialog::accept()
 {
   if( !settings ) return;
 
-  if( ui->le_input_signal_range->text().isEmpty() )
+  if( ui->rb_isr_press->isChecked()
+   && ui->le_input_signal_range->text().isEmpty() )
   { QMessageBox::warning(this,"Диапазон входного сигнала",
     "Операция прервана: не указан диапазон входного сигнала.");
     return;
@@ -1046,10 +1104,12 @@ void SlotDialog::accept()
   isettings.remove("xscale_base");
   isettings.remove("yscale_base");
   isettings.remove("yunsigned");
-  isettings.remove("input_signal_range");
+  isettings.remove("isr_method");
+  isettings.remove("isr_value");
   isettings.remove("use_line_trans");
   isettings.remove("line_trans_coords");
   isettings.remove("pen_width");
+
 
 
   // названия осей
@@ -1083,7 +1143,15 @@ void SlotDialog::accept()
   { isettings["yunsigned"] = "1";
   }
 
-  isettings["input_signal_range"] = ui->le_input_signal_range->text();
+  if( ui->rb_isr_press->isChecked() )
+  { isettings["isr_method"] = "0";
+    isettings["isr_value"] = ui->le_input_signal_range->text();
+  } else
+  { isettings["isr_method"] = "1";
+    isettings["isr_value"] = QString().sprintf("%d/%d/%d", ui->sb_isr_m->value(),
+                                                           ui->sb_isr_s->value(),
+                                                           ui->sb_isr_n->value() );
+  }
 
   if( ui->chb_line_trans->isChecked() )
   { isettings["use_line_trans"] = "1";
