@@ -1119,9 +1119,9 @@ bool MKTableItemDelegate::eventFilter(QObject *obj, QEvent *event)
        { // обнул€ем значение и подмен€ем нажатую клавишу
          le->clear();
          if(keyEvent->modifiers() & Qt::ControlModifier ) le->setText("1");
-         QKeyEvent *nke = new QKeyEvent( keyEvent->type(), Qt::Key_Enter, 0, keyEvent->text() );
-         delete event;
-         event = nke;
+         QKeyEvent enterKeyPress(QEvent::KeyPress, Qt::Key_Enter, 0);
+         QApplication::sendEvent(obj, &enterKeyPress);
+         return true;
        }
     }
   }
