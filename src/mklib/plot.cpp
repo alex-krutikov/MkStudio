@@ -93,9 +93,9 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   zoomer->setSelectionFlags( QwtPicker::DragSelection | QwtPicker::CornerToCorner );
   zoomer->setTrackerMode( QwtPicker::AlwaysOff );
   zoomer->setMousePattern(QwtEventPattern::MouseSelect1, Qt::LeftButton);
-  zoomer->setMousePattern(QwtEventPattern::MouseSelect2, Qt::NoButton);
-  zoomer->setMousePattern(QwtEventPattern::MouseSelect3, Qt::MidButton);
-  zoomer->setMousePattern(QwtEventPattern::MouseSelect4, Qt::LeftButton);
+  zoomer->setMousePattern(QwtEventPattern::MouseSelect2, Qt::RightButton);
+  zoomer->setMousePattern(QwtEventPattern::MouseSelect3, Qt::NoButton);
+  zoomer->setMousePattern(QwtEventPattern::MouseSelect4, Qt::NoButton);
   zoomer->setMousePattern(QwtEventPattern::MouseSelect5, Qt::NoButton);
   zoomer->setMousePattern(QwtEventPattern::MouseSelect6, Qt::NoButton);
 
