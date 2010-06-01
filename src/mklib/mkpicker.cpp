@@ -119,7 +119,8 @@ QString MKPicker::createLabel(qreal x) const
 //
 //==============================================================================
 void MKPicker::widgetMouseMoveEvent(QMouseEvent *event)
-{ Q_UNUSED(event);
+{ QwtPicker::widgetMouseMoveEvent( event );
+  if( event->buttons() == Qt::RightButton ) plt->moveCanvas();
   if( atCanvas ) refresh();
 }
 //==============================================================================

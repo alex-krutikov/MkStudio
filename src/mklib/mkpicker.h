@@ -22,6 +22,7 @@ public:
     void setPlot(Plot *plot){plt = plot;}
     void refresh(){begin();}
     void setTrakerDataVisible(bool show){ trackerDataVisible = show;}
+    double xAxisCoordFromPlot( QPoint pos ) { return (double)invTransform( pos ).x(); }
 private:
     QString window;
     Plot *plt;
@@ -32,8 +33,8 @@ public slots:
 private slots:
     QString createLabel(qreal) const;
 protected:
-    void widgetMouseMoveEvent(QMouseEvent *);
-    void timerEvent(QTimerEvent *);
+    void widgetMouseMoveEvent(QMouseEvent * );
+    void timerEvent(QTimerEvent * );
 };
 
 #endif // MKPICKER_H

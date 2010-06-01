@@ -92,6 +92,13 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   zoomer = new QwtPlotZoomer( ui->plot->canvas() );
   zoomer->setSelectionFlags( QwtPicker::DragSelection | QwtPicker::CornerToCorner );
   zoomer->setTrackerMode( QwtPicker::AlwaysOff );
+  zoomer->setMousePattern(QwtEventPattern::MouseSelect1, Qt::LeftButton);
+  zoomer->setMousePattern(QwtEventPattern::MouseSelect2, Qt::NoButton);
+  zoomer->setMousePattern(QwtEventPattern::MouseSelect3, Qt::MidButton);
+  zoomer->setMousePattern(QwtEventPattern::MouseSelect4, Qt::LeftButton);
+  zoomer->setMousePattern(QwtEventPattern::MouseSelect5, Qt::NoButton);
+  zoomer->setMousePattern(QwtEventPattern::MouseSelect6, Qt::NoButton);
+
 
   picker = new MKPicker(QwtPlot::xBottom, QwtPlot::yRight,
                              QwtPicker::NoSelection,
@@ -1210,4 +1217,15 @@ qreal Plot::getYcoord( qreal xcoord, int y_data_index )
   res += y2;
 
   return (qreal)res;
+}
+//==============================================================================
+//
+//==============================================================================
+void Plot::moveCanvas()
+{
+  double newX = zoomer->zoomRect().x() +
+                picker->xAxisCoordFromPlot( picker->lastTrackerPosition() ) -
+                picker->xAxisCoordFromPlot( picker->trackerPosition() );
+
+  zoomer->move( newX, 0.0 );
 }

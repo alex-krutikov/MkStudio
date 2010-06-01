@@ -36,6 +36,7 @@ public:
   void setPlotList( QString list );
   int plotsCount(){ return plots_count;}
   qreal getYcoord( qreal xcoord, int y_data_index );
+  void moveCanvas();
 private slots:
   void pb_clear_clicked();
   void pb_pause_clicked();
