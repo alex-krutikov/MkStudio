@@ -299,8 +299,6 @@ MainWindow::MainWindow()
 {
   setupUi( this );
   setWindowTitle( app_header );
-  tcpserver = 0;
-  serialport = 0;
 
   QSettings settings( QSETTINGS_PARAM );
   QPoint pos = settings.value("pos", QPoint(200, 200)).toPoint();
@@ -364,14 +362,6 @@ MainWindow::MainWindow()
 //==============================================================================
 //
 //==============================================================================
-MainWindow::~MainWindow()
-{
- delete serialport;
-}
-
-//==============================================================================
-//
-//==============================================================================
 void MainWindow::timerEvent( QTimerEvent* )
 {
   console_update();
@@ -396,14 +386,13 @@ void MainWindow::settingsChanged()
   settings.setValue("tcp_port",  tcpport );
   settings.setValue("show_mb_packets",  show_mb_packets );
 
-  if( !serialport || sender() == cb_portname )
-  { delete tcpserver;
-    tcpserver=0;
-    delete serialport;
+  if( !serialport.get() || sender() == cb_portname )
+  {
+    tcpserver.reset();
     if( portname == "__EMULATOR__" )
-    { serialport = new SerialPortEmulator;
+    { serialport.reset(new SerialPortEmulator);
     } else
-    { serialport = new SerialPort;
+    { serialport.reset(new SerialPort);
     }
   }
 
@@ -414,9 +403,9 @@ void MainWindow::settingsChanged()
 
   Console::setMessageTypes( Console::ModbusPacket, show_mb_packets );
 
-  if( !tcpserver || sender() == le_tcp_port )
-  { delete tcpserver;
-    tcpserver = new ModbusTcpServer( this, serialport, tcpport );
+  if( !tcpserver.get() || sender() == le_tcp_port )
+  { 
+    tcpserver.reset(new ModbusTcpServer( this, serialport.get(), tcpport ));
   }
 }
 
@@ -438,8 +427,6 @@ void MainWindow::console_update()
 void MainWindow::closeEvent ( QCloseEvent * event )
 {
   Q_UNUSED( event );
-
-  delete tcpserver;
 
   QSettings settings( QSETTINGS_PARAM );
   settings.setValue("pos", pos());
