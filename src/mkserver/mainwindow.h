@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include <memory>
+
 class AbstractSerialPort;
 class ModbusTcpServer;
 
@@ -16,7 +18,6 @@ class MainWindow : public QMainWindow,
   Q_OBJECT
 public:
   MainWindow();
-  virtual ~MainWindow();
 protected:
   void timerEvent(QTimerEvent *event);
 private slots:
@@ -25,8 +26,8 @@ private:
   void closeEvent ( QCloseEvent * event );
   void console_update();
 
-  AbstractSerialPort *serialport;
-  ModbusTcpServer *tcpserver;
+  std::auto_ptr<AbstractSerialPort> serialport;
+  std::auto_ptr<ModbusTcpServer> tcpserver;
 };
 
 #endif
