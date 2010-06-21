@@ -2,6 +2,7 @@
 #include <QtXml>
 
 #include "ui_plot.h"
+#include "ui_plotisrdialog.h"
 #include "plot.h"
 #include "mktable.h"
 #include "mbmasterxml.h"
@@ -82,6 +83,7 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   firstrun_flag   = true;
   pause_flag      = false;
   file_write_flag = false;
+  start_flag      = true;
   minimize_flag   = min_flag;
   a_value = new double[ plots_count ];
   avr_a   = new double[ plots_count ];
@@ -267,6 +269,7 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
 
   connect( ui->pb_set_file,   SIGNAL(clicked()), this, SLOT(set_file_for_write()   ));
   connect( ui->pb_file_write, SIGNAL(clicked()), this, SLOT(file_write_start_stop()));
+  connect( ui->tb_isr_set,    SIGNAL(clicked()), this, SLOT(tb_isr_set_clicked()   ));
 
   change_current_plot( 0 );
 
@@ -289,6 +292,8 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   { params_change();
     timerInterval = ui->sb_tact->value();
   }
+
+  updateISRparams();
 
   if( timerId ) killTimer( timerId );
   timerId = startTimer(timerInterval);
@@ -453,6 +458,24 @@ void Plot::pb_picker_data_toggled(bool state)
 //==============================================================================
 //
 //==============================================================================
+void Plot::tb_isr_set_clicked()
+{
+    PlotISRDialog dialog( &isr_params, ui->cb_plot_stat->currentIndex(), this );
+    if( dialog.exec() != QDialog::Accepted ) return;
+
+    updateISRparams();
+    if( !isr_use_base_flag )
+    { calc_statistic();
+    } else
+    { ui->le_noise_percent ->setText( "---" );
+      ui->le_noise_db      ->setText( "---" );
+      ui->le_eff_bits      ->setText( "---" );
+    }
+}
+
+//==============================================================================
+//
+//==============================================================================
 void Plot::updateMinimizeButtonState( bool state )
 {
   minimize_flag = state;
@@ -590,6 +613,9 @@ void Plot::change_current_plot( int index )
         case 3: y_data_stat = y_data4;break;
        default: y_data_stat = y_data1;break;
       }
+
+  if( !start_flag ) updateISRparams();
+
   if( ( plots_count != 0 ) && ( pause_flag == true ) )
   { calc_statistic();
   }
@@ -599,11 +625,11 @@ void Plot::change_current_plot( int index )
 //==============================================================================
 //
 //==============================================================================
-void Plot::on_le_input_signal_range_textChanged( QString signal )
+void Plot::on_le_input_signal_range_textEdited( QString str )
 {
-  bool ok;
-  eb_ref = signal.toDouble( &ok );
-  if( !ok ) eb_ref = 0.0;
+  isr_params[ ui->cb_plot_stat->currentIndex() ] = str;
+  updateISRparams();
+    
   if( ( plots_count != 0 ) && ( pause_flag == true ) )
   { calc_statistic();
   }
@@ -733,8 +759,24 @@ void Plot::calc_statistic()
   ui->le_diff -> setText( QString::number( y_max-y_min ) );
   ui->le_std  -> setText( QString::number( y_std ) );
 
-  if( ( y_mean != 0 ) && (y_max != y_min ) )
-  { if( eb_ref != 0.0 )
+  if( ( y_mean != 0 ) && (y_max != y_min ) && isr_params.count() )
+  {
+      if( isr_use_base_flag )
+      { if( (isr_base.m + isr_base.s + isr_base.n) == 0 )
+        { eb_ref = 0.0;
+        }
+        else
+        { MMValue eb_v = mbmaster->getSlotValue( isr_base.m, isr_base.s, isr_base.n - 1 );
+          if( eb_v.isValid() )
+          { eb_ref = eb_v.toDouble();
+          } else
+          { eb_ref = 0.0;
+          }
+        }
+        ui->le_input_signal_range->setText( QString::number( eb_ref,'g', 8 ) );
+      }
+
+    if( eb_ref != 0.0 )
     { ui->le_noise_percent -> setText( QString::number( fabs((y_max-y_min) / eb_ref )*100 ) );
       ui->le_noise_db -> setText( QString::number( (6.020599913*(log(eb_ref/(y_max-y_min))/log(2.0))+1.76),'f',1));
       ui->le_eff_bits -> setText( QString::number( log(eb_ref/(y_max-y_min))/log(2.0),'f' ,1 ) );
@@ -774,6 +816,8 @@ void Plot::timerEvent( QTimerEvent *event )
 { QT_TRY{
   Q_UNUSED( event );
   if( pause_flag ) return;
+
+  if( start_flag ) start_flag = false;
 
   int i;
   MMValue value;
@@ -1023,7 +1067,15 @@ bool Plot::load_recorder_params()
 
   foreach( QTableWidgetItem * twi, mktableItemList )
   { currentParams = twi->data(MKTable::RecorderParamsRole).toString();
-    if( !currentParams.isEmpty() ) allParams.append( currentParams );
+    if( !currentParams.isEmpty() )
+    { separatedParams = currentParams.split( ";", QString::SkipEmptyParts );
+      isr_params.append( separatedParams.last() );
+      separatedParams.removeLast();
+      currentParams = separatedParams.join(";");
+      allParams.append( currentParams );
+    } else
+    { isr_params.append("0.0");
+    }
   }
   if( allParams.count() != plots_count ) return false;
   allParams.removeDuplicates();
@@ -1032,11 +1084,10 @@ bool Plot::load_recorder_params()
   currentParams = allParams.first();
   separatedParams = currentParams.split( ";", QString::SkipEmptyParts );
 
-  if( separatedParams.count() != 6 ) return false;
+  if( separatedParams.count() != 5 ) return false;
 
   bool ok;
   int integ;
-  double dobl;
 
   //настройка параметров
   currentParams = separatedParams.at(0);
@@ -1056,11 +1107,7 @@ bool Plot::load_recorder_params()
   if( integ >= plots_count ) integ = plots_count - 1;
   if( ok ) ui->cb_plot_stat->setCurrentIndex( integ );
 
-  currentParams = separatedParams.at(4);
-  dobl = currentParams.toDouble( &ok );
-  if( ok ) ui->le_input_signal_range->setText( QString::number( dobl,'g', 8 ) );
-
-  if((separatedParams.at(5)=="1") && (plots_count>1)) ui->cb_use_match->setChecked( true );
+  if((separatedParams.at(4)=="1") && (plots_count>1)) ui->cb_use_match->setChecked( true );
 
   return true;
 }
@@ -1077,13 +1124,14 @@ bool Plot::save_recorder_params()
   params += QString::number( ui->cb_speed->currentIndex() ) + ";";
   params += QString::number( ui->sb_plot_pen_w->value() ) + ";";
   params += QString::number( ui->cb_plot_stat->currentIndex() ) + ";";
-  params += ui->le_input_signal_range->text() + ";";
 
-  if( ui->cb_use_match->isChecked() ) params += "1";
-  else params += "0";
+  if( ui->cb_use_match->isChecked() ) params += "1;";
+  else params += "0;";
   //сохранение параметров
+  unsigned int isr = 0;
   foreach( QTableWidgetItem * twi, mktableItemList )
-  { twi->setData( MKTable::RecorderParamsRole, params );
+  { twi->setData( MKTable::RecorderParamsRole, params + isr_params.at(isr) );
+    isr++;
   }
   return true;
 }
@@ -1228,4 +1276,119 @@ void Plot::moveCanvas()
                 picker->xAxisCoordFromPlot( picker->trackerPosition() );
 
   zoomer->move( newX, 0.0 );
+}
+//==============================================================================
+//
+//==============================================================================
+void Plot::updateISRparams()
+{  QString str = isr_params[ ui->cb_plot_stat->currentIndex() ];
+   QRegExp rx("^(.+)/(.+)/(.+)$");
+   bool ok;
+   int ia,ib,ic;
+   if( rx.indexIn( str ) == 0 )
+   { isr_use_base_flag = true;
+     ia = rx.cap(1).toInt( &ok );
+     if( !ok )  ia = 0;
+     ib = rx.cap(2).toInt( &ok );
+     if( !ok )  ib = 0;
+     ic = rx.cap(3).toInt( &ok );
+     if( !ok )  ic = 0;
+
+     if( !ia || !ib || !ic )
+     { ia = 0;
+       ib = 0;
+       ic = 0;
+     }
+
+     isr_base.m = ia;
+     isr_base.s = ib;
+     isr_base.n = ic;
+
+     ui->le_input_signal_range->setText("0");
+   } else
+   { isr_use_base_flag = false;
+     eb_ref = str.toDouble( &ok );
+     ui->le_input_signal_range->setText( str );
+     if( !ok )
+     { eb_ref = 0.0;
+       if( str.isEmpty() ) ui->le_input_signal_range->setText( "0" );
+     }
+   }
+
+   ui->le_input_signal_range->setEnabled( !isr_use_base_flag );
+}
+//###################################################################
+/// Диалог о масштабировании графика
+//###################################################################
+PlotISRDialog::PlotISRDialog( QStringList *isr_list, unsigned int isr_index, QWidget *parent ): QDialog( parent ), ui( new Ui::PlotISRDialog )
+{
+  ui->setupUi( this );
+  setWindowTitle( "Дианазон входного сигнала" );
+
+  isr_param_list  = isr_list;
+  isr_param_index = isr_index;
+
+  ui->le_isr->setValidator( new QDoubleValidator( this ) );
+
+  QRegExp rx("^(.+)/(.+)/(.+)$");
+  QString str = isr_param_list->at(isr_param_index);
+  bool ok;
+  int ia,ib,ic;
+  if( rx.indexIn( str ) == 0 )
+  { ia = rx.cap(1).toInt( &ok );
+    if( !ok )  ia = 0;
+    ib = rx.cap(2).toInt( &ok );
+    if( !ok )  ib = 0;
+    ic = rx.cap(3).toInt( &ok );
+    if( !ok )  ic = 0;
+
+    ui->sb_isr_m->setValue( ia );
+    ui->sb_isr_s->setValue( ib );
+    ui->sb_isr_n->setValue( ic );
+
+    ui->rb_isr_base->setChecked( true );
+  } else
+  { ui->le_isr->setText( str );
+    ui->rb_isr_press->setChecked( true );
+  }
+
+  connect( ui->rb_isr_press, SIGNAL( toggled(bool) ), this, SLOT( config_widgets() ) );
+  connect( ui->rb_isr_base,  SIGNAL( toggled(bool) ), this, SLOT( config_widgets() ) );
+
+  config_widgets();
+}
+
+//==============================================================================
+// Destructor
+//==============================================================================
+PlotISRDialog::~PlotISRDialog()
+{
+  delete ui;
+}
+//==============================================================================
+//
+//==============================================================================
+void PlotISRDialog::config_widgets()
+{
+    ui->le_isr   -> setEnabled( ui->rb_isr_press->isChecked() );
+    ui->sb_isr_m -> setEnabled( ui->rb_isr_base ->isChecked() );
+    ui->sb_isr_s -> setEnabled( ui->rb_isr_base ->isChecked() );
+    ui->sb_isr_n -> setEnabled( ui->rb_isr_base ->isChecked() );
+}
+
+//==============================================================================
+// Нажатие кнопки OK
+//==============================================================================
+void PlotISRDialog::accept()
+{
+  if( ui->rb_isr_press->isChecked() )
+  {  if( ui->le_isr->text().isEmpty() ) (*isr_param_list)[isr_param_index] = "0.0";
+     else (*isr_param_list)[isr_param_index] = ui->le_isr->text();
+  } else
+  { (*isr_param_list)[isr_param_index] = QString().sprintf("%d/%d/%d",
+                                                        ui->sb_isr_m->value(),
+                                                        ui->sb_isr_s->value(),
+                                                        ui->sb_isr_n->value() );
+  }
+  done( QDialog::Accepted );
 }

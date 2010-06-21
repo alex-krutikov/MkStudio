@@ -39,5 +39,6 @@ FORMS = ui/mbconfigwidget.ui \
     ui/consolewidget.ui \
     ui/helpwidget.ui \
     ui/slotwidget.ui \
-    ui/slotdialog.ui
+    ui/slotdialog.ui \
+    ui/plotisrdialog.ui
 RESOURCES = mklib.qrc
