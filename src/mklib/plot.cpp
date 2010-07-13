@@ -288,6 +288,7 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   w->move(5,5);
 
   timerInterval = 100;
+  timerId = 0;
   if( load_recorder_params() )
   { params_change();
     timerInterval = ui->sb_tact->value();
@@ -545,13 +546,15 @@ void Plot::pb_export_clicked()
 void Plot::on_cb_speed_currentIndexChanged( int index )
 {
   setWindow( index );
-  params_change();
+  if( !start_flag ) params_change();
 }
 //==============================================================================
 //
 //==============================================================================
 void Plot::on_sb_tact_valueChanged( int value )
-{ params_change();
+{ if( start_flag ) return;
+
+  params_change();
   if( timerId ) killTimer( timerId );
   timerId = startTimer( value );
   timerInterval = value;
@@ -1057,7 +1060,7 @@ void Plot::timerEvent( QTimerEvent *event )
 }
  QT_CATCH(...){}
 }
-   //==============================================================================
+//==============================================================================
 //
 //==============================================================================
 bool Plot::load_recorder_params()

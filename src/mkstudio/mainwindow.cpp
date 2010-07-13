@@ -258,9 +258,9 @@ void MainWindow::on_action_load_triggered()
 
   if( filename.isEmpty() ) return;
 
+  tw->closeAllRecorders();
   if( play_mode ) on_action_play_triggered();
 
-  tw->closeAllRecorders();
   load_conf( filename );
 }
 
