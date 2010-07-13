@@ -15,7 +15,8 @@ AbstractSerialPort *sp;
 int verb_mode;
 int repeats_count = 5;
 int timeout = 200;
-enum Mode { UnknownMode=0, Read, Write } operation_mode;
+enum IOMode { UnknownMode=0, Read, Write } operation_mode;
+enum IOType { Mikkon=1, Holding } io_type = Mikkon;
 bool unsigned_mode;
 int addr;
 int data_count;
@@ -41,14 +42,15 @@ static void print_help()
   "    -host=[Modbus TCP host name]\n"
   "    -node=[Modbus node]\n"
   "    -addr=[Modbus memory address]\n"
-  "    -type=[bits|bytes|words|dwords|float]\n"
+  "    -datatype=[bits|bytes|words|dwords|float]\n"
+  "    -iotype=[mikkon|holding (on default is mikkon)]\n"
   "    -count=[Parameters count]\n"
   "    -read\n"
   "    -write\n"
   "    -unsigned\n"
   "    -repeats=[Repeats count]\n"
   "    -timeout=[Serial port timeout (ms)]\n"
-  "    -v\n"
+  "    -v=[verbose mode]\n"
   ;
   cout << str;
 }
@@ -98,8 +100,8 @@ static int init()
       { cerr << "Error: node is invalid";
         return 1;
       }
-    } else if( str.startsWith("-type=") )
-    { str.remove(0,6);
+    } else if( str.startsWith("-datatype=") )
+    { str.remove(0,10);
       str=str.toUpper();
       if( str.endsWith("S") ) str.chop(1);
       if( str=="BIT" ) data_type = Bits;
@@ -107,6 +109,14 @@ static int init()
       else if( str=="WORD" )  data_type = Words;
       else if( str=="DWORD" ) data_type = DWords;
       else if( str=="FLOAT" ) data_type = Floats;
+    } else if( str.startsWith( "-iotype=" ) )
+    { str.remove(0,8);
+      if( str=="mikkon" ) io_type = Mikkon;
+      else if( str=="holding" ) io_type = Holding;
+      else
+      { cerr << "Error: invalid IO type";
+        return 1;
+      }
     } else if( !str.startsWith("-") )
     { data << str;
     } else if( str == "-read" )
@@ -274,7 +284,7 @@ bool read_data()
 {
   QByteArray req,ans;
 
-  int len=0,tr=0,i,j;
+  int len=0,tr=0,i,j,rplen,dataoff;
 
   switch( data_type )
   { case( Bits   ): len = ((data_count-1)/8)+1; break;
@@ -291,15 +301,31 @@ bool read_data()
   }
 
   req.resize(6);
-  req[0] = node;
-  req[1] = 0x43;
-  req[2] = 0x00;
-  req[3] = addr >> 8;
-  req[4] = addr;
-  req[5] = len;
+
+  switch( io_type )
+  { case( Mikkon ):
+      req[0] = node;
+      req[1] = 0x43;
+      req[2] = 0x00;
+      req[3] = addr >> 8;
+      req[4] = addr;
+      req[5] = len;
+      rplen = 6 + len;
+      dataoff = 4;
+      break;
+    case( Holding ):
+      req[0] = node;
+      req[1] = 0x03;
+      req[2] = addr >> 8;
+      req[3] = addr;
+      req[4] = (len / 2) >> 8;
+      req[5] = len / 2;
+      rplen = 5 + len;
+      dataoff = 3;
+  }
   CRC::appendCRC16( req );
 
-  ans.resize( 6 + len );
+  ans.resize( rplen );
 
   tr=repeats_count;
   while( tr-- )
@@ -317,8 +343,17 @@ bool read_data()
     if( CRC::CRC16( ans )  ) continue;
     if( ans[0] != req[0]   ) continue;
     if( ans[1] != req[1]   ) continue;
-    if( ans[2] != req[2]   ) continue;
-    if( (unsigned char)ans[3] != (unsigned char)len      ) continue;
+
+    switch( io_type )
+    { case Mikkon:
+        if( ans[2] != req[2]   ) continue;
+        if( (unsigned char)ans[3] != (unsigned char)len ) continue;
+        break;
+      case Holding:
+        if( (unsigned char)ans[2] != (unsigned char)len ) continue;
+        break;
+    }
+
     break;
   }
   if( tr<0 )
@@ -326,7 +361,7 @@ bool read_data()
   }
 
   for( i=0; i<data_count; i++ )
-  { cout << ptr_value( i, ans.constData()+4 ) << endl;
+  { cout << ptr_value( i, ans.constData()+dataoff ) << endl;
   }
 
   return 0;
@@ -401,7 +436,7 @@ static bool write_data()
 
   QByteArray req,ans;
 
-  int len=0,tr=0,i,j;
+  int len=0,tr=0,i,j,rplen,dataoff;
   bool ok;
 
   switch( data_type )
@@ -426,21 +461,47 @@ static bool write_data()
   req[4] = addr;
   req[5] = len;
 
+  switch( io_type )
+  { case( Mikkon ):
+      req.resize(6+len);
+      req[0] = node;
+      req[1] = 0x43;
+      req[2] = 0x01;
+      req[3] = addr >> 8;
+      req[4] = addr;
+      req[5] = len;
+      dataoff = 6;
+      rplen = dataoff + len + 2;
+      break;
+    case( Holding ):
+      req.resize(7+len);
+      req[0] = node;
+      req[1] = 0x10;
+      req[2] = addr >> 8;
+      req[3] = addr;
+      req[4] = (len / 2) >> 8;
+      req[5] = len / 2;
+      req[6] = len;
+      dataoff = 7;
+      rplen = 6 + 2;
+      break;
+  }
+
   for( i=0; i<data_count; i++ )
-  { ok = value_ptr( data[i], req.data()+6, i );
+  { ok = value_ptr( data[i], req.data()+dataoff, i );
     if( !ok )
     { cerr << "Error: Data is invalid." << endl;
       return 0;
     }
   }
 
-  if( data_type == Bits )
+  if( io_type == Mikkon && data_type == Bits )
   {  req[2] = data[0].toInt() ? 0x05 : 0x03;
   }
 
   CRC::appendCRC16( req );
 
-  ans.resize( req.size() );
+  ans.resize( rplen );
 
   tr=repeats_count;
   while( tr-- )
@@ -486,10 +547,6 @@ int main(int argc, char *argv[])
 
   ret = init();
   if( ret ) return ret;
-
-  if( verb_mode > 0 )
-  {
-  }
 
   if( operation_mode == Read  ) ret = read_data();
   if( operation_mode == Write ) ret = write_data();
