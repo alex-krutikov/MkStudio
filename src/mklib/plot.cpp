@@ -1087,7 +1087,7 @@ bool Plot::load_recorder_params()
   currentParams = allParams.first();
   separatedParams = currentParams.split( ";", QString::SkipEmptyParts );
 
-  if( separatedParams.count() != 5 ) return false;
+  if( separatedParams.count() != 8 ) return false;
 
   bool ok;
   int integ;
@@ -1112,6 +1112,19 @@ bool Plot::load_recorder_params()
 
   if((separatedParams.at(4)=="1") && (plots_count>1)) ui->cb_use_match->setChecked( true );
 
+  if( separatedParams.at(5)=="0" )
+  { pb_grid_toggled           (false);
+    pb_grid->setChecked       (false);
+  }
+  if( separatedParams.at(6)=="0" )
+  { pb_crosshair_toggled      (false);
+    pb_crosshair->setChecked  (false);
+  }
+  if( separatedParams.at(7)=="0" )
+  { pb_picker_data_toggled    (false);
+    pb_picker_data->setChecked(false);
+  }
+
   return true;
 }
  QT_CATCH(...){ return false; }
@@ -1129,6 +1142,12 @@ bool Plot::save_recorder_params()
   params += QString::number( ui->cb_plot_stat->currentIndex() ) + ";";
 
   if( ui->cb_use_match->isChecked() ) params += "1;";
+  else params += "0;";
+  if(   pb_grid       ->isChecked() ) params += "1;";
+  else params += "0;";
+  if(   pb_crosshair  ->isChecked() ) params += "1;";
+  else params += "0;";
+  if(   pb_picker_data->isChecked() ) params += "1;";
   else params += "0;";
   //сохранение параметров
   unsigned int isr = 0;
