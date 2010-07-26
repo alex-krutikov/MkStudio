@@ -741,17 +741,10 @@ void Plot::calc_statistic()
   }
   // расчет среднего и дисперсии
   y_mean=0;y_std=0;
-  double y_offset;
-
-  if( y_min < 0. ) y_offset = fabs( y_min );
-  else y_offset = 0.;
-
-  y_max += y_offset;
-  y_min += y_offset;
 
   for( i = (y_data_len-points_counter); i < y_data_len; i++ )
-  { y_mean += y_data_stat[i]+y_offset;
-    y_std  += (y_data_stat[i]+y_offset)*(y_data_stat[i]+y_offset);
+  { y_mean += y_data_stat[i];
+    y_std  += y_data_stat[i]*y_data_stat[i];
   }
   y_mean /= points_counter;
   y_std  /= points_counter;
@@ -794,8 +787,6 @@ void Plot::calc_statistic()
     ui->le_eff_bits->clear();
   }
 
-  y_max -= y_offset;
-  y_min -= y_offset;
   // расчет гистограммы
   double a_hist = (y_max-y_min)/(y_hist_data_len-1);
   memset( y_hist_data, 0 , sizeof( y_hist_data ) );

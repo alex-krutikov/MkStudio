@@ -606,7 +606,6 @@ void SlotWidget::timerEvent( QTimerEvent *event)
   int n = ss.data.size()+1;
   plot_data_x.resize( n );
   plot_data_y.resize( n );
-  plot_data_y_trans.resize( n );
   for( i=1; i<n; i++ )
   { plot_data_y[i] =   b_unsigned
                      ? (double)( (unsigned int)ss.data[i-1].toInt() & mask )
@@ -617,23 +616,18 @@ void SlotWidget::timerEvent( QTimerEvent *event)
   //------------  вывод графика ---------------
 
   plot_data_x[0] = 0;
-  plot_data_y[0] = plot_data_y[1];
   if( use_line_trans )
   {
     //------------  линейное преобразование графика ---------------
     for(i=1;i<n; i++)
     {
-      plot_data_y_trans[i]=line_trans_y1+((line_trans_y2-line_trans_y1)/
-                   (line_trans_x2-line_trans_x1))*(plot_data_y[i]-line_trans_x1);
+      plot_data_y[i]=line_trans_y1+((line_trans_y2-line_trans_y1)/
+                     (line_trans_x2-line_trans_x1))*(plot_data_y[i]-line_trans_x1);
     }
+  }
 
-    plot_data_y_trans[0] = plot_data_y_trans[1];
-    plot_curve->setData( plot_data_x.constData(), plot_data_y_trans.constData(),n );
-  }
-  else
-  {
-    plot_curve->setData( plot_data_x.constData(), plot_data_y.constData(),n );
-  }
+  plot_data_y[0] = plot_data_y[1];
+  plot_curve->setData( plot_data_x.constData(), plot_data_y.constData(),n );
   ui->plot->replot();
   if(ui->action_view_plot1->isChecked() && ui->action_stat_show->isChecked()) calc_statistic();
 
@@ -696,16 +690,13 @@ void SlotWidget::timerEvent( QTimerEvent *event)
   {
     for(i=1;i<n; i++)
     {
-      plot_data_y_trans[i]=line_trans_y1+((line_trans_y2-line_trans_y1)/
-                   (line_trans_x2-line_trans_x1))*(plot_data_y[i]-line_trans_x1);
+      plot_data_y[i]=line_trans_y1+((line_trans_y2-line_trans_y1)/
+                     (line_trans_x2-line_trans_x1))*(plot_data_y[i]-line_trans_x1);
     }
+  }
 
-    plot2_curve->setData( plot_data_x.constData(), plot_data_y_trans.constData(),n );
-  }
-  else
-  {
-    plot2_curve->setData( plot_data_x.constData(), plot_data_y.constData(),n );
-  }
+  plot_data_y[0] = plot_data_y[1];
+  plot2_curve->setData( plot_data_x.constData(), plot_data_y.constData(),n );
   ui->plot2->replot();
   if( ui->action_view_plot2->isChecked() && ui->action_stat_show->isChecked()) calc_statistic();
 }
@@ -716,70 +707,56 @@ void SlotWidget::calc_statistic()
 {
   y_mean=0;y_std=0;
   y_min=y_max=plot_data_y.value(0);
-  double y_offset;
+
   foreach( double y, plot_data_y )
   {
     if( y > y_max ) y_max = y;
     if( y < y_min ) y_min = y;
-  }
-  if( y_min < 0. ) y_offset = fabs( y_min );
-  else y_offset = 0.;
 
-  y_max += y_offset;
-  y_min += y_offset;
-
-  foreach( double y, plot_data_y )
-  {
-    y_mean += y+y_offset;
-    y_std  += (y+y_offset)*(y+y_offset);
+    y_mean += y;
+    y_std  += y*y;
   }
 
   y_mean /= plot_data_y.size();
-  no_trans_y_mean = y_mean-y_offset;
   y_std  /= plot_data_y.size();
   y_std  -= y_mean*y_mean;
   y_std   = sqrt( y_std );
 
-  if( !use_line_trans)
-  { ui->le_mean        -> setText( QString::number( y_mean-y_offset ) );
-    ui->le_diff        -> setText( QString::number( y_max-y_min ) );
-  }
-
-  ui->le_std           -> setText( QString::number( y_std ) );
+  ui->le_mean -> setText( QString::number( y_mean ) );
+  ui->le_diff -> setText( QString::number( y_max-y_min ) );
+  ui->le_std  -> setText( QString::number( y_std ) );
 
   if( ( y_mean != 0 ) && (y_max != y_min ) )
   {
-       if( (isr_mode == ISRBase) && (isr_base.m*isr_base.s*isr_base.n > 0) )
-       { MMValue v = mm->getSlotValue( isr_base.m, isr_base.s, isr_base.n-1 );
-         if( v.isValid() )
-         { eb_ref = v.toDouble();
-         } else
-         { eb_ref = 0.0;
-         }
-       }
+    if( (isr_mode == ISRBase) && (isr_base.m*isr_base.s*isr_base.n > 0) )
+    { MMValue v = mm->getSlotValue( isr_base.m, isr_base.s, isr_base.n-1 );
+      if( v.isValid() )
+      { eb_ref = v.toDouble();
+      } else
+      { eb_ref = 0.0;
+      }
+    }
 
-       if( eb_ref != 0.0 )
-       {
-         ui->le_noise_percent -> setText( QString::number( fabs((y_max-y_min) / eb_ref )*100 ) );
-         ui->le_noise_db -> setText( QString::number( (6.020599913*(log(eb_ref/(y_max-y_min))/log(2.0))+1.76),'f',1));
-         //-20*log10( fabs( (y_max-y_min) / y_mean ) ),'f' ,1 ) );old variant
-         ui->le_eff_bits -> setText( QString::number( log(eb_ref/(y_max-y_min))/log(2.0),'f' ,1 ) );
-         //( -20*log10( fabs( (y_max-y_min) / y_mean ) )) / 6.0205999,'f' ,1 ) ); старый расчет эфф. разрядов
-       }
-       else
-       {
-         ui->le_noise_percent ->setText( "---" );
-         ui->le_noise_db      ->setText( "---" );
-         ui->le_eff_bits      ->setText( "---" );
-       }
+    if( eb_ref != 0.0 )
+    {
+      ui->le_noise_percent -> setText( QString::number( fabs((y_max-y_min) / eb_ref )*100 ) );
+      ui->le_noise_db -> setText( QString::number( (6.020599913*(log(eb_ref/(y_max-y_min))/log(2.0))+1.76),'f',1));
+      //-20*log10( fabs( (y_max-y_min) / y_mean ) ),'f' ,1 ) );old variant
+      ui->le_eff_bits -> setText( QString::number( log(eb_ref/(y_max-y_min))/log(2.0),'f' ,1 ) );
+      //( -20*log10( fabs( (y_max-y_min) / y_mean ) )) / 6.0205999,'f' ,1 ) ); старый расчет эфф. разрядов
+    }
+    else
+    {
+      ui->le_noise_percent ->setText( "---" );
+      ui->le_noise_db      ->setText( "---" );
+      ui->le_eff_bits      ->setText( "---" );
+    }
   } else
   { ui->le_noise_percent->clear();
     ui->le_noise_db->clear();
     ui->le_eff_bits->clear();
   }
 
-  y_max -= y_offset;
-  y_min -= y_offset;
   // расчет гистограммы
   double a;
   int i,j;
@@ -787,41 +764,14 @@ void SlotWidget::calc_statistic()
   memset( hist_plot_data_y, 0 , sizeof( hist_plot_data_y ) );
   if(a)
   { for(i=0;i<plot_data_y.size();i++ )
-    { j = (int)((plot_data_y[i] - y_min) / a)+1;
+    {
+      j = (int)((plot_data_y[i] - y_min) / a)+1;
       if( j < 0 ) j=0;
       if( j > (hist_plot_data_y_len-1) ) j=(hist_plot_data_y_len-1);
       hist_plot_data_y[j]+=1;
     }
   }
   ui->hist->replot();
-
-  //если используется линейное преобразование
-  if( use_line_trans )
-  {
-    y_mean=0;
-    y_min=y_max=plot_data_y_trans.value(0);
-    double y_offset_trans;
-    foreach( double y, plot_data_y_trans )
-    {
-      if( y > y_max ) y_max = y;
-      if( y < y_min ) y_min = y;
-    }
-    if( y_min < 0. ) y_offset_trans = fabs( y_min );
-    else y_offset_trans = 0.;
-
-    y_max += y_offset_trans;
-    y_min += y_offset_trans;
-
-    foreach( double y, plot_data_y_trans )
-    {
-      y_mean += y+y_offset_trans;
-    }
-
-    y_mean /= plot_data_y_trans.size();
-
-    ui->le_mean -> setText( QString::number( y_mean-y_offset_trans ) );
-    ui->le_diff -> setText( QString::number( y_max-y_min ) );
-  }
 }
 //==============================================================================
 //

@@ -5,6 +5,7 @@
 #include <QDialog>
 #include <QString>
 #include <QMap>
+#include <QToolButton>
 
 #include "mk_global.h"
 
@@ -15,7 +16,6 @@ namespace Ui
 
 class MBMasterXML;
 class QwtPlotCurve;
-class QToolButton;
 
 //==============================================================================
 // Окно с представлением слота (используется по двойному нажатию на слот)
@@ -26,7 +26,7 @@ class MK_EXPORT SlotWidget : public QMainWindow
 public:
   SlotWidget( QWidget *parent = 0, MBMasterXML *mm=0, int module=0, int slot=0, bool min_flag=false );
   virtual ~SlotWidget();
-  QString get_mean(){ return QString::number( no_trans_y_mean ); }
+  QString get_mean(){ return QString::number( y_mean ); }
 private slots:
   void view_changed();
   void format_changed();
@@ -58,7 +58,6 @@ private:
   QwtPlotCurve *plot2_curve;
   QVector<double> plot_data_x;
   QVector<double> plot_data_y;
-  QVector<double> plot_data_y_trans;
   double ax,bx,kx,ky;
   struct {int m,s,n;} scale_base_x, scale_base_y, isr_base; //isr - input signal range
   enum {None, Coeff, Interval, Base} scale_mode_x,scale_mode_y;
@@ -69,7 +68,7 @@ private:
   double line_trans_x1,line_trans_y1,line_trans_x2,line_trans_y2;
   double y_max;
   double y_min;
-  double y_mean,no_trans_y_mean;
+  double y_mean;
   double y_std;
   double eb_ref;
   static const int hist_plot_data_y_len = 17;
