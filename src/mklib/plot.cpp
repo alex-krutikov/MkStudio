@@ -1048,6 +1048,7 @@ void Plot::timerEvent( QTimerEvent *event )
        }
      }
    }
+   repaint();
 }
  QT_CATCH(...){}
 }
