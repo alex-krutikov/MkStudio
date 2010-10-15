@@ -50,13 +50,20 @@ SlotWidget::SlotWidget( QWidget *parent, MBMasterXML *mm, int module, int slot, 
     { settings[ rx.cap(1) ] = rx.cap(2);
     }
   }
+
+  QFile qss(":/qss/res/toolbuttons.qss");
+  qss.open(QFile::ReadOnly);
+  QString tb_qss = QLatin1String(qss.readAll());
+  qss.close();
+
   //кнопка Пауза
   pb_pause = new QToolButton;
   pb_pause->setText("Пауза");
   pb_pause->setToolTip("Пауза");
   pb_pause->setCursor( QCursor( Qt::ArrowCursor ) );
   pb_pause->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
-  pb_pause->setIcon( QIcon(":/icons/res/media_pause.png" ) );
+  pb_pause->setStyleSheet(tb_qss);
+  pb_pause->setIcon( QIcon(":/icons/res/pause.png" ) );
   connect( pb_pause, SIGNAL( clicked() ), this, SLOT( pb_pause_clicked() ) );
 
   pause_flag = false;
@@ -65,6 +72,7 @@ SlotWidget::SlotWidget( QWidget *parent, MBMasterXML *mm, int module, int slot, 
   pb_minimize = new QToolButton;
   pb_minimize->setCursor( QCursor( Qt::ArrowCursor ) );
   pb_minimize->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
+  pb_minimize->setStyleSheet(tb_qss);
   connect( pb_minimize, SIGNAL(clicked()), this, SLOT(pb_minimize_clicked()) );
   updateMinimizeButtonState( minimize_flag );
 
@@ -310,12 +318,12 @@ void SlotWidget::pb_pause_clicked()
   { pause_flag = false;
     pb_pause->setText("Пауза");
     pb_pause->setToolTip("Пауза");
-    pb_pause->setIcon( QIcon(":/icons/res/media_pause.png" ) );
+    pb_pause->setIcon( QIcon(":/icons/res/pause.png" ) );
   } else
   { pause_flag = true;
     pb_pause->setText("Пуск");
     pb_pause->setToolTip("Пуск");
-    pb_pause->setIcon( QIcon(":/icons/res/media_play.png" ) );
+    pb_pause->setIcon( QIcon(":/icons/res/play.png" ) );
   }
 }
 //==============================================================================
@@ -821,11 +829,11 @@ void SlotWidget::updateMinimizeButtonState( bool state )
   if( minimize_flag )
   { pb_minimize->setText("Развернуть");
     pb_minimize->setToolTip("Развернуть таблицу");
-    pb_minimize->setIcon( QIcon(":/icons/res/window_max.png") );
+    pb_minimize->setIcon( QIcon(":/icons/res/arrow_down.png") );
   } else
   { pb_minimize->setText("Свернуть");
     pb_minimize->setToolTip("Свернуть таблицу");
-    pb_minimize->setIcon( QIcon(":/icons/res/window_min.png") );
+    pb_minimize->setIcon( QIcon(":/icons/res/arrow_up.png") );
   }
 }
 //==============================================================================
