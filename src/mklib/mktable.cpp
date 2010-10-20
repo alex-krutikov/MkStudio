@@ -41,6 +41,8 @@ MKTable::MKTable( QWidget *parent )
   verticalHeader()  ->setClickable( false );
 
   connect(&timer, SIGNAL(timeout()), this, SLOT(refresh()));
+  connect( this, SIGNAL(currentItemChanged(QTableWidgetItem*,QTableWidgetItem*)),
+           this, SLOT(slotSetConfirmEditFlag(QTableWidgetItem*)               ));
 
   setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
   setSelectionMode( QAbstractItemView::ExtendedSelection );
@@ -625,8 +627,7 @@ void MKTable::mouseReleaseEvent( QMouseEvent *event )
   { if( event->button() == Qt::LeftButton )
     { QTableWidgetItem *titem = itemAt( event->pos() );
       if( titem )
-      { currentItemConfirmEdit = titem->data( MKTable::SSConfirmEditRole ).toBool();
-        editItem( titem );
+      { editItem( titem );
       }
     }
   }
@@ -909,6 +910,13 @@ void MKTable::slotPlotClose()
 //==============================================================================
 void MKTable::slotPlotOpen()
 { plots_count++;
+}
+//==============================================================================
+//
+//==============================================================================
+void MKTable::slotSetConfirmEditFlag(QTableWidgetItem *item)
+{
+  currentItemConfirmEdit = item->data( MKTable::SSConfirmEditRole ).toBool();
 }
 //##############################################################################
 //

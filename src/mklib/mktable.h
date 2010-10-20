@@ -94,6 +94,7 @@ private slots:
   void slotMinimize(bool);
   void slotPlotClose();
   void slotPlotOpen();
+  void slotSetConfirmEditFlag( QTableWidgetItem *item );
 signals:
   void item_changed_by_editor();
   void signalCloseAllRecorders();
