@@ -18,6 +18,7 @@ class MainWindow : public QMainWindow,
   Q_OBJECT
 public:
   MainWindow();
+  virtual ~MainWindow();
 protected:
   void timerEvent(QTimerEvent *event);
 private slots:
