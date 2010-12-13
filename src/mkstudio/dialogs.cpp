@@ -324,3 +324,406 @@ void UnitedSlots::timerEvent ( QTimerEvent * event )
   }
   plot->replot();
 }
+//==============================================================================
+///
+//==============================================================================
+ShortCutsDialog::ShortCutsDialog(QWidget *parent, QString config_file) : QDialog(parent)
+{
+    QTableWidgetItem *twItem;
+    QDomElement element;
+    QDomNodeList list;
+    QDomDocument doc("MKStudio");
+
+    setupUi(this);
+    setWindowTitle("Горячие клавиши");
+
+    QFile file(config_file);
+
+    if(file.open(QIODevice::ReadOnly))
+    {
+        if (doc.setContent(&file))
+        {
+            file.close();
+
+            if(doc.doctype().name() != "MKStudio")
+            {
+                QMessageBox::information(this, app_header, "Файл не является конфигурацией MKStudio.");
+            }
+            else
+            {
+                list = doc.elementsByTagName("Table");
+
+                if(list.size())
+                {
+                    QDomDocument doc_table;
+                    doc_table.appendChild(doc_table.importNode(list.item(0), true));
+
+                    QDomElement root = doc_table.documentElement();
+                    QDomNodeList shortcut_list = root.elementsByTagName("ShortCut");
+
+                    if(!shortcut_list.size())
+                    {
+                        QDomElement write0 =  doc_table.createElement("ShortCut");
+                        fillDomEelement(&write0, "Записать 0", "WriteValue");
+                        root.appendChild(write0);
+
+                        QDomElement write1 =  doc_table.createElement("ShortCut");
+                        fillDomEelement(&write1, "Записать 1", "WriteValue");
+                        root.appendChild(write1);
+
+                        QDomElement copy =  doc_table.createElement("ShortCut");
+                        fillDomEelement(&copy, "Копировать в буфер обмена", "CopyToClipBoard");
+                        root.appendChild(copy);
+                    }
+
+                    shortcut_list = root.elementsByTagName("ShortCut");
+
+                    twItem = new QTableWidgetItem();
+                    twItem->setTextAlignment(Qt::AlignCenter);
+                    twItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+                    table->setItem(0, KeyCol, twItem);
+                    twItem = new QTableWidgetItem();
+                    twItem->setTextAlignment(Qt::AlignCenter);
+                    twItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+                    table->setItem(1, KeyCol, twItem);
+                    twItem = new QTableWidgetItem();
+                    twItem->setTextAlignment(Qt::AlignCenter);
+                    twItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+                    table->setItem(2, KeyCol, twItem);
+
+                    for(int i=0; i < shortcut_list.count(); i++)
+                    {
+                        element = shortcut_list.item(i).toElement();
+                        twItem = new QTableWidgetItem();
+
+                        twItem->setText(element.attribute("Name"));
+                        twItem->setData(keyCodeRole, element.attribute("KeyCode").toInt());
+                        twItem->setData(keyNameRole, element.attribute("KeyName"));
+                        table->item(i, KeyCol)->setText(element.attribute("KeyName"));
+                        twItem->setData(actionRole, element.attribute("Action"));
+
+                        QString assign = element.attribute("Assign");
+                        twItem->setData(assignRole, assign);
+                        twItem->setTextAlignment(Qt::AlignCenter);
+                        table->setItem(i, NameCol, twItem);
+                        QStringList assignlist = assign.split(";");
+
+                        /* Если привязок больше, чем одна - писать в столбик(tw) */
+                        if(assignlist.size() == 1 && i !=2)
+                        {
+                            twItem = new QTableWidgetItem(assign);
+                            twItem->setTextAlignment(Qt::AlignCenter);
+                            table->setItem(i, AssignCol, twItem);
+                        }
+                        else
+                        {
+                            int j=0;
+                            tw = new QTableWidget();
+                            tw->setRowCount(assignlist.size()+1);
+                            tw->setColumnCount(1);
+                            tw->verticalHeader()->setHidden(true);
+                            tw->horizontalHeader()->setHidden(true);
+                            tw->verticalHeader()->setDefaultSectionSize(20);
+                            tw->horizontalHeader()->setStretchLastSection(true);
+                            tw->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+                            tw->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+                            tw->setFrameShape(QFrame::NoFrame);
+                            tw->setGridStyle(Qt::NoPen);
+
+                            for(j=0; j < assignlist.size(); j++)
+                            {
+                                twItem = new QTableWidgetItem(assignlist.at(j));
+                                twItem->setTextAlignment(Qt::AlignCenter);
+                                tw->setItem(j, 0, twItem);
+                            }
+
+                            blankItem = new QTableWidgetItem();
+                            blankItem->setTextAlignment(Qt::AlignCenter);
+                            blankItem->setData(blankRole, true);
+                            tw->setItem(j, 0, blankItem);
+
+                            connect(tw, SIGNAL(itemChanged(QTableWidgetItem*)), this, SLOT(tableItemChanged(QTableWidgetItem*)));
+
+                            table->setCellWidget(i, AssignCol, tw);
+
+                            QComboBox *separator = new QComboBox();
+                            separator->setMaximumHeight(20);
+                            separator->addItem("Табуляция", "\t");
+                            separator->addItem("Пробел", " ");
+                            separator->addItem("Возврат коретки", "\n");
+                            separator->addItem(";", ";");
+                            separator->addItem(":", ":");
+
+                            table->setCellWidget(2, SeparatorCol, separator);
+
+                            if(element.attribute("Separator").isEmpty())
+                                table->item(2, DataCol)->setData(separatorRole, "\t");
+                            else
+                            {
+                                twItem->setData(separatorRole, element.attribute("Separator"));
+                                separator->setCurrentIndex(separator->findData(element.attribute("Separator")));
+                            }
+
+                            if(tw->rowCount() == 2 || tw->rowCount() == 1) table->cellWidget(2, SeparatorCol)->setEnabled(false);
+\
+                            connect(separator, SIGNAL(currentIndexChanged(int)), this, SLOT(separatorChanged(int)));
+
+                            fitTableRowHeight();
+                        }
+                    }
+                    table->resizeColumnsToContents();
+                    table->setColumnWidth(AssignCol, 120);
+                    connect(table, SIGNAL(itemChanged(QTableWidgetItem*)), this, SLOT(updateTableItem(QTableWidgetItem*)));
+                }
+            }
+        }
+    }
+    file.close();
+    table->setItemDelegateForColumn(AssignCol, new AssignDelegate);
+    tw->setItemDelegateForColumn(0, new AssignDelegate);
+}
+//==============================================================================
+///
+//==============================================================================
+void ShortCutsDialog::updateTableItem(QTableWidgetItem *item)
+{
+    if(item->column() == 2)
+    {
+        table->item(item->row(), DataCol)->setData(assignRole, item->text());
+    }
+}
+//==============================================================================
+///
+//==============================================================================
+void ShortCutsDialog::fillDomEelement(QDomElement *el , QString name, QString action)
+{
+    el->setAttribute("Name", name);
+    el->setAttribute("KeyCode", "");
+    el->setAttribute("KeyName", "");
+    el->setAttribute("Action", action);
+    el->setAttribute("Separator", "");
+    el->setAttribute("Assign", "");
+}
+//==============================================================================
+///
+//==============================================================================
+void ShortCutsDialog::separatorChanged(int index)
+{
+    table->item(2, DataCol)->setData(separatorRole, qobject_cast<QComboBox*>(table->cellWidget(2, SeparatorCol))->itemData(index, Qt::UserRole).toString());
+}
+//==============================================================================
+///
+//==============================================================================
+void ShortCutsDialog::tableItemChanged(QTableWidgetItem *itm)
+{
+    if(itm->data(blankRole).toBool() && !itm->text().isEmpty())
+    {
+        itm->setData(blankRole, false);
+        tw->insertRow(tw->rowCount());
+        QTableWidgetItem *twItem = new QTableWidgetItem();
+        twItem->setTextAlignment(Qt::AlignCenter);
+        twItem->setData(blankRole, true);
+        tw->setItem(tw->rowCount()-1, 0, twItem);
+        blankItem = twItem;
+
+        fitTableRowHeight();
+    }
+    else if(!itm->data(blankRole).toBool() && itm->text().isEmpty())
+    {
+        refreshTable(itm);
+
+        fitTableRowHeight();
+    }
+
+    QString str;
+
+    for(int i=0; i < (tw->rowCount()-1); i++)
+    {
+        if(i) str +=";";
+        str += tw->item(i, 0)->text();
+    }
+    table->item(2, DataCol)->setData(assignRole, str);
+
+    if(tw->rowCount() == 2 || tw->rowCount() == 1) table->cellWidget(2, SeparatorCol)->setEnabled(false);
+    else table->cellWidget(2, SeparatorCol)->setEnabled(true);
+}
+//==============================================================================
+///
+//==============================================================================
+void ShortCutsDialog::fitTableRowHeight()
+{
+    table->setRowHeight(2, tw->rowCount() * tw->rowHeight(0) + 1);
+}
+//==============================================================================
+///
+//==============================================================================
+void ShortCutsDialog::refreshTable(QTableWidgetItem *itm)
+{
+    tw->blockSignals(true);
+    int row = itm->row();
+
+    for(int i = row; i < (tw->rowCount()-1); i++)
+    {
+        tw->item(i, 0)->setText(tw->item(i+1, 0)->text());
+    }
+    tw->removeRow(blankItem->row()-1);
+    tw->blockSignals(false);
+}
+//==============================================================================
+///
+//==============================================================================
+void ShortCutsDialog::keyPressEvent(QKeyEvent *event)
+{
+    if(table->currentItem()->column() == 1)
+    {
+        QString keyStr;
+
+        table->item(table->currentItem()->row(), 0)->setData(keyCodeRole, event->key());
+
+        if(event->text().isEmpty())
+        {
+            switch(event->key())
+            {
+            /* F1, F5 заняты */
+            case Qt::Key_F2: keyStr = "F2";break;
+            case Qt::Key_F3: keyStr = "F3";break;
+            case Qt::Key_F4: keyStr = "F4";break;
+            case Qt::Key_F6: keyStr = "F6";break;
+            case Qt::Key_F7: keyStr = "F7";break;
+            case Qt::Key_F8: keyStr = "F8";break;
+            case Qt::Key_F9: keyStr = "F9";break;
+            case Qt::Key_F10: keyStr = "F10";break;
+            case Qt::Key_F11: keyStr = "F11";break;
+            case Qt::Key_F12: keyStr = "F12";break;
+            case Qt::Key_Home: keyStr = "Home";break;
+            case Qt::Key_End: keyStr = "End";break;
+            case Qt::Key_Control: keyStr = "Ctrl";break;
+            case Qt::Key_Alt: keyStr = "Alt";break;
+            default:keyStr = "";break;
+            }
+            table->currentItem()->setText(keyStr);
+            table->item(table->currentItem()->row(), DataCol)->setData(keyNameRole, keyStr);
+        }
+        else
+        {
+            table->currentItem()->setText(event->text());
+            table->item(table->currentItem()->row(), DataCol)->setData(keyNameRole, event->text());
+        }
+    }
+    else
+    {
+        QDialog::keyPressEvent(event);
+    }
+}
+//==============================================================================
+///
+//==============================================================================
+void ShortCutsDialog::accept()
+{
+    QDomDocument doc;
+    ShortCut *sc;
+
+    if(table->cellWidget(2, SeparatorCol)->isEnabled())
+    {
+        sc = new ShortCut(ShortCut::CopyToClipBoard,
+                                   table->item(2, DataCol)->data(keyCodeRole).toInt(),
+                                   table->item(2, DataCol)->data(keyNameRole).toString(),
+                                   table->item(2, DataCol)->data(assignRole).toString(),
+                                   table->item(2, DataCol)->data(separatorRole).toString());
+    }
+    else
+    {
+        sc = new ShortCut(ShortCut::CopyToClipBoard,
+                                   table->item(2, DataCol)->data(keyCodeRole).toInt(),
+                                   table->item(2, DataCol)->data(keyNameRole).toString(),
+                                   table->item(2, DataCol)->data(assignRole).toString());
+    }
+
+    hotkey.insert(table->item(2, 0)->data(keyCodeRole).toInt(), sc);
+
+    sc = new ShortCut(ShortCut::WriteValue,
+                      table->item(0, DataCol)->data(keyCodeRole).toInt(),
+                      table->item(0, DataCol)->data(keyNameRole).toString(),
+                      table->item(0, DataCol)->data(assignRole).toString(), 0);
+    hotkey.insert(table->item(0, 0)->data(keyCodeRole).toInt(), sc);
+
+    sc = new ShortCut(ShortCut::WriteValue,
+                      table->item(1, DataCol)->data(keyCodeRole).toInt(),
+                      table->item(1, DataCol)->data(keyNameRole).toString(),
+                      table->item(1, DataCol)->data(assignRole).toString(), 1);
+    hotkey.insert(table->item(1, 0)->data(keyCodeRole).toInt(), sc);
+
+    for(int i=0; i < table->rowCount(); i++)
+    {
+        QDomElement shortcut_item = doc.createElement("ShortCut");
+        shortcut_item.setAttribute("Name", table->item(i, DataCol)->text());
+        shortcut_item.setAttribute("KeyCode", table->item(i, DataCol)->data(keyCodeRole).toInt());
+        shortcut_item.setAttribute("KeyName", table->item(i, DataCol)->data(keyNameRole).toString());
+        shortcut_item.setAttribute("Action", table->item(i, DataCol)->data(actionRole).toString());
+        shortcut_item.setAttribute("Separator", table->item(i, DataCol)->data(separatorRole).toString());
+        shortcut_item.setAttribute("Assign", table->item(i, DataCol)->data(assignRole).toString());
+
+        shortcutList.append(shortcut_item);
+    }
+    QDialog::accept();
+}
+//==============================================================================
+///
+//==============================================================================
+AssignDelegate::AssignDelegate(QObject *parent) : QItemDelegate(parent)
+{
+}
+//==============================================================================
+///
+//==============================================================================
+QWidget * AssignDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    QLineEdit *line = new QLineEdit(parent);
+    QRegExpValidator *AssignExp = new QRegExpValidator(QRegExp("(\\d+)(\\/)(\\d+)(\\/)([1-9]\\d+)"), parent);
+    line->setValidator(AssignExp);
+    line->setFrame(false);
+    line->setAlignment(Qt::AlignCenter);
+
+    connect(line, SIGNAL(editingFinished()), this, SLOT(commitAndCloseEditor()));
+
+    return line;
+}
+//==============================================================================
+///
+//==============================================================================
+void AssignDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
+{
+    QString str = index.model()->data(index, Qt::DisplayRole).toString();
+
+    QLineEdit *line = qobject_cast<QLineEdit*>(editor);
+    line->installEventFilter(const_cast<AssignDelegate*>(this));
+    line->setText(str);
+}
+//==============================================================================
+///
+//==============================================================================
+void AssignDelegate::commitAndCloseEditor()
+{
+     QLineEdit *editor = qobject_cast<QLineEdit*>(sender());
+     emit commitData(editor);
+     emit closeEditor(editor);
+}
+//==============================================================================
+///
+//==============================================================================
+bool AssignDelegate::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::KeyPress)
+    {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+
+        if(keyEvent->key() == Qt::Key_Return)
+        {
+            QLineEdit *editor = qobject_cast<QLineEdit*>(obj);
+            commitData(editor);
+            closeEditor(editor);
+            return true;
+        }
+    }
+  return QItemDelegate::eventFilter(obj, event);
+}

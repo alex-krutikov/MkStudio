@@ -44,6 +44,7 @@ private slots:
   void on_action_tw_columns_triggered();
   void action_tw_header_double_clicked(int logicalIndex);
   void on_tw_itemSelectionChanged();
+  void on_action_shortcuts_activated();
   void on_action_new_triggered();
   void on_action_load_triggered();
   void on_action_save_triggered();

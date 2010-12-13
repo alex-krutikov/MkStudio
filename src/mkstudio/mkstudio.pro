@@ -27,4 +27,5 @@ FORMS   = ui/mainwindow.ui     \
           ui/settingsdialog.ui \
           ui/initdialog.ui     \
           ui/texteditdialog.ui \
-          ui/unitedslots.ui
+          ui/unitedslots.ui    \
+          ui/shortcuts.ui

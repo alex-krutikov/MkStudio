@@ -8,12 +8,13 @@
 #include <QModelIndex>
 #include <QListWidget>
 #include <QVector>
+#include <QDomDocument>
 
 #include "mk_global.h"
+#include "shortcut.h"
 
 class MBMasterXML;
 class QMouseEvent;
-class QDomDocument;
 class MBDataType;
 class MMValue;
 class MKTableItemDelegate;
@@ -24,6 +25,7 @@ class MKTableItemDelegate;
 class MK_EXPORT MKTable : public QTableWidget
 {
   Q_OBJECT
+  Q_ENUMS(ShortCut::SCut)
   friend class MKTableItemDelegate;
 public:
   enum Mode { Edit = 0, Polling };
@@ -50,6 +52,9 @@ public:
   QSize sizeHint() const;
   bool getCurrentItemConfirmEdit(){return currentItemConfirmEdit;}
   void closeAllRecorders();
+  QList<QDomElement> shortcutList;
+  QHash<int, ShortCut*> hotkey;
+
 private:
   void mouseMoveEvent( QMouseEvent *event );
   void mousePressEvent( QMouseEvent *event );
@@ -95,6 +100,7 @@ private slots:
   void slotPlotClose();
   void slotPlotOpen();
   void slotSetConfirmEditFlag( QTableWidgetItem *item );
+  void loadShortCuts(const QDomDocument &);
 signals:
   void item_changed_by_editor();
   void signalCloseAllRecorders();

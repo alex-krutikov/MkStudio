@@ -226,6 +226,8 @@ bool MainWindow::load_conf( const QString &filename )
 
  clear_undo_list();
 
+ action_shortcuts->setEnabled(true);
+
  return true;
 }
 
@@ -242,6 +244,8 @@ void MainWindow::on_action_new_triggered()
   tw->setRowCount(6);
   tw->setColumnCount(6);
   mbconfigwidget->clearConfiguration();
+
+  action_shortcuts->setEnabled(false);
 
   clear_undo_list();
 }
@@ -1550,4 +1554,19 @@ void MainWindow::closeEvent ( QCloseEvent * event )
   settings.setValue("conf_file", current_config_filename );
   settings.setValue("values_file", current_config_values_filename );
 
+}
+
+//==============================================================================
+///
+//==============================================================================
+void MainWindow::on_action_shortcuts_activated()
+{
+    ShortCutsDialog dialog(this, current_config_filename);
+
+    if(dialog.exec() != QDialog::Accepted) return;
+
+    tw->shortcutList = dialog.shortcutList;
+    tw->hotkey = dialog.hotkey;
+
+    save_conf(current_config_filename);
 }

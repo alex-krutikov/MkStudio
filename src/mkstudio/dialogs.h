@@ -81,4 +81,57 @@ private:
   QwtPlotCurve *curves[curves_num];
 };
 
+//==============================================================================
+/// Диалог настройки горячих клавиш
+//==============================================================================
+#include "ui_shortcuts.h"
+#include "shortcut.h"
+#include <QDomDocument>
+
+class ShortCutsDialog : public QDialog, public Ui::ShortCutsDialog
+{
+    Q_OBJECT
+public:
+    ShortCutsDialog(QWidget *parent = 0, QString config_file = "");
+    void keyPressEvent(QKeyEvent *);
+    QList<QDomElement> shortcutList;
+    QHash<int, ShortCut*> hotkey;
+
+private slots:
+    void tableItemChanged(QTableWidgetItem *);
+    void refreshTable(QTableWidgetItem *);
+    void fitTableRowHeight();
+    void separatorChanged(int);
+    void fillDomEelement(QDomElement *, QString, QString);
+    void updateTableItem(QTableWidgetItem *);
+    void accept();
+
+private:
+    QTableWidget *tw;
+    QTableWidgetItem *blankItem;
+    enum{keyCodeRole = Qt::UserRole, keyNameRole = Qt::UserRole+1,
+         assignRole = Qt::UserRole+2, actionRole = Qt::UserRole+3,
+         blankRole = Qt::UserRole+4, separatorRole = Qt::UserRole+5};
+    enum{NameCol = 0, KeyCol = 1, AssignCol = 2, SeparatorCol = 3};
+    enum{DataCol = 0};
+};
+
+//==============================================================================
+/// Делегат для редактирования ячейки привязки (в настройках горячих клавиш)
+//==============================================================================
+
+#include <QItemDelegate>
+
+class AssignDelegate : public QItemDelegate
+{
+    Q_OBJECT
+public:
+    AssignDelegate(QObject *parent = 0);
+    QWidget *createEditor (QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    void setEditorData(QWidget *editor, const QModelIndex &index) const;
+private slots:
+  void commitAndCloseEditor();
+private:
+  bool eventFilter(QObject*, QEvent*);
+};
 #endif

@@ -186,6 +186,8 @@ bool MKTable::loadConfiguration( const QDomDocument &doc )
 */
  }
 
+ loadShortCuts(doc);
+
  QDomNodeList script_list = root.elementsByTagName("SettingsSheet");
  if( script_list.count() )
  { setSettingsSheet( script_list.item(0).toElement().text() );
@@ -196,7 +198,75 @@ bool MKTable::loadConfiguration( const QDomDocument &doc )
  setMode( MKTable::Edit );
  return true;
 }
+//==============================================================================
+//
+//==============================================================================
+void MKTable::loadShortCuts(const QDomDocument &doc_table)
+{
+    QDomElement root = doc_table.documentElement();
+    QDomNodeList shortcut_list = root.elementsByTagName("ShortCut");
+    QDomElement element;
+    QDomDocument doc;
 
+    for(int i=0; i < shortcut_list.count(); i++)
+    {
+        element = shortcut_list.item(i).toElement();
+
+        ShortCut *sc;
+        QDomElement shortcut_item = doc.createElement("ShortCut");
+
+        if(element.attribute("Action") == "CopyToClipBoard")
+        {
+
+            if(element.attribute("Assign").contains(';'))
+            {
+                sc = new ShortCut(ShortCut::CopyToClipBoard,
+                                  element.attribute("KeyCode").toInt(),
+                                  element.attribute("KeyName"),
+                                  element.attribute("Assign"),
+                                  element.attribute("Separator"));
+            }
+            else
+            {
+                sc = new ShortCut(ShortCut::CopyToClipBoard,
+                                  element.attribute("KeyCode").toInt(),
+                                  element.attribute("KeyName"),
+                                  element.attribute("Assign"));
+            }
+
+            hotkey.insert(element.attribute("KeyCode").toInt(), sc);
+        }
+        else if(element.attribute("Action") == "WriteValue")
+        {
+            if(element.attribute("Name") == "Записать 0")
+            {
+                sc = new ShortCut(ShortCut::WriteValue,
+                                  element.attribute("KeyCode").toInt(),
+                                  element.attribute("KeyName"),
+                                  element.attribute("Assign"), 0);
+                hotkey.insert(element.attribute("KeyCode").toInt(), sc);
+            }
+            else if(element.attribute("Name") == "Записать 1")
+            {
+
+                sc = new ShortCut(ShortCut::WriteValue,
+                                  element.attribute("KeyCode").toInt(),
+                                  element.attribute("KeyName"),
+                                  element.attribute("Assign"), 1);
+                hotkey.insert(element.attribute("KeyCode").toInt(), sc);
+            }
+        }
+
+        shortcut_item.setAttribute("Name", element.attribute("Name"));
+        shortcut_item.setAttribute("KeyCode", element.attribute("KeyCode"));
+        shortcut_item.setAttribute("KeyName", element.attribute("KeyName"));
+        shortcut_item.setAttribute("Action", element.attribute("Action"));
+        shortcut_item.setAttribute("Separator", element.attribute("Separator"));
+        shortcut_item.setAttribute("Assign", element.attribute("Assign"));
+
+        shortcutList.append(shortcut_item);
+    }
+}
 //==============================================================================
 //
 //==============================================================================
@@ -221,6 +291,12 @@ void MKTable::saveConfiguration( QDomDocument &doc )
  tag_table.setAttribute("RowCount",    rowCount() );
  tag_table.setAttribute("Labels",      sl.join(";") );
  tag_table.setAttribute("LabelsSize",  str );
+
+ for(int i=0; i < shortcutList.size(); i++)
+ {
+    tag_table.appendChild(shortcutList.at(i));
+ }
+
  doc.appendChild(tag_table);
 
  QDomElement tag_item;
@@ -648,6 +724,39 @@ void MKTable::mouseDoubleClickEvent( QMouseEvent *event )
 //==============================================================================
 void MKTable::keyPressEvent( QKeyEvent *event )
 {
+  if(hotkey.contains(event->key()))
+  {
+     ShortCut *sc = hotkey.value(event->key());
+
+     if(sc->keyName().isEmpty())
+     {
+        QTableWidget::keyPressEvent(event);
+        return;
+     }
+
+     switch(sc->actionType())
+     {
+       case ShortCut::CopyToClipBoard:
+       {
+          QString str;
+          for(int i=0; i < sc->assign().size(); i +=3)
+          {
+             if(i) str += sc->separateSymbol();
+               str +=  mbmaster->getSlotValue(sc->assign().at(i), sc->assign().at(i+1), sc->assign().at(i+2)).toString();
+          }
+          QApplication::clipboard()->setText(str);
+        }
+        break;
+        case ShortCut::WriteValue:
+        {
+           mbmaster->setSlotValue(sc->assign().at(0), sc->assign().at(1), sc->assign().at(2), MMValue::fromInt(sc->variant()));
+           refresh();
+        }
+        break;
+        default:break;
+      }
+    }
+
   int mm,ss,ii,i,val;
   bool ok;
 

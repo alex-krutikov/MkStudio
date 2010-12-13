@@ -21,7 +21,8 @@ HEADERS = mbconfigwidget.h \
     slotwidget.h \
     slotconfigtableview.h \
     scaledraw.h \
-    mkpicker.h
+    mkpicker.h \
+    shortcut.h
 SOURCES = mbconfigwidget.cpp \
     mbmasterwidget.cpp \
     consolewidget.cpp \
