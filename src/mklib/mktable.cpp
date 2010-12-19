@@ -41,8 +41,6 @@ MKTable::MKTable( QWidget *parent )
   verticalHeader()  ->setClickable( false );
 
   connect(&timer, SIGNAL(timeout()), this, SLOT(refresh()));
-  connect( this, SIGNAL(currentItemChanged(QTableWidgetItem*,QTableWidgetItem*)),
-           this, SLOT(slotSetConfirmEditFlag(QTableWidgetItem*)               ));
 
   setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
   setSelectionMode( QAbstractItemView::ExtendedSelection );
@@ -119,7 +117,6 @@ bool MKTable::loadConfiguration( const QDomDocument &doc )
  int i,row,col;
  QTableWidgetItem *titem;
  QString str;
- QString confirm;
  QFont fnt;
  QDomElement element;
  QColor color;
@@ -171,11 +168,13 @@ bool MKTable::loadConfiguration( const QDomDocument &doc )
    if( !str.isEmpty() )
    { titem->setData( SSSelectorRole, str );
    }
-   confirm = element.attribute("SSConfirmEdit");
-   titem->setData( SSConfirmEditRole, confirm );
+   str = element.attribute("SSConfirmEdit","0");
+   if( str.isEmpty() ) str = "0";
+   titem->setData( SSConfirmEditRole, str );
 
    str = element.attribute("RecorderParams");
    if( !str.isEmpty() ) titem->setData( RecorderParamsRole, str );
+
    setItem( row,col,titem );
 /*
    // ÍÅÏÎÍßÒÊÈ Ñ ÎÁÚÅÄÈÍÅÍÈÅÌ ß×ÅÅÊ
@@ -185,7 +184,6 @@ bool MKTable::loadConfiguration( const QDomDocument &doc )
    if((rowSpan(row,col)==1)&&(columnSpan(row,col)==1)&&(( row_span > 1 )||( col_span > 1 ))) setSpan(row,col,row_span,col_span);
 */
  }
-
  loadShortCuts(doc);
 
  QDomNodeList script_list = root.elementsByTagName("SettingsSheet");
@@ -703,7 +701,8 @@ void MKTable::mouseReleaseEvent( QMouseEvent *event )
   { if( event->button() == Qt::LeftButton )
     { QTableWidgetItem *titem = itemAt( event->pos() );
       if( titem )
-      { editItem( titem );
+      { currentItemConfirmEdit = titem->data( MKTable::SSConfirmEditRole ).toBool();
+        editItem( titem );
       }
     }
   }
@@ -1019,13 +1018,6 @@ void MKTable::slotPlotClose()
 //==============================================================================
 void MKTable::slotPlotOpen()
 { plots_count++;
-}
-//==============================================================================
-//
-//==============================================================================
-void MKTable::slotSetConfirmEditFlag(QTableWidgetItem *item)
-{
-  currentItemConfirmEdit = item->data( MKTable::SSConfirmEditRole ).toBool();
 }
 //##############################################################################
 //
