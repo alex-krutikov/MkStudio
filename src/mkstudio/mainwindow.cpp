@@ -228,6 +228,7 @@ bool MainWindow::load_conf( const QString &filename )
 
  action_shortcuts->setEnabled(true);
 
+
  return true;
 }
 
@@ -1559,7 +1560,7 @@ void MainWindow::closeEvent ( QCloseEvent * event )
 //==============================================================================
 ///
 //==============================================================================
-void MainWindow::on_action_shortcuts_activated()
+void MainWindow::on_action_shortcuts_triggered()
 {
     ShortCutsDialog dialog(this, current_config_filename);
 
