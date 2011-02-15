@@ -289,7 +289,7 @@ static void xfile_print_error( XFiles::Result res )
 bool sync_file(const QString filename, const int filesize, const QString &path )
 {
   QByteArray ba;
-  XFiles::Result res;
+  XFiles::Result res = XFiles::Ok;
   XFilesFileInfo xfi;
   bool ok;
   int id,j=0,len;
@@ -413,7 +413,7 @@ bool process_dir( QString path )
 
   //--- чтение содержимого каталога
   int id;
-  XFiles::Result res;
+  XFiles::Result res = XFiles::Ok;
   QList<XFilesFileInfo> flist;
 
   int rep = repeats;
@@ -463,7 +463,7 @@ bool process_dir( QString path )
 //=============================================================================
 static int fast_sync_date( const QDate &date, const QString &ext )
 {
-  XFiles::Result res;
+  XFiles::Result res = XFiles::Ok;
   XFilesFileInfo fi;
 
   QString path = date.toString("yyMM/");
@@ -500,7 +500,7 @@ static int fast_sync()
 {
     QByteArray ba;
     ba.resize(7);
-  int i;
+  int i = 0;
 
   QDate date;
   while( daysbefore >= 0 )

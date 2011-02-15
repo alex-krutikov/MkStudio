@@ -8,13 +8,13 @@ class ShortCut
 public:
     enum {WriteValue, CopyToClipBoard};
     ShortCut(int ActionType, int KeyCode, QString KeyName, QString Assigns, int Value)
-        : type(ActionType), key(KeyCode), name(KeyName), value(Value) {setAssigns(Assigns);}
+        : type(ActionType), key(KeyCode), value(Value), name(KeyName) {setAssigns(Assigns);}
 
     ShortCut(int ActionType, int KeyCode, QString KeyName, QString Assigns)
-        : type(ActionType), key(KeyCode),  name(KeyName) {setAssigns(Assigns);}
+        : type(ActionType), key(KeyCode), value(0), name(KeyName) {setAssigns(Assigns);}
 
     ShortCut(int ActionType, int KeyCode, QString KeyName, QString Assigns, QString Separator)
-        : type(ActionType), key(KeyCode),  name(KeyName) {setAssigns(Assigns); setSeparator(Separator);}
+        : type(ActionType), key(KeyCode), value(0), name(KeyName) {setAssigns(Assigns); setSeparator(Separator);}
 
     int actionType() {return type;}
     int keyCode() {return key;}

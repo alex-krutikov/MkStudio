@@ -3,12 +3,16 @@
 
 #include <QTimer>
 #include <QWidget>
+#include <QFile>
+#include <QTextStream>
+#include <QDialog>
 
 #include "mk_global.h"
 #include "mkpicker.h"
 
 #include <qwt_plot_curve.h>
 #include <qwt_plot_grid.h>
+
 class MBMasterXML;
 class QTimerEvent;
 class QTableWidgetItem;

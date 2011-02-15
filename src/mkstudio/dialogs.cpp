@@ -678,6 +678,9 @@ AssignDelegate::AssignDelegate(QObject *parent) : QItemDelegate(parent)
 //==============================================================================
 QWidget * AssignDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    Q_UNUSED(option);
+    Q_UNUSED(index);
+
     QLineEdit *line = new QLineEdit(parent);
     QRegExpValidator *AssignExp = new QRegExpValidator(QRegExp("(\\d+)(\\/)(\\d+)(\\/)([1-9]\\d+)"), parent);
     line->setValidator(AssignExp);

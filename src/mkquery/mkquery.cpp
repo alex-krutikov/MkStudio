@@ -284,7 +284,7 @@ bool read_data()
 {
   QByteArray req,ans;
 
-  int len=0,tr=0,i,j,rplen,dataoff;
+  int len=0,tr=0,i,j,rplen=0,dataoff=0;
 
   switch( data_type )
   { case( Bits   ): len = ((data_count-1)/8)+1; break;

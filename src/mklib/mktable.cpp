@@ -864,7 +864,7 @@ cycle_begin:
             foreach(me, m)
             {
               if( me.key == value.toInt()
-                  || me.key == value.toUInt() )
+                  || (unsigned int)me.key == value.toUInt() )
               {
                 strValue = me.value;
                 break;

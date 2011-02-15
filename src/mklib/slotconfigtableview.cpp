@@ -30,6 +30,8 @@ MBConfigWidgetItemDelegate::MBConfigWidgetItemDelegate( QWidget *parent )
 QWidget* MBConfigWidgetItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option,
                                             const QModelIndex &index ) const
 {
+  Q_UNUSED(option);
+
   if( index.data(Qt::DisplayRole).toString().isEmpty() ) return 0;  //no need to show editor in such case
 
   QComboBox *w = new QComboBox(parent);

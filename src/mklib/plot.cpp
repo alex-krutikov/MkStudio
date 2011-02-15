@@ -888,7 +888,7 @@ void Plot::timerEvent( QTimerEvent *event )
 
    // масштабирование
    double koeff = 1.0;
-   double y_mn, y_mx;
+   double y_mn = 0, y_mx = 0;
    int plot_index;
    plot_index = ui->cb_plot_stat->currentIndex();
    if( plots_count > 1 && ui->cb_use_match->isChecked() )
@@ -1147,9 +1147,9 @@ bool Plot::save_recorder_params()
   { twi->setData( MKTable::RecorderParamsRole, params + isr_params.at(isr) );
     isr++;
   }
-  return true;
 }
- QT_CATCH(...){}
+ QT_CATCH(...){ return false; }
+ return true;
 }
 //==============================================================================
 //
