@@ -7,6 +7,8 @@ VER_MIN      = 2
 VER_PAT      = 1
 VERSION      = $${VER_MAJ}.$${VER_MIN}.$${VER_PAT}
 
+QT += widgets
+
 unix {
     INSTALLBASE    = /usr/local/qwt-$$VERSION-svn
 }

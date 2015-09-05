@@ -8,7 +8,7 @@ DESTDIR = $${MKROOT}/bin
 
 include( $${MKROOT}/src/modbuslib.pri )
 
-QT += network
+QT += widgets network
 
 CONFIG -= exceptions rtti
 

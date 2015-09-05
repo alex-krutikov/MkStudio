@@ -1,6 +1,8 @@
 #include <QtGui>
 #include <QDomDocument>
 
+#include <QMessageBox>
+
 #include "slotwidget.h"
 #include "mbmasterxml.h"
 #include "console.h"

@@ -8,6 +8,8 @@
 
 #include<QtGui>
 
+#include <QTableWidgetItem>
+
 class InfoLabel;
 
 struct TableClipboardItem

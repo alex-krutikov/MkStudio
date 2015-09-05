@@ -1,5 +1,7 @@
 #include <QtGui>
 
+#include <QComboBox>
+
 #include "slotconfigtableview.h"
 #include "mbcommon.h"
 

@@ -1,5 +1,7 @@
 #include <QtGui>
 
+#include <QScrollBar>
+
 #include "consolewidget.h"
 #include "console.h"
 

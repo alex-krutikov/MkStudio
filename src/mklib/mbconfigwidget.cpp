@@ -1,6 +1,9 @@
 #include <QtGui>
 #include <QtXml>
 
+#include <QMenu>
+#include <QMessageBox>
+
 #include "mbconfigwidget.h"
 #include "ui_mbconfigwidget.h"
 
@@ -99,7 +102,6 @@ MBConfigWidget::MBConfigWidget( QWidget *parent )
   ui->tw1->setModel( &d->modules_model );
   ui->tw1->horizontalHeader()->setStretchLastSection( true );
   ui->tw1->horizontalHeader()->resizeSections( QHeaderView::ResizeToContents );
-  ui->tw1->horizontalHeader()->setClickable( false );
   connect( ui->tw1->selectionModel(),
           SIGNAL( currentRowChanged(const QModelIndex&, const QModelIndex&) ),
           this,
@@ -114,7 +116,6 @@ MBConfigWidget::MBConfigWidget( QWidget *parent )
   ui->tw2->setModel( &d->slots_model );
   ui->tw2->horizontalHeader()->setStretchLastSection( true );
   ui->tw2->horizontalHeader()->resizeSections( QHeaderView::ResizeToContents );
-  ui->tw2->horizontalHeader()->setClickable( false );
 
   MBConfigWidgetItemDelegate* delegate = new MBConfigWidgetItemDelegate(this);
   connect(ui->tw2, SIGNAL(clicked(QModelIndex)), ui->tw2, SLOT(handleClick(QModelIndex)));
@@ -501,7 +502,8 @@ ok:
 //===================================================================
 void ModulesModel::refresh()
 {
-  reset();
+  beginResetModel();
+  endResetModel();
 }
 
 //###################################################################
@@ -705,5 +707,6 @@ ok:
 void SlotsModel::set_current_module( int i )
 {
   current_module=i;
-  reset();
+  beginResetModel();
+  endResetModel();
 }

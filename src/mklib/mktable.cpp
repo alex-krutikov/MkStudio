@@ -1,6 +1,12 @@
 #include <QtGui>
 #include <QtXml>
 
+#include <QApplication>
+#include <QHeaderView>
+#include <QLineEdit>
+#include <QMessageBox>
+#include <QMenu>
+
 #include "mktable.h"
 #include "mktable_p.h"
 #include "plot.h"
@@ -37,8 +43,6 @@ MKTable::MKTable( QWidget *parent )
   setHorizontalScrollMode( QAbstractItemView::ScrollPerPixel );
   verticalHeader()->setDefaultSectionSize(font().pointSize()+11);
   verticalHeader()->hide();
-  horizontalHeader()->setClickable( false );
-  verticalHeader()  ->setClickable( false );
 
   connect(&timer, SIGNAL(timeout()), this, SLOT(refresh()));
 
@@ -966,7 +970,7 @@ QString MKTable::format_output( const MMValue &value, const MBDataType &datatype
       { bs[2+k] = (j&mask) ? '1' : '0';
         mask >>= 1;
       }
-      return QString::fromAscii(bs,i+2);
+      return QString::fromLatin1(bs,i+2);
   }
 
 next:
@@ -1187,7 +1191,7 @@ void MKTableItemDelegate::setModelData ( QWidget *editor, QAbstractItemModel *mo
     } else if( str.startsWith("\'") )
     { QChar c;
       if( str.size()>1 ) c=str[1];
-      var = c.toAscii();
+      var = c.toLatin1();
     } else
     { var = str;
     }

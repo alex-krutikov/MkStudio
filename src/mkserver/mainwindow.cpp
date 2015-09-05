@@ -1,6 +1,8 @@
 #include <QtGui>
 #include <QtNetwork>
 
+#include <QScrollBar>
+
 #include "mainwindow.h"
 #include "main.h"
 #include "mbtcpserver.h"

@@ -65,7 +65,6 @@ MBMasterWidget::MBMasterWidget( QWidget *parent )
   ui->tw->setModel( mbmodel );
   ui->tw->horizontalHeader()->setStretchLastSection( true );
   ui->tw->horizontalHeader()->resizeSections( QHeaderView::ResizeToContents );
-  ui->tw->horizontalHeader()->setClickable( false );
 }
 
 //==============================================================================
@@ -395,8 +394,8 @@ void MBMasterWidgetTableModel::update_slots( MBMasterXML *mm )
     ss.desc     = mm->d->mmslots[i].desc;
     table << ss;
   }
-  reset();
-
+  beginResetModel();
+  endResetModel();
 }
 
 //==============================================================================

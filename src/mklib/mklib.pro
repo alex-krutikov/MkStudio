@@ -3,7 +3,7 @@ include( $${MKROOT}/mk.pri )
 TEMPLATE = lib
 TARGET = mklib$${SUFFIX_STR}
 DESTDIR = $${MKROOT}/lib
-QT += xml
+QT += xml widgets
 CONFIG -= rtti \
     exceptions
 CONFIG += static

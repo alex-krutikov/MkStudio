@@ -1,6 +1,9 @@
 #include <QtGui>
 #include <QtXml>
 
+#include <QCompleter>
+#include <QMessageBox>
+
 #include <qwt_painter.h>
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_marker.h>
@@ -256,7 +259,6 @@ UnitedSlots::UnitedSlots( QWidget *parent )
   tw->setHorizontalHeaderLabels( QStringList() << "Цвет" << "Слот" );
   tw->horizontalHeader()->resizeSection(  0 , 50 );
   tw->horizontalHeader()->setStretchLastSection( true );
-  tw->horizontalHeader()->setClickable( false );
   tw->verticalHeader()->hide();
   tw->setRowCount(curves_num);
 

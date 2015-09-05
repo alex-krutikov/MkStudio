@@ -11,7 +11,7 @@ include( $${MKROOT}/src/modbuslib.pri )
 include( $${MKROOT}/src/mklib.pri )
 include( $${MKROOT}/src/qwt.pri )
 
-QT      += xml network
+QT      += xml widgets network
 
 PRECOMPILED_HEADER = pch.h
 

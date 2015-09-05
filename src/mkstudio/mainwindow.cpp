@@ -1,6 +1,12 @@
 #include <QtGui>
 #include <QtXml>
 
+#include <QColorDialog>
+#include <QFileDialog>
+#include <QInputDialog>
+#include <QMessageBox>
+#include <QShortcut>
+
 #include "main.h"
 #include "mainwindow.h"
 #include "dialogs.h"
@@ -135,7 +141,7 @@ MainWindow::MainWindow()
 void MainWindow::on_action_tw_rows_triggered()
 {
   bool ok;
-  int i = QInputDialog::getInteger( this, app_header, "Количество строк:",
+  int i = QInputDialog::getInt( this, app_header, "Количество строк:",
                  tw->rowCount(), 0, 1000, 1,&ok );
   if( ok ) tw->setRowCount( i );
   fill_empty_items();
@@ -148,7 +154,7 @@ void MainWindow::on_action_tw_rows_triggered()
 void MainWindow::on_action_tw_columns_triggered()
 {
   bool ok;
-  int i = QInputDialog::getInteger( this, app_header, "Количество столбцов:",
+  int i = QInputDialog::getInt( this, app_header, "Количество столбцов:",
                  tw->columnCount(), 0, 1000, 1,&ok );
   if( ok ) tw->setColumnCount( i );
   fill_empty_items();

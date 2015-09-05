@@ -1,5 +1,7 @@
 #include <QtGui>
 
+#include <QMessageBox>
+
 #include "mainwindow.h"
 #include "consolewidget.h"
 #include "main.h"
@@ -25,8 +27,6 @@ int main(int argc, char *argv[])
 #endif
 
   QApplication application( argc, argv);
-  QTextCodec::setCodecForTr(QTextCodec::codecForName("Windows-1251"));
-  QTextCodec::setCodecForCStrings(QTextCodec::codecForName("Windows-1251"));
 
   QTranslator *qt_translator = new QTranslator;
   if ( qt_translator->load( ":tr/qt_ru.qm" ) )

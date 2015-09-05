@@ -1,5 +1,9 @@
 #include <QtGui>
 #include <QtXml>
+
+#include <QDesktopWidget>
+#include <QMessageBox>
+
 #include "mainwindow.h"
 #include "main.h"
 #include "interface.h"

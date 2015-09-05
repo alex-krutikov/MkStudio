@@ -25,7 +25,7 @@ class MKTableItemDelegate;
 class MK_EXPORT MKTable : public QTableWidget
 {
   Q_OBJECT
-  Q_ENUMS(ShortCut::SCut)
+  // ???? Q_ENUMS(ShortCut::SCut)
   friend class MKTableItemDelegate;
 public:
   enum Mode { Edit = 0, Polling };

@@ -78,7 +78,7 @@ bool SerialPortPrivate::open()
   
   if( GetVersion() & 0x80000000 )
   { // Windows 9X
-    hport = CreateFileA( ("\\\\.\\"+sp->portname).toAscii(),
+    hport = CreateFileA( ("\\\\.\\"+sp->portname).toLatin1(),
                     GENERIC_READ|GENERIC_WRITE,
                     0,NULL,OPEN_EXISTING,0,NULL );
 

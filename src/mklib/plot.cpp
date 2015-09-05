@@ -1,6 +1,9 @@
 #include <QtGui>
 #include <QtXml>
 
+#include <QFileDialog>
+#include <QMessageBox>
+
 #include "ui_plot.h"
 #include "ui_plotisrdialog.h"
 #include "plot.h"

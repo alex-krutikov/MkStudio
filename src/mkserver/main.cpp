@@ -25,9 +25,6 @@ int main(int argc, char *argv[])
     { QApplication::installTranslator( qt_translator );
     }
 
-    QTextCodec::setCodecForTr(       QTextCodec::codecForName("Windows-1251"));
-    QTextCodec::setCodecForCStrings( QTextCodec::codecForName("Windows-1251"));
-
     app_header = "Modbus TCP Server";
 
     Console::setMessageTypes( Console::AllTypes );
