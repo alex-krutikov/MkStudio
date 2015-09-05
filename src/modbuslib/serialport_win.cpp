@@ -17,7 +17,7 @@ extern "C" WINUSERAPI HDEVNOTIFY WINAPI RegisterDeviceNotificationW(HANDLE,LPVOI
 extern "C" WINUSERAPI BOOL WINAPI UnregisterDeviceNotification(HANDLE);
 
 //===================================================================
-// Оконная функция
+// РћРєРѕРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ
 //===================================================================
 LRESULT CALLBACK SerialPortWndProc(HWND hwnd, UINT Message, WPARAM wparam,LPARAM lparam)
 {
@@ -30,7 +30,7 @@ LRESULT CALLBACK SerialPortWndProc(HWND hwnd, UINT Message, WPARAM wparam,LPARAM
 }
 
 //===================================================================
-// Инициализация
+// РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ
 //===================================================================
 SerialPortPrivate::SerialPortPrivate( SerialPort *sp_arg )
   : sp( sp_arg )
@@ -59,7 +59,7 @@ SerialPortPrivate::SerialPortPrivate( SerialPort *sp_arg )
 }
 
 //===================================================================
-// Завершение
+// Р—Р°РІРµСЂС€РµРЅРёРµ
 //===================================================================
 SerialPortPrivate::~SerialPortPrivate()
 {
@@ -68,7 +68,7 @@ SerialPortPrivate::~SerialPortPrivate()
 }
 
 //===================================================================
-// Открытие порта
+// РћС‚РєСЂС‹С‚РёРµ РїРѕСЂС‚Р°
 //===================================================================
 bool SerialPortPrivate::open()
 {
@@ -99,13 +99,13 @@ bool SerialPortPrivate::open()
     return false;
   }
 
-  // Инициализируем COM-порт.
+  // РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј COM-РїРѕСЂС‚.
   DCB dcb;
   memset( &dcb, 0, sizeof( dcb) );
   dcb.DCBlength=sizeof(DCB);
   dcb.BaudRate=sp->portspeed;
-  dcb.fBinary=1; //8 бит.
-  dcb.fParity=0; // без паритета.
+  dcb.fBinary=1; //8 Р±РёС‚.
+  dcb.fParity=0; // Р±РµР· РїР°СЂРёС‚РµС‚Р°.
   dcb.fOutxCtsFlow=0;
   dcb.fOutxDsrFlow=0;
   dcb.fDtrControl=DTR_CONTROL_DISABLE;
@@ -123,7 +123,7 @@ bool SerialPortPrivate::open()
   dcb.XonLim=100;
   dcb.XoffLim=10;
   dcb.ByteSize=8;
-  dcb.StopBits=0;	// 1 стоп.
+  dcb.StopBits=0;	// 1 СЃС‚РѕРї.
 
   if(!SetCommState(hport,&dcb))
   {	CloseHandle(hport);
@@ -132,23 +132,23 @@ bool SerialPortPrivate::open()
 	  return false;
   }
 
-  // Устанавливаем таймауты.
+  // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј С‚Р°Р№РјР°СѓС‚С‹.
   COMMTIMEOUTS ct;
   memset( &ct, 0 , sizeof(ct) );
   ct.ReadTotalTimeoutConstant = sp->current_answer_timeout;
   SetCommTimeouts(hport,&ct);
 
-  // Сбрасываем порт.
+  // РЎР±СЂР°СЃС‹РІР°РµРј РїРѕСЂС‚.
   PurgeComm(hport,PURGE_TXCLEAR|PURGE_RXCLEAR);
 
-  // Устанавливаем размер буферов приема и передачи.
+  // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЂР°Р·РјРµСЂ Р±СѓС„РµСЂРѕРІ РїСЂРёРµРјР° Рё РїРµСЂРµРґР°С‡Рё.
   SetupComm(hport,512,512);
 
   return true;
 }
 
 //===================================================================
-// Переоткрытие порта
+// РџРµСЂРµРѕС‚РєСЂС‹С‚РёРµ РїРѕСЂС‚Р°
 //===================================================================
 bool SerialPortPrivate::reopen()
 {
@@ -157,7 +157,7 @@ bool SerialPortPrivate::reopen()
 }
 
 //===================================================================
-// Закрытие порта
+// Р—Р°РєСЂС‹С‚РёРµ РїРѕСЂС‚Р°
 //===================================================================
 void SerialPortPrivate::close()
 {
@@ -169,7 +169,7 @@ void SerialPortPrivate::close()
 }
 
 //===================================================================
-// Посылка запроса и получение ответа MODBUS RTU
+// РџРѕСЃС‹Р»РєР° Р·Р°РїСЂРѕСЃР° Рё РїРѕР»СѓС‡РµРЅРёРµ РѕС‚РІРµС‚Р° MODBUS RTU
 //===================================================================
 int SerialPortPrivate::query( const QByteArray &request,
                                   QByteArray &answer, int *errorcode)
@@ -196,10 +196,10 @@ int SerialPortPrivate::query( const QByteArray &request,
 
   Console::Print( Console::ModbusPacket, "MODBUS: Request: "+QByteArray2QString( request )+"\n");
 
-  // задержка перед запросом 4 байтовых интервала на выбранной скорости
+  // Р·Р°РґРµСЂР¶РєР° РїРµСЂРµРґ Р·Р°РїСЂРѕСЃРѕРј 4 Р±Р°Р№С‚РѕРІС‹С… РёРЅС‚РµСЂРІР°Р»Р° РЅР° РІС‹Р±СЂР°РЅРЅРѕР№ СЃРєРѕСЂРѕСЃС‚Рё
   usleep((8 * 10 * 1000000 / sp->speed()));
 
-  // запрос
+  // Р·Р°РїСЂРѕСЃ
   ok = WriteFile( hport, request.data(), request.length(),  &j, 0 );
   if(!ok)
   { if( last_error_id != 2 )
@@ -213,7 +213,7 @@ int SerialPortPrivate::query( const QByteArray &request,
     return 0;
   }
 
-  // ответ: чтение первых 5 байт
+  // РѕС‚РІРµС‚: С‡С‚РµРЅРёРµ РїРµСЂРІС‹С… 5 Р±Р°Р№С‚
   answer_size = answer.length();
   if(errorcode) *errorcode=0;
   if( !answer_size && sp->portname.contains("COM") )
@@ -235,7 +235,7 @@ int SerialPortPrivate::query( const QByteArray &request,
     if((i==5)&&(answer[1]&0x80)) goto error1;
     if(i==0) goto error2;
   }
-  // ответ: чтение оставшихся байт
+  // РѕС‚РІРµС‚: С‡С‚РµРЅРёРµ РѕСЃС‚Р°РІС€РёС…СЃСЏ Р±Р°Р№С‚
   j=i;
   while(1)
   { ok = ReadFile( hport, answer.data()+j, answer_size-j, &i, 0 );
@@ -251,7 +251,7 @@ int SerialPortPrivate::query( const QByteArray &request,
     if( j == answer_size ) break;
   }
 
-  // анализ ошибок
+  // Р°РЅР°Р»РёР· РѕС€РёР±РѕРє
   if( j == 0 )                goto error2;
   else if(j != answer_size )  goto error3;
 
@@ -290,7 +290,7 @@ error3:
 }
 
 //===================================================================
-// Посылка запроса и получение ответа (протокол XBee)
+// РџРѕСЃС‹Р»РєР° Р·Р°РїСЂРѕСЃР° Рё РїРѕР»СѓС‡РµРЅРёРµ РѕС‚РІРµС‚Р° (РїСЂРѕС‚РѕРєРѕР» XBee)
 //===================================================================
 int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
                                        int *errorcode, int xbee_addr )
@@ -302,7 +302,7 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
   int i,a;
   DWORD j;
 
-  // подготовка порта
+  // РїРѕРґРіРѕС‚РѕРІРєР° РїРѕСЂС‚Р°
 
   if( hport == 0 )
   { reopen();
@@ -321,7 +321,7 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
 
   PurgeComm(hport,PURGE_TXCLEAR|PURGE_RXCLEAR);
 
-  // подготовка данных
+  // РїРѕРґРіРѕС‚РѕРІРєР° РґР°РЅРЅС‹С…
 
   QByteArray ba;
   ba.resize(8);
@@ -345,10 +345,10 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
 
   Console::Print( Console::ModbusPacket, "XBEE: Request: "+QByteArray2QString( ba )+"\n");
 
-  // задержка перед запросом 8 байтовых интервалов на выбранной скорости
+  // Р·Р°РґРµСЂР¶РєР° РїРµСЂРµРґ Р·Р°РїСЂРѕСЃРѕРј 8 Р±Р°Р№С‚РѕРІС‹С… РёРЅС‚РµСЂРІР°Р»РѕРІ РЅР° РІС‹Р±СЂР°РЅРЅРѕР№ СЃРєРѕСЂРѕСЃС‚Рё
   usleep((8 * 10 * 1000000 / sp->speed()));
 
-  // запрос
+  // Р·Р°РїСЂРѕСЃ
   ok = WriteFile( hport, ba.data(), ba.length(),  &j, 0 );
   if(!ok)
   { if( last_error_id != 2 )
@@ -362,9 +362,9 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
     return 0;
   }
 
-  // ответ
+  // РѕС‚РІРµС‚
 
-  ba.resize( 3 ); // первые три байта ответа
+  ba.resize( 3 ); // РїРµСЂРІС‹Рµ С‚СЂРё Р±Р°Р№С‚Р° РѕС‚РІРµС‚Р°
   i=0;
 
   while(1)
@@ -381,7 +381,7 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
     if( i == ba.size() ) break;
   }
 
-  // анализ первых байт
+  // Р°РЅР°Р»РёР· РїРµСЂРІС‹С… Р±Р°Р№С‚
 
   if( i != 3 )
   { Console::Print( Console::Error, "XBEE: ERROR: No answer.\n" );
@@ -393,7 +393,7 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
     return 0;
   }
 
-  // дочтение остальных данных
+  // РґРѕС‡С‚РµРЅРёРµ РѕСЃС‚Р°Р»СЊРЅС‹С… РґР°РЅРЅС‹С…
 
   a = ( (unsigned char)ba[1] << 8 ) | (unsigned char)ba[2];
   ba.resize( ba.size() + a + 1 );
@@ -412,7 +412,7 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
     if( i == ba.size() ) break;
   }
 
-  // анализ XBee CRC
+  // Р°РЅР°Р»РёР· XBee CRC
 
   a = ba.size();
   crc=0;
@@ -422,7 +422,7 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
     return 0;
   }
 
-  // подготовка ответа
+  // РїРѕРґРіРѕС‚РѕРІРєР° РѕС‚РІРµС‚Р°
 
   Console::Print( Console::ModbusPacket, "XBEE: Answer:  "+QByteArray2QString( ba )+"\n");
   ba = ba.mid( 8, a-9 );
@@ -432,7 +432,7 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
 }
 
 //===================================================================
-// Микросекундная задержка
+// РњРёРєСЂРѕСЃРµРєСѓРЅРґРЅР°СЏ Р·Р°РґРµСЂР¶РєР°
 //===================================================================
 void SerialPortPrivate::usleep(DWORD us)
 {
@@ -452,8 +452,8 @@ void SerialPortPrivate::usleep(DWORD us)
 
 
 //===================================================================
-// Поиск присутствующих в системе COM портов
-//  return: список строк в формате [название порта];[описание]
+// РџРѕРёСЃРє РїСЂРёСЃСѓС‚СЃС‚РІСѓСЋС‰РёС… РІ СЃРёСЃС‚РµРјРµ COM РїРѕСЂС‚РѕРІ
+//  return: СЃРїРёСЃРѕРє СЃС‚СЂРѕРє РІ С„РѕСЂРјР°С‚Рµ [РЅР°Р·РІР°РЅРёРµ РїРѕСЂС‚Р°];[РѕРїРёСЃР°РЅРёРµ]
 //===================================================================
 QStringList SerialPortPrivate::queryComPorts()
 {

@@ -31,7 +31,7 @@ ConsoleWidget::~ConsoleWidget()
 }
 
 //===================================================================
-/// Функция таймера
+/// Р¤СѓРЅРєС†РёСЏ С‚Р°Р№РјРµСЂР°
 //===================================================================
 void ConsoleWidget::timerEvent(QTimerEvent * event)
 {
@@ -39,8 +39,8 @@ void ConsoleWidget::timerEvent(QTimerEvent * event)
 
   ui->te->insertPlainText( Console::takeMessage() );
 
-	// лимитирование размера
-	if( div_counter++ > 25 ) // 5 секунд
+	// Р»РёРјРёС‚РёСЂРѕРІР°РЅРёРµ СЂР°Р·РјРµСЂР°
+	if( div_counter++ > 25 ) // 5 СЃРµРєСѓРЅРґ
 	{ div_counter = 0;
 	  QTextDocument *doc = ui->te->document();
 	  if( doc->blockCount() > 10000 )
@@ -48,7 +48,7 @@ void ConsoleWidget::timerEvent(QTimerEvent * event)
 	    doc->setMaximumBlockCount(0);
 	  }
 	}
-	// автопрокрутка
+	// Р°РІС‚РѕРїСЂРѕРєСЂСѓС‚РєР°
   if( ui->bcb_autoscroll->isChecked() )
 	{ QScrollBar *sb = ui->te->verticalScrollBar();
 	  if( ! sb->isSliderDown() )	sb->setValue( sb->maximum() );
@@ -56,7 +56,7 @@ void ConsoleWidget::timerEvent(QTimerEvent * event)
 }
 
 //===================================================================
-/// Очистка консоли
+/// РћС‡РёСЃС‚РєР° РєРѕРЅСЃРѕР»Рё
 //===================================================================
 void ConsoleWidget::on_pb_clear_clicked()
 {

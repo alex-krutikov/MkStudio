@@ -22,7 +22,7 @@ typedef QVector<TableClipboardItem> TableClipboard;
 
 #include "ui_mainwindow.h"
 //==============================================================================
-/// Главное окно
+/// Р“Р»Р°РІРЅРѕРµ РѕРєРЅРѕ
 //==============================================================================
 class MainWindow : public QMainWindow,
                    public Ui::MainWindow

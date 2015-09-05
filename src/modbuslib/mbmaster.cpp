@@ -56,7 +56,7 @@ void MBMasterPrivate::polling_start()
  transactions_write_map.clear();
  request_counter = answer_counter = error_counter = 0;
 
- //--- конфигурация транзакций на чтение -------------------------------------------------
+ //--- РєРѕРЅС„РёРіСѓСЂР°С†РёСЏ С‚СЂР°РЅР·Р°РєС†РёР№ РЅР° С‡С‚РµРЅРёРµ -------------------------------------------------
  for( i=0; i<mmslots.count(); i++ )
  { MMSlot &ps = mmslots[i];
 
@@ -245,7 +245,7 @@ void MBMasterPrivate::polling_start()
    }
  }
 
- //--- конфигурация транзакций на запись -------------------------------------------------
+ //--- РєРѕРЅС„РёРіСѓСЂР°С†РёСЏ С‚СЂР°РЅР·Р°РєС†РёР№ РЅР° Р·Р°РїРёСЃСЊ -------------------------------------------------
  m=0;
  for( i=0; i<mmslots.count(); i++ )
  { MMSlot &ps = mmslots[i];
@@ -347,7 +347,7 @@ void MBMasterPrivate::polling_start()
    }
  }
  //for( i=0; i<transactions_write.count(); i++ )
- //{ Console::Print( Console::Debug, "запись:" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
+ //{ Console::Print( Console::Debug, "Р·Р°РїРёСЃСЊ:" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
  //}
  start( QThread::HighPriority );
 }
@@ -464,10 +464,10 @@ void MBMasterPrivate::run()
   full_time_timer.start();
   full_time=0;
 
-  Console::Print( Console::Information, "Опрос модулей запущен.\n" );
+  Console::Print( Console::Information, "РћРїСЂРѕСЃ РјРѕРґСѓР»РµР№ Р·Р°РїСѓС‰РµРЅ.\n" );
 
   thread_exit_flag = false;
-  while( !thread_exit_flag ) // цикл опроса
+  while( !thread_exit_flag ) // С†РёРєР» РѕРїСЂРѕСЃР°
   {
     if( ( full_time > 100 ) && ( data_request_timer.elapsed() > 3*full_time ) )
     { data_request_timer.restart();
@@ -478,11 +478,11 @@ void MBMasterPrivate::run()
       }
     }
 
-    // транзакции на чтение
+    // С‚СЂР°РЅР·Р°РєС†РёРё РЅР° С‡С‚РµРЅРёРµ
     if( !disable_read_transactions )
     { process_transaction( transactions_read[i] );
     }
-    // обновление состояния опроса
+    // РѕР±РЅРѕРІР»РµРЅРёРµ СЃРѕСЃС‚РѕСЏРЅРёСЏ РѕРїСЂРѕСЃР°
     if( stateChanged_timer.elapsed() > 200 )
     { stateChanged_timer.start();
       int nk = mmslots.count();
@@ -507,17 +507,17 @@ void MBMasterPrivate::run()
     optimize_write_holding_ext();
 
     if( !disable_write_transactions )
-    { // транзакции на запись
+    { // С‚СЂР°РЅР·Р°РєС†РёРё РЅР° Р·Р°РїРёСЃСЊ
       for( j=0; j<transactions_write.count(); j++ )
       { if( !transactions_write[j].execute_flag  ) continue;
         if( process_transaction( transactions_write[j] ) )
         { // OK
           transactions_write[j].execute_flag = false;
         } else
-        { // ОШИБКА
+        { // РћРЁРР‘РљРђ
           if(    (!transactions_write[j].errortimeout)
               && ( transactions_write[j].errorcode != 0) )
-          { // отменяем все транзакции данного слота
+          { // РѕС‚РјРµРЅСЏРµРј РІСЃРµ С‚СЂР°РЅР·Р°РєС†РёРё РґР°РЅРЅРѕРіРѕ СЃР»РѕС‚Р°
             for( k=0; k<transactions_write.count(); k++ )
             { if(  ( transactions_write[k].slot->n        == transactions_write[j].slot->n )
                  &&( transactions_write[k].slot->module.n == transactions_write[j].slot->module.n ) )
@@ -536,9 +536,9 @@ void MBMasterPrivate::run()
     { msleep( 5 );
       if( thread_exit_flag ) break;
     }
-    full_time = full_time_timer.restart(); // полное время опроса
+    full_time = full_time_timer.restart(); // РїРѕР»РЅРѕРµ РІСЂРµРјСЏ РѕРїСЂРѕСЃР°
   }
-  Console::Print( Console::Information, "Опрос модулей остановлен.\n" );
+  Console::Print( Console::Information, "РћРїСЂРѕСЃ РјРѕРґСѓР»РµР№ РѕСЃС‚Р°РЅРѕРІР»РµРЅ.\n" );
 }
 
 //===================================================================
@@ -554,7 +554,7 @@ void MBMasterPrivate::optimize_write()
   flags_array.resize( ni );
   flags_array.fill( 0 );
 
-  // этап 1: анализ
+  // СЌС‚Р°Рї 1: Р°РЅР°Р»РёР·
   k=1;
   for( i=0; i<(ni-1); i++ )
   { if( !transactions_write[i].execute_flag   ) goto skip;
@@ -571,12 +571,12 @@ void MBMasterPrivate::optimize_write()
       addr2 = ( (unsigned char)ba2[3] << 8 ) | (unsigned char)ba2[4];
       len1  = (unsigned char)ba1[5];
       a = ba1[2] & 0x0F;
-      if( a == 0 ) goto skip; // ошибка -- транзакция на чтение
-      if( a == 1 ) // просто запись
+      if( a == 0 ) goto skip; // РѕС€РёР±РєР° -- С‚СЂР°РЅР·Р°РєС†РёСЏ РЅР° С‡С‚РµРЅРёРµ
+      if( a == 1 ) // РїСЂРѕСЃС‚Рѕ Р·Р°РїРёСЃСЊ
       { if( ( addr1 + len1 ) != addr2 ) goto skip;
       } else
-      { // запись по AND,OR,XOR
-        if( (addr1 != addr2) && ( addr1 + len1 ) != addr2 ) goto skip; // ад
+      { // Р·Р°РїРёСЃСЊ РїРѕ AND,OR,XOR
+        if( (addr1 != addr2) && ( addr1 + len1 ) != addr2 ) goto skip; // Р°Рґ
       }
       flags_array[i]   = k;
       flags_array[i+1] = k;
@@ -586,7 +586,7 @@ void MBMasterPrivate::optimize_write()
     k++;
   }
 
-  // этап 2: построение транзакций
+  // СЌС‚Р°Рї 2: РїРѕСЃС‚СЂРѕРµРЅРёРµ С‚СЂР°РЅР·Р°РєС†РёР№
   k=0;
   for( i=0; i<ni; i++ )
   { if( flags_array[i] == 0 ) continue;
@@ -594,7 +594,7 @@ void MBMasterPrivate::optimize_write()
       j = i;
       while( ( j < ni ) && ( flags_array[j] == k ) ) j++;
       j--;
-      //Console::Print( QString("ОПТИМИЗИРОВАННАЯ ЗАПИСЬ [%1;%2] (%3)\n").arg(i).arg(j).arg(k) );
+      //Console::Print( QString("РћРџРўРРњРР—РР РћР’РђРќРќРђРЇ Р—РђРџРРЎР¬ [%1;%2] (%3)\n").arg(i).arg(j).arg(k) );
       optimize_write_transaction( i,j );
       i=j;
     }
@@ -621,27 +621,27 @@ void MBMasterPrivate::optimize_write_transaction(int i1, int i2)
   { QByteArray ba = transactions_write[i].request;
     addr1 = ((unsigned char)ba[3]<<8)|(unsigned char)ba[4];
     len1  =  (unsigned char)ba[5];
-    ba.chop(2); // удаляем CRC16
+    ba.chop(2); // СѓРґР°Р»СЏРµРј CRC16
     for( j=i+1; j<=i2; j++ )
     { QByteArray &ba2 = transactions_write[j].request;
       int s = ba2.size()-8;
-      if( s < 0 ) return; // ошибка
+      if( s < 0 ) return; // РѕС€РёР±РєР°
       addr2 = ((unsigned char)ba2[3]<<8)|(unsigned char)ba2[4];
       len2  =  (unsigned char)ba2[5];
       mode  =  (unsigned char)ba2[2] & 0x0F;
-      if( mode == 0 ) return; // ошибка
+      if( mode == 0 ) return; // РѕС€РёР±РєР°
       if( mode == 1 )
-      { // просто запись
-        if( ( addr1 + len1 ) != addr2 ) return; // ошибка
+      { // РїСЂРѕСЃС‚Рѕ Р·Р°РїРёСЃСЊ
+        if( ( addr1 + len1 ) != addr2 ) return; // РѕС€РёР±РєР°
         ba.append( QByteArray( ba2.constData()+6, s ) );
       } else
-      { // запись по AND,OR,XOR
+      { // Р·Р°РїРёСЃСЊ РїРѕ AND,OR,XOR
         if( ( addr1 + len1 ) == addr2 )
-        { // смежные транзакции -- просто добавляем
+        { // СЃРјРµР¶РЅС‹Рµ С‚СЂР°РЅР·Р°РєС†РёРё -- РїСЂРѕСЃС‚Рѕ РґРѕР±Р°РІР»СЏРµРј
           ba.append( QByteArray( ba2.constData()+6, s ) );
         } else
         { if( addr1 == addr2 )
-          { if( len1 != len2 ) return; // ошибка
+          { if( len1 != len2 ) return; // РѕС€РёР±РєР°
             k1 = ba.size()-len1;
             k2 = 6;
             if( mode == 3 ) // AND
@@ -673,7 +673,7 @@ void MBMasterPrivate::optimize_write_transaction(int i1, int i2)
     request_counter++;
     msleep( transaction_delay );
     transport->query( ba, ba_answer, &errorcode );
-    //Console::Print( "ОПТИМИЗИРОВАННАЯ ЗАПИСЬ: " + QByteArray2QString( ba ) + "\n" );
+    //Console::Print( "РћРџРўРРњРР—РР РћР’РђРќРќРђРЇ Р—РђРџРРЎР¬: " + QByteArray2QString( ba ) + "\n" );
     i = j;
   }
 }
@@ -691,7 +691,7 @@ void MBMasterPrivate::optimize_write_holding()
   flags_array.resize( ni );
   flags_array.fill( 0 );
 
-  // этап 1: анализ
+  // СЌС‚Р°Рї 1: Р°РЅР°Р»РёР·
   k=1;
   for( i=0; i<(ni-1); i++ )
   { if( !transactions_write[i].execute_flag   ) goto skip;
@@ -714,7 +714,7 @@ void MBMasterPrivate::optimize_write_holding()
     k++;
   }
 
-  // этап 2: построение транзакций
+  // СЌС‚Р°Рї 2: РїРѕСЃС‚СЂРѕРµРЅРёРµ С‚СЂР°РЅР·Р°РєС†РёР№
   k=0;
   for( i=0; i<ni; i++ )
   { if( flags_array[i] == 0 ) continue;
@@ -722,7 +722,7 @@ void MBMasterPrivate::optimize_write_holding()
       j = i;
       while( ( j < ni ) && ( flags_array[j] == k ) ) j++;
       j--;
-      //Console::Print( QString("ОПТИМИЗИРОВАННАЯ ЗАПИСЬ [%1;%2] (%3)\n").arg(i).arg(j).arg(k) );
+      //Console::Print( QString("РћРџРўРРњРР—РР РћР’РђРќРќРђРЇ Р—РђРџРРЎР¬ [%1;%2] (%3)\n").arg(i).arg(j).arg(k) );
       optimize_write_transaction_holding( i,j );
       i=j;
     }
@@ -793,7 +793,7 @@ void MBMasterPrivate::optimize_write_holding_ext()
   flags_array.resize( ni );
   flags_array.fill( 0 );
 
-  // этап 1: анализ
+  // СЌС‚Р°Рї 1: Р°РЅР°Р»РёР·
   k=1;
   for( i=0; i<(ni-1); i++ )
   { if( !transactions_write[i].execute_flag   ) goto skip;
@@ -826,7 +826,7 @@ void MBMasterPrivate::optimize_write_holding_ext()
     k++;
   }
 
-  // этап 2: построение транзакций
+  // СЌС‚Р°Рї 2: РїРѕСЃС‚СЂРѕРµРЅРёРµ С‚СЂР°РЅР·Р°РєС†РёР№
   k=0;
   for( i=0; i<ni; i++ )
   { if( flags_array[i] == 0 ) continue;
@@ -834,7 +834,7 @@ void MBMasterPrivate::optimize_write_holding_ext()
       j = i;
       while( ( j < ni ) && ( flags_array[j] == k ) ) j++;
       j--;
-      //Console::Print( Console::Debug, QString("ОПТИМИЗИРОВАННАЯ ЗАПИСЬ [%1;%2] (%3)\n").arg(i).arg(j).arg(k) );
+      //Console::Print( Console::Debug, QString("РћРџРўРРњРР—РР РћР’РђРќРќРђРЇ Р—РђРџРРЎР¬ [%1;%2] (%3)\n").arg(i).arg(j).arg(k) );
       optimize_write_transaction_holding_ext( i,j );
       i=j;
     }
@@ -906,7 +906,7 @@ void MBMasterPrivate::optimize_write_coils()
   flags_array.resize( ni );
   flags_array.fill( 0 );
 
-  // этап 1: анализ
+  // СЌС‚Р°Рї 1: Р°РЅР°Р»РёР·
   k=1;
   for( i=0; i<(ni-1); i++ )
   { if( !transactions_write[i].execute_flag   ) goto skip;
@@ -929,7 +929,7 @@ void MBMasterPrivate::optimize_write_coils()
     k++;
   }
 
-  // этап 2: построение транзакций
+  // СЌС‚Р°Рї 2: РїРѕСЃС‚СЂРѕРµРЅРёРµ С‚СЂР°РЅР·Р°РєС†РёР№
   k=0;
   for( i=0; i<ni; i++ )
   { if( flags_array[i] == 0 ) continue;
@@ -937,7 +937,7 @@ void MBMasterPrivate::optimize_write_coils()
       j = i;
       while( ( j < ni ) && ( flags_array[j] == k ) ) j++;
       j--;
-      //Console::Print( Console::Debug, QString("ОПТИМИЗИРОВАННАЯ ЗАПИСЬ [%1;%2] (%3)\n").arg(i).arg(j).arg(k) );
+      //Console::Print( Console::Debug, QString("РћРџРўРРњРР—РР РћР’РђРќРќРђРЇ Р—РђРџРРЎР¬ [%1;%2] (%3)\n").arg(i).arg(j).arg(k) );
       optimize_write_transaction_coils( i,j );
       i=j;
     }
@@ -1142,17 +1142,17 @@ bool MBMasterPrivate::process_transaction( MMSlotTransaction &tr )
     if( tr.answer[2] != tr.request[2] ) goto exit;
     if( CRC::CRC16( tr.answer ) )       goto exit;
     if( tr.request[2] & 0x0F )
-    { // запись
+    { // Р·Р°РїРёСЃСЊ
       data_offset = 6;
       if( tr.answer[3] != tr.request[3] ) goto exit;
       if( tr.answer[4] != tr.request[4] ) goto exit;
     } else
-    { // чтение
+    { // С‡С‚РµРЅРёРµ
       data_offset = 4;
     }
 
     if( ( tr.request[2] & 0x0F ) == 0 )
-    { // чтение
+    { // С‡С‚РµРЅРёРµ
       switch( tr.slot->datatype.id() )
       { case( MBDataType::Bits   ):
           for(i=0; i<tr.length; i++ )
@@ -1329,17 +1329,17 @@ void MBMasterPrivate::setSlotValue(int module, int slot,int index, const MMValue
   int  buff_len=0;
 
   int i,j;
-  //Console::Print( QString("Запись: %1/%2/%3 %4\n").arg(module).arg(slot).arg(index).arg(value.toString()) );
+  //Console::Print( QString("Р—Р°РїРёСЃСЊ: %1/%2/%3 %4\n").arg(module).arg(slot).arg(index).arg(value.toString()) );
 
   QMutexLocker locker(&mutex);
 
    i=transactions_write_map.value( ModuleSlotIndex(module,slot,index), -1 );
    if( (i>=0) && (i<transactions_write.count()) )
    {
-    //Console::Print( QString("Запись: слот найден!\n") );
+    //Console::Print( QString("Р—Р°РїРёСЃСЊ: СЃР»РѕС‚ РЅР°Р№РґРµРЅ!\n") );
     if( !transactions_write[i].slot->datatype.isRegister() ) //not a register, means mikkon
     { transactions_write[i].request.resize(6);
-      //Console::Print(Console::Debug, "запись 1:" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
+      //Console::Print(Console::Debug, "Р·Р°РїРёСЃСЊ 1:" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
       switch( transactions_write[i].slot->datatype.id() )
       { case( MBDataType::Bits   ):
           if( value.toInt() != 0 )
@@ -1385,7 +1385,7 @@ void MBMasterPrivate::setSlotValue(int module, int slot,int index, const MMValue
           break;
         case( MBDataType::DwordsHoldingRegHiLo ):
           dword2ptr( value.toInt(), buff, false );
-          //Console::Print( Console::Debug, "запись :" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
+          //Console::Print( Console::Debug, "Р·Р°РїРёСЃСЊ :" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
           buff_len=4;
           break;
         case( MBDataType::DwordsHoldingRegLoHi ):
@@ -1406,7 +1406,7 @@ void MBMasterPrivate::setSlotValue(int module, int slot,int index, const MMValue
     for(j=0; j<buff_len; j++ ) transactions_write[i].request.append( buff[j] );
     CRC::appendCRC16( transactions_write[i].request );
     transactions_write[i].execute_flag=true;
-    //Console::Print( Console::Debug, "запись 2:" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
+    //Console::Print( Console::Debug, "Р·Р°РїРёСЃСЊ 2:" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
   }
 }
 
@@ -1504,7 +1504,7 @@ int MBMasterPrivate::maximumPacketLength() const
 
 
 //===================================================================
-// Расшифровка ModuleDefinition
+// Р Р°СЃС€РёС„СЂРѕРІРєР° ModuleDefinition
 //===================================================================
 MikkonModuleDefinition MBMasterPrivate::decodeModuleDefinition( const QByteArray &ba )
 {
@@ -1557,7 +1557,7 @@ MBMaster::~MBMaster()
 }
 
 //===================================================================
-//! Привязка к транспорту
+//! РџСЂРёРІСЏР·РєР° Рє С‚СЂР°РЅСЃРїРѕСЂС‚Сѓ
 //===================================================================
 void MBMaster::setTransport( AbstractSerialPort *transport )
 {
@@ -1565,7 +1565,7 @@ void MBMaster::setTransport( AbstractSerialPort *transport )
 }
 
 //===================================================================
-//! Очистка конфигурации
+//! РћС‡РёСЃС‚РєР° РєРѕРЅС„РёРіСѓСЂР°С†РёРё
 //===================================================================
 void MBMaster::clear_configuration()
 {
@@ -1573,7 +1573,7 @@ void MBMaster::clear_configuration()
 }
 
 //===================================================================
-//! Поменять адрес модуля
+//! РџРѕРјРµРЅСЏС‚СЊ Р°РґСЂРµСЃ РјРѕРґСѓР»СЏ
 //===================================================================
 void MBMaster::set_module_node(int module_index, int node, int subnode )
 {
@@ -1581,13 +1581,13 @@ void MBMaster::set_module_node(int module_index, int node, int subnode )
 }
 
 //===================================================================
-//! Добавить модуль
+//! Р”РѕР±Р°РІРёС‚СЊ РјРѕРґСѓР»СЊ
 /**
-  \param module_index   Номер модуля
-  \param node           Адрес
-  \param subnode        Дополнительный адрес
-  \param name           Имя модуля
-  \param description    Описание модуля
+  \param module_index   РќРѕРјРµСЂ РјРѕРґСѓР»СЏ
+  \param node           РђРґСЂРµСЃ
+  \param subnode        Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Р№ Р°РґСЂРµСЃ
+  \param name           РРјСЏ РјРѕРґСѓР»СЏ
+  \param description    РћРїРёСЃР°РЅРёРµ РјРѕРґСѓР»СЏ
 */
 //===================================================================
 void MBMaster::add_module( int module_index, int node, int subnode,
@@ -1599,14 +1599,14 @@ void MBMaster::add_module( int module_index, int node, int subnode,
 }
 
 //===================================================================
-//! Добавить слот
+//! Р”РѕР±Р°РІРёС‚СЊ СЃР»РѕС‚
 /**
-  \param module_index   Номер модуля
-  \param slot_index     Номер слота
-  \param addr           Начальный адрес
-  \param len            Длина (Количество запрашиваемых данных)
-  \param datatype       Тип данных
-  \param description    Описание
+  \param module_index   РќРѕРјРµСЂ РјРѕРґСѓР»СЏ
+  \param slot_index     РќРѕРјРµСЂ СЃР»РѕС‚Р°
+  \param addr           РќР°С‡Р°Р»СЊРЅС‹Р№ Р°РґСЂРµСЃ
+  \param len            Р”Р»РёРЅР° (РљРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РїСЂР°С€РёРІР°РµРјС‹С… РґР°РЅРЅС‹С…)
+  \param datatype       РўРёРї РґР°РЅРЅС‹С…
+  \param description    РћРїРёСЃР°РЅРёРµ
 */
 //===================================================================
 void MBMaster::add_slot( int module_index, int slot_index, int addr, int len,
@@ -1617,7 +1617,7 @@ void MBMaster::add_slot( int module_index, int slot_index, int addr, int len,
 }
 
 //===================================================================
-//! Запустить опрос
+//! Р—Р°РїСѓСЃС‚РёС‚СЊ РѕРїСЂРѕСЃ
 //===================================================================
 void MBMaster::polling_start()
 {
@@ -1625,7 +1625,7 @@ void MBMaster::polling_start()
 }
 
 //===================================================================
-//! Остановить опрос
+//! РћСЃС‚Р°РЅРѕРІРёС‚СЊ РѕРїСЂРѕСЃ
 //===================================================================
 void MBMaster::polling_stop()
 {
@@ -1633,10 +1633,10 @@ void MBMaster::polling_stop()
 }
 
 //===================================================================
-//! Прочитать все данные из слота
+//! РџСЂРѕС‡РёС‚Р°С‚СЊ РІСЃРµ РґР°РЅРЅС‹Рµ РёР· СЃР»РѕС‚Р°
 /**
-  \param module Номер модуля
-  \param slot   Номер слота
+  \param module РќРѕРјРµСЂ РјРѕРґСѓР»СЏ
+  \param slot   РќРѕРјРµСЂ СЃР»РѕС‚Р°
 */
 //===================================================================
 MMSlot MBMaster::getSlot(int module, int slot ) const
@@ -1645,11 +1645,11 @@ MMSlot MBMaster::getSlot(int module, int slot ) const
 }
 
 //===================================================================
-//! Прочитать значение
+//! РџСЂРѕС‡РёС‚Р°С‚СЊ Р·РЅР°С‡РµРЅРёРµ
 /**
-  \param module Номер модуля
-  \param slot   Номер слота
-  \param index  Номер сигнала
+  \param module РќРѕРјРµСЂ РјРѕРґСѓР»СЏ
+  \param slot   РќРѕРјРµСЂ СЃР»РѕС‚Р°
+  \param index  РќРѕРјРµСЂ СЃРёРіРЅР°Р»Р°
 */
 //===================================================================
 MMValue MBMaster::getSlotValue(int module, int slot,int index ) const
@@ -1658,12 +1658,12 @@ MMValue MBMaster::getSlotValue(int module, int slot,int index ) const
 }
 
 //===================================================================
-//! Записать значение
+//! Р—Р°РїРёСЃР°С‚СЊ Р·РЅР°С‡РµРЅРёРµ
 /**
-  \param module Номер модуля
-  \param slot   Номер слота
-  \param index  Номер сигнала
-  \param value  Значение
+  \param module РќРѕРјРµСЂ РјРѕРґСѓР»СЏ
+  \param slot   РќРѕРјРµСЂ СЃР»РѕС‚Р°
+  \param index  РќРѕРјРµСЂ СЃРёРіРЅР°Р»Р°
+  \param value  Р—РЅР°С‡РµРЅРёРµ
 */
 //===================================================================
 void MBMaster::setSlotValue(int module, int slot,int index,
@@ -1673,11 +1673,11 @@ void MBMaster::setSlotValue(int module, int slot,int index,
 }
 
 //===================================================================
-//! Установить аттрибуты слота
+//! РЈСЃС‚Р°РЅРѕРІРёС‚СЊ Р°С‚С‚СЂРёР±СѓС‚С‹ СЃР»РѕС‚Р°
 /**
-  \param module      Номер модуля
-  \param slot        Номер слота
-  \param attributes  Аттрибуты
+  \param module      РќРѕРјРµСЂ РјРѕРґСѓР»СЏ
+  \param slot        РќРѕРјРµСЂ СЃР»РѕС‚Р°
+  \param attributes  РђС‚С‚СЂРёР±СѓС‚С‹
 */
 //===================================================================
 void MBMaster::setSlotAttributes(int module, int slot, const QString &attributes )
@@ -1686,11 +1686,11 @@ void MBMaster::setSlotAttributes(int module, int slot, const QString &attributes
 }
 
 //===================================================================
-//! Запретить транзакции на чтение
+//! Р—Р°РїСЂРµС‚РёС‚СЊ С‚СЂР°РЅР·Р°РєС†РёРё РЅР° С‡С‚РµРЅРёРµ
 /**
   \param disabled
-    - \b true - транзакции на чтение запрещены,
-    - \b false - разрешены
+    - \b true - С‚СЂР°РЅР·Р°РєС†РёРё РЅР° С‡С‚РµРЅРёРµ Р·Р°РїСЂРµС‰РµРЅС‹,
+    - \b false - СЂР°Р·СЂРµС€РµРЅС‹
 */
 //===================================================================
 void MBMaster::setReadTransactionsDisabled( bool disabled )
@@ -1699,11 +1699,11 @@ void MBMaster::setReadTransactionsDisabled( bool disabled )
 }
 
 //===================================================================
-//! Запретить транзакции на запись
+//! Р—Р°РїСЂРµС‚РёС‚СЊ С‚СЂР°РЅР·Р°РєС†РёРё РЅР° Р·Р°РїРёСЃСЊ
 /**
   \param disabled
-    - \b true  - транзакции на запись запрещены,
-    - \b false - разрешены
+    - \b true  - С‚СЂР°РЅР·Р°РєС†РёРё РЅР° Р·Р°РїРёСЃСЊ Р·Р°РїСЂРµС‰РµРЅС‹,
+    - \b false - СЂР°Р·СЂРµС€РµРЅС‹
 */
 //===================================================================
 void MBMaster::setWriteTransactionsDisabled( bool disabled )
@@ -1712,11 +1712,11 @@ void MBMaster::setWriteTransactionsDisabled( bool disabled )
 }
 
 //===================================================================
-//! Статус запрета транзакции на чтение
+//! РЎС‚Р°С‚СѓСЃ Р·Р°РїСЂРµС‚Р° С‚СЂР°РЅР·Р°РєС†РёРё РЅР° С‡С‚РµРЅРёРµ
 /**
   \return
-    - \b true  - транзакции на чтение запрещены,
-    - \b false - разрешены
+    - \b true  - С‚СЂР°РЅР·Р°РєС†РёРё РЅР° С‡С‚РµРЅРёРµ Р·Р°РїСЂРµС‰РµРЅС‹,
+    - \b false - СЂР°Р·СЂРµС€РµРЅС‹
 */
 //===================================================================
 bool MBMaster::readTransactionsDisabled() const
@@ -1725,11 +1725,11 @@ bool MBMaster::readTransactionsDisabled() const
 }
 
 //===================================================================
-//! Статус запрета на запись
+//! РЎС‚Р°С‚СѓСЃ Р·Р°РїСЂРµС‚Р° РЅР° Р·Р°РїРёСЃСЊ
 /**
   \return
-    - \b true  - транзакции на запись запрещены,
-    - \b false - разрешены
+    - \b true  - С‚СЂР°РЅР·Р°РєС†РёРё РЅР° Р·Р°РїРёСЃСЊ Р·Р°РїСЂРµС‰РµРЅС‹,
+    - \b false - СЂР°Р·СЂРµС€РµРЅС‹
 */
 //===================================================================
 bool MBMaster::writeTransactionsDisabled() const
@@ -1738,9 +1738,9 @@ bool MBMaster::writeTransactionsDisabled() const
 }
 
 //===================================================================
-//! Установить максимальную длину пакета
+//! РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РјР°РєСЃРёРјР°Р»СЊРЅСѓСЋ РґР»РёРЅСѓ РїР°РєРµС‚Р°
 /**
-  \param packet_length - максимальная длина пакета (байт)
+  \param packet_length - РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ РґР»РёРЅР° РїР°РєРµС‚Р° (Р±Р°Р№С‚)
 */
 //===================================================================
 void MBMaster::setMaximumPacketLength( int packet_length )
@@ -1749,9 +1749,9 @@ void MBMaster::setMaximumPacketLength( int packet_length )
 }
 
 //===================================================================
-//! Максимальная длина пакета
+//! РњР°РєСЃРёРјР°Р»СЊРЅР°СЏ РґР»РёРЅР° РїР°РєРµС‚Р°
 /**
-  \return максимальная длина пакета (байт)
+  \return РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ РґР»РёРЅР° РїР°РєРµС‚Р° (Р±Р°Р№С‚)
 */
 //===================================================================
 int MBMaster::maximumPacketLength() const
@@ -1760,37 +1760,37 @@ int MBMaster::maximumPacketLength() const
 }
 
 //===================================================================
-//! Общее кол-во запросов
+//! РћР±С‰РµРµ РєРѕР»-РІРѕ Р·Р°РїСЂРѕСЃРѕРІ
 //===================================================================
 int MBMaster::request_counter() const
 { return d->request_counter;
 }
 
 //===================================================================
-//! Общее кол-во ответов
+//! РћР±С‰РµРµ РєРѕР»-РІРѕ РѕС‚РІРµС‚РѕРІ
 //===================================================================
 int MBMaster::answer_counter() const
 { return d->answer_counter;
 }
 
 //===================================================================
-//! Общее кол-во ошибок
+//! РћР±С‰РµРµ РєРѕР»-РІРѕ РѕС€РёР±РѕРє
 //===================================================================
 int MBMaster::error_counter() const
 { return d->error_counter;
 }
 
 //===================================================================
-//! Время (в мс) полного цикла опроса
+//! Р’СЂРµРјСЏ (РІ РјСЃ) РїРѕР»РЅРѕРіРѕ С†РёРєР»Р° РѕРїСЂРѕСЃР°
 //===================================================================
 int MBMaster::full_time() const
 { return d->full_time;
 }
 
 //===================================================================
-//! Установка времени ожидания между запросами
+//! РЈСЃС‚Р°РЅРѕРІРєР° РІСЂРµРјРµРЅРё РѕР¶РёРґР°РЅРёСЏ РјРµР¶РґСѓ Р·Р°РїСЂРѕСЃР°РјРё
 /**
-  \param packet_length - время ожидания (мс)
+  \param packet_length - РІСЂРµРјСЏ РѕР¶РёРґР°РЅРёСЏ (РјСЃ)
 */
 //===================================================================
 void MBMaster::setTransactionDelay( int delay )
@@ -1800,9 +1800,9 @@ void MBMaster::setTransactionDelay( int delay )
 }
 
 //===================================================================
-//! Текущее значение времени ожидания между запросами
+//! РўРµРєСѓС‰РµРµ Р·РЅР°С‡РµРЅРёРµ РІСЂРµРјРµРЅРё РѕР¶РёРґР°РЅРёСЏ РјРµР¶РґСѓ Р·Р°РїСЂРѕСЃР°РјРё
 /**
-  \return время ожидания (мс)
+  \return РІСЂРµРјСЏ РѕР¶РёРґР°РЅРёСЏ (РјСЃ)
 */
 //===================================================================
 int  MBMaster::transactionDelay()
@@ -1810,9 +1810,9 @@ int  MBMaster::transactionDelay()
 }
 
 //===================================================================
-//! Установка времени полного цикла опроса
+//! РЈСЃС‚Р°РЅРѕРІРєР° РІСЂРµРјРµРЅРё РїРѕР»РЅРѕРіРѕ С†РёРєР»Р° РѕРїСЂРѕСЃР°
 /**
-  \param packet_length - времени полного цикла опроса (мс)
+  \param packet_length - РІСЂРµРјРµРЅРё РїРѕР»РЅРѕРіРѕ С†РёРєР»Р° РѕРїСЂРѕСЃР° (РјСЃ)
 */
 //===================================================================
 void MBMaster::setCycleTime( int time )
@@ -1821,9 +1821,9 @@ void MBMaster::setCycleTime( int time )
 }
 
 //===================================================================
-//! Текущее значение времени полного цикла опроса
+//! РўРµРєСѓС‰РµРµ Р·РЅР°С‡РµРЅРёРµ РІСЂРµРјРµРЅРё РїРѕР»РЅРѕРіРѕ С†РёРєР»Р° РѕРїСЂРѕСЃР°
 /**
-  \return времени полного цикла опроса (мс)
+  \return РІСЂРµРјРµРЅРё РїРѕР»РЅРѕРіРѕ С†РёРєР»Р° РѕРїСЂРѕСЃР° (РјСЃ)
 */
 //===================================================================
 int  MBMaster::cycleTime()
@@ -1831,11 +1831,11 @@ int  MBMaster::cycleTime()
 }
 
 //===================================================================
-//! Установка режима автоматического пропуска неиспользуемых пакетов
+//! РЈСЃС‚Р°РЅРѕРІРєР° СЂРµР¶РёРјР° Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРіРѕ РїСЂРѕРїСѓСЃРєР° РЅРµРёСЃРїРѕР»СЊР·СѓРµРјС‹С… РїР°РєРµС‚РѕРІ
 /**
   \param autoSkipMode
-       - \b true  -  неиспользуемые пакеты не опрашиваются (по умолчанию),
-       - \b false -  опрашиваются все пакеты
+       - \b true  -  РЅРµРёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ РїР°РєРµС‚С‹ РЅРµ РѕРїСЂР°С€РёРІР°СЋС‚СЃСЏ (РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ),
+       - \b false -  РѕРїСЂР°С€РёРІР°СЋС‚СЃСЏ РІСЃРµ РїР°РєРµС‚С‹
 */
 //===================================================================
 void MBMaster::setAutoSkipMode( bool autoSkipMode )
@@ -1844,11 +1844,11 @@ void MBMaster::setAutoSkipMode( bool autoSkipMode )
 }
 
 //===================================================================
-//! Текущее значение режима автоматического пропуска неиспользуемых пакетов
+//! РўРµРєСѓС‰РµРµ Р·РЅР°С‡РµРЅРёРµ СЂРµР¶РёРјР° Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРіРѕ РїСЂРѕРїСѓСЃРєР° РЅРµРёСЃРїРѕР»СЊР·СѓРµРјС‹С… РїР°РєРµС‚РѕРІ
 /**
   \return
-     - \b true  - неиспользуемые пакеты не опрашиваются (по умолчанию),
-     - \b false - опрашиваются все пакеты
+     - \b true  - РЅРµРёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ РїР°РєРµС‚С‹ РЅРµ РѕРїСЂР°С€РёРІР°СЋС‚СЃСЏ (РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ),
+     - \b false - РѕРїСЂР°С€РёРІР°СЋС‚СЃСЏ РІСЃРµ РїР°РєРµС‚С‹
 */
 //===================================================================
 bool MBMaster::autoSkipMode()
@@ -1858,7 +1858,7 @@ bool MBMaster::autoSkipMode()
 
 
 //===================================================================
-//! Расшифровка ModuleDefinition
+//! Р Р°СЃС€РёС„СЂРѕРІРєР° ModuleDefinition
 //===================================================================
 MikkonModuleDefinition
             MBMaster::decodeModuleDefinition( const QByteArray& ba )

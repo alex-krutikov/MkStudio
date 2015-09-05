@@ -37,8 +37,8 @@ int main(int argc, char *argv[])
   InitDialog *initdialog;
   initdialog = new InitDialog(0);
   if( initdialog->portname().isEmpty() )
-  { QMessageBox::critical( 0, app_header, "В вашей системе не обнаружено последовательных портов.\n\n"
-                                          "Работа программы невозможна." );
+  { QMessageBox::critical( 0, app_header, "Р’ РІР°С€РµР№ СЃРёСЃС‚РµРјРµ РЅРµ РѕР±РЅР°СЂСѓР¶РµРЅРѕ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅС‹С… РїРѕСЂС‚РѕРІ.\n\n"
+                                          "Р Р°Р±РѕС‚Р° РїСЂРѕРіСЂР°РјРјС‹ РЅРµРІРѕР·РјРѕР¶РЅР°." );
     return 0;
   }
 
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
                               initdialog->int_module_node(),
                               initdialog->int_module_subnode()   );
           if( !pluginLoader.unload() )
-          { QMessageBox::critical( 0,app_header,"Ошибка при выгрузке плагина.");
+          { QMessageBox::critical( 0,app_header,"РћС€РёР±РєР° РїСЂРё РІС‹РіСЂСѓР·РєРµ РїР»Р°РіРёРЅР°.");
           }
         }
       }

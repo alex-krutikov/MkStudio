@@ -24,7 +24,7 @@ ScriptHighlighter::ScriptHighlighter(QTextDocument *parent)
     rule.format = cf1;
     highlightingRules << rule;
 
-    // ñëóæåáíûå ñëîâà
+    // ÑÐ»ÑƒÐ¶ÐµÐ±Ð½Ñ‹Ðµ ÑÐ»Ð¾Ð²Ð°
     keywordFormat.setForeground(Qt::darkBlue);
     keywordFormat.setFontWeight(QFont::Bold);
     foreach (QString pattern, keywordPatterns)
@@ -33,7 +33,7 @@ ScriptHighlighter::ScriptHighlighter(QTextDocument *parent)
       highlightingRules << rule;
     }
 
-    // îäíîñòðî÷íûå êîììåíòàðèè
+    // Ð¾Ð´Ð½Ð¾ÑÑ‚Ñ€Ð¾Ñ‡Ð½Ñ‹Ðµ ÐºÐ¾Ð¼Ð¼ÐµÐ½Ñ‚Ð°Ñ€Ð¸Ð¸
     singleLineCommentFormat.setForeground(Qt::darkGreen);
     rule.pattern = QRegExp("//[^\n]*");
     rule.format = singleLineCommentFormat;

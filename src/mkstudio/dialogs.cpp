@@ -21,7 +21,7 @@
 #include "mbtcp.h"
 
 //##############################################################################
-/// Окно выбора порта и скорости
+/// РћРєРЅРѕ РІС‹Р±РѕСЂР° РїРѕСЂС‚Р° Рё СЃРєРѕСЂРѕСЃС‚Рё
 //##############################################################################
 InitDialog::InitDialog( QWidget *parent)
   : QDialog( parent = 0 )
@@ -76,7 +76,7 @@ InitDialog::InitDialog( QWidget *parent)
 }
 
 //==============================================================================
-/// Переключение ComboBox'а порта
+/// РџРµСЂРµРєР»СЋС‡РµРЅРёРµ ComboBox'Р° РїРѕСЂС‚Р°
 //==============================================================================
 void InitDialog::on_cb_portname_currentIndexChanged(int)
 {
@@ -94,7 +94,7 @@ void InitDialog::on_cb_portname_currentIndexChanged(int)
 }
 
 //==============================================================================
-/// Окно выбора порта и скорости -- нажатие OK
+/// РћРєРЅРѕ РІС‹Р±РѕСЂР° РїРѕСЂС‚Р° Рё СЃРєРѕСЂРѕСЃС‚Рё -- РЅР°Р¶Р°С‚РёРµ OK
 //==============================================================================
 void InitDialog::accept()
 {
@@ -128,7 +128,7 @@ void InitDialog::accept()
 }
 
 //##############################################################################
-/// Диалог "Привязка параметров"
+/// Р”РёР°Р»РѕРі "РџСЂРёРІСЏР·РєР° РїР°СЂР°РјРµС‚СЂРѕРІ"
 //##############################################################################
 AssignDialog::AssignDialog( QWidget *parent, const QString &assign_arg,
                            const QString &format_arg,  const QString &ss_arg,
@@ -152,8 +152,8 @@ AssignDialog::AssignDialog( QWidget *parent, const QString &assign_arg,
   completer->setCaseSensitivity(Qt::CaseInsensitive);
   le_ss->setCompleter(completer);
 
-  cb_fill_row    -> addItems( QStringList() << "модуль" << "слот" << "номер" );
-  cb_fill_column -> addItems( QStringList() << "модуль" << "слот" << "номер" );
+  cb_fill_row    -> addItems( QStringList() << "РјРѕРґСѓР»СЊ" << "СЃР»РѕС‚" << "РЅРѕРјРµСЂ" );
+  cb_fill_column -> addItems( QStringList() << "РјРѕРґСѓР»СЊ" << "СЃР»РѕС‚" << "РЅРѕРјРµСЂ" );
   cb_fill_row    -> setCurrentIndex(2);
   cb_fill_column -> setCurrentIndex(2);
   cb_fill_row    -> setEnabled( false );
@@ -167,7 +167,7 @@ AssignDialog::AssignDialog( QWidget *parent, const QString &assign_arg,
 }
 
 //==============================================================================
-/// Диалог "Привязка параметров" -- нажатие ОК
+/// Р”РёР°Р»РѕРі "РџСЂРёРІСЏР·РєР° РїР°СЂР°РјРµС‚СЂРѕРІ" -- РЅР°Р¶Р°С‚РёРµ РћРљ
 //==============================================================================
 void AssignDialog::accept()
 {
@@ -176,7 +176,7 @@ void AssignDialog::accept()
       && (cb_fill_row->currentIndex() == cb_fill_column->currentIndex()) )
   {
     QMessageBox::warning( this, app_header,
-         "Заполнение ячеек задано неверно. Для строк и столбцов заданы одинаковые параметры." );
+         "Р—Р°РїРѕР»РЅРµРЅРёРµ СЏС‡РµРµРє Р·Р°РґР°РЅРѕ РЅРµРІРµСЂРЅРѕ. Р”Р»СЏ СЃС‚СЂРѕРє Рё СЃС‚РѕР»Р±С†РѕРІ Р·Р°РґР°РЅС‹ РѕРґРёРЅР°РєРѕРІС‹Рµ РїР°СЂР°РјРµС‚СЂС‹." );
     return;
   }
 
@@ -187,17 +187,17 @@ void AssignDialog::accept()
 
   if( !m_ok || ( im < 1 ) )
   {  QMessageBox::warning( this, app_header,
-         "Поле \"Модуль\" должно содержать номер модуля (целое положительное число)." );
+         "РџРѕР»Рµ \"РњРѕРґСѓР»СЊ\" РґРѕР»Р¶РЅРѕ СЃРѕРґРµСЂР¶Р°С‚СЊ РЅРѕРјРµСЂ РјРѕРґСѓР»СЏ (С†РµР»РѕРµ РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРµ С‡РёСЃР»Рѕ)." );
      return;
   }
   if( !s_ok || ( is < 1 ) )
   {  QMessageBox::warning( this, app_header,
-         "Поле \"Слот\" должно содержать номер слота (целое положительное число)." );
+         "РџРѕР»Рµ \"РЎР»РѕС‚\" РґРѕР»Р¶РЅРѕ СЃРѕРґРµСЂР¶Р°С‚СЊ РЅРѕРјРµСЂ СЃР»РѕС‚Р° (С†РµР»РѕРµ РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРµ С‡РёСЃР»Рѕ)." );
      return;
   }
   if( !n_ok || ( in < 1 ) )
   {  QMessageBox::warning( this, app_header,
-         "Поле \"Номер\" должно содержать целое положительное число." );
+         "РџРѕР»Рµ \"РќРѕРјРµСЂ\" РґРѕР»Р¶РЅРѕ СЃРѕРґРµСЂР¶Р°С‚СЊ С†РµР»РѕРµ РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРµ С‡РёСЃР»Рѕ." );
      return;
   }
 
@@ -218,18 +218,18 @@ void AssignDialog::accept()
 }
 
 //##############################################################################
-/// Диалог "Настройки"
+/// Р”РёР°Р»РѕРі "РќР°СЃС‚СЂРѕР№РєРё"
 //##############################################################################
 SettingsDialog::SettingsDialog( QWidget *parent )
   : QDialog( parent )
 {
   setupUi( this );
-  setWindowTitle( "Настройки MKStudio" );
+  setWindowTitle( "РќР°СЃС‚СЂРѕР№РєРё MKStudio" );
 }
 
 //##############################################################################
-/// Диалог "Редактирование текста" (используется при редактировании
-/// содержимого заголовка таблицы)
+/// Р”РёР°Р»РѕРі "Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ С‚РµРєСЃС‚Р°" (РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РїСЂРё СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРё
+/// СЃРѕРґРµСЂР¶РёРјРѕРіРѕ Р·Р°РіРѕР»РѕРІРєР° С‚Р°Р±Р»РёС†С‹)
 //##############################################################################
 TextEditDialog::TextEditDialog( QWidget *parent )
   : QDialog( parent )
@@ -239,7 +239,7 @@ TextEditDialog::TextEditDialog( QWidget *parent )
 }
 
 //##############################################################################
-/// Диалог "Настройки"
+/// Р”РёР°Р»РѕРі "РќР°СЃС‚СЂРѕР№РєРё"
 //##############################################################################
 UnitedSlots::UnitedSlots( QWidget *parent )
   : QWidget( parent )
@@ -256,7 +256,7 @@ UnitedSlots::UnitedSlots( QWidget *parent )
 
   tw->verticalHeader()->setDefaultSectionSize( font().pointSize()+11 );
   tw->setColumnCount(2);
-  tw->setHorizontalHeaderLabels( QStringList() << "Цвет" << "Слот" );
+  tw->setHorizontalHeaderLabels( QStringList() << "Р¦РІРµС‚" << "РЎР»РѕС‚" );
   tw->horizontalHeader()->resizeSection(  0 , 50 );
   tw->horizontalHeader()->setStretchLastSection( true );
   tw->verticalHeader()->hide();
@@ -337,7 +337,7 @@ ShortCutsDialog::ShortCutsDialog(QWidget *parent, QString config_file) : QDialog
     QDomDocument doc("MKStudio");
 
     setupUi(this);
-    setWindowTitle("Горячие клавиши");
+    setWindowTitle("Р“РѕСЂСЏС‡РёРµ РєР»Р°РІРёС€Рё");
 
     QFile file(config_file);
 
@@ -349,7 +349,7 @@ ShortCutsDialog::ShortCutsDialog(QWidget *parent, QString config_file) : QDialog
 
             if(doc.doctype().name() != "MKStudio")
             {
-                QMessageBox::information(this, app_header, "Файл не является конфигурацией MKStudio.");
+                QMessageBox::information(this, app_header, "Р¤Р°Р№Р» РЅРµ СЏРІР»СЏРµС‚СЃСЏ РєРѕРЅС„РёРіСѓСЂР°С†РёРµР№ MKStudio.");
             }
             else
             {
@@ -366,15 +366,15 @@ ShortCutsDialog::ShortCutsDialog(QWidget *parent, QString config_file) : QDialog
                     if(!shortcut_list.size())
                     {
                         QDomElement write0 =  doc_table.createElement("ShortCut");
-                        fillDomEelement(&write0, "Записать 0", "WriteValue");
+                        fillDomEelement(&write0, "Р—Р°РїРёСЃР°С‚СЊ 0", "WriteValue");
                         root.appendChild(write0);
 
                         QDomElement write1 =  doc_table.createElement("ShortCut");
-                        fillDomEelement(&write1, "Записать 1", "WriteValue");
+                        fillDomEelement(&write1, "Р—Р°РїРёСЃР°С‚СЊ 1", "WriteValue");
                         root.appendChild(write1);
 
                         QDomElement copy =  doc_table.createElement("ShortCut");
-                        fillDomEelement(&copy, "Копировать в буфер обмена", "CopyToClipBoard");
+                        fillDomEelement(&copy, "РљРѕРїРёСЂРѕРІР°С‚СЊ РІ Р±СѓС„РµСЂ РѕР±РјРµРЅР°", "CopyToClipBoard");
                         root.appendChild(copy);
                     }
 
@@ -410,7 +410,7 @@ ShortCutsDialog::ShortCutsDialog(QWidget *parent, QString config_file) : QDialog
                         table->setItem(i, NameCol, twItem);
                         QStringList assignlist = assign.split(";");
 
-                        /* Если привязок больше, чем одна - писать в столбик(tw) */
+                        /* Р•СЃР»Рё РїСЂРёРІСЏР·РѕРє Р±РѕР»СЊС€Рµ, С‡РµРј РѕРґРЅР° - РїРёСЃР°С‚СЊ РІ СЃС‚РѕР»Р±РёРє(tw) */
                         if(assignlist.size() == 1 && i !=2)
                         {
                             twItem = new QTableWidgetItem(assign);
@@ -450,9 +450,9 @@ ShortCutsDialog::ShortCutsDialog(QWidget *parent, QString config_file) : QDialog
 
                             QComboBox *separator = new QComboBox();
                             separator->setMaximumHeight(20);
-                            separator->addItem("Табуляция", "\t");
-                            separator->addItem("Пробел", " ");
-                            separator->addItem("Возврат коретки", "\n");
+                            separator->addItem("РўР°Р±СѓР»СЏС†РёСЏ", "\t");
+                            separator->addItem("РџСЂРѕР±РµР»", " ");
+                            separator->addItem("Р’РѕР·РІСЂР°С‚ РєРѕСЂРµС‚РєРё", "\n");
                             separator->addItem(";", ";");
                             separator->addItem(":", ":");
 
@@ -586,7 +586,7 @@ void ShortCutsDialog::keyPressEvent(QKeyEvent *event)
         {
             switch(event->key())
             {
-            /* F1, F5 заняты */
+            /* F1, F5 Р·Р°РЅСЏС‚С‹ */
             case Qt::Key_F2: keyStr = "F2";break;
             case Qt::Key_F3: keyStr = "F3";break;
             case Qt::Key_F4: keyStr = "F4";break;

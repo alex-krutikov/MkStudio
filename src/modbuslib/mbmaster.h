@@ -9,9 +9,9 @@ class MBMasterPrivate;
 class AbstractSerialPort;
 
 //===================================================================
-//! Опрос микроконтроллеров по протоколу Modbus RTU
+//! РћРїСЂРѕСЃ РјРёРєСЂРѕРєРѕРЅС‚СЂРѕР»Р»РµСЂРѕРІ РїРѕ РїСЂРѕС‚РѕРєРѕР»Сѓ Modbus RTU
 /**
-    См. \ref xml_opros_desc
+    РЎРј. \ref xml_opros_desc
     \ingroup API_group
 */
 //===================================================================
@@ -28,7 +28,7 @@ public:
   MBMaster( QObject *parent = 0);
   virtual ~MBMaster();
 
-/** @name Настройка
+/** @name РќР°СЃС‚СЂРѕР№РєР°
  *
  */
 //@{
@@ -44,7 +44,7 @@ public:
   void setSlotAttributes(int module, int slot, const QString &attributes );
 //@}
 
-/** @name Запуск и останов опроса модулей
+/** @name Р—Р°РїСѓСЃРє Рё РѕСЃС‚Р°РЅРѕРІ РѕРїСЂРѕСЃР° РјРѕРґСѓР»РµР№
  *
  */
 //@{
@@ -52,7 +52,7 @@ public:
   void polling_stop();
 //@}
 
-/** @name Чтение и запись значений
+/** @name Р§С‚РµРЅРёРµ Рё Р·Р°РїРёСЃСЊ Р·РЅР°С‡РµРЅРёР№
  *
  */
 //@{
@@ -62,7 +62,7 @@ public:
                                 const MMValue &value );
 //@}
 
-/** @name Разное
+/** @name Р Р°Р·РЅРѕРµ
  *
  */
 //@{
@@ -88,7 +88,7 @@ public:
 
 //@}
 
-/** @name Статистика
+/** @name РЎС‚Р°С‚РёСЃС‚РёРєР°
  *
  */
 //@{
@@ -98,7 +98,7 @@ public:
   int full_time() const;
 //@}
 
-//! Расшифровка ModuleDefinition
+//! Р Р°СЃС€РёС„СЂРѕРІРєР° ModuleDefinition
   static MikkonModuleDefinition decodeModuleDefinition( const QByteArray& );
 
 signals:

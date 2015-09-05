@@ -10,7 +10,7 @@
 class SerialPortPrivate;
 
 //---------------------------------------------------------
-//! Последовательный интерфейс передачи данных \ingroup API_group
+//! РџРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅС‹Р№ РёРЅС‚РµСЂС„РµР№СЃ РїРµСЂРµРґР°С‡Рё РґР°РЅРЅС‹С… \ingroup API_group
 //---------------------------------------------------------
 class MBL_EXPORT SerialPort : public AbstractSerialPort
 {
@@ -21,7 +21,7 @@ public:
   SerialPort();
   virtual ~SerialPort();
 
-/** @name Настройка
+/** @name РќР°СЃС‚СЂРѕР№РєР°
  *
  */
 //@{
@@ -35,20 +35,20 @@ public:
   void addXBeeRoute( int a1, int a2, int addr );
 //@}
 
-/** @name Работа
+/** @name Р Р°Р±РѕС‚Р°
  *
  */
 //@{
   int query( const QByteArray &request, QByteArray &answer, int *errorcode=0);
 //@}
 
-/** @name Информация
+/** @name РРЅС„РѕСЂРјР°С†РёСЏ
  *
  */
 //@{
 
-  QString name() { return portname; } //!< Имя интерфейса
-  int speed() { return portspeed;   } //!< Скорость интерфейса
+  QString name() { return portname; } //!< РРјСЏ РёРЅС‚РµСЂС„РµР№СЃР°
+  int speed() { return portspeed;   } //!< РЎРєРѕСЂРѕСЃС‚СЊ РёРЅС‚РµСЂС„РµР№СЃР°
   inline int answerTimeout() const;
   inline QString lastError() const;
   void resetLastErrorType();
@@ -64,17 +64,17 @@ private:
   QString lastError_str;
 };
 
-//! Таймаут ответа (в мс)
+//! РўР°Р№РјР°СѓС‚ РѕС‚РІРµС‚Р° (РІ РјСЃ)
 inline int SerialPort::answerTimeout() const
 { return answer_timeout;
 }
 
-//! Задать таймаут ответа (в мс)
+//! Р—Р°РґР°С‚СЊ С‚Р°Р№РјР°СѓС‚ РѕС‚РІРµС‚Р° (РІ РјСЃ)
 inline void SerialPort::setAnswerTimeout(int timeout )
 { answer_timeout = timeout;
 }
 
-//! Описание последней ошибки
+//! РћРїРёСЃР°РЅРёРµ РїРѕСЃР»РµРґРЅРµР№ РѕС€РёР±РєРё
 inline QString SerialPort::lastError() const
 { return lastError_str;
 }

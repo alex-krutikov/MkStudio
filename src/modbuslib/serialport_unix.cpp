@@ -174,7 +174,7 @@ int SerialPortPrivate::query( const QByteArray &request,
 }
 
 //===================================================================
-// Посылка запроса и получение ответа (протокол XBee)
+// РџРѕСЃС‹Р»РєР° Р·Р°РїСЂРѕСЃР° Рё РїРѕР»СѓС‡РµРЅРёРµ РѕС‚РІРµС‚Р° (РїСЂРѕС‚РѕРєРѕР» XBee)
 //===================================================================
 int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
                                        int *errorcode, int xbee_addr )
@@ -202,7 +202,7 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
     if( tcsetattr( fd, TCSANOW, &ts ) ) return 0;
   }
 
-  // подготовка данных
+  // РїРѕРґРіРѕС‚РѕРІРєР° РґР°РЅРЅС‹С…
 
   QByteArray ba;
   ba.resize(8);
@@ -243,7 +243,7 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
      if( ret == 0 ) break;
   }
 
-  ba.resize( 3 ); // первые три байта ответа
+  ba.resize( 3 ); // РїРµСЂРІС‹Рµ С‚СЂРё Р±Р°Р№С‚Р° РѕС‚РІРµС‚Р°
 
   i=0;
   while(1)
@@ -257,7 +257,7 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
      if( ret == 0 ) break;
   }
 
-  // анализ первых байт
+  // Р°РЅР°Р»РёР· РїРµСЂРІС‹С… Р±Р°Р№С‚
 
   if( i != 3 )
   { Console::Print( Console::Error, "XBEE: ERROR: No answer.\n" );
@@ -269,7 +269,7 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
     return 0;
   }
 
-  // дочтение остальных данных
+  // РґРѕС‡С‚РµРЅРёРµ РѕСЃС‚Р°Р»СЊРЅС‹С… РґР°РЅРЅС‹С…
 
   a = ( (unsigned char)ba[1] << 8 ) | (unsigned char)ba[2];
   ba.resize( ba.size() + a + 1 );
@@ -285,7 +285,7 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
      if( ret == 0 ) break;
   }
 
-  // анализ XBee CRC
+  // Р°РЅР°Р»РёР· XBee CRC
 
   a = ba.size();
   crc=0;
@@ -295,7 +295,7 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
     return 0;
   }
 
-  // подготовка ответа
+  // РїРѕРґРіРѕС‚РѕРІРєР° РѕС‚РІРµС‚Р°
 
   Console::Print( Console::ModbusPacket, "XBEE: Answer:  "+QByteArray2QString( ba )+"\n");
   ba = ba.mid( 8, a-9 );

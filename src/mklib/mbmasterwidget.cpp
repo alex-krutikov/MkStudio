@@ -104,14 +104,14 @@ void MBMasterWidget::clear_config()
 }
 
 //==============================================================================
-// запустить опрос
+// Р·Р°РїСѓСЃС‚РёС‚СЊ РѕРїСЂРѕСЃ
 //==============================================================================
 void MBMasterWidget::polling_start()
 {
   if( mbmaster ) mbmaster->polling_start();
 }
 //==============================================================================
-// остановить опрос
+// РѕСЃС‚Р°РЅРѕРІРёС‚СЊ РѕРїСЂРѕСЃ
 //==============================================================================
 void MBMasterWidget::polling_stop()
 {
@@ -170,7 +170,7 @@ void MBMasterWidget::on_tw_doubleClicked ( const QModelIndex & index)
   p->activateWindow();
 
 /*
-  // старый вариант окна слота
+  // СЃС‚Р°СЂС‹Р№ РІР°СЂРёР°РЅС‚ РѕРєРЅР° СЃР»РѕС‚Р°
 
 	int row = index.row();
 	if( row >= mbmodel->table.count() ) return;
@@ -236,7 +236,7 @@ QVariant MBMasterWidgetTableModel::data ( const QModelIndex & index, int role ) 
   { switch( column )
     { case(0):
         if( table[row].flag == 1  )
-          return QVariant(Qt::AlignVCenter|Qt::AlignHCenter); // модуль
+          return QVariant(Qt::AlignVCenter|Qt::AlignHCenter); // РјРѕРґСѓР»СЊ
     	case(1):
     	case(2):
     	  return QVariant(Qt::AlignVCenter|Qt::AlignRight);
@@ -248,15 +248,15 @@ QVariant MBMasterWidgetTableModel::data ( const QModelIndex & index, int role ) 
  	}
 
   switch( table[row].flag )
-  { case( 0 ): // обычный слот
+  { case( 0 ): // РѕР±С‹С‡РЅС‹Р№ СЃР»РѕС‚
       switch( role )
       { case( Qt::DisplayRole ):
          switch( column )
          { case( 0 ):  return table[row].n;    // N
-           case( 1 ):  return table[row].addr; // Адрес
-           case( 2 ):  return table[row].len;  // Кол-во
-           case( 3 ):  return table[row].datatype.toName(); // Тип
-           case( 4 ):  return table[row].desc; // Описание
+           case( 1 ):  return table[row].addr; // РђРґСЂРµСЃ
+           case( 2 ):  return table[row].len;  // РљРѕР»-РІРѕ
+           case( 3 ):  return table[row].datatype.toName(); // РўРёРї
+           case( 4 ):  return table[row].desc; // РћРїРёСЃР°РЅРёРµ
           }
           break;
         case( Qt::BackgroundRole ):
@@ -271,18 +271,18 @@ QVariant MBMasterWidgetTableModel::data ( const QModelIndex & index, int role ) 
           break;
       }
       break;
-    case( 1 ): // модуль
+    case( 1 ): // РјРѕРґСѓР»СЊ
       switch( role )
       { case( Qt::DisplayRole ):
          switch( column )
          {
            case( 0 ):  return table[row].n;    // N
-           case( 1 ):  return table[row].addr; // Адрес
+           case( 1 ):  return table[row].addr; // РђРґСЂРµСЃ
            case( 4 ):
              str.clear();
              if( (!table[row].name.isEmpty()) && (!table[row].desc.isEmpty()) )
                str = " | ";
-             return "Модуль "+ table[row].name + str + table[row].desc; // Описание
+             return "РњРѕРґСѓР»СЊ "+ table[row].name + str + table[row].desc; // РћРїРёСЃР°РЅРёРµ
         }
         break;
         case( Qt::BackgroundRole ):
@@ -336,7 +336,7 @@ QVariant MBMasterWidgetTableModel::headerData ( int section, Qt::Orientation ori
 
   const int len = 5;
   const static char* names[len] =
-     { "N", "Адрес", "Кол-во", "Тип", "Описание" };
+     { "N", "РђРґСЂРµСЃ", "РљРѕР»-РІРѕ", "РўРёРї", "РћРїРёСЃР°РЅРёРµ" };
   const static int sizes[len] =
      { 30,    50,      50,      80,     80       };
 

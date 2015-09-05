@@ -55,7 +55,7 @@ void MBMasterXML::load_configuration( QDomDocument &doc )
     mm.name = element.attribute("Name");
     mm.desc = element.attribute("Desc");
 /*
-    Console::Print( QString("  Модуль: %1       Название: %2 Адрес: %3 Описание: %4\n")
+    Console::Print( QString("  РњРѕРґСѓР»СЊ: %1       РќР°Р·РІР°РЅРёРµ: %2 РђРґСЂРµСЃ: %3 РћРїРёСЃР°РЅРёРµ: %4\n")
                    .arg(mm.n,2)
                    .arg(mm.name)
                    .arg(mm.node,2)
@@ -78,7 +78,7 @@ void MBMasterXML::load_configuration( QDomDocument &doc )
 
       ss.module = mm;
 /*
-      Console::Print( QString("    слот:   %1 Адрес: 0x%2 Кол-во: %3 Тип: %4 Операция: \"%5\" Описание: %6\n")
+      Console::Print( QString("    СЃР»РѕС‚:   %1 РђРґСЂРµСЃ: 0x%2 РљРѕР»-РІРѕ: %3 РўРёРї: %4 РћРїРµСЂР°С†РёСЏ: \"%5\" РћРїРёСЃР°РЅРёРµ: %6\n")
                      .arg(ss.n,2)
                      .arg(ss.addr,3,16)
                      .arg(ss.len,2)
@@ -90,7 +90,7 @@ void MBMasterXML::load_configuration( QDomDocument &doc )
     }
  }
 
- Console::Print( Console::Information, "Конфигурации MBMasterPrivateXML загружена.\n" );
+ Console::Print( Console::Information, "РљРѕРЅС„РёРіСѓСЂР°С†РёРё MBMasterPrivateXML Р·Р°РіСЂСѓР¶РµРЅР°.\n" );
 }
 
 //===================================================================
@@ -165,44 +165,44 @@ void MBMasterXML::loadValues( const QDomDocument &doc )
     setSlotAttributes(mm,ss,attr);
   }
 }
-/*! \page xml_opros_desc Формат XML документа конфигурации опроса модулей
+/*! \page xml_opros_desc Р¤РѕСЂРјР°С‚ XML РґРѕРєСѓРјРµРЅС‚Р° РєРѕРЅС„РёРіСѓСЂР°С†РёРё РѕРїСЂРѕСЃР° РјРѕРґСѓР»РµР№
 
-  Документ заключается в тег \b MBConfig и состоит из тегов \b Module, в которых описываются модули.
+  Р”РѕРєСѓРјРµРЅС‚ Р·Р°РєР»СЋС‡Р°РµС‚СЃСЏ РІ С‚РµРі \b MBConfig Рё СЃРѕСЃС‚РѕРёС‚ РёР· С‚РµРіРѕРІ \b Module, РІ РєРѕС‚РѕСЂС‹С… РѕРїРёСЃС‹РІР°СЋС‚СЃСЏ РјРѕРґСѓР»Рё.
 
-  \b Module содержит следующие аттрибуты:
-  \li \b N    Уникальный для данной конфигурации номер модуля.
-  \li \b Node Адрес в формате [адрес].[подадрес].
-  \li \b Name Имя модуля.
-  \li \b Desc Описание модуля.
+  \b Module СЃРѕРґРµСЂР¶РёС‚ СЃР»РµРґСѓСЋС‰РёРµ Р°С‚С‚СЂРёР±СѓС‚С‹:
+  \li \b N    РЈРЅРёРєР°Р»СЊРЅС‹Р№ РґР»СЏ РґР°РЅРЅРѕР№ РєРѕРЅС„РёРіСѓСЂР°С†РёРё РЅРѕРјРµСЂ РјРѕРґСѓР»СЏ.
+  \li \b Node РђРґСЂРµСЃ РІ С„РѕСЂРјР°С‚Рµ [Р°РґСЂРµСЃ].[РїРѕРґР°РґСЂРµСЃ].
+  \li \b Name РРјСЏ РјРѕРґСѓР»СЏ.
+  \li \b Desc РћРїРёСЃР°РЅРёРµ РјРѕРґСѓР»СЏ.
 
-  Внутри описания модуля расположены теги \b Slot с описания слотов опроса.
+  Р’РЅСѓС‚СЂРё РѕРїРёСЃР°РЅРёСЏ РјРѕРґСѓР»СЏ СЂР°СЃРїРѕР»РѕР¶РµРЅС‹ С‚РµРіРё \b Slot СЃ РѕРїРёСЃР°РЅРёСЏ СЃР»РѕС‚РѕРІ РѕРїСЂРѕСЃР°.
 
-  \b Slot содержит следующие аттрибуты:
-  \li \b N            Уникальный для данного модуля номер слота
-  \li \b Addr         Начальный адрес данных (шестнадцатеричное число)
-  \li \b Length       Количество данных
-  \li \b Type         Тип данных
-  \li \b Desc         Описание
+  \b Slot СЃРѕРґРµСЂР¶РёС‚ СЃР»РµРґСѓСЋС‰РёРµ Р°С‚С‚СЂРёР±СѓС‚С‹:
+  \li \b N            РЈРЅРёРєР°Р»СЊРЅС‹Р№ РґР»СЏ РґР°РЅРЅРѕРіРѕ РјРѕРґСѓР»СЏ РЅРѕРјРµСЂ СЃР»РѕС‚Р°
+  \li \b Addr         РќР°С‡Р°Р»СЊРЅС‹Р№ Р°РґСЂРµСЃ РґР°РЅРЅС‹С… (С€РµСЃС‚РЅР°РґС†Р°С‚РµСЂРёС‡РЅРѕРµ С‡РёСЃР»Рѕ)
+  \li \b Length       РљРѕР»РёС‡РµСЃС‚РІРѕ РґР°РЅРЅС‹С…
+  \li \b Type         РўРёРї РґР°РЅРЅС‹С…
+  \li \b Desc         РћРїРёСЃР°РЅРёРµ
 
-  Аттрибут \b Type может содержать следующие значения:
+  РђС‚С‚СЂРёР±СѓС‚ \b Type РјРѕР¶РµС‚ СЃРѕРґРµСЂР¶Р°С‚СЊ СЃР»РµРґСѓСЋС‰РёРµ Р·РЅР°С‡РµРЅРёСЏ:
   \li \b bits
   \li \b bytes
   \li \b words
   \li \b dwords
   \li \b floats
 
-  Пример:
+  РџСЂРёРјРµСЂ:
 
 \verbatim
   <MBConfig>
     <Module Node="1" Desc="" N="1" Name="DI300" >
-      <Slot Desc="Дискретные входы" Length="64" Type="bits" N="1" Addr="2" />
-      <Slot Desc="Режим" Length="32" Type="bits" N="2" Addr="A" />
-      <Slot Desc="Счетчики" Length="64" Type="dwords" N="3" Addr="E" />
-      <Slot Desc="Сброс счетчиков" Length="64" Type="bits" N="4" Addr="10E" />
-      <Slot Desc="Режимы фильтрации" Length="64" Type="bytes" N="5" Addr="116" />
-      <Slot Desc="Частота" Length="64" Type="dwords" N="6" Addr="156" />
-      <Slot Desc="Период экс. сглаживания" Length="64" Type="words" N="7" Addr="256" />
+      <Slot Desc="Р”РёСЃРєСЂРµС‚РЅС‹Рµ РІС…РѕРґС‹" Length="64" Type="bits" N="1" Addr="2" />
+      <Slot Desc="Р РµР¶РёРј" Length="32" Type="bits" N="2" Addr="A" />
+      <Slot Desc="РЎС‡РµС‚С‡РёРєРё" Length="64" Type="dwords" N="3" Addr="E" />
+      <Slot Desc="РЎР±СЂРѕСЃ СЃС‡РµС‚С‡РёРєРѕРІ" Length="64" Type="bits" N="4" Addr="10E" />
+      <Slot Desc="Р РµР¶РёРјС‹ С„РёР»СЊС‚СЂР°С†РёРё" Length="64" Type="bytes" N="5" Addr="116" />
+      <Slot Desc="Р§Р°СЃС‚РѕС‚Р°" Length="64" Type="dwords" N="6" Addr="156" />
+      <Slot Desc="РџРµСЂРёРѕРґ СЌРєСЃ. СЃРіР»Р°Р¶РёРІР°РЅРёСЏ" Length="64" Type="words" N="7" Addr="256" />
     </Module>
   </MBConfig>
 \endverbatim

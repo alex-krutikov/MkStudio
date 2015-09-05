@@ -13,16 +13,16 @@
 #include "mbmasterxml.h"
 
 //-----------------------------------------------------------------------------
-// служебная структура - привязка ячеек
+// СЃР»СѓР¶РµР±РЅР°СЏ СЃС‚СЂСѓРєС‚СѓСЂР° - РїСЂРёРІСЏР·РєР° СЏС‡РµРµРє
 //-----------------------------------------------------------------------------
 struct MKTable::MKTableAssignData
-{ int m_index,s_index,i_index; // модуль,слот,индекс
-  int row,column;              // ячейка
-  MMValue current_value;       // текущее значение
-  bool first_pass_flag;        // флаг первого прохода отображения
-  int status;                  // достоверность значения
-  int format;                  // формат выдачи
-  int ss_enum_index;           // индекс в векторе enum
+{ int m_index,s_index,i_index; // РјРѕРґСѓР»СЊ,СЃР»РѕС‚,РёРЅРґРµРєСЃ
+  int row,column;              // СЏС‡РµР№РєР°
+  MMValue current_value;       // С‚РµРєСѓС‰РµРµ Р·РЅР°С‡РµРЅРёРµ
+  bool first_pass_flag;        // С„Р»Р°Рі РїРµСЂРІРѕРіРѕ РїСЂРѕС…РѕРґР° РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ
+  int status;                  // РґРѕСЃС‚РѕРІРµСЂРЅРѕСЃС‚СЊ Р·РЅР°С‡РµРЅРёСЏ
+  int format;                  // С„РѕСЂРјР°С‚ РІС‹РґР°С‡Рё
+  int ss_enum_index;           // РёРЅРґРµРєСЃ РІ РІРµРєС‚РѕСЂРµ enum
   static bool lessThan(const MKTableAssignData &s1, const MKTableAssignData &s2);
 };
 
@@ -181,7 +181,7 @@ bool MKTable::loadConfiguration( const QDomDocument &doc )
 
    setItem( row,col,titem );
 /*
-   // НЕПОНЯТКИ С ОБЪЕДИНЕНИЕМ ЯЧЕЕК
+   // РќР•РџРћРќРЇРўРљР РЎ РћР‘РЄР•Р”РРќР•РќРР•Рњ РЇР§Р•Р•Рљ
    str = element.attribute("Span");
    row_span=str.section(',',0,0).toInt();
    col_span=str.section(',',1,1).toInt();
@@ -240,7 +240,7 @@ void MKTable::loadShortCuts(const QDomDocument &doc_table)
         }
         else if(element.attribute("Action") == "WriteValue")
         {
-            if(element.attribute("Name") == "Записать 0")
+            if(element.attribute("Name") == "Р—Р°РїРёСЃР°С‚СЊ 0")
             {
                 sc = new ShortCut(ShortCut::WriteValue,
                                   element.attribute("KeyCode").toInt(),
@@ -248,7 +248,7 @@ void MKTable::loadShortCuts(const QDomDocument &doc_table)
                                   element.attribute("Assign"), 0);
                 hotkey.insert(element.attribute("KeyCode").toInt(), sc);
             }
-            else if(element.attribute("Name") == "Записать 1")
+            else if(element.attribute("Name") == "Р—Р°РїРёСЃР°С‚СЊ 1")
             {
 
                 sc = new ShortCut(ShortCut::WriteValue,
@@ -385,7 +385,7 @@ bool MKTable::MKTableAssignData::lessThan(const MKTableAssignData &s1, const MKT
 };
 
 //==============================================================================
-/// Разбор листа настроек
+/// Р Р°Р·Р±РѕСЂ Р»РёСЃС‚Р° РЅР°СЃС‚СЂРѕРµРє
 //==============================================================================
 void MKTable::ss_process()
 {
@@ -393,14 +393,14 @@ void MKTable::ss_process()
   ss_enum_name2index.clear();
   QString ss = settingssheet_str;
   QString str,str2;
-  // удаление комментариев
+  // СѓРґР°Р»РµРЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёРµРІ
   ss.remove( QRegExp("//[^\n]*") );
   ss = ss.simplified();
 
-  QStringList sl_enum_name;  // названия селекторов
-  QStringList sl_enum_body;  // значения селекторов
+  QStringList sl_enum_name;  // РЅР°Р·РІР°РЅРёСЏ СЃРµР»РµРєС‚РѕСЂРѕРІ
+  QStringList sl_enum_body;  // Р·РЅР°С‡РµРЅРёСЏ СЃРµР»РµРєС‚РѕСЂРѕРІ
 
-  // выделение селекторов из общего текста
+  // РІС‹РґРµР»РµРЅРёРµ СЃРµР»РµРєС‚РѕСЂРѕРІ РёР· РѕР±С‰РµРіРѕ С‚РµРєСЃС‚Р°
   QRegExp rx = QRegExp("\\benum\\b\\s*(\\w+)\\b\\s*\\{");
   int pos,p1,i,j,k;
   pos=0;
@@ -418,7 +418,7 @@ void MKTable::ss_process()
     sl_enum_body << ss.mid( p1, pos-p1 );
   }
 
-  // разбор селекторов
+  // СЂР°Р·Р±РѕСЂ СЃРµР»РµРєС‚РѕСЂРѕРІ
   MKTable_SS_Enum t;
   QRegExp rx2 = QRegExp("=(-?\\d+):");
   QVector<int> v_flags;
@@ -431,7 +431,7 @@ void MKTable::ss_process()
     t.map_menu.clear();
     str = sl_enum_body.at(i);
 
-    // этап 1
+    // СЌС‚Р°Рї 1
     v_flags.resize( str.length() );
     v_flags.fill(0);
     v_n.clear();
@@ -446,7 +446,7 @@ void MKTable::ss_process()
     //qDebug() << v_n;
     //qDebug() << v_flags;
 
-    // этап 2
+    // СЌС‚Р°Рї 2
     k=0;
     for( pos=0; pos<v_flags.size(); pos++ )
     { if( v_flags[pos] == 0 ) continue;
@@ -580,9 +580,9 @@ void MKTable::setMode( enum Mode m )
     refresh();
 
     if( unknown_selectors.size() )
-    { QMessageBox::warning( this, "Предупреждение",
-          "Некоторые используемые в таблице селекторы не найдены в листе настроек!\n\n"
-          "Список селекторов и ячеек:\n"
+    { QMessageBox::warning( this, "РџСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ",
+          "РќРµРєРѕС‚РѕСЂС‹Рµ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ РІ С‚Р°Р±Р»РёС†Рµ СЃРµР»РµРєС‚РѕСЂС‹ РЅРµ РЅР°Р№РґРµРЅС‹ РІ Р»РёСЃС‚Рµ РЅР°СЃС‚СЂРѕРµРє!\n\n"
+          "РЎРїРёСЃРѕРє СЃРµР»РµРєС‚РѕСЂРѕРІ Рё СЏС‡РµРµРє:\n"
         + unknown_selectors.join(",\n") );
     }
   }
@@ -617,28 +617,28 @@ void MKTable::contextMenuEvent( QContextMenuEvent *e )
   QList<QTableWidgetItem *> si = QTableWidget::selectedItems();
   if( si.count() == 0 ) return;
   if( si.count() >  4 )
-  { QMessageBox::information( this,"Ошибка", "Должно быть выделено не более 4 ячеек." );
+  { QMessageBox::information( this,"РћС€РёР±РєР°", "Р”РѕР»Р¶РЅРѕ Р±С‹С‚СЊ РІС‹РґРµР»РµРЅРѕ РЅРµ Р±РѕР»РµРµ 4 СЏС‡РµРµРє." );
     return;
   }
 
   QMenu menu( this );
   QAction *action1=0;
 
-  action1 = menu.addAction(QIcon(":/icons/res/line-chart.png"),"Самописец");
+  action1 = menu.addAction(QIcon(":/icons/res/line-chart.png"),"РЎР°РјРѕРїРёСЃРµС†");
   if( !si.value(0)->data(IndexRole).isValid() ) action1->setEnabled( false );
 
   QAction *act  = menu.exec( viewport()->mapToGlobal( e->pos() ) );
   if( act == 0 ) return;
   if( act == action1 )
-  { //---------- вывод графика ------------------------------------------------------------------------
+  { //---------- РІС‹РІРѕРґ РіСЂР°С„РёРєР° ------------------------------------------------------------------------
 
     QString str, str_column, str_row, str_title;
     int i,j,si_count;
     si_count=0;
-    str_title = "Самописец";
+    str_title = "РЎР°РјРѕРїРёСЃРµС†";
     foreach( QTableWidgetItem * t, si )
     {
-      //-------------------- название столбца --------
+      //-------------------- РЅР°Р·РІР°РЅРёРµ СЃС‚РѕР»Р±С†Р° --------
       j = t->column();
       for( i = t->row(); i>=0; i-- )
       { if( item(i,j)->data(IndexRole).isValid() ) continue;
@@ -647,7 +647,7 @@ void MKTable::contextMenuEvent( QContextMenuEvent *e )
         break;
       }
       if( str_column.isEmpty() )  { str_column = model()->headerData( j, Qt::Horizontal ).toString();  }
-      //-------------------- название строки --------
+      //-------------------- РЅР°Р·РІР°РЅРёРµ СЃС‚СЂРѕРєРё --------
       i = t->row();
       for( j = t->column(); j>=0; j-- )
       { if( item(i,j)->data(IndexRole).isValid() ) continue;
@@ -655,18 +655,18 @@ void MKTable::contextMenuEvent( QContextMenuEvent *e )
         str_row = item(i,j)->text();
         break;
       }
-      //------добавление составляющей цвета графика----
+      //------РґРѕР±Р°РІР»РµРЅРёРµ СЃРѕСЃС‚Р°РІР»СЏСЋС‰РµР№ С†РІРµС‚Р° РіСЂР°С„РёРєР°----
       switch(si_count)
-      { case 0: str += "синий самописец:     ";break;
-        case 1: str += "зеленый самописец:";break;
-        case 2: str += "красный самописец:";break;
-        case 3: str += "черный самописец:  ";break;
+      { case 0: str += "СЃРёРЅРёР№ СЃР°РјРѕРїРёСЃРµС†:     ";break;
+        case 1: str += "Р·РµР»РµРЅС‹Р№ СЃР°РјРѕРїРёСЃРµС†:";break;
+        case 2: str += "РєСЂР°СЃРЅС‹Р№ СЃР°РјРѕРїРёСЃРµС†:";break;
+        case 3: str += "С‡РµСЂРЅС‹Р№ СЃР°РјРѕРїРёСЃРµС†:  ";break;
       }
         si_count++;
-      //-------------------- вывод графика ----------
+      //-------------------- РІС‹РІРѕРґ РіСЂР°С„РёРєР° ----------
       if( !str_row.isEmpty() )    str += " ( " + str_row.simplified() + " )";
       if( !str_column.isEmpty() ) str += " ( " + str_column.simplified() + " )\n";
-      //-------------------- определение заголовка ----------
+      //-------------------- РѕРїСЂРµРґРµР»РµРЅРёРµ Р·Р°РіРѕР»РѕРІРєР° ----------
       if( si.count() == 1 )
       { if( !str_row.isEmpty() )    str_title += " ( " + str_row.simplified() + " )";
         if( !str_column.isEmpty() ) str_title += " ( " + str_column.simplified() + " )";
@@ -790,7 +790,7 @@ void MKTable::keyPressEvent( QKeyEvent *event )
 }
 
 //==============================================================================
-//! обновление содержимого таблицы (собственно опрос)
+//! РѕР±РЅРѕРІР»РµРЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ С‚Р°Р±Р»РёС†С‹ (СЃРѕР±СЃС‚РІРµРЅРЅРѕ РѕРїСЂРѕСЃ)
 //==============================================================================
 void MKTable::refresh()
 {
@@ -832,7 +832,7 @@ cycle_begin:
     }
 
     if( vflag )
-    { slot = mbmaster->getSlot(mm,ss); // запрос данных
+    { slot = mbmaster->getSlot(mm,ss); // Р·Р°РїСЂРѕСЃ РґР°РЅРЅС‹С…
     } else
     { slot = MMSlot();
     }
@@ -852,7 +852,7 @@ cycle_begin:
       if( titem == 0 ) continue;
 
       if( assign_data[i].first_pass_flag || (value != assign_data[i].current_value ) )
-      { // обновление
+      { // РѕР±РЅРѕРІР»РµРЅРёРµ
         assign_data[i].first_pass_flag = false;
         if( value.status() == MMValue::Ok )
         { if( assign_data[i].status != 1 )
@@ -913,7 +913,7 @@ QString MKTable::format_output( const MMValue &value, const MBDataType &datatype
   cf = (char*)"";
 
   switch( type )
-  { case(1): // беззнаковый
+  { case(1): // Р±РµР·Р·РЅР°РєРѕРІС‹Р№
       switch( datatype_id )
       { case( MBDataType::Floats )          : cf=(char*)"%7.7g";           break;
         case( MBDataType::Bits   )          : cf=(char*)"%u"; d &= 0x01;   break;
@@ -939,7 +939,7 @@ QString MKTable::format_output( const MMValue &value, const MBDataType &datatype
         case( MBDataType::Coils   )         : cf=(char*)"0x%2.2X"; d &= 0x01;   break;
       }
       break;
-    default: // формат по умолчанию
+    default: // С„РѕСЂРјР°С‚ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
       switch( datatype_id )
       { case( MBDataType::Floats )          : cf=(char*)"%7.7g"; break;
         case( MBDataType::Bits   )          : cf=(char*)"%d"; break;
@@ -1114,7 +1114,7 @@ void MKTableItemDelegate::updateEditorGeometry ( QWidget * editor, const QStyleO
   if( i >= 0 )
   { MKTableItemCBWidget *w = qobject_cast<MKTableItemCBWidget*>(editor);
     if( w == 0 ) return;
-      // расчет высоты и ширины
+      // СЂР°СЃС‡РµС‚ РІС‹СЃРѕС‚С‹ Рё С€РёСЂРёРЅС‹
       QStyleOption opt;
       opt.initFrom(w);
       QSize sz = w->size();
@@ -1205,7 +1205,7 @@ void MKTableItemDelegate::setModelData ( QWidget *editor, QAbstractItemModel *mo
 
   if( var.isNull() ) return;
 
-  // заполняем всю выделенную область
+  // Р·Р°РїРѕР»РЅСЏРµРј РІСЃСЋ РІС‹РґРµР»РµРЅРЅСѓСЋ РѕР±Р»Р°СЃС‚СЊ
   QList<QTableWidgetItem*>  si = table->QTableWidget::selectedItems();
   foreach( QTableWidgetItem *titem, si )
   { i = titem->data(MKTable::IndexRole).toInt(&ok);
@@ -1229,7 +1229,7 @@ bool MKTableItemDelegate::eventFilter(QObject *obj, QEvent *event)
     if (event->type() == QEvent::KeyPress)
     {  QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
        if( keyEvent->key() == Qt::Key_Space )
-       { // обнуляем значение и подменяем нажатую клавишу
+       { // РѕР±РЅСѓР»СЏРµРј Р·РЅР°С‡РµРЅРёРµ Рё РїРѕРґРјРµРЅСЏРµРј РЅР°Р¶Р°С‚СѓСЋ РєР»Р°РІРёС€Сѓ
          le->clear();
          if(keyEvent->modifiers() & Qt::ControlModifier ) le->setText("1");
          QKeyEvent enterKeyPress(QEvent::KeyPress, Qt::Key_Enter, 0);
@@ -1265,8 +1265,8 @@ void MKTableItemCBWidget::mouseReleaseEvent( QMouseEvent * event )
   QListWidget::mouseReleaseEvent( event );
   if( confirmEdit )
   {
-      if( QMessageBox::question(this,"редактирование ячейки",
-          "Вы действительно хотите изменить значение данной ячейки ?",
+      if( QMessageBox::question(this,"СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ СЏС‡РµР№РєРё",
+          "Р’С‹ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅРѕ С…РѕС‚РёС‚Рµ РёР·РјРµРЅРёС‚СЊ Р·РЅР°С‡РµРЅРёРµ РґР°РЅРЅРѕР№ СЏС‡РµР№РєРё ?",
           QMessageBox::Yes|QMessageBox::Default,
           QMessageBox::No|QMessageBox::Escape)==QMessageBox::Yes)
       {

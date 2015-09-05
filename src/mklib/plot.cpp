@@ -58,10 +58,10 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
     ui->cb_use_match->setEnabled( false );
   }
 
-  ui->cb_plot_stat->addItem( "синий" );
-  if( plots_count > 1 ) ui->cb_plot_stat->addItem( "зеленый" );
-  if( plots_count > 2 ) ui->cb_plot_stat->addItem( "красный" );
-  if( plots_count > 3 ) ui->cb_plot_stat->addItem( "черный"  );
+  ui->cb_plot_stat->addItem( "СЃРёРЅРёР№" );
+  if( plots_count > 1 ) ui->cb_plot_stat->addItem( "Р·РµР»РµРЅС‹Р№" );
+  if( plots_count > 2 ) ui->cb_plot_stat->addItem( "РєСЂР°СЃРЅС‹Р№" );
+  if( plots_count > 3 ) ui->cb_plot_stat->addItem( "С‡РµСЂРЅС‹Р№"  );
 
   ui->cb_speed->setItemData(0, "sec", Qt::UserRole);
   ui->cb_speed->setItemData(1, "sec", Qt::UserRole);
@@ -214,21 +214,21 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   QHBoxLayout *layout = new QHBoxLayout;
 
   pb_clear = new QToolButton;
-  pb_clear->setText("Очистить");
+  pb_clear->setText("РћС‡РёСЃС‚РёС‚СЊ");
   pb_clear->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
   pb_clear->setStyleSheet(tb_qss);
   connect( pb_clear, SIGNAL( clicked() ), this, SLOT( pb_clear_clicked() ) );
 
   pb_export = new QToolButton;
-  pb_export->setText("Экспорт");
-  pb_export->setToolTip("Экспорт данных в буфер обмена");
+  pb_export->setText("Р­РєСЃРїРѕСЂС‚");
+  pb_export->setToolTip("Р­РєСЃРїРѕСЂС‚ РґР°РЅРЅС‹С… РІ Р±СѓС„РµСЂ РѕР±РјРµРЅР°");
   pb_export->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
   pb_export->setStyleSheet(tb_qss);
   connect( pb_export, SIGNAL( clicked() ), this, SLOT( pb_export_clicked() ) );
 
   pb_pause = new QToolButton;
-  pb_pause->setText("Пауза");
-  pb_pause->setToolTip("Пауза");
+  pb_pause->setText("РџР°СѓР·Р°");
+  pb_pause->setToolTip("РџР°СѓР·Р°");
   pb_pause->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
   pb_pause->setIcon( QIcon(":/icons/res/pause.png" ) );
   pb_pause->setStyleSheet(tb_qss);
@@ -244,7 +244,7 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   pb_grid->setCheckable(true);
   pb_grid->setChecked(true);
   pb_grid->setIcon( QIcon(":/icons/res/nogrid.png") );
-  pb_grid->setToolTip("Сетка");
+  pb_grid->setToolTip("РЎРµС‚РєР°");
   pb_grid->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
   pb_grid->setStyleSheet(tb_qss);
   connect(pb_grid, SIGNAL(toggled(bool)), this, SLOT(pb_grid_toggled(bool)));
@@ -253,7 +253,7 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   pb_crosshair->setCheckable(true);
   pb_crosshair->setChecked(true);
   pb_crosshair->setIcon( QIcon(":/icons/res/nocrosshair.png") );
-  pb_crosshair->setToolTip("Курсор");
+  pb_crosshair->setToolTip("РљСѓСЂСЃРѕСЂ");
   pb_crosshair->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
   pb_crosshair->setStyleSheet(tb_qss);
   connect(pb_crosshair, SIGNAL(toggled(bool)), this, SLOT(pb_crosshair_toggled(bool)));
@@ -262,7 +262,7 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   pb_picker_data->setCheckable(true);
   pb_picker_data->setChecked(true);
   pb_picker_data->setIcon( QIcon(":/icons/res/nopicker_data.png") );
-  pb_picker_data->setToolTip("Данные курсора");
+  pb_picker_data->setToolTip("Р”Р°РЅРЅС‹Рµ РєСѓСЂСЃРѕСЂР°");
   pb_picker_data->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
   pb_picker_data->setStyleSheet(tb_qss);
   connect(pb_picker_data, SIGNAL(toggled(bool)), this, SLOT(pb_picker_data_toggled(bool)));
@@ -302,7 +302,7 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   if( timerId ) killTimer( timerId );
   timerId = startTimer(timerInterval);
 
-  if( !timerId ) QMessageBox::critical(this, "самописец","Не удалось запустить самописец.");
+  if( !timerId ) QMessageBox::critical(this, "СЃР°РјРѕРїРёСЃРµС†","РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°РїСѓСЃС‚РёС‚СЊ СЃР°РјРѕРїРёСЃРµС†.");
 }
  QT_CATCH(...){}
 }
@@ -404,13 +404,13 @@ void Plot::pb_pause_clicked()
   ui->sb_tact->setEnabled(  pause_flag );
   if( pause_flag )
   { pause_flag = false;
-    pb_pause->setText("Пауза");
-    pb_pause->setToolTip("Пауза");
+    pb_pause->setText("РџР°СѓР·Р°");
+    pb_pause->setToolTip("РџР°СѓР·Р°");
     pb_pause->setIcon( QIcon(":/icons/res/pause.png" ) );
   } else
   { pause_flag = true;
-    pb_pause->setText("Пуск");
-    pb_pause->setToolTip("Пуск");
+    pb_pause->setText("РџСѓСЃРє");
+    pb_pause->setToolTip("РџСѓСЃРє");
     pb_pause->setIcon( QIcon(":/icons/res/play.png" ) );
   }
 }
@@ -484,12 +484,12 @@ void Plot::updateMinimizeButtonState( bool state )
 {
   minimize_flag = state;
   if( minimize_flag )
-  { pb_minimize->setText("Развернуть");
-    pb_minimize->setToolTip("Развернуть таблицу");
+  { pb_minimize->setText("Р Р°Р·РІРµСЂРЅСѓС‚СЊ");
+    pb_minimize->setToolTip("Р Р°Р·РІРµСЂРЅСѓС‚СЊ С‚Р°Р±Р»РёС†Сѓ");
     pb_minimize->setIcon( QIcon(":/icons/res/arrow_down.png") );
   } else
-  { pb_minimize->setText("Свернуть");
-    pb_minimize->setToolTip("Свернуть таблицу");
+  { pb_minimize->setText("РЎРІРµСЂРЅСѓС‚СЊ");
+    pb_minimize->setToolTip("РЎРІРµСЂРЅСѓС‚СЊ С‚Р°Р±Р»РёС†Сѓ");
     pb_minimize->setIcon( QIcon(":/icons/res/arrow_up.png") );
   }
 }
@@ -504,22 +504,22 @@ void Plot::pb_export_clicked()
   double x_value;
 
   switch( ui->cb_speed->currentIndex() )
-  { case(0): // 5 сек
+  { case(0): // 5 СЃРµРє
       scale_x = 5;
       break;
-    case(1): // 20 сек
+    case(1): // 20 СЃРµРє
       scale_x = 20;
       break;
-    case(2): // 1 мин
+    case(2): // 1 РјРёРЅ
       scale_x = 60;
       break;
-    case(3): // 5 мин
+    case(3): // 5 РјРёРЅ
       scale_x = 300;
       break;
-    case(4): // 20 мин
+    case(4): // 20 РјРёРЅ
       scale_x = 1200;
       break;
-    case(5): // 1 час
+    case(5): // 1 С‡Р°СЃ
       scale_x = 3600;
       break;
   }
@@ -539,7 +539,7 @@ void Plot::pb_export_clicked()
     k--;
   }
   QApplication::clipboard()->setText( str );
-  QMessageBox::information( this, "Самописец", "Данные скопированы в буфер обмена." );
+  QMessageBox::information( this, "РЎР°РјРѕРїРёСЃРµС†", "Р”Р°РЅРЅС‹Рµ СЃРєРѕРїРёСЂРѕРІР°РЅС‹ РІ Р±СѓС„РµСЂ РѕР±РјРµРЅР°." );
 }
  QT_CATCH(...){}
 }
@@ -561,7 +561,7 @@ void Plot::on_sb_tact_valueChanged( int value )
   if( timerId ) killTimer( timerId );
   timerId = startTimer( value );
   timerInterval = value;
-  if( !timerId ) QMessageBox::critical(this, "самописец","Не удалось запустить самописец.");
+  if( !timerId ) QMessageBox::critical(this, "СЃР°РјРѕРїРёСЃРµС†","РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°РїСѓСЃС‚РёС‚СЊ СЃР°РјРѕРїРёСЃРµС†.");
 }
 //==============================================================================
 //
@@ -648,22 +648,22 @@ void Plot::params_change()
 { QT_TRY{
   int sc_x = 60000;
   switch( ui->cb_speed->currentIndex() )
-  { case(0): // 5 сек
+  { case(0): // 5 СЃРµРє
       sc_x = 5000;
       break;
-    case(1): // 20 сек
+    case(1): // 20 СЃРµРє
       sc_x = 20000;
       break;
-    case(2): // 1 мин
+    case(2): // 1 РјРёРЅ
       sc_x = 60000;
       break;
-    case(3): // 5 мин
+    case(3): // 5 РјРёРЅ
       sc_x = 300000;
       break;
-    case(4): // 20 мин
+    case(4): // 20 РјРёРЅ
       sc_x = 1200000;
       break;
-    case(5): // 1 час
+    case(5): // 1 С‡Р°СЃ
       sc_x = 3600000;
       break;
   }
@@ -673,12 +673,12 @@ void Plot::params_change()
 
    double a;
    switch( ui->cb_speed->currentIndex() )
-    { case(0): a=5;  break; // 5 сек
-      case(1): a=20; break; // 20 сек
-      case(2): a=60; break; // 1 мин
-      case(3): a=5;  break; // 5 мин
-      case(4): a=20; break; // 20 мин
-      case(5): a=60; break; // 1 час
+    { case(0): a=5;  break; // 5 СЃРµРє
+      case(1): a=20; break; // 20 СЃРµРє
+      case(2): a=60; break; // 1 РјРёРЅ
+      case(3): a=5;  break; // 5 РјРёРЅ
+      case(4): a=20; break; // 20 РјРёРЅ
+      case(5): a=60; break; // 1 С‡Р°СЃ
       default: a=60;
     }
   ui->plot->setAxisScale(QwtPlot::xBottom,a,0);
@@ -732,7 +732,7 @@ void Plot::calc_statistic()
     case(4): scale_x = 20.0;break;
     case(5): scale_x = 60.0;break;
    }
-  // максимум, минимум, шкала по X
+  // РјР°РєСЃРёРјСѓРј, РјРёРЅРёРјСѓРј, С€РєР°Р»Р° РїРѕ X
   y_min=y_max=y_data_stat[0];
   for( i=0; i < y_data_len; i++ )
   { if( y_data_stat[i] > y_max ) y_max = y_data_stat[i];
@@ -742,7 +742,7 @@ void Plot::calc_statistic()
   for(i=0; i<(y_data_len-points_counter); i++ )
   { x_data[i]=x_data[y_data_len-points_counter];
   }
-  // расчет среднего и дисперсии
+  // СЂР°СЃС‡РµС‚ СЃСЂРµРґРЅРµРіРѕ Рё РґРёСЃРїРµСЂСЃРёРё
   y_mean=0;y_std=0;
 
   for( i = (y_data_len-points_counter); i < y_data_len; i++ )
@@ -790,7 +790,7 @@ void Plot::calc_statistic()
     ui->le_eff_bits->clear();
   }
 
-  // расчет гистограммы
+  // СЂР°СЃС‡РµС‚ РіРёСЃС‚РѕРіСЂР°РјРјС‹
   double a_hist = (y_max-y_min)/(y_hist_data_len-1);
   memset( y_hist_data, 0 , sizeof( y_hist_data ) );
   if( a_value[ui->cb_plot_stat->currentIndex()] )
@@ -826,12 +826,12 @@ void Plot::timerEvent( QTimerEvent *event )
 
   int zoomScale = 60;
   switch( ui->cb_speed->currentIndex() )
-  { case 0: zoomScale = 5;  break; // 5 сек
-    case 1: zoomScale = 20; break; // 20 сек
-    case 2: zoomScale = 60; break; // 1 мин
-    case 3: zoomScale = 5;  break; // 5 мин
-    case 4: zoomScale = 20; break; // 20 мин
-    case 5: zoomScale = 60; break; // 1 час
+  { case 0: zoomScale = 5;  break; // 5 СЃРµРє
+    case 1: zoomScale = 20; break; // 20 СЃРµРє
+    case 2: zoomScale = 60; break; // 1 РјРёРЅ
+    case 3: zoomScale = 5;  break; // 5 РјРёРЅ
+    case 4: zoomScale = 20; break; // 20 РјРёРЅ
+    case 5: zoomScale = 60; break; // 1 С‡Р°СЃ
   }
   zoomer->setZoomBase( QwtDoubleRect( 0, 0, zoomScale, 1000 ) );
 
@@ -861,7 +861,7 @@ void Plot::timerEvent( QTimerEvent *event )
     avr_a[i]   = 0.0;
   }
    avr_counter = 0;
-   // сдвиг данных
+   // СЃРґРІРёРі РґР°РЅРЅС‹С…
    if( firstrun_flag )
    { for( i=0; i < y_data_len; i++ )
      { y_data1[i] = a_value[0];
@@ -883,13 +883,13 @@ void Plot::timerEvent( QTimerEvent *event )
      if( plots_count > 3 ) y_data4[ y_data_len - 1 ] = a_value[3];
    }
 
-   // обрезание еще не полученных данных
+   // РѕР±СЂРµР·Р°РЅРёРµ РµС‰Рµ РЅРµ РїРѕР»СѓС‡РµРЅРЅС‹С… РґР°РЅРЅС‹С…
    if( points_counter < y_data_len ) points_counter++;
 
-   // рассчет статистики
+   // СЂР°СЃСЃС‡РµС‚ СЃС‚Р°С‚РёСЃС‚РёРєРё
    calc_statistic();
 
-   // масштабирование
+   // РјР°СЃС€С‚Р°Р±РёСЂРѕРІР°РЅРёРµ
    double koeff = 1.0;
    double y_mn = 0, y_mx = 0;
    int plot_index;
@@ -1000,10 +1000,10 @@ void Plot::timerEvent( QTimerEvent *event )
        }
      }
    }
-  // обновление графика
+  // РѕР±РЅРѕРІР»РµРЅРёРµ РіСЂР°С„РёРєР°
    ui->plot->replot();
    picker->refresh();
-   // возврат в исходное состояние из масштабированного графика
+   // РІРѕР·РІСЂР°С‚ РІ РёСЃС…РѕРґРЅРѕРµ СЃРѕСЃС‚РѕСЏРЅРёРµ РёР· РјР°СЃС€С‚Р°Р±РёСЂРѕРІР°РЅРЅРѕРіРѕ РіСЂР°С„РёРєР°
    if( (plots_count>1) && (koeff!=0) && ui->cb_use_match->isChecked() )
    { if( plot_index != 0 )
      { if( y_min1!=y_max1 )
@@ -1087,7 +1087,7 @@ bool Plot::load_recorder_params()
   bool ok;
   int integ;
 
-  //настройка параметров
+  //РЅР°СЃС‚СЂРѕР№РєР° РїР°СЂР°РјРµС‚СЂРѕРІ
   currentParams = separatedParams.at(0);
   integ = currentParams.toInt( &ok );
   if( ok ) ui->sb_tact->setValue( integ );
@@ -1130,7 +1130,7 @@ bool Plot::load_recorder_params()
 bool Plot::save_recorder_params()
 { QT_TRY{
   QString params;
-  //формирование строки параметров
+  //С„РѕСЂРјРёСЂРѕРІР°РЅРёРµ СЃС‚СЂРѕРєРё РїР°СЂР°РјРµС‚СЂРѕРІ
   params += QString::number( ui->sb_tact->value() ) + ";";
   params += QString::number( ui->cb_speed->currentIndex() ) + ";";
   params += QString::number( ui->sb_plot_pen_w->value() ) + ";";
@@ -1144,7 +1144,7 @@ bool Plot::save_recorder_params()
   else params += "0;";
   if(   pb_picker_data->isChecked() ) params += "1;";
   else params += "0;";
-  //сохранение параметров
+  //СЃРѕС…СЂР°РЅРµРЅРёРµ РїР°СЂР°РјРµС‚СЂРѕРІ
   unsigned int isr = 0;
   foreach( QTableWidgetItem * twi, mktableItemList )
   { twi->setData( MKTable::RecorderParamsRole, params + isr_params.at(isr) );
@@ -1158,12 +1158,12 @@ bool Plot::save_recorder_params()
 //
 //==============================================================================
 void Plot::set_file_for_write()
-{ QString str = QFileDialog::getSaveFileName( this, "Файл", "", "*.*", 0,
+{ QString str = QFileDialog::getSaveFileName( this, "Р¤Р°Р№Р»", "", "*.*", 0,
                                               QFileDialog::DontConfirmOverwrite );
   if( str.isEmpty() ) return;
 
   if( openFilesList.contains( str ) )
-  { QMessageBox::warning( this, "Ошибка","Файл занят другим самописцем. Выберите другой файл." );
+  { QMessageBox::warning( this, "РћС€РёР±РєР°","Р¤Р°Р№Р» Р·Р°РЅСЏС‚ РґСЂСѓРіРёРј СЃР°РјРѕРїРёСЃС†РµРј. Р’С‹Р±РµСЂРёС‚Рµ РґСЂСѓРіРѕР№ С„Р°Р№Р»." );
     return;
   } else
   { openFilesList.append( str );
@@ -1176,7 +1176,7 @@ void Plot::set_file_for_write()
   if( file.isOpen() ) file.close();
 
   file.setFileName( str );
-  setWindowTitle( titleStr + " Запись: " + str );
+  setWindowTitle( titleStr + " Р—Р°РїРёСЃСЊ: " + str );
 }
 //==============================================================================
 //
@@ -1188,17 +1188,17 @@ void Plot::file_write_start_stop()
   }
   if( file_write_flag )
   { file_write_flag = false;
-    ui->pb_file_write->setText( "Пуск" );
+    ui->pb_file_write->setText( "РџСѓСЃРє" );
     ui->pb_set_file->setEnabled( true );
   } else
   {
     QMessageBox modeBox( this );
-    modeBox.setWindowTitle( "Открытие файла" );
-    modeBox.setText( "Выберите режим открытия файла." );
+    modeBox.setWindowTitle( "РћС‚РєСЂС‹С‚РёРµ С„Р°Р№Р»Р°" );
+    modeBox.setText( "Р’С‹Р±РµСЂРёС‚Рµ СЂРµР¶РёРј РѕС‚РєСЂС‹С‚РёСЏ С„Р°Р№Р»Р°." );
     modeBox.setIcon( QMessageBox::Question );
-    QPushButton *yesB = modeBox.addButton( "Дозапись",  QMessageBox::YesRole );
-    modeBox.addButton( "Перезапись", QMessageBox::NoRole );
-    QPushButton *rejB = modeBox.addButton( "Отмена", QMessageBox::RejectRole );
+    QPushButton *yesB = modeBox.addButton( "Р”РѕР·Р°РїРёСЃСЊ",  QMessageBox::YesRole );
+    modeBox.addButton( "РџРµСЂРµР·Р°РїРёСЃСЊ", QMessageBox::NoRole );
+    QPushButton *rejB = modeBox.addButton( "РћС‚РјРµРЅР°", QMessageBox::RejectRole );
     modeBox.setDefaultButton( yesB );
     modeBox.setEscapeButton( rejB );
 
@@ -1211,18 +1211,18 @@ void Plot::file_write_start_stop()
     }
 
     if( !file.open( QIODevice::WriteOnly | ( open_mode ? QIODevice::Append : QIODevice::Truncate ) ) )
-    { QMessageBox::critical( this, "Ошибка",
-       "Не удалось открыть файл для записи. Возможно, он не указан или у вас нет на это прав.");
+    { QMessageBox::critical( this, "РћС€РёР±РєР°",
+       "РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р» РґР»СЏ Р·Р°РїРёСЃРё. Р’РѕР·РјРѕР¶РЅРѕ, РѕРЅ РЅРµ СѓРєР°Р·Р°РЅ РёР»Рё Сѓ РІР°СЃ РЅРµС‚ РЅР° СЌС‚Рѕ РїСЂР°РІ.");
       return;
     }
     file.setPermissions( QFile::WriteOwner );
     file_stream.setDevice( &file );
     if( file_stream.status() != QTextStream::Ok )
-    { QMessageBox::critical( this, "Ошибка", "Не удалось открыть файл для записи.");
+    { QMessageBox::critical( this, "РћС€РёР±РєР°", "РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р» РґР»СЏ Р·Р°РїРёСЃРё.");
       return;
     }
     ui->pb_set_file->setEnabled( false );
-    ui->pb_file_write->setText( "Стоп" );
+    ui->pb_file_write->setText( "РЎС‚РѕРї" );
     time_append = 0;
     file_write_flag = true;
   }
@@ -1335,12 +1335,12 @@ void Plot::updateISRparams()
    ui->le_input_signal_range->setEnabled( !isr_use_base_flag );
 }
 //###################################################################
-/// Диалог о масштабировании графика
+/// Р”РёР°Р»РѕРі Рѕ РјР°СЃС€С‚Р°Р±РёСЂРѕРІР°РЅРёРё РіСЂР°С„РёРєР°
 //###################################################################
 PlotISRDialog::PlotISRDialog( QStringList *isr_list, unsigned int isr_index, QWidget *parent ): QDialog( parent ), ui( new Ui::PlotISRDialog )
 {
   ui->setupUi( this );
-  setWindowTitle( "Дианазон входного сигнала" );
+  setWindowTitle( "Р”РёР°РЅР°Р·РѕРЅ РІС…РѕРґРЅРѕРіРѕ СЃРёРіРЅР°Р»Р°" );
 
   isr_param_list  = isr_list;
   isr_param_index = isr_index;
@@ -1394,7 +1394,7 @@ void PlotISRDialog::config_widgets()
 }
 
 //==============================================================================
-// Нажатие кнопки OK
+// РќР°Р¶Р°С‚РёРµ РєРЅРѕРїРєРё OK
 //==============================================================================
 void PlotISRDialog::accept()
 {

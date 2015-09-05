@@ -7,7 +7,7 @@
 class MbTcpPortPrivate;
 
 //---------------------------------------------------------
-//! Последовательный интерфейс передачи данных \ingroup API_group
+//! РџРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅС‹Р№ РёРЅС‚РµСЂС„РµР№СЃ РїРµСЂРµРґР°С‡Рё РґР°РЅРЅС‹С… \ingroup API_group
 //---------------------------------------------------------
 class MBL_EXPORT MbTcpPort : public AbstractSerialPort
 {
@@ -23,8 +23,8 @@ public:
 
   int query( const QByteArray &request, QByteArray &answer, int *errorcode=0);
 
-  QString name(); //!< Имя интерфейса
-  int speed() { return 0;   } //!< Скорость интерфейса
+  QString name(); //!< РРјСЏ РёРЅС‚РµСЂС„РµР№СЃР°
+  int speed() { return 0;   } //!< РЎРєРѕСЂРѕСЃС‚СЊ РёРЅС‚РµСЂС„РµР№СЃР°
   int answerTimeout() const;
   QString lastError() const;
   void resetLastErrorType();

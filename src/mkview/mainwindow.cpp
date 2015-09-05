@@ -24,7 +24,7 @@
 #endif
 
 //##############################################################################
-// Информационное поле в строке состяния
+// РРЅС„РѕСЂРјР°С†РёРѕРЅРЅРѕРµ РїРѕР»Рµ РІ СЃС‚СЂРѕРєРµ СЃРѕСЃС‚СЏРЅРёСЏ
 //##############################################################################
 class InfoLabel : public QLineEdit
 {
@@ -100,7 +100,7 @@ InitDialog::InitDialog( QWidget *parent )
 }
 
 //==============================================================================
-/// Переключение ComboBox'а порта
+/// РџРµСЂРµРєР»СЋС‡РµРЅРёРµ ComboBox'Р° РїРѕСЂС‚Р°
 //==============================================================================
 void InitDialog::on_cb_portname_currentIndexChanged(int)
 {
@@ -153,9 +153,9 @@ void InitDialog::setModulesComboBox( QComboBox *cb )
     if( plugin == 0) continue;
     ptr = qobject_cast<MKViewPluginInterface*>(plugin);
     if( ptr == 0 ) continue;
-    cb->addItem( ptr->moduleName() + " [плагин]", str2 );
+    cb->addItem( ptr->moduleName() + " [РїР»Р°РіРёРЅ]", str2 );
     if( !pluginLoader.unload() )
-    { QMessageBox::critical( this,app_header,"Ошибка при выгрузке плагина.");
+    { QMessageBox::critical( this,app_header,"РћС€РёР±РєР° РїСЂРё РІС‹РіСЂСѓР·РєРµ РїР»Р°РіРёРЅР°.");
     }
   }
   //-------------------------------------------------
@@ -170,7 +170,7 @@ void InitDialog::on_tb_modulehelp_clicked()
   QString filename = cb_modulename->itemData( cb_modulename->currentIndex() ).toString();
   if( filename.contains(".xml") )
   {
-    QMessageBox::information( this, app_header, "Описание модуля отсутствует." );
+    QMessageBox::information( this, app_header, "РћРїРёСЃР°РЅРёРµ РјРѕРґСѓР»СЏ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚." );
     return;
   }
   if( filename.contains( PLUGIN_FILE_MASK2 ) )
@@ -184,7 +184,7 @@ void InitDialog::on_tb_modulehelp_clicked()
     if( ptr == 0 ) return;
     ptr->helpWindow( this );
     if( !pluginLoader.unload() )
-    { QMessageBox::critical( this,app_header,"Ошибка при выгрузке плагина.");
+    { QMessageBox::critical( this,app_header,"РћС€РёР±РєР° РїСЂРё РІС‹РіСЂСѓР·РєРµ РїР»Р°РіРёРЅР°.");
     }
   }
 }
@@ -206,9 +206,9 @@ void InitDialog::on_tb_moduleinfo_clicked()
   if( !serialport.open() )
   { qApp->restoreOverrideCursor();
     QMessageBox::information(0,app_header,
-                             "Ошибка открытия порта.\n\n"
-                             "Возможно, что порт используется\n"
-                             "другим приложением."   );
+                             "РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ РїРѕСЂС‚Р°.\n\n"
+                             "Р’РѕР·РјРѕР¶РЅРѕ, С‡С‚Рѕ РїРѕСЂС‚ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ\n"
+                             "РґСЂСѓРіРёРј РїСЂРёР»РѕР¶РµРЅРёРµРј."   );
     return;
   }
 
@@ -236,15 +236,15 @@ void InitDialog::on_tb_moduleinfo_clicked()
   qApp->restoreOverrideCursor();
 
   if( ret==0 )
-  {  QMessageBox::information( this, app_header, "Нет связи с модулем." );
+  {  QMessageBox::information( this, app_header, "РќРµС‚ СЃРІСЏР·Рё СЃ РјРѕРґСѓР»РµРј." );
      return;
   }
   if( ret!=(128+6) )
-  {  QMessageBox::information( this, app_header, "Ошибка связи с модулем: неверная длина ответа." );
+  {  QMessageBox::information( this, app_header, "РћС€РёР±РєР° СЃРІСЏР·Рё СЃ РјРѕРґСѓР»РµРј: РЅРµРІРµСЂРЅР°СЏ РґР»РёРЅР° РѕС‚РІРµС‚Р°." );
      return;
   }
   if( CRC::CRC16(ans) )
-  {  QMessageBox::information( this, app_header, "Ошибка связи с модулем: ошибка CRC." );
+  {  QMessageBox::information( this, app_header, "РћС€РёР±РєР° СЃРІСЏР·Рё СЃ РјРѕРґСѓР»РµРј: РѕС€РёР±РєР° CRC." );
      return;
   }
 
@@ -363,10 +363,10 @@ MainWindowXml::MainWindowXml( QWidget *parent, const QString &portname, int port
   if( !port->open() )
   { qApp->restoreOverrideCursor();
     QMessageBox::information(0,app_header,
-                             "Ошибка открытия порта.\n\n"
-                             "Возможно, что порт используется\n"
-                             "другим приложением.\n\n"
-                             "Порт будет автоматически открыт\nпри его освобождении." );
+                             "РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ РїРѕСЂС‚Р°.\n\n"
+                             "Р’РѕР·РјРѕР¶РЅРѕ, С‡С‚Рѕ РїРѕСЂС‚ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ\n"
+                             "РґСЂСѓРіРёРј РїСЂРёР»РѕР¶РµРЅРёРµРј.\n\n"
+                             "РџРѕСЂС‚ Р±СѓРґРµС‚ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РѕС‚РєСЂС‹С‚\nРїСЂРё РµРіРѕ РѕСЃРІРѕР±РѕР¶РґРµРЅРёРё." );
   }
   mbmaster.setTransport( port );
 
@@ -398,7 +398,7 @@ MainWindowXml::MainWindowXml( QWidget *parent, const QString &portname, int port
   }
   tw->setMode( MKTable::Polling );
 
-  //------- строка статуса -------------------------------------------------------------
+  //------- СЃС‚СЂРѕРєР° СЃС‚Р°С‚СѓСЃР° -------------------------------------------------------------
 
   statusbar = new QStatusBar();
   full_time       = new InfoLabel;
@@ -415,7 +415,7 @@ MainWindowXml::MainWindowXml( QWidget *parent, const QString &portname, int port
   connect(timer, SIGNAL(timeout()), this, SLOT(group_update()));
   timer->start(200);
 
- //------- геометрия окна по центру экрана ----------------------------------------------
+ //------- РіРµРѕРјРµС‚СЂРёСЏ РѕРєРЅР° РїРѕ С†РµРЅС‚СЂСѓ СЌРєСЂР°РЅР° ----------------------------------------------
  setWindowTitle( app_header );
  setCentralWidget( tw );
  QRect rs = QApplication::desktop()->availableGeometry();
@@ -470,10 +470,10 @@ void MainWindowXml::on_action_font_decrease_activated()
 //==============================================================================
 void MainWindowXml::group_update()
 {
-  full_time       -> setText( QString(" Время опроса: %1 мс ").arg(mbmaster.full_time()) );
-  status_requests -> setText( QString(" Запросы: %1 ").arg(mbmaster.request_counter()) );
-  status_answers  -> setText( QString(" Ответы:  %1 ").arg(mbmaster.answer_counter()) );
-  status_errors   -> setText( QString(" Ошибки:  %1 ").arg(mbmaster.error_counter()) );
+  full_time       -> setText( QString(" Р’СЂРµРјСЏ РѕРїСЂРѕСЃР°: %1 РјСЃ ").arg(mbmaster.full_time()) );
+  status_requests -> setText( QString(" Р—Р°РїСЂРѕСЃС‹: %1 ").arg(mbmaster.request_counter()) );
+  status_answers  -> setText( QString(" РћС‚РІРµС‚С‹:  %1 ").arg(mbmaster.answer_counter()) );
+  status_errors   -> setText( QString(" РћС€РёР±РєРё:  %1 ").arg(mbmaster.error_counter()) );
 }
 
 //-------------------------------------------------------------------------------------------
@@ -496,7 +496,7 @@ ModuleInfoDialog::ModuleInfoDialog( QWidget *parent, const QByteArray &ba )
   : QDialog ( parent )
 {
   setupUi( this );
-  setWindowTitle( "Информация о модуле" );
+  setWindowTitle( "РРЅС„РѕСЂРјР°С†РёСЏ Рѕ РјРѕРґСѓР»Рµ" );
   MikkonModuleDefinition mmd = MBMasterXML::decodeModuleDefinition( ba );
   le_name      -> setText( mmd.productName );
   le_desc      -> setText( mmd.productDescription );

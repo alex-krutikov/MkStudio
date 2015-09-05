@@ -139,8 +139,8 @@ void MBConfigWidget::on_tw1_customContextMenuRequested ( const QPoint& pos)
   int i;
 
   QMenu menu;
-  QAction *act_copy  = menu.addAction(QIcon(":/icons/res/copy.png"),  "Копировать" );
-  QAction *act_paste = menu.addAction(QIcon(":/icons/res/paste.png"), "Вставить"   );
+  QAction *act_copy  = menu.addAction(QIcon(":/icons/res/copy.png"),  "РљРѕРїРёСЂРѕРІР°С‚СЊ" );
+  QAction *act_paste = menu.addAction(QIcon(":/icons/res/paste.png"), "Р’СЃС‚Р°РІРёС‚СЊ"   );
   QAction *act = menu.exec( ui->tw1->mapToGlobal( pos ) );
   if( act == 0 ) return;
 
@@ -175,7 +175,7 @@ void MBConfigWidget::tw1_currentRowChanged(const QModelIndex&current,
 }
 
 //===================================================================
-//! Очистить конфигурацию
+//! РћС‡РёСЃС‚РёС‚СЊ РєРѕРЅС„РёРіСѓСЂР°С†РёСЋ
 //===================================================================
 void MBConfigWidget::clearConfiguration()
 {
@@ -201,9 +201,9 @@ void MBConfigWidget::clearConfiguration()
 }
 
 //===================================================================
-//! Загрузить конфигурацию
+//! Р—Р°РіСЂСѓР·РёС‚СЊ РєРѕРЅС„РёРіСѓСЂР°С†РёСЋ
 /*!
-   \param doc XML документ с описанием конфигурации
+   \param doc XML РґРѕРєСѓРјРµРЅС‚ СЃ РѕРїРёСЃР°РЅРёРµРј РєРѕРЅС„РёРіСѓСЂР°С†РёРё
 */
 //===================================================================
 void MBConfigWidget::loadConfiguration( const QDomDocument &doc )
@@ -247,9 +247,9 @@ void MBConfigWidget::loadConfiguration( const QDomDocument &doc )
 }
 
 //===================================================================
-//! Загрузить конфигурацию
+//! Р—Р°РіСЂСѓР·РёС‚СЊ РєРѕРЅС„РёРіСѓСЂР°С†РёСЋ
 /*!
-   \param xml массив данных с конфигурацией (текст xml-описания)
+   \param xml РјР°СЃСЃРёРІ РґР°РЅРЅС‹С… СЃ РєРѕРЅС„РёРіСѓСЂР°С†РёРµР№ (С‚РµРєСЃС‚ xml-РѕРїРёСЃР°РЅРёСЏ)
 */
 //===================================================================
 void MBConfigWidget::loadConfiguration( const QByteArray &xml )
@@ -260,9 +260,9 @@ void MBConfigWidget::loadConfiguration( const QByteArray &xml )
 }
 
 //===================================================================
-//! Получить текущую конфигурацию
+//! РџРѕР»СѓС‡РёС‚СЊ С‚РµРєСѓС‰СѓСЋ РєРѕРЅС„РёРіСѓСЂР°С†РёСЋ
 /*!
-   \param doc XML документ с описанием конфигурации
+   \param doc XML РґРѕРєСѓРјРµРЅС‚ СЃ РѕРїРёСЃР°РЅРёРµРј РєРѕРЅС„РёРіСѓСЂР°С†РёРё
 */
 //===================================================================
 void MBConfigWidget::saveConfiguration( QDomDocument &doc )
@@ -307,11 +307,11 @@ void MBConfigWidget::saveConfiguration( QDomDocument &doc )
 }
 
 //===================================================================
-//! Задать аттрибуты слота
+//! Р—Р°РґР°С‚СЊ Р°С‚С‚СЂРёР±СѓС‚С‹ СЃР»РѕС‚Р°
 /*!
-   \param module     Номер модуля
-   \param slot       Номер слота
-   \param attributes Аттрибуты
+   \param module     РќРѕРјРµСЂ РјРѕРґСѓР»СЏ
+   \param slot       РќРѕРјРµСЂ СЃР»РѕС‚Р°
+   \param attributes РђС‚С‚СЂРёР±СѓС‚С‹
 */
 //===================================================================
 void MBConfigWidget::setSlotAttributes(int module, int slot, const QString &attributes)
@@ -324,9 +324,9 @@ void MBConfigWidget::setSlotAttributes(int module, int slot, const QString &attr
 }
 
 //===================================================================
-//! Получить текущую конфигурацию
+//! РџРѕР»СѓС‡РёС‚СЊ С‚РµРєСѓС‰СѓСЋ РєРѕРЅС„РёРіСѓСЂР°С†РёСЋ
 /*!
-   \param xml массив данных с конфигурацией (текст xml-описания)
+   \param xml РјР°СЃСЃРёРІ РґР°РЅРЅС‹С… СЃ РєРѕРЅС„РёРіСѓСЂР°С†РёРµР№ (С‚РµРєСЃС‚ xml-РѕРїРёСЃР°РЅРёСЏ)
 */
 //===================================================================
 void MBConfigWidget::saveConfiguration( QByteArray &xml )
@@ -337,9 +337,9 @@ void MBConfigWidget::saveConfiguration( QByteArray &xml )
 }
 
 //===================================================================
-//! Экспортировать текущую конфигурацию в текстовый файл
+//! Р­РєСЃРїРѕСЂС‚РёСЂРѕРІР°С‚СЊ С‚РµРєСѓС‰СѓСЋ РєРѕРЅС„РёРіСѓСЂР°С†РёСЋ РІ С‚РµРєСЃС‚РѕРІС‹Р№ С„Р°Р№Р»
 /*!
-   \return Текстовое описание конфигурации
+   \return РўРµРєСЃС‚РѕРІРѕРµ РѕРїРёСЃР°РЅРёРµ РєРѕРЅС„РёРіСѓСЂР°С†РёРё
 */
 //===================================================================
 QString MBConfigWidget::exportConfiguration()
@@ -351,10 +351,10 @@ QString MBConfigWidget::exportConfiguration()
   {
     if( d->modules_model.md[i].addr.size()==0 ) continue;
 
-    str += "Модуль  : " + d->modules_model.md[i].name + "\n";
-    str += "Узел    : " + d->modules_model.md[i].addr + "\n";
+    str += "РњРѕРґСѓР»СЊ  : " + d->modules_model.md[i].name + "\n";
+    str += "РЈР·РµР»    : " + d->modules_model.md[i].addr + "\n";
     s = d->modules_model.md[i].desc;
-    if( !s.isEmpty() )  str += "Описание: " + s + "\n";
+    if( !s.isEmpty() )  str += "РћРїРёСЃР°РЅРёРµ: " + s + "\n";
 
     maxlen=0;
     for(j=0; j<SLOTS_MAX_N; j++ )
@@ -363,10 +363,10 @@ QString MBConfigWidget::exportConfiguration()
       if( a > maxlen ) maxlen=a;
     }
 
-    str +=  QString("Описание").leftJustified(maxlen, ' ') + "\t";
-    str +=  QString("Адрес").leftJustified(8, ' ') + "\t";;
-    str +=  QString("Тип").leftJustified(8, ' ') + "\t";;
-    str +=  QString("Кол-во").leftJustified(8, ' ') + "\n";
+    str +=  QString("РћРїРёСЃР°РЅРёРµ").leftJustified(maxlen, ' ') + "\t";
+    str +=  QString("РђРґСЂРµСЃ").leftJustified(8, ' ') + "\t";;
+    str +=  QString("РўРёРї").leftJustified(8, ' ') + "\t";;
+    str +=  QString("РљРѕР»-РІРѕ").leftJustified(8, ' ') + "\n";
 
     for(j=0; j<SLOTS_MAX_N; j++ )
     { if( d->slots_model.sd[i][j].addr.size() == 0 ) continue;
@@ -427,9 +427,9 @@ QVariant ModulesModel::headerData ( int section, Qt::Orientation orientation,
   { case( Qt::DisplayRole ):
       switch( section )
       { case (0): return("N");
-        case (1): return("Узел");
-        case (2): return("Название");
-        case (3): return("Описание");
+        case (1): return("РЈР·РµР»");
+        case (2): return("РќР°Р·РІР°РЅРёРµ");
+        case (3): return("РћРїРёСЃР°РЅРёРµ");
       }
       break;
     case( Qt::SizeHintRole ):
@@ -467,7 +467,7 @@ bool ModulesModel::setData ( const QModelIndex & index,
   int column = index.column();
 
   QString str;
-  QRegExp rx1("^[0-9]{1,5}(?:\\.[0-9]{1,2})?$|^$");       // десятичное число 1-5 разряда или ничего
+  QRegExp rx1("^[0-9]{1,5}(?:\\.[0-9]{1,2})?$|^$");       // РґРµСЃСЏС‚РёС‡РЅРѕРµ С‡РёСЃР»Рѕ 1-5 СЂР°Р·СЂСЏРґР° РёР»Рё РЅРёС‡РµРіРѕ
 
   switch( role )
   { case( Qt::EditRole ):
@@ -476,8 +476,8 @@ bool ModulesModel::setData ( const QModelIndex & index,
           str = value.toString();
           if( !rx1.exactMatch( str ) )
           { QMessageBox::warning( 0, "MBConfigWidget",
-              "Узел должен быть десятичным числом.\n"
-              "Подузел может задаватся в формате [узел].[подузел]" );
+              "РЈР·РµР» РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РґРµСЃСЏС‚РёС‡РЅС‹Рј С‡РёСЃР»РѕРј.\n"
+              "РџРѕРґСѓР·РµР» РјРѕР¶РµС‚ Р·Р°РґР°РІР°С‚СЃСЏ РІ С„РѕСЂРјР°С‚Рµ [СѓР·РµР»].[РїРѕРґСѓР·РµР»]" );
             break;
           }
           md[row].addr = str;
@@ -511,8 +511,8 @@ void ModulesModel::refresh()
 //###################################################################
 QVariant SlotsModel::data ( const QModelIndex & index, int role ) const
 {
-  QRegExp rx1("^[0-9A-F]{1,5}$"); // шестнадцатиричное число 1-5 разряда
-  QRegExp rx2("^[0-9]{1,4}$");       // десятичное число 1-4 разряда
+  QRegExp rx1("^[0-9A-F]{1,5}$"); // С€РµСЃС‚РЅР°РґС†Р°С‚РёСЂРёС‡РЅРѕРµ С‡РёСЃР»Рѕ 1-5 СЂР°Р·СЂСЏРґР°
+  QRegExp rx2("^[0-9]{1,4}$");       // РґРµСЃСЏС‚РёС‡РЅРѕРµ С‡РёСЃР»Рѕ 1-4 СЂР°Р·СЂСЏРґР°
 
   if( current_module < 0 ) return QVariant();
   int row = index.row();
@@ -572,10 +572,10 @@ QVariant SlotsModel::headerData ( int section, Qt::Orientation orientation,
   { case( Qt::DisplayRole ):
       switch( section )
       { case (0): return("N");
-        case (1): return("Адрес/Номер");
-        case (2): return("Кол-во");
-        case (3): return("Тип");
-        case (4): return("Описание");
+        case (1): return("РђРґСЂРµСЃ/РќРѕРјРµСЂ");
+        case (2): return("РљРѕР»-РІРѕ");
+        case (3): return("РўРёРї");
+        case (4): return("РћРїРёСЃР°РЅРёРµ");
       }
       break;
     case( Qt::SizeHintRole ):
@@ -619,8 +619,8 @@ bool SlotsModel::setData ( const QModelIndex & index,
   if( current_module < 0 ) return false;
   QString str;
   QString was;
-  QRegExp rx1("^[0-9]{1,4}$|^$");       // десятичное число 1-4 разряда или ничего
-  QRegExp rx2("^[0-9A-F]{1,5}$|^$"); // шестнадцатиричное число 1-5 разряда или ничего
+  QRegExp rx1("^[0-9]{1,4}$|^$");       // РґРµСЃСЏС‚РёС‡РЅРѕРµ С‡РёСЃР»Рѕ 1-4 СЂР°Р·СЂСЏРґР° РёР»Рё РЅРёС‡РµРіРѕ
+  QRegExp rx2("^[0-9A-F]{1,5}$|^$"); // С€РµСЃС‚РЅР°РґС†Р°С‚РёСЂРёС‡РЅРѕРµ С‡РёСЃР»Рѕ 1-5 СЂР°Р·СЂСЏРґР° РёР»Рё РЅРёС‡РµРіРѕ
   QRegExp rq("^[0-9]{1,4}$|");
   MBDataType type1, type2;
   int row = index.row();
@@ -633,12 +633,12 @@ bool SlotsModel::setData ( const QModelIndex & index,
           str = value.toString().toUpper();
           if( sd[current_module][row].type.isRegister() )
             { if( !rx1.exactMatch( str ))
-             { QMessageBox::warning( 0, "MBConfigWidget", "Номер должен быть десятичным числом в диапазоне 0-9999!" );
+             { QMessageBox::warning( 0, "MBConfigWidget", "РќРѕРјРµСЂ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РґРµСЃСЏС‚РёС‡РЅС‹Рј С‡РёСЃР»РѕРј РІ РґРёР°РїР°Р·РѕРЅРµ 0-9999!" );
                break;
              }
             }
           else if( !rx2.exactMatch( str ))
-               { QMessageBox::warning( 0, "MBConfigWidget", "Адрес должен быть шестнадцатиричным числом в диапазоне 0-FFFFF!" );
+               { QMessageBox::warning( 0, "MBConfigWidget", "РђРґСЂРµСЃ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ С€РµСЃС‚РЅР°РґС†Р°С‚РёСЂРёС‡РЅС‹Рј С‡РёСЃР»РѕРј РІ РґРёР°РїР°Р·РѕРЅРµ 0-FFFFF!" );
                break;
                }
 
@@ -665,7 +665,7 @@ bool SlotsModel::setData ( const QModelIndex & index,
           goto ok;
         case(2):
           if( !rq.exactMatch( value.toString() ) )
-          { QMessageBox::warning( 0, "MBConfigWidget", "Количество должно быть десятичным числом в диапазоне 0-9999!" );
+          { QMessageBox::warning( 0, "MBConfigWidget", "РљРѕР»РёС‡РµСЃС‚РІРѕ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РґРµСЃСЏС‚РёС‡РЅС‹Рј С‡РёСЃР»РѕРј РІ РґРёР°РїР°Р·РѕРЅРµ 0-9999!" );
             break;
           }
           sd[current_module][row].n = value.toInt();
@@ -682,9 +682,9 @@ bool SlotsModel::setData ( const QModelIndex & index,
             if( type2.isRegister() ) base2 = 10;
             int addr = str.toInt(0, base1);
             if(  type1.isAnalogRegister()   ) addr *= 2;
-            if( !type1.isDiscreteRegister() ) addr *= 8; // все кроме дискретных регистров
+            if( !type1.isDiscreteRegister() ) addr *= 8; // РІСЃРµ РєСЂРѕРјРµ РґРёСЃРєСЂРµС‚РЅС‹С… СЂРµРіРёСЃС‚СЂРѕРІ
             if(  type2.isAnalogRegister()   ) addr /= 2;
-            if( !type2.isDiscreteRegister() ) addr /= 8; // все кроме дискретных регистров
+            if( !type2.isDiscreteRegister() ) addr /= 8; // РІСЃРµ РєСЂРѕРјРµ РґРёСЃРєСЂРµС‚РЅС‹С… СЂРµРіРёСЃС‚СЂРѕРІ
             str = QString::number(addr, base2).toUpper();
           }
           sd[current_module][row].addr = str;

@@ -27,7 +27,7 @@ enum  DataType { UnknownType=0, Bits, Bytes, Words, DWords, Floats } data_type;
 int node=1;
 
 //=============================================================================
-// Вывод информации о программе
+// Р’С‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РїСЂРѕРіСЂР°РјРјРµ
 //=============================================================================
 static void print_help()
 {
@@ -57,7 +57,7 @@ static void print_help()
 
 
 //=============================================================================
-// Инициализация
+// РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ
 //=============================================================================
 static int init()
 {
@@ -66,7 +66,7 @@ static int init()
   int portspeed = 115200;
   bool ok;
 
-  //--- разбор аргументов командной строки
+  //--- СЂР°Р·Р±РѕСЂ Р°СЂРіСѓРјРµРЅС‚РѕРІ РєРѕРјР°РЅРґРЅРѕР№ СЃС‚СЂРѕРєРё
   QStringList command_arguments = QCoreApplication::arguments();
   command_arguments.removeAt(0);
 
@@ -161,7 +161,7 @@ static int init()
     }
   }
 
-  //--- анализ конфигурации
+  //--- Р°РЅР°Р»РёР· РєРѕРЅС„РёРіСѓСЂР°С†РёРё
   if( portname.isEmpty() && hostname.isEmpty())
   { cerr << "Configuration error: Serial port or tcp/ip host does not set.";
     print_help();

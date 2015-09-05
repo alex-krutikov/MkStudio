@@ -9,7 +9,7 @@
 #include "mbcommon.h"
 
 //==============================================================================
-/// Предсказание длины ответного пакета в соответствии с протоколом MIKKON Modbus
+/// РџСЂРµРґСЃРєР°Р·Р°РЅРёРµ РґР»РёРЅС‹ РѕС‚РІРµС‚РЅРѕРіРѕ РїР°РєРµС‚Р° РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ РїСЂРѕС‚РѕРєРѕР»РѕРј MIKKON Modbus
 //==============================================================================
 static int expected_answer_size( const QByteArray &ba )
 {
@@ -69,7 +69,7 @@ void ModbusTcpServerThread::run()
 {
   bool ok;
 
-  // запуск сервера
+  // Р·Р°РїСѓСЃРє СЃРµСЂРІРµСЂР°
   server = new QTcpServer(this);
   ok = server->listen( QHostAddress::Any, mb_tcp_port );
 
@@ -82,10 +82,10 @@ void ModbusTcpServerThread::run()
 
   startTimer( 1000 );
 
-  // запуск цикла сообщеий
+  // Р·Р°РїСѓСЃРє С†РёРєР»Р° СЃРѕРѕР±С‰РµРёР№
   exec();
 
-  // завершение работы сервера
+  // Р·Р°РІРµСЂС€РµРЅРёРµ СЂР°Р±РѕС‚С‹ СЃРµСЂРІРµСЂР°
   server->close();
   while( server->hasPendingConnections() )
   { QTcpSocket *socket = server->nextPendingConnection();
@@ -103,7 +103,7 @@ void ModbusTcpServerThread::run()
 }
 
 //=============================================================================
-/// Новое подключение
+/// РќРѕРІРѕРµ РїРѕРґРєР»СЋС‡РµРЅРёРµ
 //=============================================================================
 void ModbusTcpServerThread::newConnection()
 {
@@ -117,7 +117,7 @@ void ModbusTcpServerThread::newConnection()
 }
 
 //=============================================================================
-/// Чтение новых данных из сокета
+/// Р§С‚РµРЅРёРµ РЅРѕРІС‹С… РґР°РЅРЅС‹С… РёР· СЃРѕРєРµС‚Р°
 //=============================================================================
 void ModbusTcpServerThread::readyRead()
 {
@@ -130,7 +130,7 @@ void ModbusTcpServerThread::readyRead()
   QByteArray &tcp_req = item.req;
   QByteArray &tcp_ans = item.ans;
 
-  item.timeout_timer=0; // сброс счетчика таймаута неактивности
+  item.timeout_timer=0; // СЃР±СЂРѕСЃ СЃС‡РµС‚С‡РёРєР° С‚Р°Р№РјР°СѓС‚Р° РЅРµР°РєС‚РёРІРЅРѕСЃС‚Рё
 
   tcp_req.append( socket->readAll() );
 
@@ -191,7 +191,7 @@ void ModbusTcpServerThread::readyRead()
 }
 
 //=============================================================================
-/// Таймер проверки таймаута неактивности клиента
+/// РўР°Р№РјРµСЂ РїСЂРѕРІРµСЂРєРё С‚Р°Р№РјР°СѓС‚Р° РЅРµР°РєС‚РёРІРЅРѕСЃС‚Рё РєР»РёРµРЅС‚Р°
 //=============================================================================
 void ModbusTcpServerThread::timerEvent( QTimerEvent * event )
 {
@@ -205,7 +205,7 @@ void ModbusTcpServerThread::timerEvent( QTimerEvent * event )
 
     item.timeout_timer++;
 
-    if( item.timeout_timer > 60 ) // 1 минута
+    if( item.timeout_timer > 60 ) // 1 РјРёРЅСѓС‚Р°
     { Console::Print( Console::Information, "Host: "
                         + socket->peerAddress().toString() + " - time out.\n");
       item.timeout_timer=0;
@@ -215,7 +215,7 @@ void ModbusTcpServerThread::timerEvent( QTimerEvent * event )
 }
 
 //=============================================================================
-/// Отсоедиение сокета
+/// РћС‚СЃРѕРµРґРёРµРЅРёРµ СЃРѕРєРµС‚Р°
 //=============================================================================
 void ModbusTcpServerThread::disconnected()
 {

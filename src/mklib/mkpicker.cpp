@@ -17,7 +17,7 @@ QwtText MKPicker::trackerText(const QPoint &pos) const
     return trackerText(invTransform(pos));
 }
 //==============================================================================
-//тескст над курсором
+//С‚РµСЃРєСЃС‚ РЅР°Рґ РєСѓСЂСЃРѕСЂРѕРј
 //==============================================================================
 QwtText MKPicker::trackerText(const QwtDoublePoint &pos) const
 {   if( !atCanvas || pos.x() < 0.0 || !trackerDataVisible ) return QwtText("");
@@ -48,7 +48,7 @@ QwtText MKPicker::trackerText(const QwtDoublePoint &pos) const
     return QwtText(text);
 }
 //==============================================================================
-//отрисовка перекрестия
+//РѕС‚СЂРёСЃРѕРІРєР° РїРµСЂРµРєСЂРµСЃС‚РёСЏ
 //==============================================================================
 void MKPicker::drawRubberBand(QPainter *painter) const
 {

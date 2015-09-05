@@ -18,7 +18,7 @@
 #include "helpwidget.h"
 
 //##############################################################################
-// Информационное поле в строке состяния
+// РРЅС„РѕСЂРјР°С†РёРѕРЅРЅРѕРµ РїРѕР»Рµ РІ СЃС‚СЂРѕРєРµ СЃРѕСЃС‚СЏРЅРёСЏ
 //##############################################################################
 class InfoLabel : public QLineEdit
 {
@@ -39,7 +39,7 @@ public:
 
 
 //##############################################################################
-/// Главное окно
+/// Р“Р»Р°РІРЅРѕРµ РѕРєРЅРѕ
 //##############################################################################
 MainWindow::MainWindow()
 {
@@ -136,12 +136,12 @@ MainWindow::MainWindow()
   new ScriptHighlighter(te_settingssheet->document());
 }
 //==============================================================================
-/// Пункт меню "Количество строк"
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "РљРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє"
 //==============================================================================
 void MainWindow::on_action_tw_rows_triggered()
 {
   bool ok;
-  int i = QInputDialog::getInt( this, app_header, "Количество строк:",
+  int i = QInputDialog::getInt( this, app_header, "РљРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє:",
                  tw->rowCount(), 0, 1000, 1,&ok );
   if( ok ) tw->setRowCount( i );
   fill_empty_items();
@@ -149,12 +149,12 @@ void MainWindow::on_action_tw_rows_triggered()
 }
 
 //==============================================================================
-/// Пункт меню "Количество столбцов"
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "РљРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚РѕР»Р±С†РѕРІ"
 //==============================================================================
 void MainWindow::on_action_tw_columns_triggered()
 {
   bool ok;
-  int i = QInputDialog::getInt( this, app_header, "Количество столбцов:",
+  int i = QInputDialog::getInt( this, app_header, "РљРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚РѕР»Р±С†РѕРІ:",
                  tw->columnCount(), 0, 1000, 1,&ok );
   if( ok ) tw->setColumnCount( i );
   fill_empty_items();
@@ -162,7 +162,7 @@ void MainWindow::on_action_tw_columns_triggered()
 }
 
 //==============================================================================
-/// Двойное нажатие на горизонтальный заголовок
+/// Р”РІРѕР№РЅРѕРµ РЅР°Р¶Р°С‚РёРµ РЅР° РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ Р·Р°РіРѕР»РѕРІРѕРє
 //==============================================================================
 void MainWindow::action_tw_header_double_clicked(int logicalIndex)
 {
@@ -174,19 +174,19 @@ void MainWindow::action_tw_header_double_clicked(int logicalIndex)
   TextEditDialog ted( this );
   ted.resize(200,200);
   ted.te->setPlainText( str );
-  ted.label->setText("Название столбца:");
+  ted.label->setText("РќР°Р·РІР°РЅРёРµ СЃС‚РѕР»Р±С†Р°:");
   if( ted.exec() == QDialog::Accepted )
   { str = ted.te->toPlainText();
     str.remove(";");
     tw->setHorizontalHeaderItem( logicalIndex, new QTableWidgetItem( str ) );
-    tw->horizontalHeader()->hide(); // иначе не обновляется высота заголовка
+    tw->horizontalHeader()->hide(); // РёРЅР°С‡Рµ РЅРµ РѕР±РЅРѕРІР»СЏРµС‚СЃСЏ РІС‹СЃРѕС‚Р° Р·Р°РіРѕР»РѕРІРєР°
     tw->horizontalHeader()->show();
   }
   make_undo_point();
 }
 
 //==============================================================================
-/// Загрузка конфигурации из файла
+/// Р—Р°РіСЂСѓР·РєР° РєРѕРЅС„РёРіСѓСЂР°С†РёРё РёР· С„Р°Р№Р»Р°
 //==============================================================================
 bool MainWindow::load_conf( const QString &filename )
 {
@@ -203,7 +203,7 @@ bool MainWindow::load_conf( const QString &filename )
  file.close();
 
  if( doc.doctype().name() != "MKStudio" )
- { QMessageBox::information( this, app_header, "Файл не является конфигурацией MKStudio.");
+ { QMessageBox::information( this, app_header, "Р¤Р°Р№Р» РЅРµ СЏРІР»СЏРµС‚СЃСЏ РєРѕРЅС„РёРіСѓСЂР°С†РёРµР№ MKStudio.");
    return false;
  }
 
@@ -239,7 +239,7 @@ bool MainWindow::load_conf( const QString &filename )
 }
 
 //==============================================================================
-/// Очистка конфигурации
+/// РћС‡РёСЃС‚РєР° РєРѕРЅС„РёРіСѓСЂР°С†РёРё
 //==============================================================================
 void MainWindow::on_action_new_triggered()
 { tw->closeAllRecorders();
@@ -258,14 +258,14 @@ void MainWindow::on_action_new_triggered()
 }
 
 //==============================================================================
-/// Пункт меню "Загрузить конфигурацию"
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "Р—Р°РіСЂСѓР·РёС‚СЊ РєРѕРЅС„РёРіСѓСЂР°С†РёСЋ"
 //==============================================================================
 void MainWindow::on_action_load_triggered()
 {
    QString filename = QFileDialog::getOpenFileName (
-                         this,  "Загрузить",
+                         this,  "Р—Р°РіСЂСѓР·РёС‚СЊ",
                          current_config_filename,
-                         "Конфигурация (*.xml)"  );
+                         "РљРѕРЅС„РёРіСѓСЂР°С†РёСЏ (*.xml)"  );
 
   if( filename.isEmpty() ) return;
 
@@ -276,7 +276,7 @@ void MainWindow::on_action_load_triggered()
 }
 
 //==============================================================================
-/// Сохранение конфигурации в файл
+/// РЎРѕС…СЂР°РЅРµРЅРёРµ РєРѕРЅС„РёРіСѓСЂР°С†РёРё РІ С„Р°Р№Р»
 //==============================================================================
 bool MainWindow::save_conf( const QString &filename )
 {
@@ -307,7 +307,7 @@ bool MainWindow::save_conf( const QString &filename )
 }
 
 //==============================================================================
-/// Пункт меню "Сохранить"
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "РЎРѕС…СЂР°РЅРёС‚СЊ"
 //==============================================================================
 void MainWindow::on_action_save_triggered()
 {
@@ -319,13 +319,13 @@ void MainWindow::on_action_save_triggered()
 }
 
 //==============================================================================
-/// Пункт меню "Сохранить как"
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "РЎРѕС…СЂР°РЅРёС‚СЊ РєР°Рє"
 //==============================================================================
 void MainWindow::on_action_save_as_triggered()
 {
-  QString fileName = QFileDialog::getSaveFileName(this, "Сохранить",
+  QString fileName = QFileDialog::getSaveFileName(this, "РЎРѕС…СЂР°РЅРёС‚СЊ",
                             "",
-                            "Конфигурация (*.xml)" );
+                            "РљРѕРЅС„РёРіСѓСЂР°С†РёСЏ (*.xml)" );
   if( !fileName.isEmpty() )
   { save_conf( fileName );
   }
@@ -333,7 +333,7 @@ void MainWindow::on_action_save_as_triggered()
 
 
 //==============================================================================
-/// Пункт меню "Пуск"
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "РџСѓСЃРє"
 //==============================================================================
 void MainWindow::on_action_play_triggered()
 {
@@ -342,14 +342,14 @@ void MainWindow::on_action_play_triggered()
 
   if( play_mode )
   { play_mode = false;
-    str = "Пуск";
+    str = "РџСѓСЃРє";
     icon = QIcon(":/icons/res/media_play.png");
-    str2 = "Запустить опрос";
+    str2 = "Р—Р°РїСѓСЃС‚РёС‚СЊ РѕРїСЂРѕСЃ";
   } else
   { play_mode = true;
-    str = "Стоп";
+    str = "РЎС‚РѕРї";
     icon = QIcon(":/icons/res/media_stop.png");
-    str2 = "Остановить опрос";
+    str2 = "РћСЃС‚Р°РЅРѕРІРёС‚СЊ РѕРїСЂРѕСЃ";
   }
   action_play->setText( str  );
   action_play->setIcon( icon );
@@ -411,7 +411,7 @@ void MainWindow::on_action_play_triggered()
 }
 
 //==============================================================================
-/// Пункт меню "Выделение" (шрифт)
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "Р’С‹РґРµР»РµРЅРёРµ" (С€СЂРёС„С‚)
 //==============================================================================
 void MainWindow::on_action_bold_triggered()
 {
@@ -432,7 +432,7 @@ void MainWindow::on_action_bold_triggered()
 }
 
 //==============================================================================
-/// Пункт меню "Подчеркивание" (шрифт)
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "РџРѕРґС‡РµСЂРєРёРІР°РЅРёРµ" (С€СЂРёС„С‚)
 //==============================================================================
 void MainWindow::on_action_underline_triggered()
 {
@@ -453,7 +453,7 @@ void MainWindow::on_action_underline_triggered()
 }
 
 //==============================================================================
-/// Пункт меню "Наклон" (шрифт)
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "РќР°РєР»РѕРЅ" (С€СЂРёС„С‚)
 //==============================================================================
 void MainWindow::on_action_italic_triggered()
 {
@@ -474,7 +474,7 @@ void MainWindow::on_action_italic_triggered()
 }
 
 //==============================================================================
-/// Выравнивание (шрифт)
+/// Р’С‹СЂР°РІРЅРёРІР°РЅРёРµ (С€СЂРёС„С‚)
 //==============================================================================
 void MainWindow::setAlign( int alignment )
 {
@@ -488,7 +488,7 @@ void MainWindow::setAlign( int alignment )
 }
 
 //==============================================================================
-/// Пункт меню "Выравнивание влево" (шрифт)
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "Р’С‹СЂР°РІРЅРёРІР°РЅРёРµ РІР»РµРІРѕ" (С€СЂРёС„С‚)
 //==============================================================================
 void MainWindow::on_action_align_left_triggered()
 {
@@ -496,7 +496,7 @@ void MainWindow::on_action_align_left_triggered()
 }
 
 //==============================================================================
-/// Пункт меню "Выравнивание по центру" (шрифт)
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "Р’С‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ С†РµРЅС‚СЂСѓ" (С€СЂРёС„С‚)
 //==============================================================================
 void MainWindow::on_action_align_center_triggered()
 {
@@ -504,7 +504,7 @@ void MainWindow::on_action_align_center_triggered()
 }
 
 //==============================================================================
-/// Пункт меню "Выравнивание вправо" (шрифт)
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "Р’С‹СЂР°РІРЅРёРІР°РЅРёРµ РІРїСЂР°РІРѕ" (С€СЂРёС„С‚)
 //==============================================================================
 void MainWindow::on_action_align_right_triggered()
 {
@@ -512,7 +512,7 @@ void MainWindow::on_action_align_right_triggered()
 }
 
 //==============================================================================
-/// Пункт меню "Добавить строку"
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "Р”РѕР±Р°РІРёС‚СЊ СЃС‚СЂРѕРєСѓ"
 //==============================================================================
 void MainWindow::on_action_row_add_triggered()
 {
@@ -524,7 +524,7 @@ void MainWindow::on_action_row_add_triggered()
 }
 
 //==============================================================================
-/// Пункт меню "Удалить строку"
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "РЈРґР°Р»РёС‚СЊ СЃС‚СЂРѕРєСѓ"
 //==============================================================================
 void MainWindow::on_action_row_delete_triggered()
 {
@@ -543,7 +543,7 @@ void MainWindow::on_action_row_delete_triggered()
 }
 
 //==============================================================================
-/// Пункт меню "Добавить столбец"
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "Р”РѕР±Р°РІРёС‚СЊ СЃС‚РѕР»Р±РµС†"
 //==============================================================================
 void MainWindow::on_action_column_add_triggered()
 {
@@ -555,7 +555,7 @@ void MainWindow::on_action_column_add_triggered()
 }
 
 //==============================================================================
-/// Пункт меню "Удалить столбец"
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "РЈРґР°Р»РёС‚СЊ СЃС‚РѕР»Р±РµС†"
 //==============================================================================
 void MainWindow::on_action_column_delete_triggered()
 {
@@ -574,7 +574,7 @@ void MainWindow::on_action_column_delete_triggered()
 }
 
 //==============================================================================
-/// Пункт меню "Вставка ячейки со сдвигом вправо"
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "Р’СЃС‚Р°РІРєР° СЏС‡РµР№РєРё СЃРѕ СЃРґРІРёРіРѕРј РІРїСЂР°РІРѕ"
 //==============================================================================
 void MainWindow::on_action_cell_add_right_triggered()
 {
@@ -598,7 +598,7 @@ void MainWindow::on_action_cell_add_right_triggered()
   make_undo_point();
 }
 //==============================================================================
-/// Пункт меню "Вставка ячейки со сдвигом вниз"
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "Р’СЃС‚Р°РІРєР° СЏС‡РµР№РєРё СЃРѕ СЃРґРІРёРіРѕРј РІРЅРёР·"
 //==============================================================================
 void MainWindow::on_action_cell_add_down_triggered()
 {
@@ -622,7 +622,7 @@ void MainWindow::on_action_cell_add_down_triggered()
   make_undo_point();
 }
 //==============================================================================
-/// Пункт меню "Удаление ячейки со сдвигом влево"
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "РЈРґР°Р»РµРЅРёРµ СЏС‡РµР№РєРё СЃРѕ СЃРґРІРёРіРѕРј РІР»РµРІРѕ"
 //==============================================================================
 void MainWindow::on_action_cell_delete_left_triggered()
 {
@@ -646,7 +646,7 @@ void MainWindow::on_action_cell_delete_left_triggered()
   make_undo_point();
 }
 //==============================================================================
-/// Пункт меню "Удаление ячейки со сдвигом вверх"
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "РЈРґР°Р»РµРЅРёРµ СЏС‡РµР№РєРё СЃРѕ СЃРґРІРёРіРѕРј РІРІРµСЂС…"
 //==============================================================================
 void MainWindow::on_action_cell_delete_up_triggered()
 {
@@ -671,7 +671,7 @@ void MainWindow::on_action_cell_delete_up_triggered()
 }
 
 //==============================================================================
-/// Пункт меню "Привязка"
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "РџСЂРёРІСЏР·РєР°"
 //==============================================================================
 void MainWindow::on_action_link_triggered()
 {
@@ -687,11 +687,11 @@ void MainWindow::on_action_link_triggered()
   int slot_down    = -10;
   int n_down       = -10;
 
-  // выделение
+  // РІС‹РґРµР»РµРЅРёРµ
 
   QList<QTableWidgetSelectionRange> sr = tw->selectedRanges();
   if( sr.count() != 1 )
-  { QMessageBox::warning( this, app_header, "Выделение не выбрано." );
+  { QMessageBox::warning( this, app_header, "Р’С‹РґРµР»РµРЅРёРµ РЅРµ РІС‹Р±СЂР°РЅРѕ." );
     return;
   }
 
@@ -701,7 +701,7 @@ void MainWindow::on_action_link_triggered()
   bool ss_confirm;
   QTableWidgetSelectionRange sr0 = sr.at(0);
 
-  // разбор значения левой верхней ячейки и двух соседних
+  // СЂР°Р·Р±РѕСЂ Р·РЅР°С‡РµРЅРёСЏ Р»РµРІРѕР№ РІРµСЂС…РЅРµР№ СЏС‡РµР№РєРё Рё РґРІСѓС… СЃРѕСЃРµРґРЅРёС…
 
   int topRow      = sr0.topRow();
   int bottomRow   = sr0.bottomRow();
@@ -744,7 +744,7 @@ void MainWindow::on_action_link_triggered()
     n_down      = rx_assign.cap(3).toInt();
   }
 
-  // разбор текущего листа настроек и анализ на "enum"
+  // СЂР°Р·Р±РѕСЂ С‚РµРєСѓС‰РµРіРѕ Р»РёСЃС‚Р° РЅР°СЃС‚СЂРѕРµРє Рё Р°РЅР°Р»РёР· РЅР° "enum"
 
   QStringList sl;
   QString ss_str = te_settingssheet->toPlainText();
@@ -757,7 +757,7 @@ void MainWindow::on_action_link_triggered()
     sl << rx.cap(1);
   }
 
-  // создание диалога
+  // СЃРѕР·РґР°РЅРёРµ РґРёР°Р»РѕРіР°
   QString posAddress;
   if( tw->selectedItems().count() == 1 )
   {
@@ -769,9 +769,9 @@ void MainWindow::on_action_link_triggered()
   }
 
   AssignDialog dialog( this, str_assign,str_format,str_ss,sl,ss_confirm );
-  dialog.setWindowTitle("Привязка. Ячейка:"+posAddress);
+  dialog.setWindowTitle("РџСЂРёРІСЏР·РєР°. РЇС‡РµР№РєР°:"+posAddress);
 
-  // настройка параметров заполнения ячеек
+  // РЅР°СЃС‚СЂРѕР№РєР° РїР°СЂР°РјРµС‚СЂРѕРІ Р·Р°РїРѕР»РЅРµРЅРёСЏ СЏС‡РµРµРє
 
   if( topRow == bottomRow )
   { dialog.cbox_fill_row -> setEnabled( false );
@@ -812,7 +812,7 @@ void MainWindow::on_action_link_triggered()
     dialog.cbox_fill_row -> setChecked( true );
   }
 
-  // вызов диалога
+  // РІС‹Р·РѕРІ РґРёР°Р»РѕРіР°
 
   if( dialog.exec() != QDialog::Accepted ) return;
 
@@ -823,8 +823,8 @@ void MainWindow::on_action_link_triggered()
 
   if( !rx_assign.exactMatch( str_assign ) ) return;
 
-  int flag_array[2][3]; // массив флагов заполнения ячеек
-  bool b[2]; // признак выделения тррк/столбцов
+  int flag_array[2][3]; // РјР°СЃСЃРёРІ С„Р»Р°РіРѕРІ Р·Р°РїРѕР»РЅРµРЅРёСЏ СЏС‡РµРµРє
+  bool b[2]; // РїСЂРёР·РЅР°Рє РІС‹РґРµР»РµРЅРёСЏ С‚СЂСЂРє/СЃС‚РѕР»Р±С†РѕРІ
   int module_titem;
   int slot_titem;
   int n_titem;
@@ -837,25 +837,25 @@ void MainWindow::on_action_link_triggered()
   b[0] = dialog.cbox_fill_row->isChecked();
   b[1] = dialog.cbox_fill_column->isChecked();
   memset( flag_array, 0, sizeof(flag_array) );
-  if( b[1] ) // столбцы
+  if( b[1] ) // СЃС‚РѕР»Р±С†С‹
   { switch( dialog.cb_fill_column->currentIndex() )
-    { case(0): flag_array[1][2]=1; break; // модуль
-      case(1): flag_array[1][1]=1; break; // слот
-      case(2): flag_array[1][0]=1; break; // номер
+    { case(0): flag_array[1][2]=1; break; // РјРѕРґСѓР»СЊ
+      case(1): flag_array[1][1]=1; break; // СЃР»РѕС‚
+      case(2): flag_array[1][0]=1; break; // РЅРѕРјРµСЂ
     }
   }
-  if( b[0] ) // строки
+  if( b[0] ) // СЃС‚СЂРѕРєРё
   { switch( dialog.cb_fill_row->currentIndex() )
-    { case(0): flag_array[0][2]=1; break; // модуль
-      case(1): flag_array[0][1]=1; break; // слот
-      case(2): flag_array[0][0]=1; break; // номер
+    { case(0): flag_array[0][2]=1; break; // РјРѕРґСѓР»СЊ
+      case(1): flag_array[0][1]=1; break; // СЃР»РѕС‚
+      case(2): flag_array[0][0]=1; break; // РЅРѕРјРµСЂ
     }
   }
   module_titem = rx_assign.cap(1).toInt();
   slot_titem   = rx_assign.cap(2).toInt();
   n_titem      = rx_assign.cap(3).toInt();
 
-  // заполнение ячеек
+  // Р·Р°РїРѕР»РЅРµРЅРёРµ СЏС‡РµРµРє
   for( i=topRow; i<=bottomRow; i++ )
   { for( j=leftColumn; j<=rightColumn; j++ )
     { titem = tw->item( i, j );
@@ -864,26 +864,26 @@ void MainWindow::on_action_link_triggered()
         tw->setItem( i,j, titem );
       }
 
-      // начальное значение ячейки
+      // РЅР°С‡Р°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ СЏС‡РµР№РєРё
       module_titem = module_base;
       slot_titem   = slot_base;
       n_titem      = n_base;
 
-      // заполенние
-      if( b[0] && b[1] ) // и строки и столбцы выделены
+      // Р·Р°РїРѕР»РµРЅРЅРёРµ
+      if( b[0] && b[1] ) // Рё СЃС‚СЂРѕРєРё Рё СЃС‚РѕР»Р±С†С‹ РІС‹РґРµР»РµРЅС‹
       { module_titem += (i-topRow)*flag_array[0][2] + (j-leftColumn)*flag_array[1][2];
         slot_titem   += (i-topRow)*flag_array[0][1] + (j-leftColumn)*flag_array[1][1];
         n_titem      += (i-topRow)*flag_array[0][0] + (j-leftColumn)*flag_array[1][0];
-      } else // только строки или только столбцы
+      } else // С‚РѕР»СЊРєРѕ СЃС‚СЂРѕРєРё РёР»Рё С‚РѕР»СЊРєРѕ СЃС‚РѕР»Р±С†С‹
       { int k=0;
-        if( b[0] ) k = (bottomRow-topRow+1)*(j-leftColumn)   + i - topRow;      // строки
-        if( b[1] ) k = (i-topRow)*(rightColumn-leftColumn+1) + j - leftColumn;  // столбцы
+        if( b[0] ) k = (bottomRow-topRow+1)*(j-leftColumn)   + i - topRow;      // СЃС‚СЂРѕРєРё
+        if( b[1] ) k = (i-topRow)*(rightColumn-leftColumn+1) + j - leftColumn;  // СЃС‚РѕР»Р±С†С‹
         module_titem += k*flag_array[0][2] + k*flag_array[1][2];
         slot_titem   += k*flag_array[0][1] + k*flag_array[1][1];
         n_titem      += k*flag_array[0][0] + k*flag_array[1][0];
       }
 
-      // вывод значений в ячейки
+      // РІС‹РІРѕРґ Р·РЅР°С‡РµРЅРёР№ РІ СЏС‡РµР№РєРё
       titem->setData( MKTable::AssignRole,
                       QString().sprintf("%d/%d/%d",module_titem,slot_titem,n_titem) );
       titem->setData( MKTable::FormatRole, str_format );
@@ -896,7 +896,7 @@ void MainWindow::on_action_link_triggered()
 }
 
 //==============================================================================
-/// Перенести внутренний буфер обмена в Clipboard
+/// РџРµСЂРµРЅРµСЃС‚Рё РІРЅСѓС‚СЂРµРЅРЅРёР№ Р±СѓС„РµСЂ РѕР±РјРµРЅР° РІ Clipboard
 //==============================================================================
 void MainWindow::toClipboard()
 {
@@ -914,7 +914,7 @@ void MainWindow::toClipboard()
 }
 
 //==============================================================================
-/// Считать из Clipboard внутренний буфер обмена
+/// РЎС‡РёС‚Р°С‚СЊ РёР· Clipboard РІРЅСѓС‚СЂРµРЅРЅРёР№ Р±СѓС„РµСЂ РѕР±РјРµРЅР°
 //==============================================================================
 void MainWindow::fromClipboard()
 {
@@ -934,7 +934,7 @@ void MainWindow::fromClipboard()
 }
 
 //==============================================================================
-/// Пункт меню "Копировать" (копирование во внутренний буфер обмена)
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "РљРѕРїРёСЂРѕРІР°С‚СЊ" (РєРѕРїРёСЂРѕРІР°РЅРёРµ РІРѕ РІРЅСѓС‚СЂРµРЅРЅРёР№ Р±СѓС„РµСЂ РѕР±РјРµРЅР°)
 //==============================================================================
 void MainWindow::on_action_copy_triggered()
 {
@@ -968,7 +968,7 @@ void MainWindow::on_action_copy_triggered()
 }
 
 //==============================================================================
-/// Пункт меню "Вырезать" (копировать в буфер обмена и очистить выделенные ячейки)
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "Р’С‹СЂРµР·Р°С‚СЊ" (РєРѕРїРёСЂРѕРІР°С‚СЊ РІ Р±СѓС„РµСЂ РѕР±РјРµРЅР° Рё РѕС‡РёСЃС‚РёС‚СЊ РІС‹РґРµР»РµРЅРЅС‹Рµ СЏС‡РµР№РєРё)
 //==============================================================================
 void MainWindow::on_action_cut_triggered()
 {
@@ -984,7 +984,7 @@ void MainWindow::on_action_cut_triggered()
 }
 
 //==============================================================================
-/// Пункт меню "Вставить" (вставить ячейки из внутреннего буфера обмена)
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "Р’СЃС‚Р°РІРёС‚СЊ" (РІСЃС‚Р°РІРёС‚СЊ СЏС‡РµР№РєРё РёР· РІРЅСѓС‚СЂРµРЅРЅРµРіРѕ Р±СѓС„РµСЂР° РѕР±РјРµРЅР°)
 //==============================================================================
 void MainWindow::on_action_paste_triggered()
 {
@@ -998,13 +998,13 @@ void MainWindow::on_action_paste_triggered()
   int max_row    = tw->rowCount();
   int max_column = tw->columnCount();
 
-  // поиск верхнего левого угла выделения
+  // РїРѕРёСЃРє РІРµСЂС…РЅРµРіРѕ Р»РµРІРѕРіРѕ СѓРіР»Р° РІС‹РґРµР»РµРЅРёСЏ
   QList<QTableWidgetItem*> si = tw->selectedItems();
   foreach(titem, si )
   { if( titem->row()    < row )    row    = titem->row();
     if( titem->column() < column ) column = titem->column();
   }
-  // собственно вставка
+  // СЃРѕР±СЃС‚РІРµРЅРЅРѕ РІСЃС‚Р°РІРєР°
   for( i=0; i<table_clipboard.size(); i++ )
   { r = table_clipboard[i].row + row;
     c = table_clipboard[i].col + column;
@@ -1016,7 +1016,7 @@ void MainWindow::on_action_paste_triggered()
 }
 
 //==============================================================================
-/// Пункт меню "Цвет текста"
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "Р¦РІРµС‚ С‚РµРєСЃС‚Р°"
 //==============================================================================
 void MainWindow::on_action_foreground_color_triggered()
 {
@@ -1050,7 +1050,7 @@ void MainWindow::on_action_foreground_color_triggered()
 }
 
 //==============================================================================
-/// Пункт меню "Цвет фона"
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "Р¦РІРµС‚ С„РѕРЅР°"
 //==============================================================================
 void MainWindow::on_action_background_color_triggered()
 {
@@ -1088,7 +1088,7 @@ void MainWindow::on_action_background_color_triggered()
 }
 
 //==============================================================================
-/// Создание точки отмены
+/// РЎРѕР·РґР°РЅРёРµ С‚РѕС‡РєРё РѕС‚РјРµРЅС‹
 //==============================================================================
 void MainWindow::make_undo_point()
 {
@@ -1141,7 +1141,7 @@ void MainWindow::make_undo_point()
 
 }
 //==============================================================================
-/// Пункт меню "Отменить"
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "РћС‚РјРµРЅРёС‚СЊ"
 //==============================================================================
 void MainWindow::on_action_undo_triggered()
 {
@@ -1156,7 +1156,7 @@ void MainWindow::on_action_undo_triggered()
 
 
 //==============================================================================
-/// Пункт меню "Восстановить"
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "Р’РѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ"
 //==============================================================================
 void MainWindow::on_action_redo_triggered()
 {
@@ -1170,7 +1170,7 @@ void MainWindow::on_action_redo_triggered()
 }
 
 //==============================================================================
-/// Восстановление из "undo_list_current_point" точки UNDO массива
+/// Р’РѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ РёР· "undo_list_current_point" С‚РѕС‡РєРё UNDO РјР°СЃСЃРёРІР°
 //==============================================================================
 void MainWindow::applay_undo_point()
 {
@@ -1205,12 +1205,12 @@ void MainWindow::applay_undo_point()
        tw->setItem( i,j, new  QTableWidgetItem(titem) );
     }
   }
-  tw->horizontalHeader()->hide(); // иначе не обновляется высота заголовка
+  tw->horizontalHeader()->hide(); // РёРЅР°С‡Рµ РЅРµ РѕР±РЅРѕРІР»СЏРµС‚СЃСЏ РІС‹СЃРѕС‚Р° Р·Р°РіРѕР»РѕРІРєР°
   tw->horizontalHeader()->show();
 }
 
 //==============================================================================
-/// Очистка массива UNDO
+/// РћС‡РёСЃС‚РєР° РјР°СЃСЃРёРІР° UNDO
 //==============================================================================
 void MainWindow::clear_undo_list()
 {
@@ -1238,9 +1238,9 @@ void MainWindow::on_action_values_save_triggered()
   { fileName="test";
   }
   if( fileName.endsWith(".values.xml") ) fileName.chop(11);
-  fileName = QFileDialog::getSaveFileName(this, "Сохранить",
+  fileName = QFileDialog::getSaveFileName(this, "РЎРѕС…СЂР°РЅРёС‚СЊ",
                             fileName+".values.xml",
-                            "Значения (*.values.xml)" );
+                            "Р—РЅР°С‡РµРЅРёСЏ (*.values.xml)" );
 
   if( !fileName.isEmpty() )
   { current_config_values_filename = fileName;
@@ -1263,9 +1263,9 @@ void MainWindow::on_action_values_load_triggered()
   }
 
   fileName = QFileDialog::getOpenFileName (
-                         this,  "Загрузить",
+                         this,  "Р—Р°РіСЂСѓР·РёС‚СЊ",
                          fileName,
-                         "Значения (*.values.xml)"  );
+                         "Р—РЅР°С‡РµРЅРёСЏ (*.values.xml)"  );
 
   if( fileName.isEmpty() ) return;
   current_config_values_filename = fileName;
@@ -1286,9 +1286,9 @@ void MainWindow::on_action_export_config_triggered()
   QString fileName = current_config_filename;
   if( fileName.endsWith(".xml") ) fileName.chop(4);
 
-  fileName = QFileDialog::getSaveFileName(this, "Сохранить",
+  fileName = QFileDialog::getSaveFileName(this, "РЎРѕС…СЂР°РЅРёС‚СЊ",
                             fileName+".txt",
-                            "Текст (*.txt)" );
+                            "РўРµРєСЃС‚ (*.txt)" );
   if( fileName.isEmpty() ) return;
 
   QString str = mbconfigwidget->exportConfiguration();
@@ -1317,14 +1317,14 @@ void MainWindow::on_action_help_about_triggered()
 
   QMessageBox::about( this, app_header,
      "<body>"
-     "Программа <b>MKStudio</b> для работы <br> "
-     "с микропроцессорными контроллерами <br> из "
-     "состава&nbsp;ПТК УМИКОН. <br><br>"
-     "Версия программы: " + ProgramInformation::version() + "<br><br>"
-     "ЗАО \"Инкоммет\" <br><br>"
+     "РџСЂРѕРіСЂР°РјРјР° <b>MKStudio</b> РґР»СЏ СЂР°Р±РѕС‚С‹ <br> "
+     "СЃ РјРёРєСЂРѕРїСЂРѕС†РµСЃСЃРѕСЂРЅС‹РјРё РєРѕРЅС‚СЂРѕР»Р»РµСЂР°РјРё <br> РёР· "
+     "СЃРѕСЃС‚Р°РІР°&nbsp;РџРўРљ РЈРњРРљРћРќ. <br><br>"
+     "Р’РµСЂСЃРёСЏ РїСЂРѕРіСЂР°РјРјС‹: " + ProgramInformation::version() + "<br><br>"
+     "Р—РђРћ \"РРЅРєРѕРјРјРµС‚\" <br><br>"
      "<table border=0 cellpadding=1 cellspacing=1> "
-     "  <tbody><tr><td>тел.</td><td>(499) 171-97-49</td></tr> "
-     "         <tr><td>тел./факс</td><td>(495) 737-56-36</td></tr>"
+     "  <tbody><tr><td>С‚РµР».</td><td>(499) 171-97-49</td></tr> "
+     "         <tr><td>С‚РµР»./С„Р°РєСЃ</td><td>(495) 737-56-36</td></tr>"
      "         <tr><td>e-mail&nbsp;&nbsp;</td><td>mail@inkommet.ru</td></tr>"
      "         <tr><td>url</td><td><a href=\"http://www.inkommet.ru\">"
                                       "http://www.inkommet.ru</a></td>"
@@ -1343,7 +1343,7 @@ void MainWindow::on_action_united_graph_triggered()
 }
 
 //==============================================================================
-/// Удалить выделенные ячейки (нажатие на клавиатуре "DELETE")
+/// РЈРґР°Р»РёС‚СЊ РІС‹РґРµР»РµРЅРЅС‹Рµ СЏС‡РµР№РєРё (РЅР°Р¶Р°С‚РёРµ РЅР° РєР»Р°РІРёР°С‚СѓСЂРµ "DELETE")
 //==============================================================================
 void MainWindow::del_key_pressed()
 {
@@ -1356,7 +1356,7 @@ void MainWindow::del_key_pressed()
 }
 
 //==============================================================================
-/// Скопировать значение в выделенных ячейках в консоль
+/// РЎРєРѕРїРёСЂРѕРІР°С‚СЊ Р·РЅР°С‡РµРЅРёРµ РІ РІС‹РґРµР»РµРЅРЅС‹С… СЏС‡РµР№РєР°С… РІ РєРѕРЅСЃРѕР»СЊ
 //==============================================================================
 void MainWindow::copy_to_console()
 {
@@ -1369,7 +1369,7 @@ void MainWindow::copy_to_console()
 }
 
 //==============================================================================
-/// Заполнить все отсутствующие ячейки (QTableWidgetItem::item()==0)
+/// Р—Р°РїРѕР»РЅРёС‚СЊ РІСЃРµ РѕС‚СЃСѓС‚СЃС‚РІСѓСЋС‰РёРµ СЏС‡РµР№РєРё (QTableWidgetItem::item()==0)
 //==============================================================================
 void MainWindow::fill_empty_items()
 {
@@ -1387,7 +1387,7 @@ void MainWindow::fill_empty_items()
 }
 
 //==============================================================================
-/// Контекстное меню
+/// РљРѕРЅС‚РµРєСЃС‚РЅРѕРµ РјРµРЅСЋ
 //==============================================================================
 void MainWindow::context_menu()
 {
@@ -1412,7 +1412,7 @@ void MainWindow::context_menu()
   menu.exec( QCursor::pos() );
 }
 /*
-//       ОБЪЕДИНЕНИЕ ЯЧЕЕК РАБОТАЕТ НЕАДЕКВАТНО
+//       РћР‘РЄР•Р”РРќР•РќРР• РЇР§Р•Р•Рљ Р РђР‘РћРўРђР•Рў РќР•РђР”Р•РљР’РђРўРќРћ
 
 //==============================================================================
 //
@@ -1435,12 +1435,12 @@ void MainWindow::on_action_cells_span_triggered()
 
   if(    ( tw->rowSpan(row_top,col_left)    == ( row_bottom-row_top+1 ) )
       && ( tw->columnSpan(row_top,col_left) == ( col_right-col_left+1 ) ) )
-  { // отмена объединения
+  { // РѕС‚РјРµРЅР° РѕР±СЉРµРґРёРЅРµРЅРёСЏ
     QWidget *p = tw->cellWidget( row_top, col_left);
     if(p) p->deleteLater();
     tw->setSpan(row_top,col_left,1,1);
   }else
-  {// объединение
+  {// РѕР±СЉРµРґРёРЅРµРЅРёРµ
     tw->setSpan( row_top, col_left, row_bottom-row_top+1, col_right-col_left+1);
     tw->setCellWidget( row_top, col_left, new QLabel("TEST",this) );
   }
@@ -1449,7 +1449,7 @@ void MainWindow::on_action_cells_span_triggered()
 */
 
 //==============================================================================
-/// Пункт меню "Настройки"
+/// РџСѓРЅРєС‚ РјРµРЅСЋ "РќР°СЃС‚СЂРѕР№РєРё"
 //==============================================================================
 void MainWindow::on_action_settings_triggered()
 {
@@ -1484,7 +1484,7 @@ void MainWindow::on_action_settings_triggered()
 }
 
 //==============================================================================
-/// Действия при изменении области выделения в таблице
+/// Р”РµР№СЃС‚РІРёСЏ РїСЂРё РёР·РјРµРЅРµРЅРёРё РѕР±Р»Р°СЃС‚Рё РІС‹РґРµР»РµРЅРёСЏ РІ С‚Р°Р±Р»РёС†Рµ
 //==============================================================================
 void MainWindow::on_tw_itemSelectionChanged()
 {
@@ -1496,7 +1496,7 @@ void MainWindow::on_tw_itemSelectionChanged()
   }
   if( c != 1 ) return;
   if( si.at(0) == 0 ) return;
-  statusbar->showMessage( "Связка: " + si.at(0)->data(MKTable::AssignRole).toString() );
+  statusbar->showMessage( "РЎРІСЏР·РєР°: " + si.at(0)->data(MKTable::AssignRole).toString() );
 }
 
 //==============================================================================
@@ -1509,7 +1509,7 @@ void MainWindow::slot_attributes_saved( int module, int slot, QString attributes
 
 }
 //==============================================================================
-/// Таймер (500 мс)
+/// РўР°Р№РјРµСЂ (500 РјСЃ)
 //==============================================================================
 void MainWindow::timerEvent(QTimerEvent *event )
 {
@@ -1532,17 +1532,17 @@ void MainWindow::timerEvent(QTimerEvent *event )
   }
 
   if(n)
-  {  statusbar->showMessage("Среднее: " + QString::number( s/n , 'f') );
+  {  statusbar->showMessage("РЎСЂРµРґРЅРµРµ: " + QString::number( s/n , 'f') );
   }
 
-  full_time       -> setText( QString(" Время цикла: %1 мс ").arg(mbmaster->full_time()) );
-  status_requests -> setText( QString(" Запросы: %1 ").arg(mbmaster->request_counter()) );
-  status_answers  -> setText( QString(" Ответы:  %1 ").arg(mbmaster->answer_counter()) );
-  status_errors   -> setText( QString(" Ошибки:  %1 ").arg(mbmaster->error_counter()) );
+  full_time       -> setText( QString(" Р’СЂРµРјСЏ С†РёРєР»Р°: %1 РјСЃ ").arg(mbmaster->full_time()) );
+  status_requests -> setText( QString(" Р—Р°РїСЂРѕСЃС‹: %1 ").arg(mbmaster->request_counter()) );
+  status_answers  -> setText( QString(" РћС‚РІРµС‚С‹:  %1 ").arg(mbmaster->answer_counter()) );
+  status_errors   -> setText( QString(" РћС€РёР±РєРё:  %1 ").arg(mbmaster->error_counter()) );
 }
 
 //==============================================================================
-/// Закрытие окна
+/// Р—Р°РєСЂС‹С‚РёРµ РѕРєРЅР°
 //==============================================================================
 void MainWindow::closeEvent ( QCloseEvent * event )
 {

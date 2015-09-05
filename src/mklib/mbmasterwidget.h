@@ -29,8 +29,8 @@ public:
   void load_config( QByteArray &xml );
   void load_config( QDomDocument &doc );
   void clear_config();
-  void polling_start();                               // запустить опрос
-  void polling_stop();                                // остоновить опрос
+  void polling_start();                               // Р·Р°РїСѓСЃС‚РёС‚СЊ РѕРїСЂРѕСЃ
+  void polling_stop();                                // РѕСЃС‚РѕРЅРѕРІРёС‚СЊ РѕРїСЂРѕСЃ
   void setMBMaster( MBMasterXML *mm );
 private:
   void delete_slotwidgets();

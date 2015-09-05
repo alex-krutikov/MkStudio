@@ -295,7 +295,7 @@ public:
 };
 
 //#######################################################################################
-// ãëàâíîå îêíî
+// Ğ³Ğ»Ğ°Ğ²Ğ½Ğ¾Ğµ Ğ¾ĞºĞ½Ğ¾
 //#######################################################################################
 MainWindow::MainWindow()
 {
@@ -319,7 +319,7 @@ MainWindow::MainWindow()
     str2.replace(';',"        ( ");
     cb_portname->addItem( str2+" )", str.section(';',0,0) );
   }
-  cb_portname->addItem( "İìóëÿòîğ", "__EMULATOR__" );
+  cb_portname->addItem( "Ğ­Ğ¼ÑƒĞ»ÑÑ‚Ğ¾Ñ€", "__EMULATOR__" );
   i = cb_portname->findData( settings.value("portname").toString() );
   if( i >= 0 ) cb_portname->setCurrentIndex(i);
   //----------------------------------------------------------------------

@@ -44,9 +44,9 @@ int main(int argc, char *argv[])
 
   if( !port->open() )
   { QMessageBox::critical(0,app_header,
-                             "Îøèáêà îòêðûòèÿ ïîðòà.\n\n"
-                             "Âîçìîæíî, ÷òî ïîðò èñïîëüçóåòñÿ\n"
-                             "äðóãèì ïðèëîæåíèåì." );
+                             "ÐžÑˆÐ¸Ð±ÐºÐ° Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð¸Ñ Ð¿Ð¾Ñ€Ñ‚Ð°.\n\n"
+                             "Ð’Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾, Ñ‡Ñ‚Ð¾ Ð¿Ð¾Ñ€Ñ‚ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÑ‚ÑÑ\n"
+                             "Ð´Ñ€ÑƒÐ³Ð¸Ð¼ Ð¿Ñ€Ð¸Ð»Ð¾Ð¶ÐµÐ½Ð¸ÐµÐ¼." );
     goto exit;
   }
 
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
   mbmaster->setCycleTime( initdialog.sb_cycle_time->value() );
 
   helpwidget = new HelpWidget;
-  helpwidget->setWindowTitle("Ðóêîâîäñòâî MKStudio");
+  helpwidget->setWindowTitle("Ð ÑƒÐºÐ¾Ð²Ð¾Ð´ÑÑ‚Ð²Ð¾ MKStudio");
   helpwidget->resize(900,600);
   helpwidget->setContents( QUrl::fromLocalFile(":/html/help/index.html" ) );
 

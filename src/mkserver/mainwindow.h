@@ -9,7 +9,7 @@ class AbstractSerialPort;
 class ModbusTcpServer;
 
 //==============================================================================
-// главное окно
+// РіР»Р°РІРЅРѕРµ РѕРєРЅРѕ
 //==============================================================================
 #include "ui_mainwindow.h"
 class MainWindow : public QMainWindow,

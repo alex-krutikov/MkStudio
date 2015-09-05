@@ -28,7 +28,7 @@ QString xmlf;
 QString hostportnode;
 
 //=============================================================================
-// Вывод информации о программе
+// Р’С‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РїСЂРѕРіСЂР°РјРјРµ
 //=============================================================================
 static void print_help()
 {
@@ -64,7 +64,7 @@ QString getCoutParams()
   return QDateTime::currentDateTime().toString( "ddMMyyhhmmss" ) + " " + hostportnode;
 }
 //=============================================================================
-// Инициализация
+// РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ
 //=============================================================================
 static int init()
 {
@@ -73,7 +73,7 @@ static int init()
   int portspeed = 115200;
   bool ok;
 
-  //--- разбор аргументов командной строки
+  //--- СЂР°Р·Р±РѕСЂ Р°СЂРіСѓРјРµРЅС‚РѕРІ РєРѕРјР°РЅРґРЅРѕР№ СЃС‚СЂРѕРєРё
   QStringList command_arguments = QCoreApplication::arguments();
   command_arguments.removeAt(0);
 
@@ -215,7 +215,7 @@ static int init()
     xmlfile.close();
   }
 
-  //--- анализ конфигурации
+  //--- Р°РЅР°Р»РёР· РєРѕРЅС„РёРіСѓСЂР°С†РёРё
   if( portname.isEmpty() && hostname.isEmpty())
   { cout << getCoutParams() + " Configuration error: Serial port or tcp/ip host does not set." << endl;
     print_help();
@@ -275,7 +275,7 @@ static int init()
 }
 
 //=============================================================================
-// Анализ ошибок XFiles
+// РђРЅР°Р»РёР· РѕС€РёР±РѕРє XFiles
 //=============================================================================
 static void xfile_print_error( XFiles::Result res )
 {
@@ -284,7 +284,7 @@ static void xfile_print_error( XFiles::Result res )
 }
 
 //=============================================================================
-// Синхронизация файлов
+// РЎРёРЅС…СЂРѕРЅРёР·Р°С†РёСЏ С„Р°Р№Р»РѕРІ
 //=============================================================================
 bool sync_file(const QString filename, const int filesize, const QString &path )
 {
@@ -319,7 +319,7 @@ bool sync_file(const QString filename, const int filesize, const QString &path )
     dtchange = true;
   }
 
-  //--- проверка наличия и размера файла
+  //--- РїСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ Рё СЂР°Р·РјРµСЂР° С„Р°Р№Р»Р°
   QFile file( local_path + path +  filename );
 
   if( !file.exists() && onlyprevused )
@@ -331,7 +331,7 @@ bool sync_file(const QString filename, const int filesize, const QString &path )
 
   if( file.exists() && ( file.size() >= filesize ) && !dtmode ) return true;
 
-  //--- дочитка файла
+  //--- РґРѕС‡РёС‚РєР° С„Р°Р№Р»Р°
   if( dtmode ) ok = file.open(QIODevice::WriteOnly|QIODevice::Truncate);
   else         ok = file.open(QIODevice::WriteOnly|QIODevice::Append  );
 
@@ -357,7 +357,7 @@ bool sync_file(const QString filename, const int filesize, const QString &path )
   if( res != XFiles::Ok ) return false;
 
 
-  //--- получение и запись данных
+  //--- РїРѕР»СѓС‡РµРЅРёРµ Рё Р·Р°РїРёСЃСЊ РґР°РЅРЅС‹С…
   while( j < filesize )
   {
     len = filesize - j;
@@ -397,21 +397,21 @@ error:
 }
 
 //=============================================================================
-// Синхронизация каталога (рекурсивная функция)
+// РЎРёРЅС…СЂРѕРЅРёР·Р°С†РёСЏ РєР°С‚Р°Р»РѕРіР° (СЂРµРєСѓСЂСЃРёРІРЅР°СЏ С„СѓРЅРєС†РёСЏ)
 //=============================================================================
 bool process_dir( QString path )
 {
   bool ok;
   QString dirname = local_path + path;
 
-  //--- создание каталога
+  //--- СЃРѕР·РґР°РЅРёРµ РєР°С‚Р°Р»РѕРіР°
   QDir dir( dirname );
   if( !dir.exists() )
   {  cout << getCoutParams() + " Create path: " << dirname << endl;
      dir.mkpath( dirname );
   }
 
-  //--- чтение содержимого каталога
+  //--- С‡С‚РµРЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РєР°С‚Р°Р»РѕРіР°
   int id;
   XFiles::Result res = XFiles::Ok;
   QList<XFilesFileInfo> flist;
@@ -435,7 +435,7 @@ bool process_dir( QString path )
   }
   if( res != XFiles::Ok ) return false;
 
-  //--- обработка файлов катлога
+  //--- РѕР±СЂР°Р±РѕС‚РєР° С„Р°Р№Р»РѕРІ РєР°С‚Р»РѕРіР°
   QStringList sl_dirs;
   foreach( XFilesFileInfo fi, flist )
   {
@@ -449,7 +449,7 @@ bool process_dir( QString path )
 
   if( dontusedirs ) return true;
 
-  //--- рекурсивный вызов для всех подкаталогов
+  //--- СЂРµРєСѓСЂСЃРёРІРЅС‹Р№ РІС‹Р·РѕРІ РґР»СЏ РІСЃРµС… РїРѕРґРєР°С‚Р°Р»РѕРіРѕРІ
   foreach( QString str, sl_dirs )
   { if( str == "."  ) continue;
     if( str == ".." ) continue;
@@ -459,7 +459,7 @@ bool process_dir( QString path )
   return true;
 }
 //=============================================================================
-// Синхронизация файла минутного тренда по дате
+// РЎРёРЅС…СЂРѕРЅРёР·Р°С†РёСЏ С„Р°Р№Р»Р° РјРёРЅСѓС‚РЅРѕРіРѕ С‚СЂРµРЅРґР° РїРѕ РґР°С‚Рµ
 //=============================================================================
 static int fast_sync_date( const QDate &date, const QString &ext )
 {
@@ -470,7 +470,7 @@ static int fast_sync_date( const QDate &date, const QString &ext )
   if( ext==".RPH" || ext==".RNH" ) path = date.toString("yy/");
 
   QString filename = date.toString("~yyMMdd") + ext ;
-  //--- получение описания файла
+  //--- РїРѕР»СѓС‡РµРЅРёРµ РѕРїРёСЃР°РЅРёСЏ С„Р°Р№Р»Р°
   int rep = repeats;
   while( rep-- )
   {
@@ -480,7 +480,7 @@ static int fast_sync_date( const QDate &date, const QString &ext )
   }
   if( res != XFiles::Ok ) return 1;
 
-  //--- создание каталога
+  //--- СЃРѕР·РґР°РЅРёРµ РєР°С‚Р°Р»РѕРіР°
   QString dirname = local_path + path;
   QDir dir( dirname );
   if( !dir.exists() )
@@ -488,13 +488,13 @@ static int fast_sync_date( const QDate &date, const QString &ext )
      dir.mkpath( dirname );
   }
 
-  //--- синхронизация файла;
+  //--- СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёСЏ С„Р°Р№Р»Р°;
   bool ok =  sync_file(  filename, fi.size, path );
   return (ok) ? (0) : (1);
 }
 
 //=============================================================================
-// Быстрая синхронизация на основе анализа текущей даты
+// Р‘С‹СЃС‚СЂР°СЏ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёСЏ РЅР° РѕСЃРЅРѕРІРµ Р°РЅР°Р»РёР·Р° С‚РµРєСѓС‰РµР№ РґР°С‚С‹
 //=============================================================================
 static int fast_sync()
 {
@@ -508,7 +508,7 @@ static int fast_sync()
    date = QDate::currentDate();
    date = date.addDays( ((-1)*daysbefore) );
 
-   //минутные тренды
+   //РјРёРЅСѓС‚РЅС‹Рµ С‚СЂРµРЅРґС‹
    i = fast_sync_date( date, ".RPM" );
    if( i ) break;
    i = fast_sync_date( date, ".RNM" );
@@ -521,10 +521,10 @@ static int fast_sync()
   while( monthsbefore >= 0 )
   {
    date = QDate::currentDate();
-   date = QDate(date.year(), date.month(), 1);//1 число данного месяца
+   date = QDate(date.year(), date.month(), 1);//1 С‡РёСЃР»Рѕ РґР°РЅРЅРѕРіРѕ РјРµСЃСЏС†Р°
    date = date.addMonths( ((-1)*monthsbefore) );
 
-   //часовые тренды
+   //С‡Р°СЃРѕРІС‹Рµ С‚СЂРµРЅРґС‹
    i = fast_sync_date( date, ".RPH" );
    if( i ) break;
    i = fast_sync_date( date, ".RNH" );

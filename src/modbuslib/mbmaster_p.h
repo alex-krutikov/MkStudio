@@ -54,12 +54,12 @@ private:
   int maximumPacketLength() const;
 
 
-  int request_counter; //!< Îáùåå êîë-âî çàïðîñîâ
-  int answer_counter;  //!< Îáùåå êîë-âî îòâåòîâ
-  int error_counter;   //!< Îáùåå êîë-âî îøèáîê
-  int full_time;       //!< Âðåìÿ (â ìñ) ïîëíîãî öèêëà îïðîñà
+  int request_counter; //!< ÐžÐ±Ñ‰ÐµÐµ ÐºÐ¾Ð»-Ð²Ð¾ Ð·Ð°Ð¿Ñ€Ð¾ÑÐ¾Ð²
+  int answer_counter;  //!< ÐžÐ±Ñ‰ÐµÐµ ÐºÐ¾Ð»-Ð²Ð¾ Ð¾Ñ‚Ð²ÐµÑ‚Ð¾Ð²
+  int error_counter;   //!< ÐžÐ±Ñ‰ÐµÐµ ÐºÐ¾Ð»-Ð²Ð¾ Ð¾ÑˆÐ¸Ð±Ð¾Ðº
+  int full_time;       //!< Ð’Ñ€ÐµÐ¼Ñ (Ð² Ð¼Ñ) Ð¿Ð¾Ð»Ð½Ð¾Ð³Ð¾ Ñ†Ð¸ÐºÐ»Ð° Ð¾Ð¿Ñ€Ð¾ÑÐ°
 
-//! Ðàñøèôðîâêà ModuleDefinition
+//! Ð Ð°ÑÑˆÐ¸Ñ„Ñ€Ð¾Ð²ÐºÐ° ModuleDefinition
   static MikkonModuleDefinition decodeModuleDefinition( const QByteArray& );
 signals:
   void stateChanged();
@@ -77,23 +77,23 @@ private:
   void optimize_write_transaction_coils(int i1, int i2);
 private:
   int answer_timeout;
-  QVector<MMModule> mmmodules; //!< ìîäóëè
-  QVector<MMSlot>   mmslots;   //!< ñëîòû
-  QVector<int>      mmslots_status; //!< ñîñòîÿíèå ñëîòîâ
-  QVector<MMSlotTransaction> transactions_read;    //!< òðàíçàêöèè íà ÷òåíèå
-  QVector<MMSlotTransaction> transactions_write;   //!< òðàíçàêöèè íà çàïèñü
-  QVector<MMSlotTransaction> transactions_write2;  //!< òðàíçàêöèè íà çàïèñü "0" äëÿ áèòîâ
-  mutable QMutex mutex;   //!< ñèíõðîíèçàöèÿ îáðàùåíèÿ ê äàííûì è íàñòðîéêàì
-  AbstractSerialPort *transport;  //!< ññûëêà íà òðàíñïîðò
-  volatile bool thread_exit_flag;  //!< ôëàã âûõîäà èç öèêëà îïðîñà
-  bool disable_write_transactions; //!< ôëàã çàïðåòà òðàíçàêöèé íà çàïèñü
-  bool disable_read_transactions;  //!< ôëàã çàïðåòà òðàíçàêöèé íà ÷òåíèå
-  int max_packet_length;           //!< ìàêñèìàëüíàÿ äëèíà ïàêåòà
+  QVector<MMModule> mmmodules; //!< Ð¼Ð¾Ð´ÑƒÐ»Ð¸
+  QVector<MMSlot>   mmslots;   //!< ÑÐ»Ð¾Ñ‚Ñ‹
+  QVector<int>      mmslots_status; //!< ÑÐ¾ÑÑ‚Ð¾ÑÐ½Ð¸Ðµ ÑÐ»Ð¾Ñ‚Ð¾Ð²
+  QVector<MMSlotTransaction> transactions_read;    //!< Ñ‚Ñ€Ð°Ð½Ð·Ð°ÐºÑ†Ð¸Ð¸ Ð½Ð° Ñ‡Ñ‚ÐµÐ½Ð¸Ðµ
+  QVector<MMSlotTransaction> transactions_write;   //!< Ñ‚Ñ€Ð°Ð½Ð·Ð°ÐºÑ†Ð¸Ð¸ Ð½Ð° Ð·Ð°Ð¿Ð¸ÑÑŒ
+  QVector<MMSlotTransaction> transactions_write2;  //!< Ñ‚Ñ€Ð°Ð½Ð·Ð°ÐºÑ†Ð¸Ð¸ Ð½Ð° Ð·Ð°Ð¿Ð¸ÑÑŒ "0" Ð´Ð»Ñ Ð±Ð¸Ñ‚Ð¾Ð²
+  mutable QMutex mutex;   //!< ÑÐ¸Ð½Ñ…Ñ€Ð¾Ð½Ð¸Ð·Ð°Ñ†Ð¸Ñ Ð¾Ð±Ñ€Ð°Ñ‰ÐµÐ½Ð¸Ñ Ðº Ð´Ð°Ð½Ð½Ñ‹Ð¼ Ð¸ Ð½Ð°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ°Ð¼
+  AbstractSerialPort *transport;  //!< ÑÑÑ‹Ð»ÐºÐ° Ð½Ð° Ñ‚Ñ€Ð°Ð½ÑÐ¿Ð¾Ñ€Ñ‚
+  volatile bool thread_exit_flag;  //!< Ñ„Ð»Ð°Ð³ Ð²Ñ‹Ñ…Ð¾Ð´Ð° Ð¸Ð· Ñ†Ð¸ÐºÐ»Ð° Ð¾Ð¿Ñ€Ð¾ÑÐ°
+  bool disable_write_transactions; //!< Ñ„Ð»Ð°Ð³ Ð·Ð°Ð¿Ñ€ÐµÑ‚Ð° Ñ‚Ñ€Ð°Ð½Ð·Ð°ÐºÑ†Ð¸Ð¹ Ð½Ð° Ð·Ð°Ð¿Ð¸ÑÑŒ
+  bool disable_read_transactions;  //!< Ñ„Ð»Ð°Ð³ Ð·Ð°Ð¿Ñ€ÐµÑ‚Ð° Ñ‚Ñ€Ð°Ð½Ð·Ð°ÐºÑ†Ð¸Ð¹ Ð½Ð° Ñ‡Ñ‚ÐµÐ½Ð¸Ðµ
+  int max_packet_length;           //!< Ð¼Ð°ÐºÑÐ¸Ð¼Ð°Ð»ÑŒÐ½Ð°Ñ Ð´Ð»Ð¸Ð½Ð° Ð¿Ð°ÐºÐµÑ‚Ð°
   int transaction_delay;
   int cycle_time;
   bool auto_skip_mode;
 
-  // ñëóæåáíàÿ ñòðóêòóðà äëÿ áûñòðîãî ïîèñêà òðàíçàêöè íà çàïèñü
+  // ÑÐ»ÑƒÐ¶ÐµÐ±Ð½Ð°Ñ ÑÑ‚Ñ€ÑƒÐºÑ‚ÑƒÑ€Ð° Ð´Ð»Ñ Ð±Ñ‹ÑÑ‚Ñ€Ð¾Ð³Ð¾ Ð¿Ð¾Ð¸ÑÐºÐ° Ñ‚Ñ€Ð°Ð½Ð·Ð°ÐºÑ†Ð¸ Ð½Ð° Ð·Ð°Ð¿Ð¸ÑÑŒ
   struct ModuleSlotIndex
   { int module,slot,index;
     inline ModuleSlotIndex(int module, int slot, int index)
@@ -112,7 +112,7 @@ private:
       return true;
     }
   };
-  // àññàöèàòèâíûé êîíòåéíåð äëÿ áûñòðîãî ïîèñêà òðàíçàêöè íà çàïèñü
+  // Ð°ÑÑÐ°Ñ†Ð¸Ð°Ñ‚Ð¸Ð²Ð½Ñ‹Ð¹ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€ Ð´Ð»Ñ Ð±Ñ‹ÑÑ‚Ñ€Ð¾Ð³Ð¾ Ð¿Ð¾Ð¸ÑÐºÐ° Ñ‚Ñ€Ð°Ð½Ð·Ð°ÐºÑ†Ð¸ Ð½Ð° Ð·Ð°Ð¿Ð¸ÑÑŒ
   QMap<ModuleSlotIndex,int> transactions_write_map;
 };
 

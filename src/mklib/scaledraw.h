@@ -9,7 +9,7 @@ class ScaleDraw : public QwtScaleDraw
 {
 public:
 
-    // Форматирование меток шкалы
+    // Р¤РѕСЂРјР°С‚РёСЂРѕРІР°РЅРёРµ РјРµС‚РѕРє С€РєР°Р»С‹
     QwtText label(double value) const
     {
         return QLocale::system().toString(value, 'g', 7);
