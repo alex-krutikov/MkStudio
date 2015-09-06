@@ -27,7 +27,7 @@ SlotWidget::SlotWidget( QWidget *parent, MBMasterXML *mm, int module, int slot, 
 {
   ui->setupUi(this);
   ui->stackedWidget->setCurrentIndex(0);
-  setWindowFlags( Qt::Window | Qt::WindowMinimizeButtonHint );
+  setWindowFlags( Qt::Window | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint );
   setAttribute( Qt::WA_DeleteOnClose, true );
   resize( 800,400 );
 

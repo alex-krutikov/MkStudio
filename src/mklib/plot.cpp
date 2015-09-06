@@ -40,7 +40,7 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   titleStr = title;
   setWindowTitle(titleStr);
 
-  setWindowFlags( Qt::Window | Qt::WindowMinimizeButtonHint );
+  setWindowFlags( Qt::Window | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint );
   setAttribute( Qt::WA_DeleteOnClose, true );
   move( QCursor::pos() - QPoint(20,20) );
 
