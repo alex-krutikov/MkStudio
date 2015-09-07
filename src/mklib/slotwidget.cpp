@@ -89,18 +89,18 @@ SlotWidget::SlotWidget( QWidget *parent, MBMasterXML *mm, int module, int slot, 
   toolWidget->move(5,5);
 
   // обработка меню
-  connect( ui->action_view_table, SIGNAL( activated() ), this, SLOT( view_changed() ) );
-  connect( ui->action_view_plot1, SIGNAL( activated() ), this, SLOT( view_changed() ) );
-  connect( ui->action_view_plot2, SIGNAL( activated() ), this, SLOT( view_changed() ) );
+  connect( ui->action_view_table, SIGNAL( triggered() ), this, SLOT( view_changed() ) );
+  connect( ui->action_view_plot1, SIGNAL( triggered() ), this, SLOT( view_changed() ) );
+  connect( ui->action_view_plot2, SIGNAL( triggered() ), this, SLOT( view_changed() ) );
 
   connect(ui->action_stat_show,    SIGNAL( toggled(bool) ), this, SLOT( slot_statistic_show(bool) ) );
   connect( ui->chb_line_trans_use, SIGNAL( toggled(bool) ), this, SLOT( slot_line_trans_used(bool)) );
 
-  connect( ui->action_format_bin,      SIGNAL( activated() ), this, SLOT( format_changed() ) );
-  connect( ui->action_format_dec,      SIGNAL( activated() ), this, SLOT( format_changed() ) );
-  connect( ui->action_format_unsigned, SIGNAL( activated() ), this, SLOT( format_changed() ) );
-  connect( ui->action_format_hex,      SIGNAL( activated() ), this, SLOT( format_changed() ) );
-  connect( ui->action_format_float,    SIGNAL( activated() ), this, SLOT( format_changed() ) );
+  connect( ui->action_format_bin,      SIGNAL( triggered() ), this, SLOT( format_changed() ) );
+  connect( ui->action_format_dec,      SIGNAL( triggered() ), this, SLOT( format_changed() ) );
+  connect( ui->action_format_unsigned, SIGNAL( triggered() ), this, SLOT( format_changed() ) );
+  connect( ui->action_format_hex,      SIGNAL( triggered() ), this, SLOT( format_changed() ) );
+  connect( ui->action_format_float,    SIGNAL( triggered() ), this, SLOT( format_changed() ) );
 
   // название окна
   QString str;
