@@ -194,7 +194,8 @@ SlotWidget::SlotWidget( QWidget *parent, MBMasterXML *mm, int module, int slot, 
   QMap<QString,QString> settings2 = settings;
 
   str = settings2["view"];
-  if( str == "table"       ) ui->action_view_table->activate(QAction::Trigger);
+  if( str == "table"
+   || str.isEmpty()        ) ui->action_view_table->activate(QAction::Trigger);
   if( str == "plot"        ) ui->action_view_plot1->activate(QAction::Trigger);
   if( str == "scaled_plot" ) ui->action_view_plot2->activate(QAction::Trigger);
   str = settings2["format"];
@@ -207,11 +208,12 @@ SlotWidget::SlotWidget( QWidget *parent, MBMasterXML *mm, int module, int slot, 
 
   int a;
   bool ok;
+  ui->statGroupBox->setVisible(false);
   if( settings.contains("statistic_show") )
   { a = settings["statistic_show"].toInt( &ok );
-    if( ok && !a )
-    {  ui->action_stat_show->setChecked( false );
-       slot_statistic_show( false );
+    if( ok && a )
+    {  ui->action_stat_show->setChecked( true );
+       //slot_statistic_show( false );
     }
   }
   // таймер перерисовки графиков
@@ -238,14 +240,20 @@ void SlotWidget::view_changed()
 
   if(        act == ui->action_view_table )
   { ui->stackedWidget->setCurrentIndex(0);
+    ui->action_stat_show->setEnabled(false);
+    ui->statGroupBox->setVisible(false);
   } else if( act == ui->action_view_plot1 )
   { ui->stackedWidget->setCurrentIndex(1);
-      toolWidget->setParent( ui->plot->canvas() );
-      toolWidget->show();
+    ui->action_stat_show->setEnabled(true);
+    ui->statGroupBox->setVisible(ui->action_stat_show->isChecked());
+    toolWidget->setParent( ui->plot->canvas() );
+    toolWidget->show();
   } else if( act == ui->action_view_plot2 )
   { ui->stackedWidget->setCurrentIndex(2);
-      toolWidget->setParent( ui->plot2->canvas() );
-      toolWidget->show();
+    ui->action_stat_show->setEnabled(true);
+    ui->statGroupBox->setVisible(ui->action_stat_show->isChecked());
+    toolWidget->setParent( ui->plot2->canvas() );
+    toolWidget->show();
   }
   save_settings();
 }
