@@ -24,6 +24,11 @@ const char * const MBDataType_id[]    = {
   "dwords_hregs_lh", // рег.хр. дв.слова  мл./ст.
   "floats_hregs_hl", // рег.хр. вещ.числа ст./мл.
   "floats_hregs_lh", // рег.хр. вещ.числа мл./ст.
+  "bits_arduino",
+  "bytes_arduino",
+  "words_arduino",
+  "dwords_arduino",
+  "floats_arduino",
   };
 
 const char * const MBDataType_names[] = {
@@ -45,6 +50,11 @@ const char * const MBDataType_names[] = {
   "рег.хр. дв.слова  мл./ст.",
   "рег.хр. вещ.числа ст./мл.",
   "рег.хр. вещ.числа мл./ст.",
+  "Arduino биты",
+  "Arduino байты",
+  "Arduino слова",
+  "Arduino дв.слова",
+  "Arduino вещ.числа",
   };
 
 //==============================================================================

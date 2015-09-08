@@ -63,10 +63,11 @@ extern MBL_EXPORT const char * const MBOpType_names[];
 class MBDataType : public AbstractEnumValues
 {
 public:
-  MBDataType( int id = 0 ) : AbstractEnumValues( MBDataType_id, MBDataType_names , 18, id ) {}
+  MBDataType( int id = 0 ) : AbstractEnumValues( MBDataType_id, MBDataType_names , 23, id ) {}
   enum Id { Unknown=0, Bits, Bytes, Words, Dwords, Floats, DiscreteInputs, Coils, InputRegisters, HoldingRegisters,
      DwordsInputRegHiLo,   DwordsInputRegLoHi,   FloatsInputRegHiLo,   FloatsInputRegLoHi,
      DwordsHoldingRegHiLo, DwordsHoldingRegLoHi, FloatsHoldingRegHiLo, FloatsHoldingRegLoHi,
+     BitsArduino, BytesArduino, WordsArduino, DwordsArduino,FloatsArdiono,
      };
   inline int id() const { return (MBDataType::Id)state; }
   bool isRegister() const;
