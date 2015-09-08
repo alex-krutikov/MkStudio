@@ -140,3 +140,59 @@ bool MBDataType::isExtendedRegister() const
   }
   return false;
 }
+
+QByteArray encodeArduinoTransport(const QByteArray &ba)
+{
+  QByteArray ret;
+
+  ret.append(0x80);
+
+  for (int i=0; i<ba.length();)
+  {
+    char extraByte = 0;
+    for (int j=0; (j < 7) && ((i + j) < ba.length()); ++j)
+    {
+      if (ba.at(i + j) & 0x80)
+        extraByte |= (1 << (6 - j));
+    }
+    ret.append(extraByte);
+    for (int j=0; (j < 7) && ((i + j) < ba.length()); ++j)
+    {
+      ret.append(ba.at(i + j) & 0x7F);
+    }
+    i += 7;
+  }
+
+  ret.append(0x81);
+
+  return ret;
+}
+
+QByteArray decodeArduinoTransport(const QByteArray &ba, bool &ok)
+{
+  QByteArray ret;
+  ok = false;
+
+  if (ba.length() < 2)
+    return QByteArray();
+  if (ba.at(0) != (char)0x80)
+    return QByteArray();
+  if (ba.at(ba.length() - 1) != (char)0x81)
+    return QByteArray();
+
+  for (int i = 1; i < (ba.length() - 1); )
+  {
+    char extraByte = ba.at(i);
+    i++;
+    extraByte <<= 1;
+    for (int j = 0; (j < 7) && ((i + j) < (ba.length() - 1)); j++)
+    {
+      ret.append(ba.at(i + j) | (extraByte & (0x80)));
+      extraByte <<= 1;
+    }
+    i+=7;
+  }
+
+  ok = true;
+  return ret;
+}

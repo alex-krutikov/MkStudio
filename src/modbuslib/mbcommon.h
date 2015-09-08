@@ -7,6 +7,9 @@
 
 QString MBL_EXPORT QByteArray2QString( const QByteArray &ba, int mode=0 );
 
+QByteArray encodeArduinoTransport(const QByteArray &ba);
+QByteArray decodeArduinoTransport(const QByteArray &ba, bool &ok);
+
 //===================================================================
 //! Перечисления с пердставлением в виде строк
 /**

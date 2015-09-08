@@ -12,6 +12,32 @@
 #include "mbcommon.h"
 #include "console.h"
 
+namespace {
+
+bool testArduinoTransport()
+{
+  int err = 0;
+
+  for (int i=0; i < 1000; i++)
+  {
+    bool ok = false;
+    QByteArray ba1;
+
+    for (int j=0; j < ((double)qrand())/RAND_MAX*1000; j++)
+      ba1.append( (char) qrand() );
+
+    QByteArray res = encodeArduinoTransport(ba1);
+    QByteArray ba2 = decodeArduinoTransport(res, ok);
+
+    if (ba1 != ba2 || !ok)
+      err++;
+  }
+
+  return (err != 0);
+}
+
+}
+
 class SerialPortEmulator : public AbstractSerialPort
 {
 public:
@@ -294,6 +320,44 @@ public:
   }
 };
 
+class SerialPortArduionEmulator : public AbstractSerialPort
+{
+public:
+  void setName( const QString & ) {}
+  void setSpeed( const int  ) {}
+  void setAnswerTimeout(int ) {}
+  bool open() { return true;}
+  void close() {}
+  QString name() { return "__EMULATOR__"; }
+  int speed() { return 0; }
+  int answerTimeout() const { return 0;}
+  QString lastError() const { return QString(); }
+  void resetLastErrorType() {}
+
+  int query( const QByteArray &req, QByteArray &ans, int *errorcode=0)
+  {
+    Q_UNUSED( errorcode );
+
+    static unsigned char base[100000];
+
+    if( req.size() < 4 ) return 0;
+    if( CRC::CRC16( req ) )
+    { Console::Print( Console::ModbusError,
+            "Request packet: CRC ERROR. [ " + QByteArray2QString( req ) + " ]\n" );
+      return 0;
+    }
+
+    ans.resize( 300 );
+
+    int ans_len = 0;
+    int i;
+
+
+    ans.resize( ans_len );
+    return ans_len;
+  }
+};
+
 //#######################################################################################
 // главное окно
 //#######################################################################################
@@ -320,6 +384,7 @@ MainWindow::MainWindow()
     cb_portname->addItem( str2+" )", str.section(';',0,0) );
   }
   cb_portname->addItem( "Эмулятор", "__EMULATOR__" );
+  cb_portname->addItem( "Эмулятор Arduino", "__EMULATOR_ARDUINO__" );
   i = cb_portname->findData( settings.value("portname").toString() );
   if( i >= 0 ) cb_portname->setCurrentIndex(i);
   //----------------------------------------------------------------------
@@ -398,6 +463,8 @@ void MainWindow::settingsChanged()
     tcpserver.reset();
     if( portname == "__EMULATOR__" )
     { serialport.reset(new SerialPortEmulator);
+    } else if( portname == "__EMULATOR_ARDUINO__" )
+    { serialport.reset(new SerialPortArduionEmulator);
     } else
     { serialport.reset(new SerialPort);
     }
