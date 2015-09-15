@@ -10,6 +10,15 @@ QString MBL_EXPORT QByteArray2QString( const QByteArray &ba, int mode=0 );
 QByteArray encodeArduinoTransport(const QByteArray &ba);
 QByteArray decodeArduinoTransport(const QByteArray &ba, bool &ok);
 
+inline int encodedArduinoTransportLength(int len)
+{
+  int ret=0;
+  ret += (len / 7) * 8;
+  ret += (len % 7) ? ((len % 7) + 1) : 0;
+  ret += 2;
+  return ret;
+}
+
 //===================================================================
 //! Перечисления с пердставлением в виде строк
 /**
@@ -70,13 +79,14 @@ public:
   enum Id { Unknown=0, Bits, Bytes, Words, Dwords, Floats, DiscreteInputs, Coils, InputRegisters, HoldingRegisters,
      DwordsInputRegHiLo,   DwordsInputRegLoHi,   FloatsInputRegHiLo,   FloatsInputRegLoHi,
      DwordsHoldingRegHiLo, DwordsHoldingRegLoHi, FloatsHoldingRegHiLo, FloatsHoldingRegLoHi,
-     BitsArduino, BytesArduino, WordsArduino, DwordsArduino,FloatsArdiono,
+     BitsArduino, BytesArduino, WordsArduino, DwordsArduino,FloatsArduino,
      };
   inline int id() const { return (MBDataType::Id)state; }
   bool isRegister() const;
   bool isAnalogRegister() const;  
   bool isDiscreteRegister() const;
   bool isExtendedRegister() const;
+  bool isArduino() const;
   inline  MBDataType& operator=( const MBDataType::Id &value )
   { state = (int)value; return *this;
   }

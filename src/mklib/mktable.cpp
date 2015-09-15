@@ -912,6 +912,15 @@ QString MKTable::format_output( const MMValue &value, const MBDataType &datatype
 
   cf = (char*)"";
 
+  switch (datatype_id)
+  {
+      case( MBDataType::BitsArduino):    datatype_id =  MBDataType::Bits;   break;
+      case( MBDataType::BytesArduino):   datatype_id =  MBDataType::Bytes;  break;
+      case( MBDataType::WordsArduino):   datatype_id =  MBDataType::Words;  break;
+      case( MBDataType::DwordsArduino):  datatype_id =  MBDataType::Dwords; break;
+      case( MBDataType::FloatsArduino):  datatype_id =  MBDataType::Floats; break;
+  }
+
   switch( type )
   { case(1): // беззнаковый
       switch( datatype_id )

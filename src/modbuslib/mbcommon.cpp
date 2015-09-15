@@ -141,6 +141,19 @@ bool MBDataType::isExtendedRegister() const
   return false;
 }
 
+bool MBDataType::isArduino() const
+{
+  switch( state )
+  { case MBDataType::BitsArduino :
+    case MBDataType::BytesArduino :
+    case MBDataType::WordsArduino :
+    case MBDataType::DwordsArduino :
+    case MBDataType::FloatsArduino :
+      return true;
+  }
+  return false;
+}
+
 QByteArray encodeArduinoTransport(const QByteArray &ba)
 {
   QByteArray ret;
