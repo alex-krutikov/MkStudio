@@ -10,11 +10,21 @@
     <height>358</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Dialog</string>
+  <property name="windowIcon">
+   <iconset resource="../mkstudio.qrc">
+    <normaloff>:/icons/res/keyboard_key.png</normaloff>:/icons/res/keyboard_key.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>3</number>
+   </property>
+   <property name="topMargin">
+    <number>3</number>
+   </property>
+   <property name="rightMargin">
+    <number>3</number>
+   </property>
+   <property name="bottomMargin">
     <number>3</number>
    </property>
    <property name="spacing">
@@ -122,7 +132,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../mkstudio.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>
