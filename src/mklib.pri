@@ -1,8 +1,0 @@
-INCLUDEPATH += $${MKROOT}/src/mklib
-DEPENDPATH  += $${MKROOT}/src/mklib
-LIBS += -L$${MKROOT}/lib -lmklib$${SUFFIX_STR}
-
-MKROOT_SHADOWED = $$shadowed($${PWD}$${MKROOT})
-PRE_TARGETDEPS += $${MKROOT_SHADOWED}/lib/$${QMAKE_PREFIX_STATICLIB}mklib$${SUFFIX_STR}.$${QMAKE_EXTENSION_STATICLIB}
-
-include( qwt.pri )
