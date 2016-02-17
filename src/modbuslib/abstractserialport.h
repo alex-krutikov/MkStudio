@@ -5,6 +5,8 @@
 #include <QString>
 #include <QByteArray>
 
+#include <tr1/memory>
+
 #include "mbl_global.h"
 
 class MBL_EXPORT AbstractSerialPort : public QObject
@@ -23,5 +25,7 @@ public:
 
   virtual int query( const QByteArray &request, QByteArray &answer, int *errorcode=0) = 0;
 };
+
+typedef std::tr1::shared_ptr<AbstractSerialPort> AbstractSerialPortPtr;
 
 #endif

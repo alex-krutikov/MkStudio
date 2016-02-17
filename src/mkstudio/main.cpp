@@ -2,6 +2,8 @@
 
 #include <QMessageBox>
 
+#include <tr1/memory>
+
 #include "main.h"
 #include "mainwindow.h"
 #include "dialogs.h"
@@ -14,7 +16,6 @@
 
 MainWindow    *mainwindow;
 MBMasterXML   *mbmaster;
-AbstractSerialPort  *port;
 HelpWidget    *helpwidget;
 QString       app_header;
 
@@ -24,6 +25,7 @@ QString       app_header;
 int main(int argc, char *argv[])
 {
   int ret=0;
+
 #ifdef Q_OS_UNIX
   QApplication::setStyle("cleanlooks");
 #endif
@@ -40,14 +42,17 @@ int main(int argc, char *argv[])
   Console::setMessageTypes( Console::ModbusPacket, false );
 
   InitDialog initdialog;
-  if( initdialog.exec() != QDialog::Accepted ) goto exit;
+  if( initdialog.exec() != QDialog::Accepted )
+      return 0;
+
+  AbstractSerialPortPtr port = initdialog.port();
 
   if( !port->open() )
   { QMessageBox::critical(0,app_header,
                              "Ошибка открытия порта.\n\n"
                              "Возможно, что порт используется\n"
                              "другим приложением." );
-    goto exit;
+    return 0;
   }
 
   {
@@ -77,8 +82,6 @@ int main(int argc, char *argv[])
 
   delete mainwindow;
   delete mbmaster;
-exit:
-  delete port;
   delete qt_translator;
 
   return ret;

@@ -4,9 +4,9 @@
 #include "mbl_global.h"
 #include "mbcommon.h"
 #include "mbtypes.h"
+#include "abstractserialport.h"
 
 class MBMasterPrivate;
-class AbstractSerialPort;
 
 //===================================================================
 //! Опрос микроконтроллеров по протоколу Modbus RTU
@@ -33,7 +33,7 @@ public:
  */
 //@{
 
-  void setTransport( AbstractSerialPort *transport );
+  void setTransport(AbstractSerialPortPtr transport );
   void clear_configuration();
   void add_module( int module_index, int node, int subnode=0,
                                      const QString &name = QString(),

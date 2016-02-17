@@ -21,7 +21,6 @@ class HelpWidget;
 extern QApplication  *application;
 extern MainWindow    *mainwindow;
 extern MBMasterXML      *mbmaster;
-extern AbstractSerialPort   *port;
 extern HelpWidget    *helpwidget;
 extern QString        app_header;
 

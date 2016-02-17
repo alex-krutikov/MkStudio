@@ -113,15 +113,15 @@ void InitDialog::accept()
 
   if( str == "===TCP===" )
   { str = le_tcp_server->text();
-    port = new MbTcpPort;
+    m_port.reset(new MbTcpPort);
   } else
-  { port = new SerialPort;
+  { m_port.reset(new SerialPort);
   }
 
   if( !str.isEmpty() )
-  {  port->setName( str );
-     port->setSpeed( cb_portspeed->currentText().toInt() );
-     port->setAnswerTimeout( timeout );
+  {  m_port->setName( str );
+     m_port->setSpeed( cb_portspeed->currentText().toInt() );
+     m_port->setAnswerTimeout( timeout );
   }
 
   done( QDialog::Accepted );

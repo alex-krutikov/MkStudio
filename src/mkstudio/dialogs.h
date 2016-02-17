@@ -1,6 +1,8 @@
 #ifndef __DIALOGS__H_
 #define __DIALOGS__H_
 
+#include "abstractserialport.h"
+
 class QwtPlotCurve;
 
 #include "ui_initdialog.h"
@@ -14,8 +16,11 @@ class InitDialog : public QDialog,
 public:
   InitDialog( QWidget *parent = 0);
   void accept();
+  AbstractSerialPortPtr port() const {return m_port;}
 private slots:
   void on_cb_portname_currentIndexChanged(int);
+private:
+  AbstractSerialPortPtr  m_port;
 };
 
 #include "ui_assigndialog.h"

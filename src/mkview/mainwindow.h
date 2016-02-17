@@ -47,7 +47,6 @@ class MainWindowXml : public QMainWindow,
 public:
   MainWindowXml( QWidget *parent = 0, const QString &portname = QString(), int portspeed = 115200,
                  const QString &host = "localhost", const QString &xml_filename = QString(),int node=1, int subnode=0 );
-  ~MainWindowXml();
   void closeEvent( QCloseEvent *event );
 private slots:
   void group_update();
@@ -60,7 +59,6 @@ private:
   InfoLabel *status_answers;
   InfoLabel *status_errors;
   InfoLabel *full_time;
-  AbstractSerialPort *port;
   MBMasterXML   mbmaster;
 };
 

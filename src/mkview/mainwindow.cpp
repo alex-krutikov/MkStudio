@@ -350,11 +350,12 @@ MainWindowXml::MainWindowXml( QWidget *parent, const QString &portname, int port
     qApp->setFont( fnt );
   }
 
+  AbstractSerialPortPtr port;
   if( portname == "===TCP===" )
-  { port = new MbTcpPort;
+  { port.reset(new MbTcpPort);
     port->setName( host );
   } else
-  { port = new SerialPort;
+  { port.reset(new SerialPort);
     port->setName( portname );
   }
 
@@ -429,14 +430,6 @@ MainWindowXml::MainWindowXml( QWidget *parent, const QString &portname, int port
  }
  rw.moveCenter( rs.center() );
  setGeometry( rw );
-}
-
-//==============================================================================
-//
-//==============================================================================
-MainWindowXml::~MainWindowXml()
-{
-  delete port;
 }
 
 //==============================================================================

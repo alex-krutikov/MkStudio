@@ -21,7 +21,6 @@ inline static short swap_short( short a )
 MBMasterPrivate::MBMasterPrivate( QObject *parent )
   : QThread( parent )
 {
-  transport = 0;
   full_time = 0;
   request_counter = answer_counter = error_counter = 0;
   max_packet_length = 128;
@@ -500,7 +499,7 @@ void MBMasterPrivate::add_slot( int module_index, int slot_index, int addr, int 
 //===================================================================
 //
 //===================================================================
-void MBMasterPrivate::setTransport( AbstractSerialPort *transport )
+void MBMasterPrivate::setTransport(AbstractSerialPortPtr transport )
 {
   this->transport = transport;
 }
@@ -1723,7 +1722,7 @@ MBMaster::~MBMaster()
 //===================================================================
 //! Привязка к транспорту
 //===================================================================
-void MBMaster::setTransport( AbstractSerialPort *transport )
+void MBMaster::setTransport(AbstractSerialPortPtr transport )
 {
   d->setTransport( transport );
 }
