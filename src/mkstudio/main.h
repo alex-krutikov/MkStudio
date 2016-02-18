@@ -18,10 +18,7 @@ class HelpWidget;
   #error Wrong OS
 #endif
 
-extern QApplication  *application;
-extern MainWindow    *mainwindow;
 extern MBMasterXML      *mbmaster;
 extern HelpWidget    *helpwidget;
-extern QString        app_header;
 
 #endif

@@ -11,13 +11,12 @@
 #include "consolewidget.h"
 #include "abstractserialport.h"
 #include "console.h"
+#include "utils.h"
 
 #include "helpwidget.h"
 
-MainWindow    *mainwindow;
 MBMasterXML   *mbmaster;
 HelpWidget    *helpwidget;
-QString       app_header;
 
 //==============================================================================
 /// MAIN
@@ -36,7 +35,7 @@ int main(int argc, char *argv[])
   { QApplication::installTranslator( qt_translator );
   }
 
-  app_header = "MKStudio";
+  Utils::AppInfo::setTitle("MKStudio");
 
   Console::setMessageTypes( Console::AllTypes );
   Console::setMessageTypes( Console::ModbusPacket, false );
@@ -48,19 +47,17 @@ int main(int argc, char *argv[])
   AbstractSerialPortPtr port = initdialog.port();
 
   if( !port->open() )
-  { QMessageBox::critical(0,app_header,
+  { QMessageBox::critical(0, Utils::AppInfo::title(),
                              "Ошибка открытия порта.\n\n"
                              "Возможно, что порт используется\n"
                              "другим приложением." );
     return 0;
   }
 
-  {
   QString portname = port->name();
   QString portspeed = QString::number(port->speed());
   if(portspeed=="0" ) portspeed.clear();
-  app_header = QString("%1 %2 - MKStudio").arg(portname).arg(portspeed);
-  }
+  Utils::AppInfo::setTitle(QString("%1 %2 - MKStudio").arg(portname).arg(portspeed));
 
   mbmaster = new MBMasterXML;
   mbmaster->setTransport( port );
@@ -73,7 +70,7 @@ int main(int argc, char *argv[])
   helpwidget->resize(900,600);
   helpwidget->setContents( QUrl::fromLocalFile(":/html/help/index.html" ) );
 
-  mainwindow = new MainWindow;
+  MainWindow *mainwindow = new MainWindow;
   mainwindow->show();
 
   mainwindow->mbmasterwidget->setMBMaster( mbmaster );

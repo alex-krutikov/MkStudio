@@ -13,6 +13,7 @@
 #include "misc.h"
 #include "console.h"
 #include "info.h"
+#include "utils.h"
 
 #include "mbmasterxml.h"
 #include "helpwidget.h"
@@ -45,7 +46,7 @@ MainWindow::MainWindow()
 {
   setupUi( this );
   dw_settingssheet->hide();
-  setWindowTitle( app_header );
+  setWindowTitle(Utils::AppInfo::title());
 
   undo_list_current_point = 0;
 
@@ -141,7 +142,7 @@ MainWindow::MainWindow()
 void MainWindow::on_action_tw_rows_triggered()
 {
   bool ok;
-  int i = QInputDialog::getInt( this, app_header, "Количество строк:",
+  int i = QInputDialog::getInt( this, Utils::AppInfo::title(), "Количество строк:",
                  tw->rowCount(), 0, 1000, 1,&ok );
   if( ok ) tw->setRowCount( i );
   fill_empty_items();
@@ -154,7 +155,7 @@ void MainWindow::on_action_tw_rows_triggered()
 void MainWindow::on_action_tw_columns_triggered()
 {
   bool ok;
-  int i = QInputDialog::getInt( this, app_header, "Количество столбцов:",
+  int i = QInputDialog::getInt( this, Utils::AppInfo::title(), "Количество столбцов:",
                  tw->columnCount(), 0, 1000, 1,&ok );
   if( ok ) tw->setColumnCount( i );
   fill_empty_items();
@@ -190,6 +191,9 @@ void MainWindow::action_tw_header_double_clicked(int logicalIndex)
 //==============================================================================
 bool MainWindow::load_conf( const QString &filename )
 {
+ if (filename.isEmpty())
+     return false;
+
  QDomNodeList list;
 
  QDomDocument doc("MKStudio");
@@ -203,7 +207,7 @@ bool MainWindow::load_conf( const QString &filename )
  file.close();
 
  if( doc.doctype().name() != "MKStudio" )
- { QMessageBox::information( this, app_header, "Файл не является конфигурацией MKStudio.");
+ { QMessageBox::information( this, Utils::AppInfo::title(), "Файл не является конфигурацией MKStudio.");
    return false;
  }
 
@@ -227,7 +231,7 @@ bool MainWindow::load_conf( const QString &filename )
  }
 
 
- setWindowTitle( filename + " - " + app_header );
+ setWindowTitle( filename + " - " + Utils::AppInfo::title() );
  current_config_filename = filename;
 
  clear_undo_list();
@@ -245,7 +249,7 @@ void MainWindow::on_action_new_triggered()
 { tw->closeAllRecorders();
   action_play->setChecked( false );
   current_config_filename.clear();
-  setWindowTitle( app_header );
+  setWindowTitle(Utils::AppInfo::title());
   tw->clear();
   te_settingssheet->clear();
   tw->setRowCount(6);
@@ -301,7 +305,7 @@ bool MainWindow::save_conf( const QString &filename )
  file.write( "<?xml version=\"1.0\" encoding=\"cp-1251\"?>\n" );
  file.write( codec->fromUnicode( doc.toString(2) ) );
 
- setWindowTitle( filename + " - " + app_header );
+ setWindowTitle(filename + " - " + Utils::AppInfo::title());
  current_config_filename = filename;
  return true;
 }
@@ -691,7 +695,7 @@ void MainWindow::on_action_link_triggered()
 
   QList<QTableWidgetSelectionRange> sr = tw->selectedRanges();
   if( sr.count() != 1 )
-  { QMessageBox::warning( this, app_header, "Выделение не выбрано." );
+  { QMessageBox::warning( this, Utils::AppInfo::title(), "Выделение не выбрано." );
     return;
   }
 
@@ -1315,7 +1319,7 @@ void MainWindow::on_action_help_triggered()
 void MainWindow::on_action_help_about_triggered()
 {
 
-  QMessageBox::about( this, app_header,
+  QMessageBox::about( this, Utils::AppInfo::title(),
      "<body>"
      "Программа <b>MKStudio</b> для работы <br> "
      "с микропроцессорными контроллерами <br> из "
@@ -1454,7 +1458,7 @@ void MainWindow::on_action_cells_span_triggered()
 void MainWindow::on_action_settings_triggered()
 {
   SettingsDialog dialog( this );
-  dialog.fcb_program->setCurrentFont( application->font() );
+  dialog.fcb_program->setCurrentFont( qApp->font() );
   dialog.fcb_tw->setCurrentFont( tw->font() );
   dialog.sb_program->setValue( font().pointSize() );
   dialog.sb_tw->setValue( tw->font().pointSize() );
@@ -1466,7 +1470,7 @@ void MainWindow::on_action_settings_triggered()
 
   QFont f = dialog.fcb_program->currentFont();
   f.setPointSize( dialog.sb_program->value() );
-  application->setFont( f );
+  qApp->setFont( f );
   f = dialog.fcb_tw->currentFont();
   f.setPointSize( dialog.sb_tw->value() );
   tw->setFont( f );

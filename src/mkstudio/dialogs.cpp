@@ -19,6 +19,7 @@
 #include "mbmasterxml.h"
 #include "serialport.h"
 #include "mbtcp.h"
+#include "utils.h"
 
 //##############################################################################
 /// Окно выбора порта и скорости
@@ -175,7 +176,7 @@ void AssignDialog::accept()
       && cbox_fill_column->isChecked()
       && (cb_fill_row->currentIndex() == cb_fill_column->currentIndex()) )
   {
-    QMessageBox::warning( this, app_header,
+    QMessageBox::warning( this, Utils::AppInfo::title(),
          "Заполнение ячеек задано неверно. Для строк и столбцов заданы одинаковые параметры." );
     return;
   }
@@ -186,17 +187,17 @@ void AssignDialog::accept()
   int in = le3->text().toInt(&n_ok);
 
   if( !m_ok || ( im < 1 ) )
-  {  QMessageBox::warning( this, app_header,
+  {  QMessageBox::warning( this, Utils::AppInfo::title(),
          "Поле \"Модуль\" должно содержать номер модуля (целое положительное число)." );
      return;
   }
   if( !s_ok || ( is < 1 ) )
-  {  QMessageBox::warning( this, app_header,
+  {  QMessageBox::warning( this, Utils::AppInfo::title(),
          "Поле \"Слот\" должно содержать номер слота (целое положительное число)." );
      return;
   }
   if( !n_ok || ( in < 1 ) )
-  {  QMessageBox::warning( this, app_header,
+  {  QMessageBox::warning( this, Utils::AppInfo::title(),
          "Поле \"Номер\" должно содержать целое положительное число." );
      return;
   }
@@ -235,7 +236,7 @@ TextEditDialog::TextEditDialog( QWidget *parent )
   : QDialog( parent )
 {
   setupUi( this );
-  setWindowTitle( app_header );
+  setWindowTitle(Utils::AppInfo::title());
 }
 
 //##############################################################################
@@ -249,7 +250,7 @@ UnitedSlots::UnitedSlots( QWidget *parent )
   QColor color;
 
   setupUi( this );
-  setWindowTitle( app_header );
+  setWindowTitle(Utils::AppInfo::title());
 
   setWindowFlags( Qt::Tool );
   setAttribute( Qt::WA_DeleteOnClose,    true );
@@ -349,7 +350,7 @@ ShortCutsDialog::ShortCutsDialog(QWidget *parent, QString config_file) : QDialog
 
             if(doc.doctype().name() != "MKStudio")
             {
-                QMessageBox::information(this, app_header, "Файл не является конфигурацией MKStudio.");
+                QMessageBox::information(this, Utils::AppInfo::title(), "Файл не является конфигурацией MKStudio.");
             }
             else
             {

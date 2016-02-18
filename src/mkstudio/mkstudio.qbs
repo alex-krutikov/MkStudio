@@ -17,6 +17,8 @@ Product {
         "mainwindow.cpp",
         "dialogs.cpp",
         "misc.cpp",
+        "info.h",
+        "utils.h",
         "ui/mainwindow.ui",
         "ui/assigndialog.ui",
         "ui/settingsdialog.ui",
