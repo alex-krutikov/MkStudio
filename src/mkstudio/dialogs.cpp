@@ -1,8 +1,11 @@
-#include <QtGui>
-#include <QtXml>
+#include "dialogs.h"
 
-#include <QCompleter>
-#include <QMessageBox>
+#include "main.h"
+#include "utils.h"
+
+#include <mbmasterxml.h>
+#include <serialport.h>
+#include <mbtcp.h>
 
 #include <qwt_painter.h>
 #include <qwt_plot_canvas.h>
@@ -14,12 +17,9 @@
 #include <qwt_scale_draw.h>
 #include <qwt_math.h>
 
-#include "dialogs.h"
-#include "main.h"
-#include "mbmasterxml.h"
-#include "serialport.h"
-#include "mbtcp.h"
-#include "utils.h"
+#include <QCompleter>
+#include <QMessageBox>
+#include <QKeyEvent>
 
 //##############################################################################
 /// Окно выбора порта и скорости

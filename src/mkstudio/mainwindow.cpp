@@ -1,23 +1,21 @@
-#include <QtGui>
-#include <QtXml>
+#include "mainwindow.h"
+
+#include "main.h"
+#include "dialogs.h"
+#include "misc.h"
+#include "info.h"
+#include "utils.h"
+#include "helpwidget.h"
+
+#include <console.h>
+#include <mbmasterxml.h>
 
 #include <QColorDialog>
+#include <QClipboard>
 #include <QFileDialog>
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QShortcut>
-
-#include "main.h"
-#include "mainwindow.h"
-#include "dialogs.h"
-#include "misc.h"
-#include "console.h"
-#include "mbmasterxml.h"
-#include "info.h"
-#include "utils.h"
-
-#include "mbmasterxml.h"
-#include "helpwidget.h"
 
 //##############################################################################
 // Информационное поле в строке состяния

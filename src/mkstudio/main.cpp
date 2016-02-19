@@ -1,19 +1,16 @@
-#include <QtGui>
-
-#include <QMessageBox>
-
-#include <tr1/memory>
-
 #include "main.h"
+
 #include "mainwindow.h"
+#include "helpwidget.h"
 #include "dialogs.h"
-#include "mbmasterxml.h"
-#include "consolewidget.h"
-#include "abstractserialport.h"
-#include "console.h"
 #include "utils.h"
 
-#include "helpwidget.h"
+
+#include <abstractserialport.h>
+#include <mbmasterxml.h>
+#include <console.h>
+
+#include <QMessageBox>
 
 HelpWidget    *helpwidget;
 
