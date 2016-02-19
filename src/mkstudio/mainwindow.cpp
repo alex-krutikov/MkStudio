@@ -137,6 +137,10 @@ MainWindow::MainWindow(MBMasterXMLPtr mbmaster)
   te_settingssheet->setFont( QFont("Courier",10 ) );
   te_settingssheet->setLineWrapMode( QTextEdit::NoWrap );
   new ScriptHighlighter(te_settingssheet->document());
+
+  helpWidget.setWindowTitle("Руководство MKStudio");
+  helpWidget.resize(900,600);
+  helpWidget.setContents( QUrl::fromLocalFile(":/html/help/index.html" ) );
 }
 //==============================================================================
 /// Пункт меню "Количество строк"
@@ -1311,8 +1315,8 @@ void MainWindow::on_action_export_config_triggered()
 //==============================================================================
 void MainWindow::on_action_help_triggered()
 {
-  helpwidget->show();
-  helpwidget->activateWindow();
+  helpWidget.show();
+  helpWidget.activateWindow();
 }
 
 //==============================================================================
@@ -1558,7 +1562,7 @@ void MainWindow::closeEvent ( QCloseEvent * event )
   action_play->setChecked( false );
   mbmasterwidget->clear_config();
 
-  helpwidget->close();
+  helpWidget.close();
 
   QSettings settings( QSETTINGS_PARAM );
   settings.setValue("pos", pos());

@@ -1,14 +1,7 @@
 #ifndef __main_h__
 #define __main_h__
 
-#include "mainwindow.h"
-
-class MBMasterXML;
-class QString;
-class QApplication;
-class MainWindow;
-class AbstractSerialPort;
-class HelpWidget;
+#include <QtGlobal>
 
 #if defined( Q_OS_WIN32 )
   #define QSETTINGS_PARAM (qApp->applicationDirPath()+"/mkstudio.ini"),QSettings::IniFormat
@@ -18,6 +11,5 @@ class HelpWidget;
   #error Wrong OS
 #endif
 
-extern HelpWidget    *helpwidget;
 
 #endif

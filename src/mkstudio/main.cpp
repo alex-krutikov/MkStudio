@@ -1,7 +1,6 @@
 #include "main.h"
 
 #include "mainwindow.h"
-#include "helpwidget.h"
 #include "dialogs.h"
 #include "utils.h"
 
@@ -12,23 +11,19 @@
 
 #include <QMessageBox>
 
-HelpWidget    *helpwidget;
-
 //==============================================================================
 /// MAIN
 //==============================================================================
 int main(int argc, char *argv[])
 {
-  int ret=0;
-
 #ifdef Q_OS_UNIX
   QApplication::setStyle("cleanlooks");
 #endif
   QApplication app( argc, argv);
 
-  QTranslator *qt_translator = new QTranslator;
-  if ( qt_translator->load( ":tr/qt_ru.qm" ) )
-  { QApplication::installTranslator( qt_translator );
+  QTranslator qt_translator;
+  if ( qt_translator.load( ":tr/qt_ru.qm" ))
+  { QApplication::installTranslator(&qt_translator);
   }
 
   Utils::AppInfo::setTitle("MKStudio");
@@ -41,7 +36,6 @@ int main(int argc, char *argv[])
       return 0;
 
   AbstractSerialPortPtr port = initdialog.port();
-
   if( !port->open() )
   { QMessageBox::critical(0, Utils::AppInfo::title(),
                              "Ошибка открытия порта.\n\n"
@@ -61,18 +55,8 @@ int main(int argc, char *argv[])
   mbmaster->setTransactionDelay( initdialog.sb_tr_delay->value() );
   mbmaster->setCycleTime( initdialog.sb_cycle_time->value() );
 
-  helpwidget = new HelpWidget;
-  helpwidget->setWindowTitle("Руководство MKStudio");
-  helpwidget->resize(900,600);
-  helpwidget->setContents( QUrl::fromLocalFile(":/html/help/index.html" ) );
+  MainWindow mainwindow(mbmaster);
+  mainwindow.show();
 
-  MainWindow *mainwindow = new MainWindow(mbmaster);
-  mainwindow->show();
-
-  ret=QApplication::exec();
-
-  delete mainwindow;
-  delete qt_translator;
-
-  return ret;
+  return QApplication::exec();
 }

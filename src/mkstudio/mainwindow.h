@@ -1,6 +1,8 @@
 #ifndef __mainwindow__h__
 #define __mainwindow__h__
 
+#include "helpwidget.h"
+
 #include <QTableWidgetItem>
 
 class InfoLabel;
@@ -86,6 +88,7 @@ private:
   InfoLabel *status_answers;
   InfoLabel *status_errors;
   InfoLabel *full_time;
+  HelpWidget helpWidget;
   MBMasterXMLPtr mbmaster;
   QString current_config_filename;
   QString current_config_values_filename;
