@@ -369,10 +369,12 @@ MainWindowXml::MainWindowXml( QWidget *parent, const QString &portname, int port
                              "другим приложением.\n\n"
                              "Порт будет автоматически открыт\nпри его освобождении." );
   }
-  mbmaster.setTransport( port );
+
+  MBMasterXMLPtr mbmaster(new MBMasterXML);
+  mbmaster->setTransport( port );
 
   tw = new MKTable;
-  tw->setMBMaster( &mbmaster );
+  tw->setMBMaster(mbmaster);
   //--------------------------------------------------------------------------------------
 
   QDomNodeList list;
@@ -393,9 +395,9 @@ MainWindowXml::MainWindowXml( QWidget *parent, const QString &portname, int port
   {
     QDomDocument doc_config;
     doc_config.appendChild( doc_config.importNode( list.item(0), true ) );
-    mbmaster.load_configuration( doc_config );
-    mbmaster.set_module_node( 1, node, subnode );
-    mbmaster.polling_start();
+    mbmaster->load_configuration( doc_config );
+    mbmaster->set_module_node( 1, node, subnode );
+    mbmaster->polling_start();
   }
   tw->setMode( MKTable::Polling );
 
@@ -463,10 +465,10 @@ void MainWindowXml::on_action_font_decrease_activated()
 //==============================================================================
 void MainWindowXml::group_update()
 {
-  full_time       -> setText( QString(" Время опроса: %1 мс ").arg(mbmaster.full_time()) );
-  status_requests -> setText( QString(" Запросы: %1 ").arg(mbmaster.request_counter()) );
-  status_answers  -> setText( QString(" Ответы:  %1 ").arg(mbmaster.answer_counter()) );
-  status_errors   -> setText( QString(" Ошибки:  %1 ").arg(mbmaster.error_counter()) );
+  full_time       -> setText( QString(" Время опроса: %1 мс ").arg(mbmaster->full_time()) );
+  status_requests -> setText( QString(" Запросы: %1 ").arg(mbmaster->request_counter()) );
+  status_answers  -> setText( QString(" Ответы:  %1 ").arg(mbmaster->answer_counter()) );
+  status_errors   -> setText( QString(" Ошибки:  %1 ").arg(mbmaster->error_counter()) );
 }
 
 //-------------------------------------------------------------------------------------------
@@ -476,7 +478,7 @@ void MainWindowXml::closeEvent( QCloseEvent *event )
 {
   Q_UNUSED( event );
 
-  mbmaster.polling_stop();
+  mbmaster->polling_stop();
 
   QSettings settings( QSETTINGS_PARAM );
   settings.setValue( "font_size",   qApp->font().pointSize() );

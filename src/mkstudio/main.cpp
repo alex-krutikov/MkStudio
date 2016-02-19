@@ -15,7 +15,6 @@
 
 #include "helpwidget.h"
 
-MBMasterXML   *mbmaster;
 HelpWidget    *helpwidget;
 
 //==============================================================================
@@ -59,7 +58,7 @@ int main(int argc, char *argv[])
   if(portspeed=="0" ) portspeed.clear();
   Utils::AppInfo::setTitle(QString("%1 %2 - MKStudio").arg(portname).arg(portspeed));
 
-  mbmaster = new MBMasterXML;
+  MBMasterXMLPtr mbmaster(new MBMasterXML);
   mbmaster->setTransport( port );
   mbmaster->setMaximumPacketLength( initdialog.sb_max_len->value() );
   mbmaster->setTransactionDelay( initdialog.sb_tr_delay->value() );
@@ -70,15 +69,12 @@ int main(int argc, char *argv[])
   helpwidget->resize(900,600);
   helpwidget->setContents( QUrl::fromLocalFile(":/html/help/index.html" ) );
 
-  MainWindow *mainwindow = new MainWindow;
+  MainWindow *mainwindow = new MainWindow(mbmaster);
   mainwindow->show();
-
-  mainwindow->mbmasterwidget->setMBMaster( mbmaster );
 
   ret=QApplication::exec();
 
   delete mainwindow;
-  delete mbmaster;
   delete qt_translator;
 
   return ret;

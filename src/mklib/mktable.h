@@ -12,6 +12,7 @@
 
 #include "mk_global.h"
 #include "shortcut.h"
+#include "mbmasterxml.h"
 
 class MBMasterXML;
 class QMouseEvent;
@@ -41,7 +42,7 @@ public:
   void saveConfiguration( QDomDocument &doc );
   QStringList getHorizontalHeaderLabels();
 
-  void setMBMaster( MBMasterXML *mm ) { mbmaster = mm; }
+  void setMBMaster( MBMasterXMLPtr mm ) { mbmaster = mm; }
   void setMode( enum Mode m );
   void setSettingsSheet( const QString &ss);
   QString settingsSheet();
@@ -67,7 +68,7 @@ private:
                          const MBDataType &datatype, int type );
   enum Mode mode;
   QTimer timer;
-  MBMasterXML *mbmaster;
+  MBMasterXMLPtr mbmaster;
   MKTableItemDelegate *delegate;
   bool currentItemConfirmEdit;
 

@@ -59,7 +59,7 @@ private:
   InfoLabel *status_answers;
   InfoLabel *status_errors;
   InfoLabel *full_time;
-  MBMasterXML   mbmaster;
+  MBMasterXMLPtr   mbmaster;
 };
 
 //=======================================================================================

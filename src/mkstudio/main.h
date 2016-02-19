@@ -18,7 +18,6 @@ class HelpWidget;
   #error Wrong OS
 #endif
 
-extern MBMasterXML      *mbmaster;
 extern HelpWidget    *helpwidget;
 
 #endif

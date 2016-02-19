@@ -8,6 +8,7 @@
 #include <QToolButton>
 
 #include "mk_global.h"
+#include "mbmasterxml.h"
 
 namespace Ui
 { class SlotWidget;
@@ -24,7 +25,7 @@ class MK_EXPORT SlotWidget : public QMainWindow
 {
   Q_OBJECT
 public:
-  SlotWidget( QWidget *parent = 0, MBMasterXML *mm=0, int module=0, int slot=0, bool min_flag=false );
+  SlotWidget( QWidget *parent = 0, MBMasterXMLPtr mm = MBMasterXMLPtr(), int module=0, int slot=0, bool min_flag=false );
   virtual ~SlotWidget();
   QString get_mean(){ return QString::number( y_mean ); }
 private slots:
@@ -53,7 +54,7 @@ private:
 
   Ui::SlotWidget *ui;
   int module_n,slot_n;
-  MBMasterXML *mm;
+  MBMasterXMLPtr mm;
   QwtPlotCurve *plot_curve;
   QwtPlotCurve *plot2_curve;
   QVector<double> plot_data_x;

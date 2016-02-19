@@ -22,7 +22,7 @@
 //###################################################################
 ///Окно с представлением слота (используется по двойному нажатию на слот)
 //###################################################################
-SlotWidget::SlotWidget( QWidget *parent, MBMasterXML *mm, int module, int slot, bool min_flag )
+SlotWidget::SlotWidget( QWidget *parent, MBMasterXMLPtr mm, int module, int slot, bool min_flag )
   : QMainWindow( parent ), ui( new Ui::SlotWidget )
 {
   ui->setupUi(this);

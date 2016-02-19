@@ -29,7 +29,7 @@ class MainWindow : public QMainWindow,
 {
   Q_OBJECT
 public:
-  MainWindow();
+  MainWindow(MBMasterXMLPtr mbmaster);
 private:
   void closeEvent ( QCloseEvent  *event );
   void setAlign( int alignment );
@@ -93,6 +93,7 @@ private:
   InfoLabel *status_answers;
   InfoLabel *status_errors;
   InfoLabel *full_time;
+  MBMasterXMLPtr mbmaster;
   QString current_config_filename;
   QString current_config_values_filename;
   bool play_mode;

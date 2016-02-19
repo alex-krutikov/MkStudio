@@ -242,8 +242,9 @@ TextEditDialog::TextEditDialog( QWidget *parent )
 //##############################################################################
 /// Диалог "Настройки"
 //##############################################################################
-UnitedSlots::UnitedSlots( QWidget *parent )
+UnitedSlots::UnitedSlots(QWidget *parent , MBMasterXMLPtr mm)
   : QWidget( parent )
+  , mm(mm)
 {
   int i;
   QTableWidgetItem *titem;
@@ -310,7 +311,7 @@ void UnitedSlots::timerEvent ( QTimerEvent * event )
     if( !ok ) continue;
     if( j < 1 ) continue;
 
-    MMSlot ss = mbmaster->getSlot( 1, j-1 );
+    MMSlot ss = mm->getSlot( 1, j-1 );
 
     int n = ss.data.size()+1;
     if( n==1 ) continue;

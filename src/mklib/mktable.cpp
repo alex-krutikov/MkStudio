@@ -35,7 +35,6 @@ MKTable::MKTable( QWidget *parent )
 {
   Q_INIT_RESOURCE( mklib );
 
-  mbmaster = 0;
   mode = MKTable::Edit;
 
   setMouseTracking( true );

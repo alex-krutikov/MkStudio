@@ -42,7 +42,7 @@ class MBMasterWidgetTableModel : public QAbstractTableModel
                    const QVariant & value, int role = Qt::EditRole );
   public:
     void refresh();
-    void update_slots( MBMasterXML *mm );
+    void update_slots( MBMasterXMLPtr mm );
 
     QVector<MTMSlot> table;
 };
@@ -54,7 +54,6 @@ MBMasterWidget::MBMasterWidget( QWidget *parent )
   : QWidget( parent ), ui( new Ui::MBMasterWidget )
 {
   ui->setupUi( this );
-  mbmaster = 0;
   mbmodel = new MBMasterWidgetTableModel( this );
   mktable_minimize_flag = false;
 
@@ -121,10 +120,10 @@ void MBMasterWidget::polling_stop()
 //==============================================================================
 //
 //==============================================================================
-void MBMasterWidget::setMBMaster( MBMasterXML *mm )
+void MBMasterWidget::setMBMaster( MBMasterXMLPtr mm )
 {
   mbmaster = mm;
-  connect( mm, SIGNAL( stateChanged() ), SLOT( stateUpdate() ),Qt::QueuedConnection);
+  connect( mm.get(), SIGNAL( stateChanged() ), SLOT( stateUpdate() ),Qt::QueuedConnection);
 }
 
 //==============================================================================
@@ -352,7 +351,7 @@ QVariant MBMasterWidgetTableModel::headerData ( int section, Qt::Orientation ori
 //==============================================================================
 //
 //==============================================================================
-void MBMasterWidgetTableModel::update_slots( MBMasterXML *mm )
+void MBMasterWidgetTableModel::update_slots( MBMasterXMLPtr mm )
 {
   QMutexLocker locker(&mm->d->mutex);
 

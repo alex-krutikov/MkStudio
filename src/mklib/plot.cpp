@@ -29,7 +29,7 @@
 
 static QList<QString> openFilesList;
 
-Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, QWidget *parent, MBMasterXML *mbmaster )
+Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, QWidget *parent, MBMasterXMLPtr mbmaster )
   : QWidget( parent ), ui( new Ui::Plot )
 { QT_TRY{
   Q_INIT_RESOURCE( mklib );

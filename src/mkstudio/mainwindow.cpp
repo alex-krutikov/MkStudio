@@ -12,6 +12,7 @@
 #include "dialogs.h"
 #include "misc.h"
 #include "console.h"
+#include "mbmasterxml.h"
 #include "info.h"
 #include "utils.h"
 
@@ -42,7 +43,8 @@ public:
 //##############################################################################
 /// Главное окно
 //##############################################################################
-MainWindow::MainWindow()
+MainWindow::MainWindow(MBMasterXMLPtr mbmaster)
+    : mbmaster(mbmaster)
 {
   setupUi( this );
   dw_settingssheet->hide();
@@ -114,6 +116,8 @@ MainWindow::MainWindow()
            tw,             SLOT(   slotPlotClose() ) );
 
   startTimer(500);
+
+  mbmasterwidget->setMBMaster(mbmaster);
 
   tw->setRowCount(6);
   tw->setColumnCount(6);

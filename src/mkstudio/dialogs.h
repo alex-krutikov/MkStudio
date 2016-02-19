@@ -2,6 +2,7 @@
 #define __DIALOGS__H_
 
 #include "abstractserialport.h"
+#include "mbmasterxml.h"
 
 class QwtPlotCurve;
 
@@ -79,10 +80,11 @@ class UnitedSlots : public QWidget,
 {
   Q_OBJECT
 public:
-  UnitedSlots( QWidget *parent = 0 );
+  UnitedSlots( QWidget *parent = 0, MBMasterXMLPtr mm = MBMasterXMLPtr());
   void timerEvent ( QTimerEvent * event );
 private:
   static const int curves_num = 10;
+  MBMasterXMLPtr mm;
   QwtPlotCurve *curves[curves_num];
 };
 

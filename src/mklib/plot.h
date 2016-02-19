@@ -9,11 +9,11 @@
 
 #include "mk_global.h"
 #include "mkpicker.h"
+#include "mbmasterxml.h"
 
 #include <qwt_plot_curve.h>
 #include <qwt_plot_grid.h>
 
-class MBMasterXML;
 class QTimerEvent;
 class QTableWidgetItem;
 class QToolButton;
@@ -36,7 +36,7 @@ class MK_EXPORT Plot : public QWidget
 {
   Q_OBJECT
 public:
-  Plot( QString title, QList<QTableWidgetItem *> mktableItemList, bool min_flag, QWidget *parent=0, MBMasterXML *mbmaster=0 );
+  Plot(QString title, QList<QTableWidgetItem *> mktableItemList, bool min_flag, QWidget *parent=0, MBMasterXMLPtr mbmaster = MBMasterXMLPtr());
   virtual ~Plot();
   QSize sizeHint () const;
   double noise() const;
@@ -109,7 +109,7 @@ private:
   int points_counter;
   double *avr_a;
   int avr_counter;
-  MBMasterXML *mbmaster;
+  MBMasterXMLPtr mbmaster;
   double y_min1, y_min2, y_min3, y_min4;
   double y_max1, y_max2, y_max3, y_max4;
   double eb_ref;

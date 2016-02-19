@@ -7,6 +7,8 @@
 
 #include "mk_global.h"
 
+#include <tr1/memory>
+
 class QDomDocument;
 class MBMasterPrivateXML;
 class QByteArray;
@@ -37,5 +39,7 @@ public:
   void loadValues( const QDomDocument &doc );
 
 };
+
+typedef std::tr1::shared_ptr<MBMasterXML> MBMasterXMLPtr;
 
 #endif
