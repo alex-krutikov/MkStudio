@@ -1,5 +1,3 @@
-#include "main.h"
-
 #include "mainwindow.h"
 #include "dialogs.h"
 #include "utils.h"

@@ -2,6 +2,7 @@
 #define __UTILS_H__
 
 #include <QString>
+#include <QSettings>
 
 namespace Utils {
 
@@ -19,6 +20,30 @@ private:
 private:
     QString applicationWindowTitle;
 };
+
+#if defined( Q_OS_WIN32 )
+class Settings : public QSettings
+{
+public:
+    Settings()
+        : QSettings((qApp->applicationDirPath() + "/mkstudio.ini"), QSettings::IniFormat)
+    {
+    }
+};
+#elif defined( Q_OS_UNIX )
+class Settings : public QSettings
+{
+public:
+    Settings()
+        : QSettings("mkstudio")
+    {
+    }
+};
+#else
+  #error Wrong OS
+#endif
+
+
 
 }
 

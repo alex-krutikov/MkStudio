@@ -9,7 +9,6 @@ Product {
     Depends { name: "Qt.xml" }
 
     files: [
-        "main.h",
         "mainwindow.h",
         "dialogs.h",
         "misc.h",

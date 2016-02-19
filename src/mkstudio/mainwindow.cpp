@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 
-#include "main.h"
 #include "dialogs.h"
 #include "misc.h"
 #include "info.h"
@@ -50,7 +49,7 @@ MainWindow::MainWindow(MBMasterXMLPtr mbmaster)
 
   undo_list_current_point = 0;
 
-  QSettings settings( QSETTINGS_PARAM );
+  Utils::Settings settings;
   QPoint pos = settings.value("pos", QPoint(100,100)).toPoint();
   QSize size = settings.value("size", QSize(1000,800)).toSize();
   current_config_values_filename = settings.value( "values_file", "").toString();
@@ -1564,7 +1563,7 @@ void MainWindow::closeEvent ( QCloseEvent * event )
 
   helpWidget.close();
 
-  QSettings settings( QSETTINGS_PARAM );
+  Utils::Settings settings;
   settings.setValue("pos", pos());
   settings.setValue("size", size());
   settings.setValue("mainwindow", saveState() );

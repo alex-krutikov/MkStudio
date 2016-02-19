@@ -1,6 +1,5 @@
 #include "dialogs.h"
 
-#include "main.h"
 #include "utils.h"
 
 #include <mbmasterxml.h>
@@ -30,7 +29,7 @@ InitDialog::InitDialog( QWidget *parent)
   setupUi( this );
   setWindowTitle("MKStudio");
 
-  QSettings settings( QSETTINGS_PARAM );
+  Utils::Settings settings;
 
   QString str,str2,portname;
   QStringList sl;
@@ -89,7 +88,7 @@ void InitDialog::on_cb_portname_currentIndexChanged(int)
   l_server->setHidden(      !b );
   le_tcp_server->setHidden( !b );
 
-  QSettings settings( QSETTINGS_PARAM );
+  Utils::Settings settings;
   sb_timeout -> setValue( settings.value( str+"_timeout", 200).toInt() );
   sb_max_len -> setValue( settings.value( str+"_datalength", 128).toInt() );
 }
@@ -103,7 +102,7 @@ void InitDialog::accept()
   QString str2 = le_tcp_server->text().simplified();
   int timeout = sb_timeout->value();
 
-  QSettings settings( QSETTINGS_PARAM );
+  Utils::Settings settings;
   settings.setValue( "portname",  str );
   settings.setValue( "portspeed", cb_portspeed->currentText() );
   settings.setValue( "tcpserver", str2 );
