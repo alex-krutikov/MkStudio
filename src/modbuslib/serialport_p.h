@@ -2,6 +2,7 @@
 #define __SERIALPORTPRIVATE__H__
 
 #include <QVector>
+#include <QMutex>
 
 #ifdef Q_OS_WIN32
   #include <windows.h>

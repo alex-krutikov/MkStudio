@@ -1,5 +1,3 @@
-#include <QtCore>
-
 #include "serialport_p.h"
 
 #include "console.h"
@@ -8,6 +6,9 @@
 
 #include <termios.h>
 #include <fcntl.h>
+#include <unistd.h>
+
+#include <QMutex>
 
 //===================================================================
 //
