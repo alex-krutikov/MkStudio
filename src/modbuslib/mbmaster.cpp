@@ -7,6 +7,8 @@
 #include "console.h"
 #include "abstractserialport.h"
 
+#include <stdint.h>
+
 //###################################################################
 //
 //###################################################################
@@ -1460,7 +1462,14 @@ MMSlot MBMasterPrivate::getSlot(int module, int slot ) const
 //===================================================================
 void MBMasterPrivate::setSlotValue(int module, int slot,int index, const MMValue &value )
 {
-  char buff[8];
+  union {
+      int8_t  i8;
+      int16_t i16;
+      int32_t i32;
+      float   f;
+      char buff[8];
+  } buff;
+
   int  buff_len=0;
 
   int i,j;
@@ -1489,33 +1498,33 @@ void MBMasterPrivate::setSlotValue(int module, int slot,int index, const MMValue
       }
       switch( transactions_write[i].slot->datatype.id() )
       { case( MBDataType::HoldingRegisters ):
-          (*(short*)buff) = (swap_short(value.toInt()) & 0xFFFF );
+          buff.i16 = (swap_short(value.toInt()) & 0xFFFF );
           buff_len=2;
           break;
         case( MBDataType::Coils ):
-          if (value.toInt() == 0) (*(short*)buff) = 0x0000;
-          else (*(short*)buff) = 0x00FF;
+          if (value.toInt() == 0) buff.i16 = 0x0000;
+          else buff.i16 = 0x00FF;
           buff_len=2;
           break;
         case( MBDataType::DwordsHoldingRegHiLo ):
-          dword2ptr( value.toInt(), buff, false );
+          dword2ptr( value.toInt(), buff.buff, false );
           //Console::Print( Console::Debug, "запись :" + QByteArray2QString( transactions_write[i].request ) + "\n"  );
           buff_len=4;
           break;
         case( MBDataType::DwordsHoldingRegLoHi ):
-          dword2ptr( value.toInt(), buff, true  );
+          dword2ptr( value.toInt(), buff.buff, true  );
           buff_len=4;
           break;
         case( MBDataType::FloatsHoldingRegHiLo ):
-          float2ptr( (float)value.toDouble(), buff, false );
+          float2ptr( (float)value.toDouble(), buff.buff, false );
           buff_len=4;
           break;
         case( MBDataType::FloatsHoldingRegLoHi ):
-          float2ptr( (float)value.toDouble(), buff, true  );
+          float2ptr( (float)value.toDouble(), buff.buff, true  );
           buff_len=4;
           break;
       }
-      for(j=0; j<buff_len; j++ ) transactions_write[i].request.append( buff[j] );
+      for(j=0; j<buff_len; j++ ) transactions_write[i].request.append( buff.buff[j] );
       CRC::appendCRC16( transactions_write[i].request );
     }
     else if (datatype.isArduino())
@@ -1525,21 +1534,21 @@ void MBMasterPrivate::setSlotValue(int module, int slot,int index, const MMValue
       switch( transactions_write[i].slot->datatype.id() )
       { case( MBDataType::BitsArduino ):
           if( value.toInt() != 0 )
-          { (*(char*)buff) = 1 << (index&7);
+          { buff.i8 = 1 << (index&7);
              transactions_write[i].request[0] =  0x02; // OR
           } else
-          { (*(char*)buff) = 0xFF & (~( 1 << (index&7)));
+          { buff.i8 = 0xFF & (~( 1 << (index&7)));
             transactions_write[i].request[0] =   0x03; // AND
           }
           buff_len=1;
           break;
-        case( MBDataType::BytesArduino  )          :  (*(char*)buff)  = (value.toInt() & 0xFF );     buff_len=1; break;
-        case( MBDataType::WordsArduino  )          :  (*(short*)buff) = (value.toInt() & 0xFFFF );   buff_len=2; break;
-        case( MBDataType::DwordsArduino )          :  (*(int*)buff)   =          value.toInt();      buff_len=4; break;
-        case( MBDataType::FloatsArduino )          :  (*(float*)buff) = (float)( value.toDouble() ); buff_len=4; break;
+        case( MBDataType::BytesArduino  )          :  buff.i8  = (value.toInt() & 0xFF );     buff_len=1; break;
+        case( MBDataType::WordsArduino  )          :  buff.i16 = (value.toInt() & 0xFFFF );   buff_len=2; break;
+        case( MBDataType::DwordsArduino )          :  buff.i32 =          value.toInt();      buff_len=4; break;
+        case( MBDataType::FloatsArduino )          :  buff.f = (float)( value.toDouble() );   buff_len=4; break;
         default: buff_len=0;
       }
-      for(j=0; j<buff_len; j++ ) transactions_write[i].request.append( buff[j] );
+      for(j=0; j<buff_len; j++ ) transactions_write[i].request.append( buff.buff[j] );
     }
     else  // mikkon
     {
@@ -1548,23 +1557,23 @@ void MBMasterPrivate::setSlotValue(int module, int slot,int index, const MMValue
       switch( transactions_write[i].slot->datatype.id() )
       { case( MBDataType::Bits   ):
           if( value.toInt() != 0 )
-          { (*(char*)buff) = 1 << (index&7);
+          { buff.i8 = 1 << (index&7);
              transactions_write[i].request[2] =
                    0x05 | ( transactions_write[i].slot->module.subnode << 4 ); // OR
           } else
-          { (*(char*)buff) = 0xFF & (~( 1 << (index&7)));
+          { buff.i8 = 0xFF & (~( 1 << (index&7)));
             transactions_write[i].request[2] =
                   0x03 | ( transactions_write[i].slot->module.subnode << 4 ); // AND
           }
           buff_len=1;
           break;
-        case( MBDataType::Bytes  )          :  (*(char*)buff)  = (value.toInt() & 0xFF );     buff_len=1; break;
-        case( MBDataType::Words  )          :  (*(short*)buff) = (value.toInt() & 0xFFFF );   buff_len=2; break;
-        case( MBDataType::Dwords )          :  (*(int*)buff)   =          value.toInt();      buff_len=4; break;
-        case( MBDataType::Floats )          :  (*(float*)buff) = (float)( value.toDouble() ); buff_len=4; break;
+        case( MBDataType::Bytes  )          :  buff.i8  = (value.toInt() & 0xFF );     buff_len=1; break;
+        case( MBDataType::Words  )          :  buff.i16 = (value.toInt() & 0xFFFF );   buff_len=2; break;
+        case( MBDataType::Dwords )          :  buff.i32   =          value.toInt();      buff_len=4; break;
+        case( MBDataType::Floats )          :  buff.f = (float)( value.toDouble() ); buff_len=4; break;
         default: buff_len=0;
       }
-      for(j=0; j<buff_len; j++ ) transactions_write[i].request.append( buff[j] );
+      for(j=0; j<buff_len; j++ ) transactions_write[i].request.append( buff.buff[j] );
       CRC::appendCRC16( transactions_write[i].request );
     }
 
