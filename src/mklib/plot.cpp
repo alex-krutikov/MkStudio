@@ -148,7 +148,10 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   sqls->setLength(10);
   ui->plot->setAxisScaleDraw(QwtPlot::yRight, sqls);
 
-  for( i=0; i < y_hist_data_len; i++ ) x_hist_data[i] = i;
+  for( i=0; i < y_hist_data_len; i++ )
+  { x_hist_data[i] = i;
+    y_hist_data[i] = 0;
+  }
   //--------------------------------------------
   ui->plot->setCanvasBackground(QColor("white"));
   ui->plot->enableAxis(QwtPlot::yRight);
