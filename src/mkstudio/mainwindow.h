@@ -24,7 +24,7 @@ class MainWindow : public QMainWindow,
 {
   Q_OBJECT
 public:
-  MainWindow(MBMasterXMLPtr mbmaster);
+  MainWindow(MBMasterXMLPtr mbmaster, bool arduinoOnly);
 private:
   void closeEvent ( QCloseEvent  *event );
   void setAlign( int alignment );
@@ -97,6 +97,7 @@ private:
   QList<QByteArray> undo_list;
   int undo_list_current_point;
   bool is_undo_enabled, is_redo_enabled;
+  const bool arduinoOnly;
 };
 
 #endif

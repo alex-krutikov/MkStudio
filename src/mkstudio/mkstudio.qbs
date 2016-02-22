@@ -1,14 +1,6 @@
-Product {
-    type: "application"
+Project {
 
-    Depends { name: "qwt" }
-    Depends { name: "modbuslib" }
-    Depends { name: "mklib" }
-    Depends { name: "Qt.widgets" }
-    Depends { name: "Qt.network" }
-    Depends { name: "Qt.xml" }
-
-    files: [
+    property stringList mkstudioFiles: [
         "mainwindow.h",
         "dialogs.h",
         "misc.h",
@@ -28,9 +20,46 @@ Product {
         "mkstudio.qrc",
     ]
 
-     Group {
-        name: "Windows files"
-        condition: qbs.targetOS.contains("windows")
-        files: "icon.rc"
+    Product {
+        type: "application"
+        name: "mkstudio"
+
+        Depends { name: "qwt" }
+        Depends { name: "modbuslib" }
+        Depends { name: "mklib" }
+        Depends { name: "Qt.widgets" }
+        Depends { name: "Qt.network" }
+        Depends { name: "Qt.xml" }
+
+        files: mkstudioFiles
+
+        Group {
+            name: "Windows files"
+            condition: qbs.targetOS.contains("windows")
+            files: "icon.rc"
+        }
     }
+
+    Product {
+        type: "application"
+        name: "mkstudio-arduino"
+
+        Depends { name: "qwt" }
+        Depends { name: "modbuslib" }
+        Depends { name: "mklib" }
+        Depends { name: "Qt.widgets" }
+        Depends { name: "Qt.network" }
+        Depends { name: "Qt.xml" }
+
+        cpp.defines: "ARDUINO_ONLY"
+
+        files: mkstudioFiles
+
+        Group {
+            name: "Windows files"
+            condition: qbs.targetOS.contains("windows")
+            files: "icon.rc"
+        }
+    }
+
 }

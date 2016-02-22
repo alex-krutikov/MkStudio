@@ -71,6 +71,8 @@ struct MBConfigWidgetPrivate
 
   ModulesModel::t_module_desc mbuffer;
   SlotsModel::t_slot_desc     sbuffer[SLOTS_MAX_N];
+  bool arduinoOnly;
+  MBConfigWidgetItemDelegate* delegate;
 
 };
 
@@ -81,6 +83,8 @@ MBConfigWidget::MBConfigWidget( QWidget *parent )
   : QWidget( parent ), ui( new Ui::MBConfigWidget ),
     d( new MBConfigWidgetPrivate )
 {
+  d->arduinoOnly = false;
+
   int i,j;
   ui->setupUi( this );
   ui->splitter->setStretchFactor(0,10);
@@ -117,9 +121,9 @@ MBConfigWidget::MBConfigWidget( QWidget *parent )
   ui->tw2->horizontalHeader()->setStretchLastSection( true );
   ui->tw2->horizontalHeader()->resizeSections( QHeaderView::ResizeToContents );
 
-  MBConfigWidgetItemDelegate* delegate = new MBConfigWidgetItemDelegate(this);
+  d->delegate = new MBConfigWidgetItemDelegate(this);
   connect(ui->tw2, SIGNAL(clicked(QModelIndex)), ui->tw2, SLOT(handleClick(QModelIndex)));
-  ui->tw2->setItemDelegateForColumn(3, delegate);
+  ui->tw2->setItemDelegateForColumn(3, d->delegate);
 }
 
 //===================================================================
@@ -321,6 +325,25 @@ void MBConfigWidget::setSlotAttributes(int module, int slot, const QString &attr
   module--;
   slot--;
   d->slots_model.sd[module][slot].attributes = attributes;
+}
+
+//===================================================================
+//
+//===================================================================
+void MBConfigWidget::setArduinoOnly(bool isArduino)
+{
+   d->arduinoOnly = isArduino;
+
+   if (isArduino)
+   { d->modules_model.setData(d->modules_model.index(0,1),1);
+     d->modules_model.setData(d->modules_model.index(0,2),"Arduino");
+     ui->label->hide();
+     ui->tw1->hide();
+   } else
+   { ui->label->show();
+     ui->tw1->show();
+   }
+   d->delegate->setArduinoOnly(isArduino);
 }
 
 //===================================================================

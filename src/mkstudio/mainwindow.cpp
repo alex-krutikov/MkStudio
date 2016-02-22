@@ -40,8 +40,9 @@ public:
 //##############################################################################
 /// Главное окно
 //##############################################################################
-MainWindow::MainWindow(MBMasterXMLPtr mbmaster)
+MainWindow::MainWindow(MBMasterXMLPtr mbmaster, bool isArduinoOnly)
     : mbmaster(mbmaster)
+    , arduinoOnly(isArduinoOnly)
 {
   setupUi( this );
   dw_settingssheet->hide();
@@ -140,6 +141,8 @@ MainWindow::MainWindow(MBMasterXMLPtr mbmaster)
   helpWidget.setWindowTitle("Руководство MKStudio");
   helpWidget.resize(900,600);
   helpWidget.setContents( QUrl::fromLocalFile(":/html/help/index.html" ) );
+
+  mbconfigwidget->setArduinoOnly(isArduinoOnly);
 }
 //==============================================================================
 /// Пункт меню "Количество строк"

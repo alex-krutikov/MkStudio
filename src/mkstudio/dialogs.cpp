@@ -23,8 +23,9 @@
 //##############################################################################
 /// Окно выбора порта и скорости
 //##############################################################################
-InitDialog::InitDialog( QWidget *parent)
+InitDialog::InitDialog(QWidget *parent, bool isArduinoOnly)
   : QDialog( parent = 0 )
+  , arduinoOnly(isArduinoOnly)
 {
   setupUi( this );
   setWindowTitle("MKStudio");
@@ -43,7 +44,11 @@ InitDialog::InitDialog( QWidget *parent)
     str2.replace(';',"        ( ");
     cb_portname->addItem( str2+" )", str.section(';',0,0) );
   }
-  cb_portname->addItem( "Modbus TCP", "===TCP===" );
+
+  if (!isArduinoOnly)
+  { cb_portname->addItem( "Modbus TCP", "===TCP===" );
+  }
+
   i = cb_portname->findData( portname );
   if( i >= 0 ) cb_portname->setCurrentIndex(i);
   //----------------------------------------------------------------------
@@ -125,6 +130,11 @@ void InitDialog::accept()
   }
 
   done( QDialog::Accepted );
+}
+
+bool InitDialog::portsFound() const
+{
+    return (cb_portname->count() > 0);
 }
 
 //##############################################################################

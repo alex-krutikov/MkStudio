@@ -31,6 +31,7 @@ public:
   void saveConfiguration( QDomDocument &doc );
   QString exportConfiguration();
   void setSlotAttributes(int module, int slot, const QString &attributes);
+  void setArduinoOnly(bool isArduino);
 
 private:
   Ui::MBConfigWidget    *ui;

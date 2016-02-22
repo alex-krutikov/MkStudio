@@ -15,13 +15,15 @@ class InitDialog : public QDialog,
 {
   Q_OBJECT
 public:
-  InitDialog( QWidget *parent = 0);
+  InitDialog(QWidget *parent = 0, bool arduinoOnly = false);
   void accept();
   AbstractSerialPortPtr port() const {return m_port;}
+  bool portsFound() const;
 private slots:
   void on_cb_portname_currentIndexChanged(int);
 private:
   AbstractSerialPortPtr  m_port;
+  const bool arduinoOnly;
 };
 
 #include "ui_assigndialog.h"

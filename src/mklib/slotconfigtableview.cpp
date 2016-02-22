@@ -23,6 +23,7 @@ void SlotConfigTableView::handleClick(QModelIndex ind)
 //###################################################################
 MBConfigWidgetItemDelegate::MBConfigWidgetItemDelegate( QWidget *parent )
   : QItemDelegate( parent )
+  , arduinoOnly(false)
 {
 }
 
@@ -46,9 +47,11 @@ QWidget* MBConfigWidgetItemDelegate::createEditor(QWidget *parent, const QStyleO
   MBDataType mb(1);
   for (int i = 1; i < mb.length(); i++)
   {
-    w->addItem( mb.toName(), i );
-    if( mb.isRegister() )         w->setItemData(i-1,QColor("bisque"),Qt::BackgroundRole);
-    if( mb.isExtendedRegister() ) w->setItemData(i-1,QColor("lavender"),Qt::BackgroundRole);
+    if(!arduinoOnly || mb.isArduino())
+    { w->addItem( mb.toName(), i );
+      if( mb.isRegister() )         w->setItemData(i-1,QColor("bisque"),Qt::BackgroundRole);
+      if( mb.isExtendedRegister() ) w->setItemData(i-1,QColor("lavender"),Qt::BackgroundRole);
+    }
     mb.step();
   }
   w->setCurrentIndex( w->findText( current_text ) );
@@ -71,6 +74,11 @@ void MBConfigWidgetItemDelegate::updateEditorGeometry ( QWidget * editor,
   QComboBox *w = qobject_cast<QComboBox*>(editor);
   if (!w) return;
   w->showPopup();
+}
+
+void MBConfigWidgetItemDelegate::setArduinoOnly(bool isArduinoOnly)
+{
+    this->arduinoOnly = isArduinoOnly;
 }
 
 //==============================================================================
