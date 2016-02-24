@@ -202,6 +202,7 @@ void MBConfigWidget::clearConfiguration()
   d->modules_model.refresh();
   d->slots_model.set_current_module(0);
   ui->tw1->selectRow(0);
+  setArduinoOnly(d->arduinoOnly);
 }
 
 //===================================================================
@@ -339,6 +340,7 @@ void MBConfigWidget::setArduinoOnly(bool isArduino)
      d->modules_model.setData(d->modules_model.index(0,2),"Arduino");
      ui->label->hide();
      ui->tw1->hide();
+     ui->tw1->selectRow(0);
    } else
    { ui->label->show();
      ui->tw1->show();
