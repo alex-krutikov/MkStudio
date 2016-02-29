@@ -1,11 +1,12 @@
-#include <QtCore>
-#include <QtXml>
-
 #include "mbmasterxml.h"
-#include "mbmaster_p.h"
-#include "console.h"
 
+#include "console.h"
 #include "slotwidget.h"
+
+#include <mbmaster_p.h>
+
+#include <QDomElement>
+
 //###################################################################
 //
 //###################################################################

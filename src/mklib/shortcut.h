@@ -2,6 +2,7 @@
 #define SHORTCUT_H
 
 #include <QStringList>
+#include <QVector>
 
 class ShortCut
 {

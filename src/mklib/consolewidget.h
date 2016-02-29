@@ -9,9 +9,9 @@
   "автопрокрутка".
 */
 
-#include <QWidget>
-
 #include "mk_global.h"
+
+#include <QWidget>
 
 namespace Ui { class ConsoleWidget; }
 

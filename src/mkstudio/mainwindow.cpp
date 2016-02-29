@@ -9,12 +9,16 @@
 #include <console.h>
 #include <mbmasterxml.h>
 
+#include <QBuffer>
 #include <QColorDialog>
 #include <QClipboard>
 #include <QFileDialog>
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QShortcut>
+#include <QTextCodec>
+#include <QTextStream>
+#include <QMimeData>
 
 //##############################################################################
 // Информационное поле в строке состяния

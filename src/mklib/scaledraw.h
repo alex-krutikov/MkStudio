@@ -1,14 +1,13 @@
 #ifndef ABSTRACTSCALEDRAW_H
 #define ABSTRACTSCALEDRAW_H
 
-#include "qwt_scale_draw.h"
-#include <qlocale.h>
+#include <qwt_scale_draw.h>
 
+#include <QLocale>
 
 class ScaleDraw : public QwtScaleDraw
 {
 public:
-
     // Форматирование меток шкалы
     QwtText label(double value) const
     {

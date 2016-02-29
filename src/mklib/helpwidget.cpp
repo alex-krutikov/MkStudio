@@ -1,6 +1,5 @@
-#include <QtGui>
-
 #include "helpwidget.h"
+
 #include "ui_helpwidget.h"
 
 HelpWidget::HelpWidget( QWidget *parent )

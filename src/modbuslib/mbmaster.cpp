@@ -1,11 +1,12 @@
-#include <QtCore>
-
 #include "mbmaster.h"
 #include "mbmaster_p.h"
+
 #include "mbcommon.h"
 #include "crc.h"
 #include "console.h"
 #include "abstractserialport.h"
+
+#include <QTime>
 
 #include <stdint.h>
 

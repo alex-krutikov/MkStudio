@@ -1,13 +1,17 @@
 #include "mkpicker.h"
-#include "math.h"
-#include "qwt_painter.h"
-#include "QPointer"
-#include "QPainter"
-#include "QMouseEvent"
-#include "QTextDocumentFragment"
+
 #include "plot.h"
-#include "qwt_plot.h"
-#include "QMessageBox"
+
+#include <qwt_plot.h>
+#include <qwt_painter.h>
+
+#include <QPointer>
+#include <QPainter>
+#include <QMouseEvent>
+#include <QTextDocumentFragment>
+#include <QMessageBox>
+
+#include <cmath>
 //##############################################################################
 //
 //##############################################################################

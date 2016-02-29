@@ -1,6 +1,6 @@
-#include <QtCore>
-
 #include "console.h"
+
+#include <QMutex>
 
 static QMutex mutex;
 static QString message;

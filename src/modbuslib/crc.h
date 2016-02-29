@@ -5,9 +5,9 @@
     \brief Расчет контрольных сумм
 */
 
-#include<QtCore>
-
 #include "mbl_global.h"
+
+#include <QtGlobal>
 
 //=====================================================================
 //! Расчет контрольных сумм \ingroup API_group

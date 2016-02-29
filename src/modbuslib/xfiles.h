@@ -1,11 +1,11 @@
 #ifndef __XFILES_H__
 #define __XFILES_H__
 
+#include "mbl_global.h"
+
 #include <QDateTime>
 #include <QString>
 #include <QList>
-
-#include "mbl_global.h"
 
 class XFilesPrivate;
 class AbstractSerialPort;

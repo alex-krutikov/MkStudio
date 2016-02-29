@@ -1,12 +1,12 @@
-#include <QtCore>
-#include <QtNetwork>
-
 #include "mbtcpserver.h"
+
 #include "abstractserialport.h"
 #include "crc.h"
-
 #include "console.h"
 #include "mbcommon.h"
+
+#include <QTcpServer>
+#include <QTcpSocket>
 
 //==============================================================================
 /// Предсказание длины ответного пакета в соответствии с протоколом MIKKON Modbus

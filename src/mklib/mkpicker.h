@@ -1,9 +1,12 @@
 #ifndef MKPICKER_H
 #define MKPICKER_H
 
-#include "qwt_plot_picker.h"
 #include "plot.h"
+
+#include <qwt_plot_picker.h>
+
 #include <QTimer>
+
 class Plot;
 class MKPicker : public QwtPlotPicker
 {

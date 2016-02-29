@@ -1,11 +1,12 @@
 #ifndef __MBMASTER_P__H_
 #define __MBMASTER_P__H_
 
-#include <QThread>
-
 #include "mbcommon.h"
 #include "mbtypes.h"
 #include "abstractserialport.h"
+
+#include <QThread>
+#include <QMutex>
 
 class MBMasterPrivate : public QThread
 {

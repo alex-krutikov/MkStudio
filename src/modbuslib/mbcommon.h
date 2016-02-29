@@ -1,9 +1,10 @@
 #ifndef __MBCOMMON_H_
 #define __MBCOMMON_H_
 
-#include <QtCore>
-
 #include "mbl_global.h"
+
+#include <QByteArray>
+#include <QString>
 
 QString MBL_EXPORT QByteArray2QString( const QByteArray &ba, int mode=0 );
 

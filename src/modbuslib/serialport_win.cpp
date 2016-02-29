@@ -1,12 +1,15 @@
-#include <QtCore>
-
+#include "serialport.h"
 #include "serialport_p.h"
 
 #include "console.h"
-#include "serialport.h"
 #include "mbcommon.h"
 
+#include <QMap>
+
+#ifndef _UNICODE
 #define _UNICODE
+#endif
+
 #include <winuser.h>
 #include <windows.h>
 #include <tchar.h>
@@ -40,7 +43,8 @@ SerialPortPrivate::SerialPortPrivate( SerialPort *sp_arg )
   hport = 0;
   last_error_id = 0;
 
-  if (perf_cnt_ok = QueryPerformanceCounter(&freq))
+  perf_cnt_ok = QueryPerformanceCounter(&freq);
+  if (perf_cnt_ok)
   { perf_cnt_ok = QueryPerformanceFrequency(&freq);
   }
 

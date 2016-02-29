@@ -1,6 +1,10 @@
 #ifndef __TABLE_H__
 #define __TABLE_H__
 
+#include "mk_global.h"
+#include "shortcut.h"
+#include "mbmasterxml.h"
+
 #include <QTableWidget>
 #include <QTimer>
 #include <QItemDelegate>
@@ -9,10 +13,6 @@
 #include <QListWidget>
 #include <QVector>
 #include <QDomDocument>
-
-#include "mk_global.h"
-#include "shortcut.h"
-#include "mbmasterxml.h"
 
 class MBMasterXML;
 class QMouseEvent;

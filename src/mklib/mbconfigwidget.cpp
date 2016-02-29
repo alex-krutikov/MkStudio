@@ -1,13 +1,12 @@
-#include <QtGui>
-#include <QtXml>
+#include "mbconfigwidget.h"
 
+#include <mbcommon.h>
+
+#include <QDomElement>
 #include <QMenu>
 #include <QMessageBox>
 
-#include "mbconfigwidget.h"
 #include "ui_mbconfigwidget.h"
-
-#include "mbcommon.h"
 
 #define MODULES_MAX_N   50
 #define SLOTS_MAX_N    100

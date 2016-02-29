@@ -1,13 +1,13 @@
 #ifndef __ABSTRACTSERIALPORT_H_
 #define __ABSTRACTSERIALPORT_H_
 
+#include "mbl_global.h"
+
 #include <QObject>
 #include <QString>
 #include <QByteArray>
 
 #include <tr1/memory>
-
-#include "mbl_global.h"
 
 class MBL_EXPORT AbstractSerialPort : public QObject
 {

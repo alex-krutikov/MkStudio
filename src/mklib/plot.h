@@ -1,18 +1,18 @@
 #ifndef __PLOT_H__
 #define __PLOT_H__
 
-#include <QTimer>
-#include <QWidget>
-#include <QFile>
-#include <QTextStream>
-#include <QDialog>
-
 #include "mk_global.h"
 #include "mkpicker.h"
 #include "mbmasterxml.h"
 
 #include <qwt_plot_curve.h>
 #include <qwt_plot_grid.h>
+
+#include <QTimer>
+#include <QWidget>
+#include <QFile>
+#include <QTextStream>
+#include <QDialog>
 
 class QTimerEvent;
 class QTableWidgetItem;

@@ -1,13 +1,8 @@
-#include <QtGui>
-#include <QDomDocument>
-
-#include <QMessageBox>
-
 #include "slotwidget.h"
+
 #include "mbmasterxml.h"
-#include "console.h"
-#include "ui_slotwidget.h"
-#include "ui_slotdialog.h"
+
+#include <console.h>
 
 #include <qwt_painter.h>
 #include <qwt_plot_canvas.h>
@@ -18,6 +13,14 @@
 #include <qwt_legend.h>
 #include <qwt_scale_draw.h>
 #include <qwt_math.h>
+
+#include <QClipboard>
+#include <QDomDocument>
+#include <QFile>
+#include <QMessageBox>
+
+#include "ui_slotwidget.h"
+#include "ui_slotdialog.h"
 
 //###################################################################
 ///Окно с представлением слота (используется по двойному нажатию на слот)

@@ -1,10 +1,11 @@
-#include <QtGui>
-
 #include "mbmasterwidget.h"
-#include "mbcommon.h"
+
+
 #include "slotwidget.h"
 #include "mbmasterxml.h"
-#include "mbmaster_p.h"
+
+#include <mbcommon.h>
+#include <mbmaster_p.h>
 
 #include "ui_mbmasterwidget.h"
 

@@ -8,6 +8,7 @@
 #include <console.h>
 
 #include <QMessageBox>
+#include <QTranslator>
 
 //==============================================================================
 /// MAIN

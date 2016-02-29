@@ -10,9 +10,9 @@
 
 */
 
-#include <QString>
-
 #include "mbl_global.h"
+
+#include <QString>
 
 class ConsolePrivate;
 

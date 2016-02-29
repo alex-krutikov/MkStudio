@@ -14,6 +14,7 @@ Product {
     cpp.includePaths: ["."]
 
     files: [
+        "mk_global.h",
         "mbconfigwidget.h",
         "mbmasterwidget.h",
         "consolewidget.h",

@@ -1,10 +1,10 @@
 #ifndef __MBCONFIGWIDGET_H__
 #define __MBCONFIGWIDGET_H__
 
+#include "mk_global.h"
+
 #include <QWidget>
 #include <QString>
-
-#include "mk_global.h"
 
 namespace Ui { class MBConfigWidget; }
 class MBConfigWidgetPrivate;

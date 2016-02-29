@@ -1,10 +1,8 @@
-#include <QtCore>
+#include "serialport.h"
+#include "serialport_p.h"
 
 #include "mbcommon.h"
 #include "console.h"
-
-#include "serialport.h"
-#include "serialport_p.h"
 
 //###################################################################
 //

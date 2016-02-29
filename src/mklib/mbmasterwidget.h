@@ -1,12 +1,12 @@
 #ifndef __MBMASTERWIDGET_H__
 #define __MBMASTERWIDGET_H__
 
+#include "mk_global.h"
+#include "mbmasterxml.h"
+
 #include <QString>
 #include <QWidget>
 #include <QObjectCleanupHandler>
-
-#include "mk_global.h"
-#include "mbmasterxml.h"
 
 class MBMasterValuesWidget;
 class MBMasterWidgetTableModel;

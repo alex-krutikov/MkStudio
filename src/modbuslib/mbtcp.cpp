@@ -1,10 +1,10 @@
-#include <QtCore>
-#include <QtNetwork>
-
 #include "mbtcp.h"
+
 #include "console.h"
 #include "mbcommon.h"
 #include "crc.h"
+
+#include <QTcpSocket>
 
 //=============================================================================
 //

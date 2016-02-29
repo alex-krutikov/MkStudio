@@ -1,15 +1,12 @@
-#include <QtGui>
-#include <QtXml>
-
-#include <QFileDialog>
-#include <QMessageBox>
-
-#include "ui_plot.h"
-#include "ui_plotisrdialog.h"
 #include "plot.h"
+
 #include "mktable.h"
 #include "mbmasterxml.h"
 #include "scaledraw.h"
+
+#include <QClipboard>
+#include <QFileDialog>
+#include <QMessageBox>
 
 #include <qwt_plot.h>
 #include <qwt_painter.h>
@@ -22,6 +19,9 @@
 #include <qwt_scale_draw.h>
 #include <qwt_plot_zoomer.h>
 #include <qwt_math.h>
+
+#include "ui_plot.h"
+#include "ui_plotisrdialog.h"
 
 //##############################################################################
 //

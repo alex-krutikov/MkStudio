@@ -1,16 +1,16 @@
-#include <QtGui>
-#include <QtXml>
+#include "mktable.h"
+#include "mktable_p.h"
+
+#include "plot.h"
+#include "mbmasterxml.h"
 
 #include <QApplication>
 #include <QHeaderView>
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QMenu>
-
-#include "mktable.h"
-#include "mktable_p.h"
-#include "plot.h"
-#include "mbmasterxml.h"
+#include <QMouseEvent>
+#include <QClipboard>
 
 //-----------------------------------------------------------------------------
 // служебная структура - привязка ячеек

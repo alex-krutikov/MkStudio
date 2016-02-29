@@ -7,6 +7,8 @@
 
 #include <QByteArray>
 #include <QString>
+#include <QVariant>
+#include <QVector>
 
 #include "mbl_global.h"
 

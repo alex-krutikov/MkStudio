@@ -1,7 +1,9 @@
-#include <QtCore>
-
 #include "xfiles.h"
-#include "modbuslib.h"
+
+#include "abstractserialport.h"
+#include "mbcommon.h"
+#include "console.h"
+#include "crc.h"
 
 //=============================================================================
 // Служебная функция преобразования результата

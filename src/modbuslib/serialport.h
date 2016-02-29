@@ -1,9 +1,8 @@
 #ifndef __SERIALPORT_H_
 #define __SERIALPORT_H_
 
-#include <QtCore>
-
 #include "mbl_global.h"
+
 #include "abstractserialport.h"
 
 

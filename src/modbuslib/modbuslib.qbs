@@ -10,17 +10,27 @@ Product {
     }
 
     files: [
+        "abstractserialport.h",
+        "console.h",
+        "crc.h",
+        "mbcommon.h",
         "mbmaster.h",
         "mbmaster_p.h",
         "serialport.h",
+        "serialport_p.h",
         "mbtcpserver.h",
+        "mbtcp.h",
+        "mbtypes.h",
+        "packed_struct_begin.h",
+        "packed_struct_end.h",
+        "xfiles.h",
         "mbmaster.cpp",
         "mbcommon.cpp",
         "crc.cpp",
         "serialport.cpp",
         "console.cpp",
         "xfiles.cpp",
-        "mbtcp.cpp" ,
+        "mbtcp.cpp",
         "mbtcpserver.cpp",
     ]
 

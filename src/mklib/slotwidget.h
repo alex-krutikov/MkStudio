@@ -1,14 +1,14 @@
 #ifndef __SLOTWIDGET_H__
 #define __SLOTWIDGET_H__
 
+#include "mk_global.h"
+#include "mbmasterxml.h"
+
 #include <QMainWindow>
 #include <QDialog>
 #include <QString>
 #include <QMap>
 #include <QToolButton>
-
-#include "mk_global.h"
-#include "mbmasterxml.h"
 
 namespace Ui
 { class SlotWidget;

@@ -1,9 +1,8 @@
-#include <QtGui>
+#include "consolewidget.h"
+
+#include <console.h>
 
 #include <QScrollBar>
-
-#include "consolewidget.h"
-#include "console.h"
 
 #include "ui_consolewidget.h"
 

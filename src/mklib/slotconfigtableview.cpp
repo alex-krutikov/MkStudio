@@ -1,9 +1,9 @@
-#include <QtGui>
+#include "slotconfigtableview.h"
+
+#include <mbcommon.h>
 
 #include <QComboBox>
 
-#include "slotconfigtableview.h"
-#include "mbcommon.h"
 
 //###################################################################
 //
