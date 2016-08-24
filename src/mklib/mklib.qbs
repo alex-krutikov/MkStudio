@@ -9,9 +9,17 @@ Product {
     Export {
         Depends { name: "cpp" }
         cpp.includePaths: ["."]
+        cpp.cxxLanguageVersion: "c++14"
     }
 
+    cpp.cxxLanguageVersion: "c++14"
+
     cpp.includePaths: ["."]
+
+    cpp.cxxFlags: [
+          "--no-rtti",
+          "--no-exceptions",
+    ]
 
     files: [
         "mk_global.h",

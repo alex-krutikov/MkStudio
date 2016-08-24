@@ -6,6 +6,11 @@ Product {
     Depends { name: "Qt.network" }
     Depends { name: "Qt.xml" }
 
+    cpp.cxxFlags: [
+          "--no-rtti",
+          "--no-exceptions",
+    ]
+
     files: [
         "mainwindow.h",
         "main.h",

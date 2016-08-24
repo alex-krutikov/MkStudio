@@ -8,6 +8,13 @@ Product {
     Depends { name: "Qt.network" }
     Depends { name: "Qt.xml" }
 
+    cpp.cxxFlags: [
+          "--no-rtti",
+          "--no-exceptions",
+    ]
+
+    cpp.cxxLanguageVersion: "c++14"
+
     files: [
         "main.h",
         "mainwindow.h",

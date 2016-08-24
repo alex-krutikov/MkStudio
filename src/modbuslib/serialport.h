@@ -13,8 +13,6 @@ class SerialPortPrivate;
 //---------------------------------------------------------
 class MBL_EXPORT SerialPort : public AbstractSerialPort
 {
-  Q_OBJECT
-
   friend class SerialPortPrivate;
 public:
   SerialPort();

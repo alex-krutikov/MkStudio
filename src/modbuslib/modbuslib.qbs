@@ -4,9 +4,17 @@ Product {
     Depends { name: "Qt.core" }
     Depends { name: "Qt.network" }
 
+    cpp.cxxFlags: [
+          "--no-rtti",
+          "--no-exceptions",
+    ]
+
+    cpp.cxxLanguageVersion: "c++14"
+
     Export {
         Depends { name: "cpp" }
         cpp.includePaths: ["."]
+        cpp.cxxLanguageVersion: "c++14"
     }
 
     files: [

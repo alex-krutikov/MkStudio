@@ -3,15 +3,16 @@
 
 #include "mbl_global.h"
 
-#include <QObject>
 #include <QString>
-#include <QByteArray>
 
 #include <tr1/memory>
 
-class MBL_EXPORT AbstractSerialPort : public QObject
+class QByteArray;
+
+class MBL_EXPORT AbstractSerialPort
 {
 public:
+  virtual ~AbstractSerialPort() {}
   virtual void setName( const QString &portname ) = 0;
   virtual void setSpeed( const int speed ) = 0;
   virtual void setAnswerTimeout(int timeout ) = 0;

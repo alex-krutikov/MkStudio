@@ -135,7 +135,7 @@ static int init()
     sp->setAnswerTimeout( timeout );
 
     if( xbeeroute.size() )
-    { SerialPort *p = qobject_cast<SerialPort*>(sp);
+    { SerialPort *p = static_cast<SerialPort*>(sp);
       foreach( XBeeRoute route, xbeeroute )
       { p->addXBeeRoute( route.start, route.end, route.addr );
       }

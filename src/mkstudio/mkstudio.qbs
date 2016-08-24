@@ -23,6 +23,7 @@ Project {
     Product {
         type: "application"
         name: "mkstudio"
+        consoleApplication: false
 
         Depends { name: "qwt" }
         Depends { name: "modbuslib" }
@@ -30,6 +31,22 @@ Project {
         Depends { name: "Qt.widgets" }
         Depends { name: "Qt.network" }
         Depends { name: "Qt.xml" }
+
+        cpp.cxxLanguageVersion: "c++14"
+
+        cpp.commonCompilerFlags: [
+            "-fdata-sections",
+            "-ffunction-sections",
+        ]
+
+        cpp.cxxFlags: [
+              "--no-rtti",
+              "--no-exceptions",
+        ]
+
+        cpp.linkerFlags: [
+            "-Wl,--gc-sections",
+        ]
 
         files: mkstudioFiles
 
@@ -43,6 +60,7 @@ Project {
     Product {
         type: "application"
         name: "mkstudio-arduino"
+        consoleApplication: false
 
         Depends { name: "qwt" }
         Depends { name: "modbuslib" }
@@ -52,6 +70,15 @@ Project {
         Depends { name: "Qt.xml" }
 
         cpp.defines: "ARDUINO_ONLY"
+
+        cpp.cxxFlags: [
+              "--no-rtti",
+              "--no-exceptions",
+        ]
+
+        cpp.linkerFlags: [
+            "-Wl,--gc-sections",
+        ]
 
         files: mkstudioFiles
 
