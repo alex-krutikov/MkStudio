@@ -27,8 +27,8 @@ private:
   void closeEvent ( QCloseEvent * event );
   void console_update();
 
-  std::auto_ptr<AbstractSerialPort> serialport;
-  std::auto_ptr<ModbusTcpServer> tcpserver;
+  std::unique_ptr<AbstractSerialPort> serialport;
+  std::unique_ptr<ModbusTcpServer> tcpserver;
 };
 
 #endif

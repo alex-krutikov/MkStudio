@@ -14,6 +14,8 @@
 
 namespace {
 
+#if 0 // for tests only
+
 bool testArduinoTransport()
 {
   int err = 0;
@@ -35,6 +37,8 @@ bool testArduinoTransport()
 
   return (err != 0);
 }
+
+#endif
 
 }
 
@@ -338,8 +342,6 @@ public:
   {
     Q_UNUSED( errorcode );
 
-    static unsigned char base[100000];
-
     if( req.size() < 4 ) return 0;
     if( CRC::CRC16( req ) )
     { Console::Print( Console::ModbusError,
@@ -350,8 +352,6 @@ public:
     ans.resize( 300 );
 
     int ans_len = 0;
-    int i;
-
 
     ans.resize( ans_len );
     return ans_len;
