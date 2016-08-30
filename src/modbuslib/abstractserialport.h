@@ -5,7 +5,7 @@
 
 #include <QString>
 
-#include <tr1/memory>
+#include <memory>
 
 class QByteArray;
 
@@ -27,6 +27,6 @@ public:
   virtual int query( const QByteArray &request, QByteArray &answer, int *errorcode=0) = 0;
 };
 
-typedef std::tr1::shared_ptr<AbstractSerialPort> AbstractSerialPortPtr;
+typedef std::shared_ptr<AbstractSerialPort> AbstractSerialPortPtr;
 
 #endif

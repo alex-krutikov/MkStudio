@@ -7,7 +7,7 @@
 #include <mbtypes.h>
 #include <mbmaster.h>
 
-#include <tr1/memory>
+#include <memory>
 
 class QDomDocument;
 class MBMasterPrivateXML;
@@ -40,6 +40,6 @@ public:
 
 };
 
-typedef std::tr1::shared_ptr<MBMasterXML> MBMasterXMLPtr;
+typedef std::shared_ptr<MBMasterXML> MBMasterXMLPtr;
 
 #endif

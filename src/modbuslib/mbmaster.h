@@ -6,7 +6,7 @@
 #include "mbtypes.h"
 #include "abstractserialport.h"
 
-#include <tr1/memory>
+#include <memory>
 
 class MBMasterPrivate;
 
@@ -109,6 +109,6 @@ private:
   MBMasterPrivate *d;
 };
 
-typedef std::tr1::shared_ptr<MBMaster> MBMasterPtr;
+typedef std::shared_ptr<MBMaster> MBMasterPtr;
 
 #endif
