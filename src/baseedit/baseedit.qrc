@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/icons" >
+        <file>res/copy.png</file>
+        <file>res/disk_blue.png</file>
+        <file>res/export1.png</file>
+        <file>res/find.png</file>
+        <file>res/folder.png</file>
+        <file>res/import1.png</file>
+        <file>res/paste.png</file>
+        <file>res/redo.png</file>
+        <file>res/row_add.png</file>
+        <file>res/row_delete.png</file>
+        <file>res/undo.png</file>
+    </qresource>
+    <qresource prefix="/tr" >
+        <file>qt_ru.qm</file>
+    </qresource>
+</RCC>
