@@ -1,6 +1,8 @@
 Name       "MKStudio"
-OutFile    "${MKROOT}\set\${OUTFILE}"
-InstallDir $PROGRAMFILES\miksys\umikon\mkstudio
+
+OutFile    "mkstudio-setup.exe"
+
+InstallDir $PROGRAMFILES\mkstudio
 
 XpStyle on
 SetCompressor lzma
@@ -30,21 +32,25 @@ Section "MKStudio и MKView"
   SetOutPath $INSTDIR
   
   ; Put file there
-  File ${MKROOT}\bin\MKView.exe
-  File ${MKROOT}\bin\MKStudio.exe
-  File ${MKROOT}\bin\MKServer.exe
-  File ${MKROOT}\bin\mkserverd.exe
-  File ${MKROOT}\bin\mkquery.exe
-  File ${MKROOT}\bin\mksync.exe
-  File ${MKROOT}\bin\classic_registers.xml
+  File ${INSTALL_ROOT}\baseedit.exe
+  File ${INSTALL_ROOT}\mkview.exe
+  File ${INSTALL_ROOT}\mkstudio.exe
+  File ${INSTALL_ROOT}\mkserver.exe
+  File ${INSTALL_ROOT}\mkserverd.exe
+  File ${INSTALL_ROOT}\mkquery.exe
+  File ${INSTALL_ROOT}\mksync.exe
 
-!ifdef QT_DLL_DIR
-  File ${QT_DLL_DIR}\qtcore4.dll
-  File ${QT_DLL_DIR}\qtgui4.dll
-  File ${QT_DLL_DIR}\qtxml4.dll
-  File ${QT_DLL_DIR}\qtnetwork4.dll
-  File /nonfatal ${QT_DLL_DIR}\mingwm10.dll
-!endif
+  File ${QT_DLL_DIR}\libgcc_s_dw2-1.dll
+  File ${QT_DLL_DIR}\libwinpthread-1.dll
+  File ${QT_DLL_DIR}\libstdc++-6.dll
+  File ${QT_DLL_DIR}\Qt5Core.dll
+  File ${QT_DLL_DIR}\Qt5Gui.dll
+  File ${QT_DLL_DIR}\Qt5Widgets.dll
+  File ${QT_DLL_DIR}\Qt5Network.dll
+  File ${QT_DLL_DIR}\Qt5Xml.dll
+
+  SetOutPath $INSTDIR\platforms
+  File ${QT_DLL_DIR}\..\plugins\platforms\qwindows.dll
 
 
   ; Write the installation path into the registry
@@ -59,6 +65,7 @@ Section "MKStudio и MKView"
 
   CreateDirectory "$SMPROGRAMS\MikSYS\MKStudio"
   CreateShortCut "$SMPROGRAMS\MikSYS\MKStudio\”даление.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
+  CreateShortCut "$SMPROGRAMS\MikSYS\MKStudio\BaseEdit.lnk" "$INSTDIR\baseedit.exe"  "" "$INSTDIR\baseedit.exe" 0
   CreateShortCut "$SMPROGRAMS\MikSYS\MKStudio\MKView.lnk"   "$INSTDIR\MKView.exe"    "" "$INSTDIR\MKView.exe" 0
   CreateShortCut "$SMPROGRAMS\MikSYS\MKStudio\MKStudio.lnk" "$INSTDIR\MKStudio.exe" "" "$INSTDIR\MKStudio.exe" 0
   CreateShortCut "$SMPROGRAMS\MikSYS\MKStudio\MKServer.lnk" "$INSTDIR\MKStudio.exe" "" "$INSTDIR\MKServer.exe" 0
@@ -88,22 +95,28 @@ Section "Uninstall"
   ; Remove files and uninstaller
   Delete $INSTDIR\mikkon\*.xml
 
-  Delete $INSTDIR\MKView.exe
-  Delete $INSTDIR\MKStudio.exe
-  Delete $INSTDIR\MKServer.exe
+  Delete $INSTDIR\baseedit.exe
+  Delete $INSTDIR\mkview.exe
+  Delete $INSTDIR\mkstudio.exe
+  Delete $INSTDIR\mkserver.exe
   Delete $INSTDIR\mkserverd.exe
   Delete $INSTDIR\mkquery.exe
   Delete $INSTDIR\mksync.exe
+
+  Delete $INSTDIR\libgcc_s_dw2-1.dll
+  Delete $INSTDIR\libwinpthread-1.dll
+  Delete $INSTDIR\libstdc++-6.dll
+  Delete $INSTDIR\Qt5Core.dll
+  Delete $INSTDIR\Qt5Gui.dll
+  Delete $INSTDIR\Qt5Widgets.dll
+  Delete $INSTDIR\Qt5Network.dll
+  Delete $INSTDIR\Qt5Xml.dll
+
+  Delete $INSTDIR\platforms\qwindows.dll
+
   Delete $INSTDIR\uninstall.exe
 
-!ifdef QT_DLL_DIR
-  Delete $INSTDIR\qtcore4.dll
-  Delete $INSTDIR\qtgui4.dll
-  Delete $INSTDIR\qtxml4.dll
-  Delete $INSTDIR\qtnetwork4.dll
-  Delete $INSTDIR\mingwm10.dll
-!endif
-
+  Delete $INSTDIR\baseedit.ini
   Delete $INSTDIR\mkstudio.ini
   Delete $INSTDIR\mkview.ini
   Delete $INSTDIR\mkserver.ini
@@ -111,12 +124,14 @@ Section "Uninstall"
 
   ; Remove shortcuts, if any
   Delete "$SMPROGRAMS\MikSYS\MKStudio\*.*"
+  Delete "$DESKTOP\BaseEdit.lnk"
   Delete "$DESKTOP\MKStudio.lnk"
   Delete "$DESKTOP\MKView.lnk"
   Delete "$DESKTOP\MKServer.lnk"
 
   ; Remove directories used
   RMDir "$SMPROGRAMS\MikSYS\MKStudio"
+  RMDir "$INSTDIR\platforms"
   RMDir "$INSTDIR\mikkon"
   RMDir "$INSTDIR"
 
