@@ -1,7 +1,7 @@
+Unicode true
+
 Name       "MKStudio"
-
 OutFile    "mkstudio-setup.exe"
-
 InstallDir $PROGRAMFILES\mkstudio
 
 XpStyle on
