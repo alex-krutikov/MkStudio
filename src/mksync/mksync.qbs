@@ -13,4 +13,9 @@ Product {
     files: [
         "mksync.cpp"
     ]
+
+    Group {
+        fileTagsFilter: ["application"]
+        qbs.install: true
+    }
 }

@@ -13,4 +13,9 @@ Product {
         "mkserverd.cpp"
     ]
 
+    Group {
+        fileTagsFilter: ["application"]
+        qbs.install: true
+    }
+
 }

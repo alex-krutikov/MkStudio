@@ -55,6 +55,11 @@ Project {
             condition: qbs.targetOS.contains("windows")
             files: "icon.rc"
         }
+
+        Group {
+            fileTagsFilter: ["application"]
+            qbs.install: true
+        }
     }
 
     Product {
@@ -86,6 +91,11 @@ Project {
             name: "Windows files"
             condition: qbs.targetOS.contains("windows")
             files: "icon.rc"
+        }
+
+        Group {
+            fileTagsFilter: ["application"]
+            qbs.install: true
         }
     }
 

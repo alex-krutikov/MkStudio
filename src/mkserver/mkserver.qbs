@@ -25,4 +25,9 @@ Product {
         condition: qbs.targetOS.contains("windows")
         files: "icon.rc"
     }
+
+    Group {
+        fileTagsFilter: ["application"]
+        qbs.install: true
+    }
 }

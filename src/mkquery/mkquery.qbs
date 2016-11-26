@@ -13,4 +13,8 @@ Product {
         "mkquery.cpp"
     ]
 
+    Group {
+        fileTagsFilter: ["application"]
+        qbs.install: true
+    }
 }
