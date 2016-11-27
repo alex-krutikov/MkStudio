@@ -370,7 +370,7 @@ MainWindowXml::MainWindowXml( QWidget *parent, const QString &portname, int port
                              "Порт будет автоматически открыт\nпри его освобождении." );
   }
 
-  MBMasterXMLPtr mbmaster(new MBMasterXML);
+  mbmaster.reset(new MBMasterXML);
   mbmaster->setTransport( port );
 
   tw = new MKTable;
@@ -437,7 +437,7 @@ MainWindowXml::MainWindowXml( QWidget *parent, const QString &portname, int port
 //==============================================================================
 //
 //==============================================================================
-void MainWindowXml::on_action_font_increase_activated()
+void MainWindowXml::on_action_font_increase_triggered()
 {
   QFont fnt = qApp->font();
   int a = fnt.pointSize();
@@ -449,7 +449,7 @@ void MainWindowXml::on_action_font_increase_activated()
 //==============================================================================
 //
 //==============================================================================
-void MainWindowXml::on_action_font_decrease_activated()
+void MainWindowXml::on_action_font_decrease_triggered()
 {
   QFont fnt = qApp->font();
   int a = fnt.pointSize();

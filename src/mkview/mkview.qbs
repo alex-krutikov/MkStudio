@@ -15,6 +15,8 @@ Product {
 
     cpp.cxxLanguageVersion: "c++14"
 
+    consoleApplication: false
+
     files: [
         "main.h",
         "mainwindow.h",

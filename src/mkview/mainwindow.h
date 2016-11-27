@@ -50,8 +50,8 @@ public:
   void closeEvent( QCloseEvent *event );
 private slots:
   void group_update();
-  void on_action_font_increase_activated();
-  void on_action_font_decrease_activated();
+  void on_action_font_increase_triggered();
+  void on_action_font_decrease_triggered();
 private:
   MKTable *tw;
   QStatusBar *statusbar;

@@ -11,6 +11,10 @@ Product {
           "--no-exceptions",
     ]
 
+    cpp.cxxLanguageVersion: "c++14"
+
+    consoleApplication: false
+
     files: [
         "mainwindow.h",
         "main.h",
