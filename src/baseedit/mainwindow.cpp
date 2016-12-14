@@ -103,6 +103,8 @@ void MainWindow::recent_files_activated( QAction* act )
 //==============================================================================
 void MainWindow::on_action_new_triggered()
 {
+  current_file_name.clear();
+  setWindowTitle(app_header);
   items.clear();
   items.resize(20);
   model->reload_model();
@@ -154,6 +156,9 @@ void MainWindow::on_action_save_as_triggered()
                    app_header, current_file_name, "*.base" );
   if( str.isEmpty() ) return;
 
+  if (!str.endsWith(".base"))
+      str += ".base";
+
   current_file_name = str;
   setWindowTitle( app_header + " " + current_file_name );
   file_save();
@@ -198,6 +203,65 @@ void MainWindow::on_action_export_triggered()
     { out << "      // " << item.desc  << endl;
     }
   }
+
+  QMessageBox::information( this, app_header, QString("База экспортированна в %1.inc").arg(filename));
+}
+
+//==============================================================================
+//
+//==============================================================================
+void MainWindow::on_action_export_h_triggered()
+{
+  QString s;
+
+  QString filename=current_file_name;
+  if( filename.endsWith(".base") ) filename.chop(5);
+  QString basename = QFileInfo(filename).baseName();
+  QFile file( filename + ".h" );
+  if( !file.open( QIODevice::WriteOnly|QIODevice::Truncate|QIODevice::Text) ) return;
+  QTextStream out(&file);
+  out.setCodec( QTextCodec::codecForName("utf-8") );
+
+  out << QString("#ifndef __BASE_%1__\n").arg(basename.toUpper());
+  out << QString("#define __BASE_%1__\n").arg(basename.toUpper());
+  out << "\n"
+         "#include <stdint.h>\n"
+         "\n";
+  out << QString("struct Base_%1\n").arg(basename);
+  out << "{\n";
+
+  foreach( Item item,items )
+  { if( item.addr >= 0 )
+    {
+      QString part2;
+      if (item.rtype.getBody() != None)
+      {
+        part2 += "  ( " + item.rtype.toString() + " " + QString::number(item.rnum) + " ";
+        if (item.reg_num_is_big_flag) part2 += "ERROR ";
+        part2 +=  ")";
+      }
+      out << QString().sprintf("\n  // 0x%4.4X",item.addr);
+      out << part2 << endl;
+    }
+    s = item.field.simplified();
+    if( !s.isEmpty() )
+    { if( (!s.contains("#")) && (!s.contains(";")) && (!s.endsWith(",")) )
+      { s += ";";
+      }
+      out << "  " << s << endl;
+    }
+    if( !item.desc.isEmpty() )
+    { out << "      // " << item.desc  << endl;
+    }
+  }
+
+  out << "};\n"
+         "\n"
+         "#endif\n"
+         "\n";
+
+
+  QMessageBox::information( this, app_header, QString("База экспортированна в %1.h").arg(filename));
 }
 
 //==============================================================================
@@ -345,8 +409,17 @@ void MainWindow::file_load()
  if(  current_file_name.isEmpty() ) return;
 
  QFile file(current_file_name);
- if (!file.open(QIODevice::ReadOnly)) return;
- if (!doc.setContent(&file)) return;
+ if (!file.open(QIODevice::ReadOnly))
+ {   current_file_name.clear();
+     setWindowTitle( app_header + " " + current_file_name );
+     return;
+ }
+ if (!doc.setContent(&file))
+ {   QMessageBox::critical(this, app_header, QString("Ошибка при загрузке файла %1.").arg(current_file_name));
+     current_file_name.clear();
+     setWindowTitle( app_header + " " + current_file_name );
+     return;
+ }
  file.close();
 
  list = doc.elementsByTagName("Row");

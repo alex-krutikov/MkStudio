@@ -30,6 +30,7 @@ private slots:
   void on_action_save_triggered();
   void on_action_save_as_triggered();
   void on_action_export_triggered();
+  void on_action_export_h_triggered();
   void on_action_import_triggered();
   void on_action_copy_triggered();
   void on_action_paste_triggered();

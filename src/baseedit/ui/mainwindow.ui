@@ -18,7 +18,16 @@
     <property name="spacing">
      <number>0</number>
     </property>
-    <property name="margin">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
      <number>0</number>
     </property>
     <item>
@@ -32,7 +41,7 @@
      <x>0</x>
      <y>0</y>
      <width>534</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_file">
@@ -45,6 +54,7 @@
     <addaction name="action_save_as"/>
     <addaction name="separator"/>
     <addaction name="action_export"/>
+    <addaction name="action_export_h"/>
     <addaction name="action_HTML_export"/>
     <addaction name="separator"/>
    </widget>
@@ -110,7 +120,7 @@
      <normaloff>:/icons/res/export1.png</normaloff>:/icons/res/export1.png</iconset>
    </property>
    <property name="text">
-    <string>Экспорт</string>
+    <string>Экспорт .inc-файла</string>
    </property>
   </action>
   <action name="action_new">
@@ -220,6 +230,11 @@
    </property>
    <property name="text">
     <string>Регистры modbus</string>
+   </property>
+  </action>
+  <action name="action_export_h">
+   <property name="text">
+    <string>Экспорт .h-файла</string>
    </property>
   </action>
  </widget>
