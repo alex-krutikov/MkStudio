@@ -1,0 +1,381 @@
+<ui version="4.0" >
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>968</width>
+    <height>617</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>968</width>
+     <height>617</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" >
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <property name="margin" >
+     <number>9</number>
+    </property>
+    <item>
+     <layout class="QHBoxLayout" >
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <property name="margin" >
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QGroupBox" name="groupBox_2" >
+        <property name="title" >
+         <string>Микропрограмма</string>
+        </property>
+        <layout class="QHBoxLayout" >
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+         <property name="margin" >
+          <number>9</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="pb2" >
+           <property name="text" >
+            <string>Записать</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../MMpM.qrc" >
+             <normaloff>:/icons/images/nav_plain_red.png</normaloff>:/icons/images/nav_plain_red.png</iconset>
+           </property>
+           <property name="iconSize" >
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pb1" >
+           <property name="text" >
+            <string>Прочитать</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../MMpM.qrc" >
+             <normaloff>:/icons/images/arrow_up_blue.png</normaloff>:/icons/images/arrow_up_blue.png</iconset>
+           </property>
+           <property name="iconSize" >
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pb6" >
+           <property name="text" >
+            <string>Проверить</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../MMpM.qrc" >
+             <normaloff>:/icons/images/check.png</normaloff>:/icons/images/check.png</iconset>
+           </property>
+           <property name="iconSize" >
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
+           </property>
+           <property name="flat" >
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_3" >
+        <property name="title" >
+         <string>Модуль</string>
+        </property>
+        <layout class="QHBoxLayout" >
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+         <property name="margin" >
+          <number>9</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="pb4" >
+           <property name="text" >
+            <string>СБРОС</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../MMpM.qrc" >
+             <normaloff>:/icons/images/flash.png</normaloff>:/icons/images/flash.png</iconset>
+           </property>
+           <property name="iconSize" >
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pb8" >
+           <property name="text" >
+            <string>СТЕРЕТЬ</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../MMpM.qrc" >
+             <normaloff>:/icons/images/delete2.png</normaloff>:/icons/images/delete2.png</iconset>
+           </property>
+           <property name="iconSize" >
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pb11" >
+           <property name="text" >
+            <string>ЗАПИСЬ ЗАГРУЗЧИКА</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../MMpM.qrc" >
+             <normaloff>:/icons/images/hammer.png</normaloff>:/icons/images/hammer.png</iconset>
+           </property>
+           <property name="iconSize" >
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pb5" >
+           <property name="text" >
+            <string>Информация</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../MMpM.qrc" >
+             <normaloff>:/icons/images/about.png</normaloff>:/icons/images/about.png</iconset>
+           </property>
+           <property name="iconSize" >
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0" >
+         <size>
+          <width>40</width>
+          <height>60</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_4" >
+        <property name="title" >
+         <string>Программа</string>
+        </property>
+        <layout class="QHBoxLayout" >
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+         <property name="margin" >
+          <number>9</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="pb3" >
+           <property name="text" >
+            <string>Опции</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../MMpM.qrc" >
+             <normaloff>:/icons/images/preferences.png</normaloff>:/icons/images/preferences.png</iconset>
+           </property>
+           <property name="iconSize" >
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pb7" >
+           <property name="text" >
+            <string>Помощь</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../MMpM.qrc" >
+             <normaloff>:/icons/images/help2.png</normaloff>:/icons/images/help2.png</iconset>
+           </property>
+           <property name="iconSize" >
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QProgressBar" name="progressBar" >
+      <property name="value" >
+       <number>0</number>
+      </property>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox" >
+      <property name="title" >
+       <string>Сообщения</string>
+      </property>
+      <layout class="QVBoxLayout" >
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <property name="margin" >
+        <number>9</number>
+       </property>
+       <item>
+        <widget class="QPlainTextEdit" name="te" >
+         <property name="font" >
+          <font>
+           <family>Courier New</family>
+           <pointsize>8</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
+           <underline>false</underline>
+           <strikeout>false</strikeout>
+          </font>
+         </property>
+         <property name="readOnly" >
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" >
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+         <property name="margin" >
+          <number>0</number>
+         </property>
+         <item>
+          <spacer>
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0" >
+            <size>
+             <width>60</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="label" >
+           <property name="text" >
+            <string>Подузел:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="le" >
+           <property name="maximumSize" >
+            <size>
+             <width>70</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text" >
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer>
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType" >
+            <enum>QSizePolicy::Maximum</enum>
+           </property>
+           <property name="sizeHint" stdset="0" >
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="cb_autoscroll" >
+           <property name="text" >
+            <string>автопрокрутка</string>
+           </property>
+           <property name="checked" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pb10" >
+           <property name="text" >
+            <string>Очистить</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../MMpM.qrc" />
+ </resources>
+ <connections/>
+</ui>

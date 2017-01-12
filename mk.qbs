@@ -8,6 +8,7 @@ Project {
         "src/mkserver/mkserver.qbs",
         "src/mkserverd/mkserverd.qbs",
         "src/mkview/mkview.qbs",
+        "src/mmpm/mmpm.qbs",
         "src/mkquery/mkquery.qbs",
         "src/mksync/mksync.qbs",
     ]

@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/icons" >
+        <file>images/about.png</file>
+        <file>images/arrow_down_blue.png</file>
+        <file>images/arrow_up_blue.png</file>
+        <file>images/check.png</file>
+        <file>images/delete2.png</file>
+        <file>images/flash.png</file>
+        <file>images/icon.png</file>
+        <file>images/media_play.png</file>
+        <file>images/nav_plain_red.png</file>
+        <file>images/preferences.png</file>
+        <file>images/help2.png</file>
+        <file>images/hammer.png</file>
+    </qresource>
+    <qresource prefix="/html" >
+        <file>help/help.html</file>
+    </qresource>
+    <qresource prefix="/tr" >
+        <file>qt_ru.qm</file>
+    </qresource>
+</RCC>
