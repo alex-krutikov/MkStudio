@@ -22,10 +22,20 @@
 MainWindow::MainWindow()
 {
   setupUi( this );
-  setWindowTitle( tr("Менеджер микропрограмм модулей ПТК УМИКОН") );
+  setWindowTitle("Менеджер микропрограмм модулей ПТК УМИКОН");
   te->setLineWrapMode( QPlainTextEdit::NoWrap );
   pb8->hide();
   pb11->hide();
+
+  Settings settings;
+  const QPoint pos = settings.value("pos", this->pos()).toPoint();
+  const QSize size = settings.value("size", this->size()).toSize();
+  firmware_filename = settings.value("firmware_filename", QDir::homePath()).toString();
+
+  if (firmware_filename.isEmpty()) firmware_filename = QDir::homePath();
+
+  move(pos);
+  resize(size);
 
   Console::setMessageTypes(   Console::Error
                             | Console::Warning
@@ -35,19 +45,6 @@ MainWindow::MainWindow()
   flag2=0;
   flag3=0;
   flag4=0;
-
-  //------- геометрия окна по центру экрана  -----------------
-  QRect rs = QApplication::desktop()->availableGeometry();
-  QRect rw;
-  rw.setSize( QSize( 800, 600 ) );
-  if( rw.height() > ( rs.height() - 70 ) )
-  { rw.setHeight(  rs.height() - 50 );
-  }
-  if( rw.width() > ( rs.width() - 50 ) )
-  { rw.setWidth(  rs.width() - 70 );
-  }
-  rw.moveCenter( rs.center() );
-  setGeometry( rw );
 
   //------- строка статуса -----------------
   statusbar = new QStatusBar();
@@ -210,6 +207,10 @@ void MainWindow::on_pb11_clicked()
 //==============================================================================
 void MainWindow::closeEvent( QCloseEvent* )
 {
+    Settings settings;
+    settings.setValue("pos", pos());
+    settings.setValue("size", size());
+    settings.setValue("firmware_filename", QFileInfo(firmware_filename).absolutePath());
 }
 
 //==============================================================================
@@ -316,9 +317,9 @@ void MainWindow::update()
   if( flag3 == 1 )
   { timer->stop();
     //static QString filename;
-    temp_str3 = QFileDialog::getOpenFileName(
+    firmware_filename = QFileDialog::getOpenFileName(
                     0,
-                    "Загрузить файл", temp_str3 ,
+                    "Загрузить файл", firmware_filename ,
                     "*.bin"  );
     //if( !temp_str3.isEmpty() ) filename = temp_str3;
   timer->start();
@@ -328,9 +329,9 @@ void MainWindow::update()
   if( flag4 == 1 )
   { timer->stop();
 
-   temp_str3 = QFileDialog::getSaveFileName(
+   firmware_filename = QFileDialog::getSaveFileName(
                     0,
-                    tr("Записать файл"), temp_str3,
+                    tr("Записать файл"), firmware_filename,
                     tr("*.bin")  );
   timer->start();
     flag4 = 0;

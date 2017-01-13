@@ -15,7 +15,7 @@ HelpDialog   *helpdialog;
 
 QString temp_str;
 QString temp_str2;
-QString temp_str3;
+QString firmware_filename;
 
 volatile BYTE secret_mode;
 volatile BYTE secret_mode2;

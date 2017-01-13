@@ -15,7 +15,7 @@ extern HelpDialog   *helpdialog;
 
 extern QString temp_str;
 extern QString temp_str2;
-extern QString temp_str3;
+extern QString firmware_filename;
 
 extern volatile BYTE secret_mode;
 extern volatile BYTE secret_mode2;

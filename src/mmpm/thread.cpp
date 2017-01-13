@@ -173,10 +173,10 @@ int Thread::file_save()
 
   QString init_filename = QString::fromLatin1((char*)&info_buffer[0], 16 ).simplified();
 
-  temp_str3 = init_filename;
+  firmware_filename = init_filename;
   mainwindow->flag4=1; // синхронизация с GUI потоком (см. MainWindow::update() )
   while( mainwindow->flag4 == 1 ) msleep(100);
-  QString filename = temp_str3;
+  QString filename = firmware_filename;
 
   if( filename.isEmpty() ) return 0;
   if( ! filename.contains(".bin",Qt::CaseInsensitive ) ) filename += ".bin";
@@ -214,7 +214,7 @@ int Thread::file_load()
 
   mainwindow->flag3=1; // синхронизация с GUI потоком (см. MainWindow::update() )
   while( mainwindow->flag3 == 1 ) msleep(100);
-  QString filename = temp_str3;
+  QString filename = firmware_filename;
 
   if( filename.isEmpty() ) goto error;
 
@@ -325,7 +325,7 @@ int Thread::file_load_loader_bin()
 
   mainwindow->flag3=1;  // синхронизация с GUI потоком (см. MainWindow::update() )
   while( mainwindow->flag3 == 1 ) msleep(100);
-  QString filename = temp_str3;
+  QString filename = firmware_filename;
 
   if( filename.isEmpty() )
   { Console::Print( Console::Information, "Отмена");
