@@ -6,13 +6,14 @@
 class MBMasterXML;
 class QString;
 
-#if defined( Q_OS_WIN32 )
-  #define QSETTINGS_PARAM (qApp->applicationDirPath()+"/mkview.ini"),QSettings::IniFormat
-#elif defined( Q_OS_UNIX )
-  #define QSETTINGS_PARAM "mkview"
-#else
-  #error Wrong OS
-#endif
+class Settings : public QSettings
+{
+public:
+    Settings()
+        : QSettings(QDir::homePath() + "/.mkview_config", QSettings::IniFormat)
+    {
+    }
+};
 
 extern QString        app_header;
 

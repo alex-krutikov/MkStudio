@@ -367,7 +367,7 @@ InitDialog::InitDialog( QWidget *parent )
   setupUi( this );
   setWindowTitle("MMpM - Настройка связи");
 
-  QSettings settings( QSETTINGS_PARAM );
+  Settings settings;
 
   QString str,str2;
   QStringList sl;
@@ -442,7 +442,7 @@ void InitDialog::accept()
   modbus->setupTimeOut( sb_timeout->value() );
   thread1->setupMaxPacketSize( sb_max_packet_size->value() );
 
-  QSettings settings( QSETTINGS_PARAM );
+  Settings settings;
   settings.setValue( ini_port_name,   str                );
   settings.setValue( ini_port_speed,  cb_portspeed->currentText() );
   settings.setValue( ini_port_host,   le_tcp_server->text() );

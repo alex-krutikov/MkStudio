@@ -15,7 +15,7 @@ MainWindow::MainWindow()
 {
   setupUi( this );
 
-  QSettings settings( QSETTINGS_PARAM );
+  Settings settings;
   QPoint pos = settings.value("pos", QPoint(200, 200)).toPoint();
   QSize size = settings.value("size", QSize(600, 400)).toSize();
   restoreState( settings.value("mainwindow").toByteArray() );
@@ -559,7 +559,7 @@ void MainWindow::closeEvent ( QCloseEvent * event )
 {
   Q_UNUSED( event );
 
-  QSettings settings( QSETTINGS_PARAM );
+  Settings settings;
   settings.setValue("pos", pos());
   settings.setValue("size", size());
   settings.setValue("mainwindow", saveState() );

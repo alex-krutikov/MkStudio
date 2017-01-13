@@ -5,7 +5,14 @@
 
 #include "mainwindow.h"
 
-#define QSETTINGS_PARAM (qApp->applicationDirPath()+"/mkserver.ini"),QSettings::IniFormat
+class Settings : public QSettings
+{
+public:
+    Settings()
+        : QSettings(QDir::homePath() + "/.mkserver_config", QSettings::IniFormat)
+    {
+    }
+};
 
 extern MainWindow   *mainwindow;
 extern QString       app_header;

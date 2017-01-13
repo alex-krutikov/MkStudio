@@ -55,7 +55,7 @@ InitDialog::InitDialog( QWidget *parent )
   setupUi( this );
   setWindowTitle(app_header);
 
-  QSettings settings( QSETTINGS_PARAM );
+  Settings settings;
 
   //--------------------------------------------------------
   QStringList ports = SerialPort::queryComPorts();
@@ -324,7 +324,7 @@ int InitDialog::int_module_subnode()
 //=======================================================================================
 void InitDialog::accept()
 {
-  QSettings settings( QSETTINGS_PARAM );
+  Settings settings;
   settings.setValue( "portname",   cb_portname->itemData( cb_portname->currentIndex() ) );
   settings.setValue( "portspeed",  cb_portspeed->currentText() );
   settings.setValue( "tcphost",    le_host->text() );
@@ -342,7 +342,7 @@ MainWindowXml::MainWindowXml( QWidget *parent, const QString &portname, int port
 {
   setupUi( this );
 
-  QSettings settings( QSETTINGS_PARAM );
+  Settings settings;
   int i = settings.value("font_size").toInt();
   if( i > 6 )
   { QFont fnt = qApp->font();
@@ -480,7 +480,7 @@ void MainWindowXml::closeEvent( QCloseEvent *event )
 
   mbmaster->polling_stop();
 
-  QSettings settings( QSETTINGS_PARAM );
+  Settings settings;
   settings.setValue( "font_size",   qApp->font().pointSize() );
 }
 

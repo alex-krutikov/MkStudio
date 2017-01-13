@@ -366,7 +366,7 @@ MainWindow::MainWindow()
   setupUi( this );
   setWindowTitle( app_header );
 
-  QSettings settings( QSETTINGS_PARAM );
+  Settings settings;
   QPoint pos = settings.value("pos", QPoint(200, 200)).toPoint();
   QSize size = settings.value("size", QSize(600, 400)).toSize();
   restoreState( settings.value("mainwindow").toByteArray() );
@@ -444,7 +444,7 @@ void MainWindow::timerEvent( QTimerEvent* )
 //==============================================================================
 void MainWindow::settingsChanged()
 {
-  QSettings settings( QSETTINGS_PARAM );
+  Settings settings;
 
   QString portname = cb_portname->itemData( cb_portname->currentIndex() ).toString();
   int portspeed    = cb_portspeed->currentText().toInt();
@@ -502,7 +502,7 @@ void MainWindow::closeEvent ( QCloseEvent * event )
 {
   Q_UNUSED( event );
 
-  QSettings settings( QSETTINGS_PARAM );
+  Settings settings;
   settings.setValue("pos", pos());
   settings.setValue("size", size());
   settings.setValue("mainwindow", saveState() );

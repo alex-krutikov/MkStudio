@@ -5,14 +5,14 @@
 
 #include "mainwindow.h"
 
-#if defined( Q_OS_WIN32 )
-  #define QSETTINGS_PARAM (qApp->applicationDirPath()+"/baseedit.ini"),QSettings::IniFormat
-#elif defined( Q_OS_UNIX )
-  #define QSETTINGS_PARAM "baseedit"
-#else
-  #error Wrong OS
-#endif
-
+class Settings : public QSettings
+{
+public:
+    Settings()
+        : QSettings(QDir::homePath() + "/.baseedit_config", QSettings::IniFormat)
+    {
+    }
+};
 
 extern QApplication *appication;
 extern MainWindow   *mainwindow;
