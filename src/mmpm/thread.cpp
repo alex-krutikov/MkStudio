@@ -49,6 +49,17 @@ void Thread::setupMaxPacketSize( int max_packet_size )
 }
 
 //==============================================================================
+// Блокирующее исполнение функтора в главном потоке приложения
+//==============================================================================
+template <typename F>
+static void execInMainThread(F &&fun)
+{
+   QObject src;
+   QObject::connect(&src, &QObject::destroyed, qApp, std::forward<F>(fun),
+                    Qt::BlockingQueuedConnection);
+}
+
+//==============================================================================
 // Поток выполнения команд -- точка входа в нить
 //==============================================================================
 void Thread::run()
@@ -171,9 +182,15 @@ int Thread::file_save()
 
   memcpy(&temp_buff[0x20], &crc32, sizeof(crc32));
 
-  QString init_filename = QString::fromLatin1((char*)&info_buffer[0], 16 ).simplified();
+  if (QFileInfo(firmware_filename).isFile())
+      firmware_filename = QFileInfo(firmware_filename).absolutePath() + QDir::separator();
 
-  firmware_filename = init_filename;
+  if (firmware_filename.isEmpty())
+      firmware_filename += QDir().homePath() + QDir::separator();
+
+  QString init_filename = QString::fromLatin1((char*)&info_buffer[0], 16 ).split(QChar('\0')).value(0);
+  firmware_filename += init_filename;
+
   mainwindow->flag4=1; // синхронизация с GUI потоком (см. MainWindow::update() )
   while( mainwindow->flag4 == 1 ) msleep(100);
   QString filename = firmware_filename;
@@ -212,13 +229,17 @@ int Thread::file_load()
   memset( buffer, 0, sizeof( buffer ));
   memset( file_info_buffer, 0, sizeof( file_info_buffer ));
 
+  QString filename = firmware_filename;
   mainwindow->flag3=1; // синхронизация с GUI потоком (см. MainWindow::update() )
   while( mainwindow->flag3 == 1 ) msleep(100);
-  QString filename = firmware_filename;
 
-  if( filename.isEmpty() ) goto error;
+  if( firmware_filename.isEmpty() )
+  {
+      firmware_filename = filename;
+      goto error;
+  }
 
-  file.setFileName( filename );
+  file.setFileName( firmware_filename );
   if (!file.open(QIODevice::ReadOnly) )
   { Console::Print( Console::Error, tr("\n\n ОШИБКА! Не могу открыть файл!\n") );
     goto error;
@@ -246,7 +267,7 @@ int Thread::file_load()
   for(i=0; i<1024;       i++) crc32 = update_crc32( crc32, file_info_buffer[i] );
   for(i=0; i<buffer_len; i++) crc32 = update_crc32( crc32, buffer[i]    );
   if( crc32 !=  crc32_from_file )
-  { if( file_load_raw_bin( filename ) == 0 )
+  { if( file_load_raw_bin( firmware_filename ) == 0 )
     { goto error;
     }
   }

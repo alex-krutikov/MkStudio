@@ -30,9 +30,7 @@ MainWindow::MainWindow()
   Settings settings;
   const QPoint pos = settings.value("pos", this->pos()).toPoint();
   const QSize size = settings.value("size", this->size()).toSize();
-  firmware_filename = settings.value("firmware_filename", QDir::homePath()).toString();
-
-  if (firmware_filename.isEmpty()) firmware_filename = QDir::homePath();
+  firmware_filename = settings.value("firmware_filename").toString();
 
   move(pos);
   resize(size);
@@ -316,13 +314,14 @@ void MainWindow::update()
 
   if( flag3 == 1 )
   { timer->stop();
-    //static QString filename;
+    if (firmware_filename.isEmpty())
+        firmware_filename += QDir().homePath() + QDir::separator();
+
     firmware_filename = QFileDialog::getOpenFileName(
                     0,
                     "Загрузить файл", firmware_filename ,
                     "*.bin"  );
-    //if( !temp_str3.isEmpty() ) filename = temp_str3;
-  timer->start();
+    timer->start();
     flag3 = 0;
   }
 
