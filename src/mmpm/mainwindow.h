@@ -5,16 +5,20 @@
 #include "ui_initdialog.h"
 #include "ui_optdialog.h"
 #include "ui_helpdialog.h"
+#include "ui_selectsourcedialog.h"
+#include "ui_downloaddialog.h"
 
 #include <windows.h>
 
-#include<QMainWindow>
-#include<QThread>
-#include<QObject>
-#include<QMutex>
-#include<QByteArray>
+#include <QMainWindow>
+#include <QThread>
+#include <QObject>
+#include <QMutex>
+#include <QByteArray>
 
 class HelpDialog;
+
+void download_firmware_gui(const QString &module_name, QByteArray *out);
 
 //==============================================================================
 // Главное окно
@@ -94,5 +98,33 @@ class HelpDialog : public QDialog,
 public:
   HelpDialog( QWidget *parent=0);
 };
+
+//==============================================================================
+//
+//==============================================================================
+class SelectSourceDialog : public QDialog,
+                           public Ui::SelectSourceDialog
+{
+public:
+  enum Result {FromFile = Accepted + 1, FromInternet};
+
+  SelectSourceDialog( QWidget *parent=0);
+};
+
+//==============================================================================
+//
+//==============================================================================
+class FirmwareVersionsDialog : public QDialog,
+                       public Ui::DownloadDialog
+{
+public:
+  FirmwareVersionsDialog(const QStringList &versions, QString *out, QWidget *parent=0);
+  void accept();
+
+private:
+  QString *m_out;
+};
+
+
 
 #endif

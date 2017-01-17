@@ -15,6 +15,172 @@
 #include <QFileDialog>
 #include <QScrollBar>
 #include <QSettings>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QDomDocument>
+#include <QProgressDialog>
+
+bool get_firmwares_list(QWidget *parent, const QString &module_name, QStringList *out, QString *errorMessage)
+{
+    QDialog dialog(parent);
+    dialog.setWindowFlags(Qt::Tool);
+    QLabel *label = new QLabel(&dialog);
+    label->setText("Подключаюсь к серверу...");
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->addWidget(label);
+    dialog.setLayout(layout);
+
+    QString url = firmware_server_url + "/get?name=" + module_name;
+
+    QNetworkReply *reply = network_manager.get(QNetworkRequest(QUrl(url)));
+    QObject::connect(reply, SIGNAL(finished()), &dialog, SLOT(accept()));
+    QObject::connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
+            &dialog, SLOT(accept()));
+    QObject::connect(reply, SIGNAL(sslErrors(QList<QSslError>)),
+            &dialog, SLOT(accept()));
+
+    dialog.exec();
+
+    reply->deleteLater();
+
+    if (dialog.result() != QDialog::Accepted)
+        return false;
+
+    switch (reply->error())
+    {
+    case QNetworkReply::NoError:
+        break;
+    default:
+        *errorMessage = "Ошибка при подключении к серверу.";
+        return true;
+    }
+
+    if (!reply->isFinished())
+        return false;
+
+    QByteArray data = reply->readAll();
+
+    QDomDocument doc;
+    bool ok = doc.setContent(data);
+    if (!ok)
+    {
+        *errorMessage = "Ошибка. Сервер выдал некорректные данные.";
+        return true;
+    }
+    QDomElement docRootElement = doc.documentElement();
+
+    QStringList ret;
+
+    QDomNode node = docRootElement.firstChild();
+    if (docRootElement.tagName() == "versions")
+    {
+        while(!node.isNull())
+        {
+            QDomElement e = node.toElement();
+            if(!e.isNull()) {
+                if (e.tagName() == "item")
+                {
+                    ret << e.text();
+                }
+            }
+            node = node.nextSibling();
+        }
+    }
+
+    *out = ret;
+    return true;
+}
+
+//==============================================================================
+//
+//==============================================================================
+bool download_firmware(QWidget *parent, const QString &module_name, const QString &firmware_name, QByteArray *out, QString *error)
+{
+    QString url = firmware_server_url + "/" + module_name + "/" + firmware_name + ".bin";
+
+    QProgressDialog progressDialog(parent);
+    progressDialog.setWindowFlags(Qt::Tool);
+    progressDialog.setWindowModality(Qt::WindowModal);
+    progressDialog.setWindowTitle("MMpM");
+    progressDialog.setLabelText("Загрузка прошивки");
+
+    QNetworkReply *reply = network_manager.get(QNetworkRequest(QUrl(url)));
+    QObject::connect(reply, SIGNAL(finished()), &progressDialog, SLOT(accept()));
+    QObject::connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
+            &progressDialog, SLOT(accept()));
+    QObject::connect(reply, SIGNAL(sslErrors(QList<QSslError>)),
+            &progressDialog, SLOT(accept()));
+    QObject::connect(reply, &QNetworkReply::downloadProgress, &progressDialog,
+                     [&progressDialog](qint64 a, qint64 b) {
+                          progressDialog.setMaximum(b);
+                          progressDialog.setValue(a);
+                     });
+
+    progressDialog.exec();
+
+    reply->deleteLater();
+
+    if (reply->isRunning())
+        return false;
+
+    if (reply->error() != QNetworkReply::NoError)
+    {
+        *error = "Ошибка при загрузке прошивки";
+        return true;
+    }
+
+    *out = reply->readAll();
+    return true;
+}
+
+//==============================================================================
+//
+//==============================================================================
+void download_firmware_gui(const QString &module_name, QByteArray *out)
+{
+    QStringList versions;
+    QString errorMessage;
+    QString firmware_name;
+    QByteArray ba;
+
+    bool ok = get_firmwares_list(mainwindow, module_name, &versions, &errorMessage);
+
+    if (!errorMessage.isEmpty())
+    {
+        QMessageBox::information(mainwindow, "MMpM", errorMessage);
+        return;
+    }
+
+    if (!ok)
+        return;
+
+    if (versions.isEmpty())
+    {
+        QMessageBox::information(mainwindow, "MMpM",
+                QString("Микропограмма для модуля \"%1\" не найдена на сервере.")
+                        .arg(module_name));
+        return;
+    }
+
+    FirmwareVersionsDialog dialog(versions, &firmware_name, mainwindow);
+    dialog.exec();
+
+    if (dialog.result() != QDialog::Accepted)
+        return;
+
+    ok = download_firmware(mainwindow, module_name, firmware_name, &ba, &errorMessage);
+
+    if (!errorMessage.isEmpty())
+    {
+        QMessageBox::information(mainwindow, "MMpM", errorMessage);
+        return;
+    }
+
+    if (!ok)
+        return;
+
+    *out = ba;
+}
 
 //==============================================================================
 // Главное окно
@@ -31,6 +197,7 @@ MainWindow::MainWindow()
   const QPoint pos = settings.value("pos", this->pos()).toPoint();
   const QSize size = settings.value("size", this->size()).toSize();
   firmware_filename = settings.value("firmware_filename").toString();
+  firmware_server_url = settings.value("firmware_server_url", DEFAULT_SERVER_URL).toString();
 
   move(pos);
   resize(size);
@@ -103,7 +270,21 @@ void MainWindow::on_pb2_clicked()
   if( thread1->isRunning() ) return;
   thread1->mode=2;
   set_node();
-  thread1->start();
+
+  SelectSourceDialog selectSourcedialog(this);
+  int res = selectSourcedialog.exec();
+  if (res == SelectSourceDialog::FromFile)
+  {
+      thread1->start();
+      return;
+  } else if (res == SelectSourceDialog::FromInternet)
+  {
+      thread1->mode=8;
+      thread1->start();
+      return;
+  }
+
+  thread1->mode=0;
 }
 
 //==============================================================================
@@ -471,6 +652,8 @@ OptDialog::OptDialog( QWidget *parent )
 
   setWindowTitle( tr("Опции"));
 
+  le_server_url->setText(firmware_server_url);
+
   cb_modbus_packets->setChecked( Console::messageTypes() & Console::ModbusPacket );
 
   sb_delay->setValue( thread1->erase_delay );
@@ -490,12 +673,18 @@ void OptDialog::accept()
 {
   Console::setMessageTypes( Console::ModbusPacket, cb_modbus_packets->isChecked() );
 
+  firmware_server_url = le_server_url->text();
+
   thread1->erase_delay = sb_delay->value();
 
   if( cb1->isChecked() && secret_mode2 ) { mainwindow->pb8->show(); }
   else                                   { mainwindow->pb8->hide(); }
   if( cb2->isChecked() && secret_mode2 ) { mainwindow->pb11->show(); }
   else                                   { mainwindow->pb11->hide(); }
+
+  Settings settings;
+  settings.setValue("firmware_server_url", firmware_server_url);
+
   done(1);
 }
 
@@ -512,5 +701,43 @@ HelpDialog::HelpDialog(QWidget*)
   f.setPointSize( 9 );
   textBrowser->setFont( f );
   textBrowser->setSource( QUrl::fromLocalFile(":/html/help/help.html" ) );
+}
+
+//==============================================================================
+//
+//==============================================================================
+SelectSourceDialog::SelectSourceDialog(QWidget* parent)
+    : QDialog(parent)
+{
+  setupUi(this);
+
+  connect(pb_from_file, &QPushButton::clicked, this, [this]{done(FromFile);});
+  connect(pb_from_internet, &QPushButton::clicked, this, [this]{done(FromInternet);});
+}
+
+//==============================================================================
+//
+//==============================================================================
+FirmwareVersionsDialog::FirmwareVersionsDialog(const QStringList &versions, QString *out, QWidget* parent)
+    : QDialog(parent)
+    , m_out(out)
+{
+  setupUi(this);
+
+  lw->addItems(versions);
+  lw->selectionModel()->select(lw->model()->index(0, 0), QItemSelectionModel::Select);
+
+  connect(buttonBox, &QDialogButtonBox::accepted, this, &FirmwareVersionsDialog::accept);
+  connect(buttonBox, &QDialogButtonBox::rejected, this, &FirmwareVersionsDialog::reject);
+  connect(lw, &QListWidget::doubleClicked, this, &FirmwareVersionsDialog::accept);
+}
+
+//==============================================================================
+//
+//==============================================================================
+void FirmwareVersionsDialog::accept()
+{
+    *m_out = lw->selectedItems().value(0)->text();
+    QDialog::accept();
 }
 

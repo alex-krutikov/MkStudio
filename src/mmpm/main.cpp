@@ -16,6 +16,9 @@ HelpDialog   *helpdialog;
 QString temp_str;
 QString temp_str2;
 QString firmware_filename;
+QString firmware_server_url;
+
+QNetworkAccessManager network_manager;
 
 volatile BYTE secret_mode;
 volatile BYTE secret_mode2;

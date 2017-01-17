@@ -31,6 +31,7 @@ private:
   int mb_load_module_type();
   int mb_check_module_type();
   int mb_loader_change();
+  int mb_download_firmware();
 
   int  loader_bin_length;
   BYTE buffer[1024*1024];

@@ -7,6 +7,11 @@
 
 #include <QDir>
 #include <QSettings>
+#include <QNetworkAccessManager>
+
+#ifndef DEFAULT_SERVER_URL
+#define DEFAULT_SERVER_URL "http://37.139.19.214/mmpm"
+#endif
 
 extern MainWindow   *mainwindow;
 extern ModbusMaster *modbus;
@@ -16,6 +21,9 @@ extern HelpDialog   *helpdialog;
 extern QString temp_str;
 extern QString temp_str2;
 extern QString firmware_filename;
+extern QString firmware_server_url;
+
+extern QNetworkAccessManager network_manager;
 
 extern volatile BYTE secret_mode;
 extern volatile BYTE secret_mode2;

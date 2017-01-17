@@ -19,6 +19,17 @@ QString toHex( DWORD i )
   return str;
 }
 
+//==============================================================================
+// Блокирующее исполнение функтора в главном потоке приложения
+//==============================================================================
+template <typename F>
+static void execInMainThread(F &&fun)
+{
+   QObject src;
+   QObject::connect(&src, &QObject::destroyed, qApp, std::forward<F>(fun),
+                    Qt::BlockingQueuedConnection);
+}
+
 } // namespace
 
 //==============================================================================
@@ -46,17 +57,6 @@ void Thread::setupMaxPacketSize( int max_packet_size )
   if( max_packet_size > 255 ) max_packet_size=255;
 
   this->max_packet_size = max_packet_size;
-}
-
-//==============================================================================
-// Блокирующее исполнение функтора в главном потоке приложения
-//==============================================================================
-template <typename F>
-static void execInMainThread(F &&fun)
-{
-   QObject src;
-   QObject::connect(&src, &QObject::destroyed, qApp, std::forward<F>(fun),
-                    Qt::BlockingQueuedConnection);
 }
 
 //==============================================================================
@@ -125,6 +125,19 @@ void Thread::run()
       if( !mb_loader_change()     ) break;
       Console::Print( Console::Information, "\n\nЗапись загрузчика прошла успешно.\n");
       Console::Print( Console::Information, "Для работы модуля необходимо записать в него микропрограмму.\n");
+      break;
+    case(8): // прошиваем модуль прошивкой из интернета
+      if( !mb_reset()             ) break;
+      if( !mb_load_module_type()  ) break;
+      if( !mb_download_firmware() ) break;
+      if( !mb_reset()        ) break;
+      if( !mb_load_module_type()  ) break;
+      if( !mb_check_module_type() ) break;
+      if( !mb_passwd()       ) break;
+      if( !mb_write_flash()  ) break;
+      if( !mb_verify_flash() ) break;
+      if( !mb_reset()        ) break;
+      Console::Print(Console::Information, "\nЗапись микропрограммы завершилась успешно.\n");
       break;
   }
   Console::Print( Console::Information, tr("\n\n") );
@@ -725,4 +738,60 @@ int Thread::mb_loader_change()
     return 0;
   }
   return 1;
+}
+
+//==============================================================================
+//
+//==============================================================================
+int Thread::mb_download_firmware()
+{
+    const QString module_name = QString::fromLatin1((const char *)&info_buffer[0], 15)
+                                   .split(QChar('\0')).value(0);
+
+    QByteArray ba;
+
+    execInMainThread(
+                [module_name, &ba] {
+                download_firmware_gui(module_name, &ba);
+    } );
+
+    if (ba.isEmpty())
+        return 0;
+
+    memset(buffer, 0, sizeof(buffer));
+    memset(file_info_buffer, 0, sizeof(file_info_buffer));
+
+    quint32 size=ba.size();
+    if( size <= 1024 )
+    { Console::Print( Console::Error, tr("\n\n ОШИБКА! Размер файла меньше 1K!\n") );
+      return 0;
+    }
+    else if( size >= (1024*1024) )
+    { Console::Print( Console::Error, tr("\n\n ОШИБКА! Размер файла больше 1000K!\n") );
+      return 0;
+    }
+    buffer_len = size-1024;
+
+    QBuffer ba_buffer(&ba);
+    ba_buffer.open(QIODevice::ReadOnly);
+    ba_buffer.read( (char*)file_info_buffer, 1024 );
+    ba_buffer.read( (char*)buffer, buffer_len );
+
+    quint32 crc32_from_file;
+    quint32 crc32 = 0xFFFFFFFF;
+    memcpy(&crc32_from_file, &file_info_buffer[0x20], sizeof(crc32_from_file));
+    memset(&file_info_buffer[0x20], 0, sizeof(DWORD));
+    for(unsigned int i=0; i<1024;       i++) crc32 = update_crc32( crc32, file_info_buffer[i] );
+    for(unsigned int i=0; i<buffer_len; i++) crc32 = update_crc32( crc32, buffer[i]    );
+    if( crc32 !=  crc32_from_file )
+    {
+        memset( buffer, 0, sizeof( buffer ));
+        memset( file_info_buffer, 0, sizeof( file_info_buffer ));
+        Console::Print( Console::Error, tr("\n\n ОШИБКА! Поврежден файл микопрограммы (CRC error)\n") );
+        return 0;
+    }
+
+    Console::Print(Console::Error, tr("Микропрограмма получена из интернета.\n") );
+
+    return 1;
 }

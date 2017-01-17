@@ -6,6 +6,7 @@ Product {
     Depends { name: "cpp" }
     Depends { name: "Qt.widgets" }
     Depends { name: "Qt.network" }
+    Depends { name: "Qt.xml" }
     Depends { name: "modbuslib" }
 
     cpp.cxxFlags: [
