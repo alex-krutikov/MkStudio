@@ -194,13 +194,29 @@ MainWindow::MainWindow()
   pb11->hide();
 
   Settings settings;
-  const QPoint pos = settings.value("pos", this->pos()).toPoint();
-  const QSize size = settings.value("size", this->size()).toSize();
+  if (settings.contains("pos") && settings.contains("size"))
+  {
+      const QPoint pos = settings.value("pos").toPoint();
+      const QSize size = settings.value("size").toSize();
+      move(pos);
+      resize(size);
+  } else
+  {
+      QRect rs = QApplication::desktop()->availableGeometry();
+      QRect rw;
+      rw.setSize(QSize(800, 500));
+      if (rw.height() > (rs.height() - 70 ))
+      { rw.setHeight(rs.height() - 50);
+      }
+      if (rw.width() > (rs.width() - 50 ))
+      { rw.setWidth(rs.width() - 70);
+      }
+      rw.moveCenter(rs.center());
+      setGeometry(rw);
+  }
+
   firmware_filename = settings.value("firmware_filename").toString();
   firmware_server_url = settings.value("firmware_server_url", DEFAULT_SERVER_URL).toString();
-
-  move(pos);
-  resize(size);
 
   Console::setMessageTypes(   Console::Error
                             | Console::Warning
@@ -232,7 +248,7 @@ MainWindow::MainWindow()
 //==============================================================================
 // Главное окно -- установка адреса модуля
 //==============================================================================
-void MainWindow::set_node()
+bool MainWindow::set_node()
 {
   bool ok;
   BYTE ret;
@@ -242,13 +258,14 @@ void MainWindow::set_node()
                  tr("Адрес модуля:"), thread1->node, 1, 127, 1,&ok);
     if( !ok )
     { thread1->mode=0;
-      return;
+      return false;
     }
     thread1->node = ret;
     Console::Print( Console::Information, tr("Адрес модуля: %1\n").arg(thread1->node));
   } else
   { thread1->node = 127;
   }
+  return true;
 }
 
 //==============================================================================
@@ -257,8 +274,9 @@ void MainWindow::set_node()
 void MainWindow::on_pb1_clicked()
 {
   if( thread1->isRunning() ) return;
+  if (!set_node())
+      return;
   thread1->mode=1;
-  set_node();
   thread1->start();
 }
 
@@ -268,13 +286,13 @@ void MainWindow::on_pb1_clicked()
 void MainWindow::on_pb2_clicked()
 {
   if( thread1->isRunning() ) return;
-  thread1->mode=2;
-  set_node();
-
+  if (!set_node())
+      return;
   SelectSourceDialog selectSourcedialog(this);
   int res = selectSourcedialog.exec();
   if (res == SelectSourceDialog::FromFile)
   {
+      thread1->mode=2;
       thread1->start();
       return;
   } else if (res == SelectSourceDialog::FromInternet)
@@ -302,8 +320,9 @@ void MainWindow::on_pb3_clicked()
 void MainWindow::on_pb4_clicked()
 {
   if( thread1->isRunning() ) return;
+  if (!set_node())
+      return;
   thread1->mode=3;
-  set_node();
   thread1->start();
 }
 
@@ -313,8 +332,9 @@ void MainWindow::on_pb4_clicked()
 void MainWindow::on_pb5_clicked()
 {
   if( thread1->isRunning() ) return;
+  if (!set_node())
+      return;
   thread1->mode=4;
-  set_node();
   thread1->start();
 }
 
@@ -324,8 +344,9 @@ void MainWindow::on_pb5_clicked()
 void MainWindow::on_pb6_clicked()
 {
   if( thread1->isRunning() ) return;
+  if (!set_node())
+      return;
   thread1->mode=5;
-  set_node();
   thread1->start();
 }
 
@@ -346,8 +367,9 @@ void MainWindow::on_pb7_clicked()
 void MainWindow::on_pb8_clicked()
 {
   if( thread1->isRunning() ) return;
+  if (!set_node())
+      return;
   thread1->mode=6;
-  set_node();
   thread1->start();
 }
 
@@ -375,8 +397,9 @@ void MainWindow::on_pb11_clicked()
       != QMessageBox::Yes ) return;
 
   if( thread1->isRunning() ) return;
+  if (!set_node())
+      return;
   thread1->mode=7;
-  set_node();
   thread1->start();
 
 }

@@ -36,7 +36,7 @@ public:
   volatile BYTE flag3; // флаг для синхронизации GUI
   volatile BYTE flag4; // флаг для синхронизации GUI
 private:
-  void set_node();
+  bool set_node();
   QTimer *timer;
   QStatusBar *statusbar;
   QLabel *status_requests;

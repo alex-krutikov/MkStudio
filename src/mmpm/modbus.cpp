@@ -90,13 +90,16 @@ int ModbusMaster::go()
   QByteArray ba_ans;
   ba_ans.resize( ans_expect_len );
 
-  while( attempts++ < 120 )
+  while( attempts++ < 50 )
   {
     req_counter++;
     memset(ans,0,sizeof( ans ));
     ba_ans.fill(0);
     ans_len = serialport->query( ba_req, ba_ans );
     memcpy( ans, ba_ans.constData(), qMin( (unsigned int)ans_len, sizeof( ans ) ) );
+
+    if (ans_len)
+        ++ans_counter;
 
     //-------------------------
     if( ans_len

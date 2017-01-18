@@ -10,6 +10,14 @@
 namespace {
 
 //==============================================================================
+// С string -> QString
+//==============================================================================
+QString qstring_from_c_str(const void *p, int len)
+{
+    return QString::fromLatin1((const char *)p, len).split(QChar('\0')).value(0);
+}
+
+//==============================================================================
 // format int ==> 0x00000000
 //==============================================================================
 QString toHex( DWORD i )
@@ -622,23 +630,32 @@ int Thread::mb_read_information()
   { Console::Print( Console::Error, tr("Ошибка связи!\n") );
       return 0;
   }
-  Console::Print( Console::Information, tr("OK.\n") );
-  Console::Print( Console::Information, (tr("  ID           : 0x%1\n")
-        .arg( info.ID,1,16 )) );
-  Console::Print( Console::Information, tr("  Версия       : %1.%2\n")
-        .arg( info.MajorVersion ).arg( info.MinorVersion ) );
-  Console::Print( Console::Information, tr("  Дата выпуска : %1\n")
-        .arg( QString::fromLatin1( (const char *)&info.ReleaseDate,8 ) ) );
-  Console::Print( Console::Information, tr("  Автор        : %1\n")
-        .arg( QString::fromLatin1( (const char *)&info.ReleaseMadeBy,3 ) ) );
-  Console::Print( Console::Information, tr("  Наименование : %1\n")
-        .arg( QString::fromLatin1( (const char *)&info.ProductName,40 ) ) );
-  Console::Print( Console::Information, tr("  Описание     : %1\n")
-        .arg( QString::fromLatin1( (const char *)&info.ProductDescription,40 ) ) );
-  Console::Print( Console::Information, tr("  Производитель: %1\n")
-        .arg( QString::fromLatin1( (const char *)&info.CompanyName,16 ) ) );
-  Console::Print( Console::Information, tr("  Права        : %1\n")
-        .arg( QString::fromLatin1( (const char *)&info.LegalCopyright,16 ) ) );
+  Console::Print(Console::Information, tr("OK.\n") );
+
+  Console::Print(Console::Information, (tr("  ID           : 0x%1\n")
+        .arg(info.ID, 1, 16)));
+
+  Console::Print(Console::Information, tr("  Версия       : %1.%2\n")
+        .arg(info.MajorVersion ).arg( info.MinorVersion ) );
+
+  Console::Print(Console::Information, tr("  Дата выпуска : %1\n")
+        .arg(qstring_from_c_str(&info.ReleaseDate, 8)));
+
+  Console::Print(Console::Information, tr("  Автор        : %1\n")
+        .arg(qstring_from_c_str(&info.ReleaseMadeBy, 3)));
+
+  Console::Print(Console::Information, tr("  Наименование : %1\n")
+        .arg(qstring_from_c_str(&info.ProductName, 40)));
+
+  Console::Print(Console::Information, tr("  Описание     : %1\n")
+        .arg(qstring_from_c_str(&info.ProductDescription, 40)));
+
+  Console::Print(Console::Information, tr("  Производитель: %1\n")
+        .arg(qstring_from_c_str(&info.CompanyName, 16)));
+
+  Console::Print(Console::Information, tr("  Права        : %1\n")
+        .arg(qstring_from_c_str(&info.LegalCopyright, 16)));
+
   return 1;
 }
 
