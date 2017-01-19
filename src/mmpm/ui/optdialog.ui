@@ -69,7 +69,7 @@
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>Адрес сервера с прошивками:</string>
+         <string>Адрес сервера для получения микропрограмм из интернета:</string>
         </property>
        </widget>
       </item>
@@ -157,9 +157,6 @@
     </layout>
    </item>
   </layout>
-  <zorder>groupBox</zorder>
-  <zorder>groupBox_2</zorder>
-  <zorder>okButton</zorder>
  </widget>
  <tabstops>
   <tabstop>cb_modbus_packets</tabstop>

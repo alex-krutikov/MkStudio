@@ -17,7 +17,7 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Взять прошивку:</string>
+      <string>Взять микропрограмму:</string>
      </property>
     </widget>
    </item>

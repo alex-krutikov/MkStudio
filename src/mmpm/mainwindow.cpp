@@ -103,27 +103,32 @@ bool download_firmware(QWidget *parent, const QString &module_name, const QStrin
     progressDialog.setWindowModality(Qt::WindowModal);
     progressDialog.setWindowTitle("MMpM");
     progressDialog.setLabelText("Загрузка прошивки");
+    progressDialog.setMinimumDuration(500);
+
+    QEventLoop loop;
 
     QNetworkReply *reply = network_manager.get(QNetworkRequest(QUrl(url)));
-    QObject::connect(reply, SIGNAL(finished()), &progressDialog, SLOT(accept()));
-    QObject::connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
-            &progressDialog, SLOT(accept()));
-    QObject::connect(reply, SIGNAL(sslErrors(QList<QSslError>)),
-            &progressDialog, SLOT(accept()));
+
+    QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    QObject::connect(reply, static_cast<void (QNetworkReply::*)(QNetworkReply::NetworkError)>(&QNetworkReply::error), &loop, &QEventLoop::quit);
+    QObject::connect(reply,&QNetworkReply::sslErrors, &loop, &QEventLoop::quit);
+
+    QObject::connect(&progressDialog, &QProgressDialog::canceled, &loop, &QEventLoop::quit);
+
     QObject::connect(reply, &QNetworkReply::downloadProgress, &progressDialog,
                      [&progressDialog](qint64 a, qint64 b) {
                           progressDialog.setMaximum(b);
                           progressDialog.setValue(a);
                      });
 
-    progressDialog.exec();
+    loop.exec();
 
     reply->deleteLater();
 
-    if (reply->isRunning())
+    if (progressDialog.wasCanceled())
         return false;
 
-    if (reply->error() != QNetworkReply::NoError)
+    if (reply->isRunning() || (reply->error() != QNetworkReply::NoError))
     {
         *error = "Ошибка при загрузке прошивки";
         return true;
