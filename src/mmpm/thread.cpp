@@ -38,6 +38,19 @@ static void execInMainThread(F &&fun)
                     Qt::BlockingQueuedConnection);
 }
 
+//==============================================================================
+//
+//==============================================================================
+bool is_memory_filled_with_ff(void *p, size_t len)
+{
+    unsigned char *cp = (unsigned char *)p;
+    while (--len)
+        if (*cp++ != 0xFF)
+            return false;
+
+    return true;
+}
+
 } // namespace
 
 //==============================================================================
@@ -578,6 +591,12 @@ int Thread::mb_write_flash()
   {
     if(( addr & (flash_sector_size-1) ) == 0 )
     {  Console::Print( Console::Information, tr("  сектор %1... ").arg(((addr-flash_begin_ptr)/flash_sector_size) ));
+        if (is_memory_filled_with_ff(&buffer[addr-flash_begin_ptr], flash_sector_size))
+        {
+            Console::Print( Console::Information, tr(" (пустой сектор) OK.\n"));
+            addr += flash_sector_size;
+            continue;
+        }
     }
 
     data_size = qMin( flash_buff_limit, max_packet_size-8 );
