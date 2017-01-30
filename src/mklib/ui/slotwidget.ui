@@ -56,6 +56,28 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="page_4">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QPlainTextEdit" name="text"/>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
     <item>
@@ -381,6 +403,7 @@
     <addaction name="action_view_table"/>
     <addaction name="action_view_plot1"/>
     <addaction name="action_view_plot2"/>
+    <addaction name="action_view_text"/>
     <addaction name="separator"/>
     <addaction name="action_stat_show"/>
    </widget>
@@ -465,6 +488,11 @@
    </property>
    <property name="toolTip">
     <string>Показывать статистику</string>
+   </property>
+  </action>
+  <action name="action_view_text">
+   <property name="text">
+    <string>Текст</string>
    </property>
   </action>
  </widget>

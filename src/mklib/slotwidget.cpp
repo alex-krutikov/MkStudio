@@ -95,6 +95,7 @@ SlotWidget::SlotWidget( QWidget *parent, MBMasterXMLPtr mm, int module, int slot
   connect( ui->action_view_table, SIGNAL( triggered() ), this, SLOT( view_changed() ) );
   connect( ui->action_view_plot1, SIGNAL( triggered() ), this, SLOT( view_changed() ) );
   connect( ui->action_view_plot2, SIGNAL( triggered() ), this, SLOT( view_changed() ) );
+  connect( ui->action_view_text,  SIGNAL( triggered() ), this, SLOT( view_changed() ) );
 
   connect(ui->action_stat_show,    SIGNAL( toggled(bool) ), this, SLOT( slot_statistic_show(bool) ) );
   connect( ui->chb_line_trans_use, SIGNAL( toggled(bool) ), this, SLOT( slot_line_trans_used(bool)) );
@@ -201,6 +202,7 @@ SlotWidget::SlotWidget( QWidget *parent, MBMasterXMLPtr mm, int module, int slot
    || str.isEmpty()        ) ui->action_view_table->activate(QAction::Trigger);
   if( str == "plot"        ) ui->action_view_plot1->activate(QAction::Trigger);
   if( str == "scaled_plot" ) ui->action_view_plot2->activate(QAction::Trigger);
+  if( str == "text" )        ui->action_view_text->activate(QAction::Trigger);
   str = settings2["format"];
   if( str == "dec"       ) ui->action_format_dec      -> activate(QAction::Trigger);
   if( str == "bin"       ) ui->action_format_bin      -> activate(QAction::Trigger);
@@ -219,6 +221,9 @@ SlotWidget::SlotWidget( QWidget *parent, MBMasterXMLPtr mm, int module, int slot
        //slot_statistic_show( false );
     }
   }
+
+  ui->text->setReadOnly(true);
+
   // таймер перерисовки графиков
   startTimer( 1000 );
 }
@@ -240,6 +245,7 @@ void SlotWidget::view_changed()
   ui->action_view_table->setChecked( act == ui->action_view_table );
   ui->action_view_plot1->setChecked( act == ui->action_view_plot1 );
   ui->action_view_plot2->setChecked( act == ui->action_view_plot2 );
+  ui->action_view_text->setChecked( act == ui->action_view_text );
 
   if(        act == ui->action_view_table )
   { ui->stackedWidget->setCurrentIndex(0);
@@ -257,6 +263,10 @@ void SlotWidget::view_changed()
     ui->statGroupBox->setVisible(ui->action_stat_show->isChecked());
     toolWidget->setParent( ui->plot2->canvas() );
     toolWidget->show();
+  } else if( act == ui->action_view_text )
+  { ui->stackedWidget->setCurrentIndex(3);
+    ui->action_stat_show->setEnabled(false);
+    ui->statGroupBox->setVisible(false);
   }
   save_settings();
 }
@@ -364,6 +374,7 @@ void SlotWidget::save_settings()
   { case(0): settings["view"] = "table";         break;
     case(1): settings["view"] = "plot";          break;
     case(2): settings["view"] = "scaled_plot";   break;
+    case(3): settings["view"] = "text";          break;
 
   }
 
@@ -720,6 +731,16 @@ void SlotWidget::timerEvent( QTimerEvent *event)
   plot2_curve->setData( plot_data_x.constData(), plot_data_y.constData(),n );
   ui->plot2->replot();
   if( ui->action_view_plot2->isChecked() && ui->action_stat_show->isChecked()) calc_statistic();
+
+  if (ui->text->isVisible())
+  {
+      QString str;
+      for (int i = 0; i < ss.data.size(); ++i)
+      {
+          str += QChar(ss.data[i].toInt());
+      }
+      ui->text->setPlainText(str);
+  }
 }
 //==============================================================================
 // Расчет статистики
