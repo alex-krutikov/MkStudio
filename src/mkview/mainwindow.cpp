@@ -1,9 +1,3 @@
-#include <QtGui>
-#include <QtXml>
-
-#include <QDesktopWidget>
-#include <QMessageBox>
-
 #include "mainwindow.h"
 #include "main.h"
 #include "interface.h"
@@ -13,6 +7,10 @@
 #include "serialport.h"
 #include "mktable.h"
 #include "crc.h"
+
+#include <QDesktopWidget>
+#include <QMessageBox>
+#include <QPluginLoader>
 
 #ifdef Q_OS_WIN32
   #define PLUGIN_FILE_MASK1 "mkview_*.dll"

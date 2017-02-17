@@ -1,14 +1,14 @@
 #ifndef __mainwindow__h__
 #define __mainwindow__h__
 
+#include "mmpm_types.h"
+
 #include "ui_mainwindow.h"
 #include "ui_initdialog.h"
 #include "ui_optdialog.h"
 #include "ui_helpdialog.h"
 #include "ui_selectsourcedialog.h"
 #include "ui_downloaddialog.h"
-
-#include <windows.h>
 
 #include <QMainWindow>
 #include <QThread>

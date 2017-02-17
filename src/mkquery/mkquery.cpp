@@ -1,11 +1,12 @@
-#include <QtCore>
-
 #include "serialport.h"
 #include "mbtcp.h"
 
 #include "mbcommon.h"
 #include "crc.h"
 
+#include <QCoreApplication>
+#include <QTextCodec>
+#include <QTextStream>
 
 QTextStream cout( stdout );
 QTextStream cerr( stderr );

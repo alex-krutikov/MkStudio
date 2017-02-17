@@ -1,12 +1,15 @@
-#include <QFileDialog>
-#include <QMessageBox>
-
-#include <QtXml>
-
+#include "info.h"
 #include "main.h"
 #include "mainwindow.h"
 #include "model.h"
-#include "info.h"
+
+#include <QClipboard>
+#include <QDomDocument>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QMimeData>
+#include <QTextCodec>
+#include <QTextStream>
 
 //#######################################################################################
 // главное окно

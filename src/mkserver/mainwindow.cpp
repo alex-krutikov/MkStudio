@@ -1,6 +1,3 @@
-#include <QtGui>
-#include <QtNetwork>
-
 #include <QScrollBar>
 
 #include "mainwindow.h"
@@ -478,7 +475,7 @@ void MainWindow::settingsChanged()
   Console::setMessageTypes( Console::ModbusPacket, show_mb_packets );
 
   if( !tcpserver.get() || sender() == le_tcp_port )
-  { 
+  {
     tcpserver.reset(new ModbusTcpServer( this, serialport.get(), tcpport ));
   }
 }

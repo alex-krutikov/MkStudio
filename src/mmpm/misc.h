@@ -1,7 +1,7 @@
 #ifndef __misk__h_
 #define __misk__h_
 
-#include<windows.h>
+#include "mmpm_types.h"
 
 WORD get_crc16 (BYTE *ptr, DWORD  DataLen );
 

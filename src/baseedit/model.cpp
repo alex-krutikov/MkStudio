@@ -1,10 +1,11 @@
+#include "model.h"
+
+#include "mainwindow.h"
+
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QLineEdit>
 #include <QHeaderView>
-
-#include "model.h"
-#include "mainwindow.h"
 
 Items items;
 

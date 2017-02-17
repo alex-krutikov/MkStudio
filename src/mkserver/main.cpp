@@ -1,8 +1,8 @@
-#include <QtGui>
-
 #include "main.h"
 #include "mainwindow.h"
 #include "console.h"
+
+#include <QTranslator>
 
 //=======================================================================================
 // глобальные переменные

@@ -1,9 +1,14 @@
-#include <QtCore>
-#include <QtXml>
-
 #include "serialport.h"
 #include "mbtcp.h"
 #include "xfiles.h"
+
+#include <QCoreApplication>
+#include <QDir>
+#include <QDomDocument>
+#include <QFile>
+#include <QSharedMemory>
+#include <QTextCodec>
+#include <QTextStream>
 
 QTextStream cout( stdout );
 //QTextStream cerr( stderr );

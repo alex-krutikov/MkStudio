@@ -1,11 +1,11 @@
-#include <QtGui>
-
 #include "main.h"
 #include "mainwindow.h"
 #include "thread.h"
 #include "misc.h"
 
 #include "console.h"
+
+#include <QBuffer>
 
 namespace {
 

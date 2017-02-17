@@ -3,6 +3,9 @@
 
 #include "mainwindow.h"
 
+#include <QDir>
+#include <QSettings>
+
 class MBMasterXML;
 class QString;
 

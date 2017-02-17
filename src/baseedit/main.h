@@ -1,9 +1,10 @@
 #ifndef __main_h__
 #define __main_h__
 
-#include <QtGui>
-
 #include "mainwindow.h"
+
+#include <QDir>
+#include <QSettings>
 
 class Settings : public QSettings
 {

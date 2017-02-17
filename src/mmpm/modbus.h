@@ -1,9 +1,9 @@
 #ifndef __modbus_h__
 #define __modbus_h__
 
-#include<QObject>
+#include "mmpm_types.h"
 
-#include <minwindef.h>
+#include<QObject>
 
 class AbstractSerialPort;
 class QString;

@@ -7,8 +7,8 @@
 class Model;
 class QAction;
 class QActionGroup;
-class QString;
 class QCloseEvent;
+class QString;
 
 #include "model.h"
 
@@ -45,7 +45,7 @@ private slots:
 
   void on_action_show_modbus_toggled();
   void check_tw_activation(const QModelIndex&);
-private:  
+private:
 
   void file_save();
   void file_load();

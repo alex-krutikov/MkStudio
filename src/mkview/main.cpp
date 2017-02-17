@@ -1,11 +1,11 @@
-#include <QtGui>
-
-#include <QMessageBox>
-
 #include "mainwindow.h"
 #include "consolewidget.h"
 #include "main.h"
 #include "interface.h"
+
+#include <QTranslator>
+#include <QMessageBox>
+#include <QPluginLoader>
 
 QString       app_header;
 
