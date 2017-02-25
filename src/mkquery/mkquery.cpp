@@ -437,7 +437,7 @@ static bool write_data()
 
   QByteArray req,ans;
 
-  int len=0,tr=0,i,j,rplen,dataoff;
+  int len=0,tr=0,i,j,rplen=0,dataoff=0;
   bool ok;
 
   switch( data_type )

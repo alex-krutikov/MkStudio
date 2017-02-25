@@ -86,7 +86,7 @@ int ModbusMaster::go()
   { attempts = 100;
   }
 
-  QByteArray ba_req = QByteArray( (char*)req, qMin( (unsigned int)req_len, sizeof( req ) ) );
+  QByteArray ba_req = QByteArray( (char*)req, qMin( (size_t)req_len, sizeof( req ) ) );
   QByteArray ba_ans;
   ba_ans.resize( ans_expect_len );
 
@@ -96,7 +96,7 @@ int ModbusMaster::go()
     memset(ans,0,sizeof( ans ));
     ba_ans.fill(0);
     ans_len = serialport->query( ba_req, ba_ans );
-    memcpy( ans, ba_ans.constData(), qMin( (unsigned int)ans_len, sizeof( ans ) ) );
+    memcpy( ans, ba_ans.constData(), qMin( (size_t)ans_len, sizeof( ans ) ) );
 
     if (ans_len)
         ++ans_counter;

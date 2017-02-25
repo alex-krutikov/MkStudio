@@ -337,7 +337,7 @@ int Thread::file_load_raw_bin( const QString &filename )
   { Console::Print( Console::Error, tr("\n\n ОШИБКА! Не могу открыть файл!\n") );
     return 0;
   }
-  if( file.size() > sizeof( buffer ) )
+  if( file.size() > (qint64)sizeof( buffer ) )
   { Console::Print( Console::Error, tr("\n\n ОШИБКА! Файл слишком большой!\n") );
     return 0;
   }
@@ -393,7 +393,7 @@ int Thread::file_load_loader_bin()
     return 0;
   }
   loader_bin_length = file.size();
-  if( file.size() > sizeof( buffer ) )
+  if( file.size() > (qint64)sizeof( buffer ) )
   { Console::Print( Console::Error, tr("\n\n ОШИБКА! Файл слишком большой!\n") );
     return 0;
   }

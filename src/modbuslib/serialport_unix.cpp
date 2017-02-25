@@ -8,6 +8,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+#include <QDir>
 #include <QMutex>
 
 //===================================================================
