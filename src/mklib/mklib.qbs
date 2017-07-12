@@ -16,11 +16,6 @@ Product {
 
     cpp.includePaths: ["."]
 
-    cpp.cxxFlags: [
-          "--no-rtti",
-          "--no-exceptions",
-    ]
-
     files: [
         "mk_global.h",
         "mbconfigwidget.h",

@@ -8,11 +8,6 @@ Project {
         Depends { name: "Qt.widgets" }
         Depends { name: "Qt.xml" }
 
-        cpp.cxxFlags: [
-              "--no-rtti",
-              "--no-exceptions",
-        ]
-
         cpp.cxxLanguageVersion: "c++14"
 
         consoleApplication: false

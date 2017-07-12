@@ -39,15 +39,6 @@ Project {
             "-ffunction-sections",
         ]
 
-        cpp.cxxFlags: [
-              "--no-rtti",
-              "--no-exceptions",
-        ]
-
-        cpp.linkerFlags: [
-            "-Wl,--gc-sections",
-        ]
-
         files: mkstudioFiles
 
         Group {
@@ -75,15 +66,6 @@ Project {
         Depends { name: "Qt.xml" }
 
         cpp.defines: "ARDUINO_ONLY"
-
-        cpp.cxxFlags: [
-              "--no-rtti",
-              "--no-exceptions",
-        ]
-
-        cpp.linkerFlags: [
-            "-Wl,--gc-sections",
-        ]
 
         files: mkstudioFiles
 

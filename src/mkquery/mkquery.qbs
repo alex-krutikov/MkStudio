@@ -4,11 +4,6 @@ Product {
     Depends { name: "modbuslib" }
     Depends { name: "Qt.network" }
 
-    cpp.cxxFlags: [
-          "--no-rtti",
-          "--no-exceptions",
-    ]
-
     files: [
         "mkquery.cpp"
     ]

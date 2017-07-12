@@ -9,11 +9,6 @@ Product {
     Depends { name: "Qt.xml" }
     Depends { name: "modbuslib" }
 
-    cpp.cxxFlags: [
-        "--no-rtti",
-        "--no-exceptions",
-    ]
-
     cpp.cxxLanguageVersion: "c++14"
 
     consoleApplication: false

@@ -12,11 +12,6 @@ Product {
         cpp.cxxLanguageVersion: "c++14"
     }
 
-    cpp.cxxFlags: [
-          "--no-rtti",
-          "--no-exceptions",
-    ]
-
     cpp.cxxLanguageVersion: "c++14"
     cpp.warningLevel: "none"
 
