@@ -21,6 +21,7 @@ Product {
         "ui/initdialog.ui",
         "ui/midialog.ui",
         "ui/mainwindowxml.ui",
+        "ui/settings.ui",
         "mkview.qrc",
     ]
 

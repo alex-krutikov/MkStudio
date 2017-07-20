@@ -2,6 +2,7 @@
 #define __mainwindow__h__
 
 #include "ui_initdialog.h"
+#include "ui_settings.h"
 #include "mbmasterxml.h"
 #include "serialport.h"
 
@@ -34,6 +35,20 @@ private slots:
   void on_cb_portname_currentIndexChanged(int);
   void on_tb_modulehelp_clicked();
   void on_tb_moduleinfo_clicked();
+  void on_pb_update_clicked();
+  void on_pb_settings_clicked();
+};
+
+//=======================================================================================
+//
+//=======================================================================================
+class SettingsDialog : public QDialog,
+                       public Ui::SettingsDialog
+{
+  Q_OBJECT
+public:
+  SettingsDialog( QWidget *parent = 0);
+  void accept();
 };
 
 //=======================================================================================

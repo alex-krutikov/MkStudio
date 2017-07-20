@@ -46,6 +46,10 @@ int main(int argc, char *argv[])
   { ret2 = QDialog::Accepted;
   } else
   { ret2 = initdialog->exec();
+    if (ret2 != QDialog::Accepted)
+    {
+        return 0;
+    }
     initdialog->setEnabled( false );
     initdialog->show();
   }

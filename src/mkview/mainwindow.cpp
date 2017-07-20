@@ -51,7 +51,7 @@ InitDialog::InitDialog( QWidget *parent )
   int i;
 
   setupUi( this );
-  setWindowTitle(app_header);
+  setWindowTitle(app_header + " - Выбор модуля");
 
   Settings settings;
 
@@ -253,6 +253,23 @@ void InitDialog::on_tb_moduleinfo_clicked()
 //=======================================================================================
 //
 //=======================================================================================
+void InitDialog::on_pb_update_clicked()
+{
+     QMessageBox::information( this, app_header, "В разработке" );
+}
+
+//=======================================================================================
+//
+//=======================================================================================
+void InitDialog::on_pb_settings_clicked()
+{
+    SettingsDialog dialog(this);
+    dialog.exec();
+}
+
+//=======================================================================================
+//
+//=======================================================================================
 QString InitDialog::filename()
 {
   return cb_modulename->itemData( cb_modulename->currentIndex() ).toString();
@@ -329,6 +346,25 @@ void InitDialog::accept()
   settings.setValue( "modulename", cb_modulename->currentText() );
   settings.setValue( "modulenode", le_node->text() );
   done( QDialog::Accepted );
+}
+
+//#######################################################################################
+//
+//#######################################################################################
+SettingsDialog::SettingsDialog(QWidget *parent)
+    : QDialog(parent)
+{
+    setupUi(this);
+
+    setWindowTitle(app_header + " - Настройки");
+}
+
+//=======================================================================================
+//
+//=======================================================================================
+void SettingsDialog::accept()
+{
+    QDialog::accept();
 }
 
 //#######################################################################################
