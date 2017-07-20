@@ -11,11 +11,11 @@ regexp = r"^[a-z0-9]{1,16}$"
 cgitb.enable()
 
 print("Content-type: text/html")
-print("") 
+print("")
 
 form = cgi.FieldStorage()
 
-files=[]
+files = []
 
 if "name" in form:
     name = form["name"].value
