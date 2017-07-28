@@ -355,6 +355,7 @@ void Plot::closeEvent( QCloseEvent *event )
   if( file.isOpen() ) file.close();
   if( !file.fileName().isEmpty() ) openFilesList.removeOne( file.fileName() );
   save_recorder_params();
+  pause_flag = true;
  }
  QT_CATCH(...){}
 }
