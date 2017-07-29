@@ -13,7 +13,7 @@ class Settings : public QSettings
 {
 public:
     Settings()
-        : QSettings(QDir::homePath() + "/.mkview_config", QSettings::IniFormat)
+        : QSettings(QDir::homePath() + "/.mkview/mkview.conf", QSettings::IniFormat)
     {
     }
 };

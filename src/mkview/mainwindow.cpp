@@ -121,21 +121,13 @@ void InitDialog::setModulesComboBox( QComboBox *cb )
 
   cb->clear();
 
-  QDir current_dir(qApp->applicationDirPath() );
+  QDir current_dir(QDir::homePath() + "/.mkview" );
   //-------------------------------------------------
   sl = current_dir.entryList( QStringList() << "*.xml" );
   foreach( str, sl )
   { str2=str.toUpper();
     str2.remove(".XML");
     cb->addItem( str2, current_dir.absoluteFilePath(str) );
-  }
-  //-------------------------------------------------
-  QDir mikkon_dir( qApp->applicationDirPath()+"/mikkon" );
-  sl = mikkon_dir.entryList( QStringList() << "*.xml" );
-  foreach( str, sl )
-  { str2=str.toUpper();
-    str2.remove(".XML");
-    cb->addItem( str2, mikkon_dir.absoluteFilePath(str) );
   }
   //-------------------------------------------------
   sl = current_dir.entryList( QStringList() << PLUGIN_FILE_MASK1 );
@@ -357,6 +349,10 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     setupUi(this);
 
     setWindowTitle(app_header + " - Настройки");
+
+    Settings settings;
+    le_update_url->setText(settings.value("update_url").toString());
+
 }
 
 //=======================================================================================
@@ -364,6 +360,9 @@ SettingsDialog::SettingsDialog(QWidget *parent)
 //=======================================================================================
 void SettingsDialog::accept()
 {
+    Settings settings;
+    settings.setValue("update_url", le_update_url->text());
+
     QDialog::accept();
 }
 
