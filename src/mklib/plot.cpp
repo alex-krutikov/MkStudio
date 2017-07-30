@@ -70,9 +70,9 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   ui->cb_speed->setItemData(4, "min", Qt::UserRole);
   ui->cb_speed->setItemData(5, "min", Qt::UserRole);
 
-  module_index = new int[ plots_count ];
-  slot_index   = new int[ plots_count ];
-  value_index  = new int[ plots_count ];
+  module_index.reset(new int[ plots_count ]);
+  slot_index.reset(new int[ plots_count ]);
+  value_index.reset(new int[ plots_count ]);
   //--------------------------------------------
   for( i=0; i < plots_count; i++ )
   {
@@ -88,8 +88,8 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   file_write_flag = false;
   start_flag      = true;
   minimize_flag   = min_flag;
-  a_value = new double[ plots_count ];
-  avr_a   = new double[ plots_count ];
+  a_value.reset(new double[ plots_count ]);
+  avr_a.reset(new double[ plots_count ]);
   avr_counter        = 0;
   points_counter     = 0;
   file_write_counter = 0;
@@ -128,13 +128,13 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   eb_ref = 0.0;
   y_data_len = 600;
 
-  x_data  = new double[ y_data_len ];
-  y_data1 = new double[ y_data_len ];
-  y_data_stat = y_data1;
+  x_data.reset(new double[ y_data_len ]);
+  y_data1.reset(new double[ y_data_len ]);
+  y_data_stat = y_data1.get();
 
-  if( plots_count > 1 ) y_data2 = new double[y_data_len];
-  if( plots_count > 2 ) y_data3 = new double[y_data_len];
-  if( plots_count > 3 ) y_data4 = new double[y_data_len];
+  if( plots_count > 1 ) y_data2.reset(new double[y_data_len]);
+  if( plots_count > 2 ) y_data3.reset(new double[y_data_len]);
+  if( plots_count > 3 ) y_data4.reset(new double[y_data_len]);
 
   for( i=0; i < y_data_len; i++ )
   { x_data[i]  = 0.0;
@@ -158,34 +158,34 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   ui->plot->enableAxis(QwtPlot::yLeft, false );
   ui->plot->setAxisScale(QwtPlot::xBottom,60,0);
 
-  plot_data1 = new QwtPlotCurve("Curve 1");
+  plot_data1.reset(new QwtPlotCurve("Curve 1"));
   plot_data1->setPen(QPen(Qt::blue,1));
   plot_data1->setYAxis(QwtPlot::yRight);
-  plot_data1->setRawData( x_data, y_data1, y_data_len );
+  plot_data1->setRawData( x_data.get(), y_data1.get(), y_data_len );
   plot_data1->attach( ui->plot );
 
   if( plots_count > 1 )
   {
-  plot_data2 = new QwtPlotCurve("Curve 2");
+  plot_data2.reset(new QwtPlotCurve("Curve 2"));
   plot_data2->setPen(QPen(Qt::green,1));
   plot_data2->setYAxis(QwtPlot::yRight);
-  plot_data2->setRawData( x_data, y_data2, y_data_len );
+  plot_data2->setRawData( x_data.get(), y_data2.get(), y_data_len );
   plot_data2->attach( ui->plot );
   }
   if( plots_count > 2 )
   {
-  plot_data3 = new QwtPlotCurve("Curve 3");
+  plot_data3.reset(new QwtPlotCurve("Curve 3"));
   plot_data3->setPen(QPen(Qt::red,1));
   plot_data3->setYAxis(QwtPlot::yRight);
-  plot_data3->setRawData( x_data, y_data3, y_data_len );
+  plot_data3->setRawData( x_data.get(), y_data3.get(), y_data_len );
   plot_data3->attach( ui->plot );
   }
   if( plots_count > 3 )
   {
-  plot_data4 = new QwtPlotCurve("Curve 4");
+  plot_data4.reset(new QwtPlotCurve("Curve 4"));
   plot_data4->setPen(QPen(Qt::black,1));
   plot_data4->setYAxis(QwtPlot::yRight);
-  plot_data4->setRawData( x_data, y_data4, y_data_len );
+  plot_data4->setRawData( x_data.get(), y_data4.get(), y_data_len );
   plot_data4->attach( ui->plot );
   }
   //--------------------------------------------
@@ -325,27 +325,6 @@ void Plot::closeEvent( QCloseEvent *event )
   Q_UNUSED( event );
 
   if ( windowState() != Qt::WindowMinimized ) emit signalPlotClose();
-
-  delete[] a_value;
-  delete[] x_data;
-  delete[] y_data1;
-  delete plot_data1;
-  if( plots_count > 1 )
-  { delete[] y_data2;
-    delete plot_data2;
-  }
-  if( plots_count > 2 )
-  { delete[] y_data3;
-    delete plot_data3;
-  }
-  if( plots_count > 3 )
-  { delete[] y_data4;
-    delete plot_data4;
-  }
-  delete[] module_index;
-  delete[] slot_index;
-  delete[] value_index;
-  delete[] avr_a;
 
   points_counter = 0;
   pause_flag = false;
@@ -617,11 +596,11 @@ void Plot::change_current_plot( int index )
   ui->le_diff          ->clear();
 
   switch(ui->cb_plot_stat->currentIndex())
-      { case 0: y_data_stat = y_data1;break;
-        case 1: y_data_stat = y_data2;break;
-        case 2: y_data_stat = y_data3;break;
-        case 3: y_data_stat = y_data4;break;
-       default: y_data_stat = y_data1;break;
+      { case 0: y_data_stat = y_data1.get();break;
+        case 1: y_data_stat = y_data2.get();break;
+        case 2: y_data_stat = y_data3.get();break;
+        case 3: y_data_stat = y_data4.get();break;
+       default: y_data_stat = y_data1.get();break;
       }
 
   if( !start_flag ) updateISRparams();
@@ -687,35 +666,29 @@ void Plot::params_change()
     }
   ui->plot->setAxisScale(QwtPlot::xBottom,a,0);
 
-  delete[] x_data;
-  delete[] y_data1;
-  if( plots_count > 1 ) delete[] y_data2;
-  if( plots_count > 2 ) delete[] y_data3;
-  if( plots_count > 3 ) delete[] y_data4;
+  x_data.reset(new double[ y_data_len ]);
+  y_data1.reset(new double[ y_data_len ]);
 
-  x_data  = new double[ y_data_len ];
-  y_data1 = new double[ y_data_len ];
-
-  plot_data1 ->setRawData( x_data, y_data1,  y_data_len );
+  plot_data1 ->setRawData( x_data.get(), y_data1.get(),  y_data_len );
 
   if( plots_count > 1 )
-  { y_data2 = new double[ y_data_len ];
-    plot_data2->setRawData( x_data, y_data2, y_data_len );
+  { y_data2.reset(new double[ y_data_len ]);
+    plot_data2->setRawData( x_data.get(), y_data2.get(), y_data_len );
   }
   if( plots_count > 2 )
-  { y_data3 = new double[ y_data_len ];
-    plot_data3->setRawData( x_data, y_data3, y_data_len );
+  { y_data3.reset(new double[ y_data_len ]);
+    plot_data3->setRawData( x_data.get(), y_data3.get(), y_data_len );
   }
   if( plots_count > 3 )
-  { y_data4 = new double[ y_data_len ];
-    plot_data4->setRawData( x_data, y_data4, y_data_len );
+  { y_data4.reset(new double[ y_data_len ]);
+    plot_data4->setRawData( x_data.get(), y_data4.get(), y_data_len );
   }
   switch(ui->cb_plot_stat->currentIndex())
-  { case 0: y_data_stat = y_data1;break;
-    case 1: y_data_stat = y_data2;break;
-    case 2: y_data_stat = y_data3;break;
-    case 3: y_data_stat = y_data4;break;
-   default: y_data_stat = y_data1;break;
+  { case 0: y_data_stat = y_data1.get(); break;
+    case 1: y_data_stat = y_data2.get(); break;
+    case 2: y_data_stat = y_data3.get(); break;
+    case 3: y_data_stat = y_data4.get(); break;
+   default: y_data_stat = y_data1.get(); break;
   }
   pb_clear_clicked();
 }
@@ -1263,11 +1236,11 @@ qreal Plot::getYcoord( qreal xcoord, int y_data_index )
 
   double *y_data_cur;
   switch( y_data_index)
-  { case 0: y_data_cur = y_data1;break;
-    case 1: y_data_cur = y_data2;break;
-    case 2: y_data_cur = y_data3;break;
-    case 3: y_data_cur = y_data4;break;
-   default: y_data_cur = y_data1;
+  { case 0: y_data_cur = y_data1.get(); break;
+    case 1: y_data_cur = y_data2.get(); break;
+    case 2: y_data_cur = y_data3.get(); break;
+    case 3: y_data_cur = y_data4.get(); break;
+   default: y_data_cur = y_data1.get();
   }
 
   if((double)xcoord == x_data[pos]) return (qreal)y_data_cur[pos];

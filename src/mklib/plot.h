@@ -14,6 +14,8 @@
 #include <QTextStream>
 #include <QDialog>
 
+#include <memory>
+
 class QTimerEvent;
 class QTableWidgetItem;
 class QToolButton;
@@ -76,19 +78,24 @@ private:
   QToolButton *pb_grid;
   QToolButton *pb_crosshair;
   QToolButton *pb_picker_data;
-  QwtPlotCurve *plot_data1;
-  QwtPlotCurve *plot_data2;
-  QwtPlotCurve *plot_data3;
-  QwtPlotCurve *plot_data4;
+
+  std::unique_ptr<QwtPlotCurve> plot_data1;
+  std::unique_ptr<QwtPlotCurve> plot_data2;
+  std::unique_ptr<QwtPlotCurve> plot_data3;
+  std::unique_ptr<QwtPlotCurve> plot_data4;
+
   int y_data_len;
   int plots_count;
-  double *a_value;
-  double *x_data;
-  double *y_data1;
-  double *y_data2;
-  double *y_data3;
-  double *y_data4;
+
+  std::unique_ptr<double[]> a_value;
+  std::unique_ptr<double[]> x_data;
+  std::unique_ptr<double[]> y_data1;
+  std::unique_ptr<double[]> y_data2;
+  std::unique_ptr<double[]> y_data3;
+  std::unique_ptr<double[]> y_data4;
+
   double *y_data_stat;
+
   double y_max;
   double y_min;
   double y_mean;
@@ -96,9 +103,11 @@ private:
   static const int y_hist_data_len = 17;
   double y_hist_data[ y_hist_data_len ];
   double x_hist_data[ y_hist_data_len ];
-  int *module_index;
-  int *slot_index;
-  int *value_index;
+
+  std::unique_ptr<int[]> module_index;
+  std::unique_ptr<int[]> slot_index;
+  std::unique_ptr<int[]> value_index;
+
   bool firstrun_flag;
   bool pause_flag;
   bool minimize_flag;
@@ -107,7 +116,9 @@ private:
   bool isr_use_base_flag;
   bool start_flag;
   int points_counter;
-  double *avr_a;
+
+  std::unique_ptr<double[]> avr_a;
+
   int avr_counter;
   MBMasterXMLPtr mbmaster;
   double y_min1, y_min2, y_min3, y_min4;
