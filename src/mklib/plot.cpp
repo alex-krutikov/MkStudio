@@ -70,9 +70,9 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   ui->cb_speed->setItemData(4, "min", Qt::UserRole);
   ui->cb_speed->setItemData(5, "min", Qt::UserRole);
 
-  module_index.reset(new int[ plots_count ]);
-  slot_index.reset(new int[ plots_count ]);
-  value_index.reset(new int[ plots_count ]);
+  module_index.resize(plots_count);
+  slot_index.resize(plots_count);
+  value_index.resize(plots_count);
   //--------------------------------------------
   for( i=0; i < plots_count; i++ )
   {

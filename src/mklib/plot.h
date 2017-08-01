@@ -13,6 +13,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDialog>
+#include <QVector>
 
 #include <memory>
 
@@ -104,9 +105,9 @@ private:
   double y_hist_data[ y_hist_data_len ];
   double x_hist_data[ y_hist_data_len ];
 
-  std::unique_ptr<int[]> module_index;
-  std::unique_ptr<int[]> slot_index;
-  std::unique_ptr<int[]> value_index;
+  QVector<int> module_index;
+  QVector<int> slot_index;
+  QVector<int> value_index;
 
   bool firstrun_flag;
   bool pause_flag;
