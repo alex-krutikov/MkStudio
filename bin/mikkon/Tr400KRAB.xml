@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="cp-1251"?>
+<!DOCTYPE MKStudio>
+<MKStudio>
+  <Table ColumnCount="4" Labels="1;2;3;4" RowCount="23" LabelsSize="211;90;459;68" >
+    <Item Column="0" Row="0" Font="bold;align_center" Text="Управление" />
+    <Item Column="1" Row="0" Font="align_center" />
+    <Item Column="2" Row="0" />
+    <Item Column="3" Row="0" />
+    <Item Column="0" Row="1" Text="Сохранить Параметры в Flash" />
+    <Item Column="1" Format="dec" Row="1" Font="align_center" Text="1/1/1" Assign="1/1/1" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="1" Text="записать 1 для сохранения параметров" />
+    <Item Column="3" Row="1" />
+    <Item Column="0" Row="2" Text="Обнулить счетчик ошибок" />
+    <Item Column="1" Format="dec" Row="2" Font="align_center" Text="1/1/2" Assign="1/1/2" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="2" Text="записать 1 для обнуления счетчика ошибок энкодера " />
+    <Item Column="3" Row="2" />
+    <Item Column="0" Row="3" />
+    <Item Column="1" Row="3" />
+    <Item Column="2" Row="3" />
+    <Item Column="3" Row="3" />
+    <Item Column="0" Row="4" Font="bold;align_center" Text="Параметры для записи в флеш" />
+    <Item Column="1" Row="4" Font="align_center" />
+    <Item Column="2" Row="4" />
+    <Item Column="3" Row="4" />
+    <Item Column="0" Row="5" Text="Яркость дисплея (0-255)" />
+    <Item Column="1" Format="unsigned" Row="5" Font="align_center" Text="1/2/1" Assign="1/2/1" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="5" />
+    <Item Column="3" Row="5" />
+    <Item Column="0" Row="6" Text="Полярность энкодера (0-1)" />
+    <Item Column="1" Format="unsigned" Row="6" Font="align_center" Text="1/3/1" Assign="1/3/1" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="6" Text="для задания направления положительного счета(по/против часовой стрелки)" />
+    <Item Column="3" Row="6" />
+    <Item Column="0" Row="7" Text="Управление &quot;верхом&quot;" />
+    <Item Column="1" Format="unsigned" Row="7" Font="align_center" Text="1/3/2" Assign="1/3/2" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="7" Text="0 - данные на дисплее от энкодера, 1 - с &quot;верха&quot;" />
+    <Item Column="3" Row="7" />
+    <Item Column="0" Row="8" Text="Позиция десятичной точки(0-3)" />
+    <Item Column="1" Format="dec" Row="8" Font="align_center" Text="1/4/1" Assign="1/4/1" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="8" />
+    <Item Column="3" Row="8" />
+    <Item Column="0" Row="9" Text="Погасить позицию 1(младш.)" />
+    <Item Column="1" Format="dec" Row="9" Font="align_center" Text="1/5/1" Assign="1/5/1" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="9" />
+    <Item Column="3" Row="9" />
+    <Item Column="0" Row="10" Text="Погасить позицию 2" />
+    <Item Column="1" Format="dec" Row="10" Font="align_center" Text="1/5/2" Assign="1/5/2" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="10" />
+    <Item Column="3" Row="10" />
+    <Item Column="0" Row="11" Text="Погасить позицию 3" />
+    <Item Column="1" Format="dec" Row="11" Font="align_center" Text="1/5/3" Assign="1/5/3" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="11" />
+    <Item Column="3" Row="11" />
+    <Item Column="0" Row="12" Text="Погасить позицию 4(старш.)" />
+    <Item Column="1" Format="dec" Row="12" Font="align_center" Text="1/5/4" Assign="1/5/4" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="12" />
+    <Item Column="3" Row="12" />
+    <Item Column="0" Row="13" />
+    <Item Column="1" Row="13" />
+    <Item Column="2" Row="13" />
+    <Item Column="3" Row="13" />
+    <Item Column="0" Row="14" Font="bold;align_center" Text="Вывод" />
+    <Item Column="1" Row="14" Font="align_center" />
+    <Item Column="2" Row="14" />
+    <Item Column="3" Row="14" />
+    <Item Column="0" Row="15" Text="Счетчик тиков энкодера" />
+    <Item Column="1" Format="unsigned" Row="15" Font="align_center" Text="1/6/1" Assign="1/6/1" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="15" Text="raw счетчик тиков энкодера" />
+    <Item Column="3" Row="15" />
+    <Item Column="0" Row="16" Text="Значение для отображения" />
+    <Item Column="1" Format="unsigned" Row="16" Font="align_center" Text="1/7/1" Assign="1/7/1" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="16" />
+    <Item Column="3" Row="16" />
+    <Item Column="0" Row="17" />
+    <Item Column="1" Row="17" />
+    <Item Column="2" Row="17" />
+    <Item Column="3" Row="17" />
+    <Item Column="0" Row="18" Font="bold;align_center" Text="Статистика" />
+    <Item Column="1" Row="18" Font="align_center" />
+    <Item Column="2" Row="18" />
+    <Item Column="3" Row="18" />
+    <Item Column="0" Row="19" Text="Время от старта, c" />
+    <Item Column="1" Format="dec" Row="19" Font="align_center" Text="1/8/1" Assign="1/8/1" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="19" />
+    <Item Column="3" Row="19" />
+    <Item Column="0" Row="20" Text="Ошибка Параметров в Flash" />
+    <Item Column="1" Format="dec" Row="20" Font="align_center" Text="1/8/2" Assign="1/8/2" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="20" Text="выставляется в 1 при старте если нет ни одной правильной копии Параметров в flash" />
+    <Item Column="3" Row="20" />
+    <Item Column="0" Row="21" Text="Счетчик ошибок энкодера" />
+    <Item Column="1" Format="dec" Row="21" Font="align_center" Text="1/8/3" Assign="1/8/3" BackgroundColor="#faebd7" />
+    <Item Column="2" Row="21" Text="счетчик ошибок неправильной последовательности состояний энкодера" />
+    <Item Column="3" Row="21" />
+    <Item Column="0" Row="22" />
+    <Item Column="1" Row="22" />
+    <Item Column="2" Row="22" />
+    <Item Column="3" Row="22" />
+  </Table>
+  <MBConfig>
+    <Module Node="1" N="1" Name="TR-400" >
+      <Slot Desc="Control" Length="8" Type="bits" N="1" Addr="0002" />
+      <Slot Desc="Brightness" Length="1" Type="bytes" N="2" Addr="0004" />
+      <Slot Desc="Options" Length="8" Type="bits" N="3" Addr="0005" />
+      <Slot Desc="PointPosition" Length="1" Type="bytes" N="4" Addr="0006" />
+      <Slot Desc="TurnOffPosition" Length="8" Type="bits" N="5" Addr="0007" />
+      <Slot Desc="TickCounter" Length="1" Type="words" N="6" Addr="0008" />
+      <Slot Desc="Display" Length="1" Type="words" N="7" Addr="000A" />
+      <Slot Desc="Statistics" Length="3" Type="dwords" N="8" Addr="C000" />
+    </Module>
+  </MBConfig>
+</MKStudio>
