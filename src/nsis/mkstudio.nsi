@@ -52,6 +52,7 @@ Section "MKStudio è MKView"
   File ${QT_DLL_DIR}\Qt5Gui.dll
   File ${QT_DLL_DIR}\Qt5Widgets.dll
   File ${QT_DLL_DIR}\Qt5Network.dll
+  File ${QT_DLL_DIR}\Qt5SerialPort.dll
   File ${QT_DLL_DIR}\Qt5Xml.dll
 
   SetOutPath $INSTDIR\platforms
