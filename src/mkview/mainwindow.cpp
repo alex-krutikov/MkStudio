@@ -129,6 +129,14 @@ void InitDialog::setModulesComboBox( QComboBox *cb )
     str2.remove(".XML");
     cb->addItem( str2, current_dir.absoluteFilePath(str) );
   }
+  current_dir = QDir(qApp->applicationDirPath() + "/mikkon" );
+  //-------------------------------------------------
+  sl = current_dir.entryList( QStringList() << "*.xml" );
+  foreach( str, sl )
+  { str2=str.toUpper();
+    str2.remove(".XML");
+    cb->addItem( str2, current_dir.absoluteFilePath(str) );
+  }
   //-------------------------------------------------
   sl = current_dir.entryList( QStringList() << PLUGIN_FILE_MASK1 );
   QPluginLoader pluginLoader;
