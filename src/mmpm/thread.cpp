@@ -629,10 +629,10 @@ int Thread::mb_write_flash()
 //==============================================================================
 int Thread::mb_read_information()
 {
-  struct __attribute__ ((packed))
+  struct
   {
     BYTE  StructureLength;              // Structure Length(=128)
-    WORD  ID;                           // Module ID
+    BYTE  ID[2];                        // Module ID
     BYTE  MajorVersion;                 // Version Major
     BYTE  MinorVersion;                 //         Minor
     char  ReleaseDate[8];               // Release Date
@@ -652,7 +652,7 @@ int Thread::mb_read_information()
   Console::Print(Console::Information, tr("OK.\n") );
 
   Console::Print(Console::Information, (tr("  ID           : 0x%1\n")
-        .arg(info.ID, 1, 16)));
+        .arg(info.ID[1] << 8 | info.ID[0] , 4, 16, QChar('0'))));
 
   Console::Print(Console::Information, tr("  Версия       : %1.%2\n")
         .arg(info.MajorVersion ).arg( info.MinorVersion ) );
