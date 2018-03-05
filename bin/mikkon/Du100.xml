@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="cp-1251"?>
 <!DOCTYPE MKStudio>
 <MKStudio>
-  <Table RowCount="106" Labels=";;;;;;" ColumnCount="7" LabelsSize="270;134;129;123;128;132;120">
-    <Item BackgroundColor="#aaff00" Column="0" Text="Конфигурация" Row="0" Font="bold;underline;align_right"/>
-    <Item BackgroundColor="#aaff00" Column="1" Text="1" Row="0" Font="bold;align_center"/>
-    <Item BackgroundColor="#aaff00" Column="2" Text="2" Row="0" Font="bold;align_center"/>
-    <Item BackgroundColor="#aaff00" Column="3" Text="3" Row="0" Font="bold;align_center"/>
-    <Item BackgroundColor="#aaff00" Column="4" Text="4" Row="0" Font="bold;align_center"/>
-    <Item BackgroundColor="#aaff00" Column="5" Text="5" Row="0" Font="bold;align_center"/>
-    <Item BackgroundColor="#aaff00" Column="6" Text="6" Row="0" Font="bold;align_center"/>
-    <Item Column="0" Text="Тип (Вход/Выход)" Row="1" Font="bold;align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/8/33" SSSelector="dido" Row="1" Format="dec" Assign="1/8/33" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/8/34" SSSelector="dido" Row="1" Format="dec" Assign="1/8/34" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/8/35" SSSelector="dido" Row="1" Format="dec" Assign="1/8/35" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/8/36" SSSelector="dido" Row="1" Format="dec" Assign="1/8/36" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/8/37" SSSelector="dido" Row="1" Format="dec" Assign="1/8/37" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/8/38" SSSelector="dido" Row="1" Format="dec" Assign="1/8/38" Font="bold;align_center"/>
+  <Table RowCount="107" LabelsSize="270;134;129;123;128;132;120" Labels=";;;;;;" ColumnCount="7">
+    <Item Font="bold;underline;align_right" Text="Конфигурация" BackgroundColor="#aaff00" Column="0" Row="0"/>
+    <Item Font="bold;align_center" Text="1" BackgroundColor="#aaff00" Column="1" Row="0"/>
+    <Item Font="bold;align_center" Text="2" BackgroundColor="#aaff00" Column="2" Row="0"/>
+    <Item Font="bold;align_center" Text="3" BackgroundColor="#aaff00" Column="3" Row="0"/>
+    <Item Font="bold;align_center" Text="4" BackgroundColor="#aaff00" Column="4" Row="0"/>
+    <Item Font="bold;align_center" Text="5" BackgroundColor="#aaff00" Column="5" Row="0"/>
+    <Item Font="bold;align_center" Text="6" BackgroundColor="#aaff00" Column="6" Row="0"/>
+    <Item Font="bold;align_right" Text="Тип (Вход/Выход)" Column="0" Row="1"/>
+    <Item Font="bold;align_center" Text="1/8/33" SSSelector="dido" BackgroundColor="#faebd7" Assign="1/8/33" Column="1" Format="dec" Row="1"/>
+    <Item Font="bold;align_center" Text="1/8/34" SSSelector="dido" BackgroundColor="#faebd7" Assign="1/8/34" Column="2" Format="dec" Row="1"/>
+    <Item Font="bold;align_center" Text="1/8/35" SSSelector="dido" BackgroundColor="#faebd7" Assign="1/8/35" Column="3" Format="dec" Row="1"/>
+    <Item Font="bold;align_center" Text="1/8/36" SSSelector="dido" BackgroundColor="#faebd7" Assign="1/8/36" Column="4" Format="dec" Row="1"/>
+    <Item Font="bold;align_center" Text="1/8/37" SSSelector="dido" BackgroundColor="#faebd7" Assign="1/8/37" Column="5" Format="dec" Row="1"/>
+    <Item Font="bold;align_center" Text="1/8/38" SSSelector="dido" BackgroundColor="#faebd7" Assign="1/8/38" Column="6" Format="dec" Row="1"/>
     <Item Column="0" Row="2"/>
     <Item Column="1" Row="2"/>
     <Item Column="2" Row="2"/>
@@ -23,344 +23,344 @@
     <Item Column="4" Row="2"/>
     <Item Column="5" Row="2"/>
     <Item Column="6" Row="2"/>
-    <Item BackgroundColor="#aaff00" Column="0" Text="Дискретные Входы" Row="3" Font="bold;underline;align_right"/>
-    <Item BackgroundColor="#aaff00" Column="1" Text="1/8/33" SSSelector="di1" Row="3" Format="dec" Assign="1/8/33" Font="bold;align_center"/>
-    <Item BackgroundColor="#aaff00" Column="2" Text="1/8/34" SSSelector="di2" Row="3" Format="dec" Assign="1/8/34" Font="bold;align_center"/>
-    <Item BackgroundColor="#aaff00" Column="3" Text="1/8/35" SSSelector="di3" Row="3" Format="dec" Assign="1/8/35" Font="bold;align_center"/>
-    <Item BackgroundColor="#aaff00" Column="4" Text="1/8/36" SSSelector="di4" Row="3" Format="dec" Assign="1/8/36" Font="bold;align_center"/>
-    <Item BackgroundColor="#aaff00" Column="5" Text="1/8/37" SSSelector="di5" Row="3" Format="dec" Assign="1/8/37" Font="bold;align_center"/>
-    <Item BackgroundColor="#aaff00" Column="6" Text="1/8/38" SSSelector="di6" Row="3" Format="dec" Assign="1/8/38" Font="bold;align_center"/>
-    <Item Column="0" Text="Состояние нефильтрованное" Row="4" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/2/33" Row="4" Format="dec" Assign="1/2/33" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/2/34" Row="4" Format="dec" Assign="1/2/34" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/2/35" Row="4" Format="dec" Assign="1/2/35" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/2/36" Row="4" Format="dec" Assign="1/2/36" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/2/37" Row="4" Format="dec" Assign="1/2/37" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/2/38" Row="4" Format="dec" Assign="1/2/38" Font="align_center"/>
-    <Item Column="0" Text="Состояние после фильтрации окном" Row="5" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/44/1" Row="5" Format="dec" Assign="1/44/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/44/2" Row="5" Format="dec" Assign="1/44/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/44/3" Row="5" Format="dec" Assign="1/44/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/44/4" Row="5" Format="dec" Assign="1/44/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/44/5" Row="5" Format="dec" Assign="1/44/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/44/6" Row="5" Format="dec" Assign="1/44/6" Font="align_center"/>
-    <Item Column="0" Text="Счетчик" Row="6" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/3/1" Row="6" Format="dec" Assign="1/3/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/3/2" Row="6" Format="dec" Assign="1/3/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/3/3" Row="6" Format="dec" Assign="1/3/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/3/4" Row="6" Format="dec" Assign="1/3/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/3/5" Row="6" Format="dec" Assign="1/3/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/3/6" Row="6" Format="dec" Assign="1/3/6" Font="align_center"/>
-    <Item Column="0" Text="Частота, Гц" Row="7" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/5/1" Row="7" Format="dec" Assign="1/5/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/5/2" Row="7" Format="dec" Assign="1/5/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/5/3" Row="7" Format="dec" Assign="1/5/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/5/4" Row="7" Format="dec" Assign="1/5/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/5/5" Row="7" Format="dec" Assign="1/5/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/5/6" Row="7" Format="dec" Assign="1/5/6" Font="align_center"/>
-    <Item Column="0" Text="Окно фильтрации, мсек" Row="8" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/6/1" Row="8" Format="dec" Assign="1/6/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/6/2" Row="8" Format="dec" Assign="1/6/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/6/3" Row="8" Format="dec" Assign="1/6/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/6/4" Row="8" Format="dec" Assign="1/6/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/6/5" Row="8" Format="dec" Assign="1/6/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/6/6" Row="8" Format="dec" Assign="1/6/6" Font="align_center"/>
-    <Item Column="0" Text="Пост. времени экспотенц. фильтра,  мс" Row="9" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/7/1" Row="9" Format="dec" Assign="1/7/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/7/2" Row="9" Format="dec" Assign="1/7/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/7/3" Row="9" Format="dec" Assign="1/7/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/7/4" Row="9" Format="dec" Assign="1/7/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/7/5" Row="9" Format="dec" Assign="1/7/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/7/6" Row="9" Format="dec" Assign="1/7/6" Font="align_center"/>
-    <Item Column="0" Text="Значения выхода эксп. фильтра" Row="10" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/43/1" Row="10" Format="dec" Assign="1/43/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/43/2" Row="10" Format="dec" Assign="1/43/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/43/3" Row="10" Format="dec" Assign="1/43/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/43/4" Row="10" Format="dec" Assign="1/43/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/43/5" Row="10" Format="dec" Assign="1/43/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/43/6" Row="10" Format="dec" Assign="1/43/6" Font="align_center"/>
-    <Item Column="0" Text="Состояние" Row="11" Font="bold;align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/2/1" SSSelector="di" Row="11" Format="dec" Assign="1/2/1" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/2/2" SSSelector="di" Row="11" Format="dec" Assign="1/2/2" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/2/3" SSSelector="di" Row="11" Format="dec" Assign="1/2/3" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/2/4" SSSelector="di" Row="11" Format="dec" Assign="1/2/4" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/2/5" SSSelector="di" Row="11" Format="dec" Assign="1/2/5" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/2/6" SSSelector="di" Row="11" Format="dec" Assign="1/2/6" Font="bold;align_center"/>
-    <Item Column="0" Text="Индивидуальная Очистка счетчиков" Row="12" Font="bold;align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/40/1" SSSelector="di_erase_counter" Row="12" Format="bin" Assign="1/40/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/40/2" SSSelector="di_erase_counter" Row="12" Format="bin" Assign="1/40/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/40/3" SSSelector="di_erase_counter" Row="12" Format="bin" Assign="1/40/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/40/4" SSSelector="di_erase_counter" Row="12" Format="bin" Assign="1/40/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/40/5" SSSelector="di_erase_counter" Row="12" Format="bin" Assign="1/40/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/40/6" SSSelector="di_erase_counter" Row="12" Format="bin" Assign="1/40/6" Font="align_center"/>
-    <Item Column="0" Text="Период и метод измерения частоты" Row="13" Font="bold;align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/4/1" SSSelector="di_freq_period" Row="13" Format="dec" Assign="1/4/1" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/4/2" SSSelector="di_freq_method" Row="13" Format="dec" Assign="1/4/2" Font="bold;align_center"/>
-    <Item Column="3" Row="13"/>
-    <Item Column="4" Row="13"/>
-    <Item Column="5" Row="13"/>
-    <Item Column="6" Row="13"/>
-    <Item Column="0" Text="Очистка счетчиков" Row="14" Font="bold;align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/1/1" SSSelector="di_erase_counters" Row="14" Format="dec" Assign="1/1/1" Font="bold;align_center"/>
-    <Item Column="2" Row="14"/>
+    <Item Font="bold;underline;align_right" Text="Дискретные Входы" BackgroundColor="#aaff00" Column="0" Row="3"/>
+    <Item Font="bold;align_center" Text="1/8/33" SSSelector="di1" BackgroundColor="#aaff00" Assign="1/8/33" Column="1" Format="dec" Row="3"/>
+    <Item Font="bold;align_center" Text="1/8/34" SSSelector="di2" BackgroundColor="#aaff00" Assign="1/8/34" Column="2" Format="dec" Row="3"/>
+    <Item Font="bold;align_center" Text="1/8/35" SSSelector="di3" BackgroundColor="#aaff00" Assign="1/8/35" Column="3" Format="dec" Row="3"/>
+    <Item Font="bold;align_center" Text="1/8/36" SSSelector="di4" BackgroundColor="#aaff00" Assign="1/8/36" Column="4" Format="dec" Row="3"/>
+    <Item Font="bold;align_center" Text="1/8/37" SSSelector="di5" BackgroundColor="#aaff00" Assign="1/8/37" Column="5" Format="dec" Row="3"/>
+    <Item Font="bold;align_center" Text="1/8/38" SSSelector="di6" BackgroundColor="#aaff00" Assign="1/8/38" Column="6" Format="dec" Row="3"/>
+    <Item Font="align_right" Text="Состояние нефильтрованное" Column="0" Row="4"/>
+    <Item Font="align_center" Text="1/2/33" BackgroundColor="#faebd7" Assign="1/2/33" Column="1" Format="dec" Row="4"/>
+    <Item Font="align_center" Text="1/2/34" BackgroundColor="#faebd7" Assign="1/2/34" Column="2" Format="dec" Row="4"/>
+    <Item Font="align_center" Text="1/2/35" BackgroundColor="#faebd7" Assign="1/2/35" Column="3" Format="dec" Row="4"/>
+    <Item Font="align_center" Text="1/2/36" BackgroundColor="#faebd7" Assign="1/2/36" Column="4" Format="dec" Row="4"/>
+    <Item Font="align_center" Text="1/2/37" BackgroundColor="#faebd7" Assign="1/2/37" Column="5" Format="dec" Row="4"/>
+    <Item Font="align_center" Text="1/2/38" BackgroundColor="#faebd7" Assign="1/2/38" Column="6" Format="dec" Row="4"/>
+    <Item Font="align_right" Text="Состояние после фильтрации окном" Column="0" Row="5"/>
+    <Item Font="align_center" Text="1/44/1" BackgroundColor="#faebd7" Assign="1/44/1" Column="1" Format="dec" Row="5"/>
+    <Item Font="align_center" Text="1/44/2" BackgroundColor="#faebd7" Assign="1/44/2" Column="2" Format="dec" Row="5"/>
+    <Item Font="align_center" Text="1/44/3" BackgroundColor="#faebd7" Assign="1/44/3" Column="3" Format="dec" Row="5"/>
+    <Item Font="align_center" Text="1/44/4" BackgroundColor="#faebd7" Assign="1/44/4" Column="4" Format="dec" Row="5"/>
+    <Item Font="align_center" Text="1/44/5" BackgroundColor="#faebd7" Assign="1/44/5" Column="5" Format="dec" Row="5"/>
+    <Item Font="align_center" Text="1/44/6" BackgroundColor="#faebd7" Assign="1/44/6" Column="6" Format="dec" Row="5"/>
+    <Item Font="align_right" Text="Счетчик" Column="0" Row="6"/>
+    <Item Font="align_center" Text="1/3/1" BackgroundColor="#faebd7" Assign="1/3/1" Column="1" Format="dec" Row="6"/>
+    <Item Font="align_center" Text="1/3/2" BackgroundColor="#faebd7" Assign="1/3/2" Column="2" Format="dec" Row="6"/>
+    <Item Font="align_center" Text="1/3/3" BackgroundColor="#faebd7" Assign="1/3/3" Column="3" Format="dec" Row="6"/>
+    <Item Font="align_center" Text="1/3/4" BackgroundColor="#faebd7" Assign="1/3/4" Column="4" Format="dec" Row="6"/>
+    <Item Font="align_center" Text="1/3/5" BackgroundColor="#faebd7" Assign="1/3/5" Column="5" Format="dec" Row="6"/>
+    <Item Font="align_center" Text="1/3/6" BackgroundColor="#faebd7" Assign="1/3/6" Column="6" Format="dec" Row="6"/>
+    <Item Font="align_right" Text="Частота, Гц" Column="0" Row="7"/>
+    <Item Font="align_center" Text="1/5/1" BackgroundColor="#faebd7" Assign="1/5/1" Column="1" Format="dec" Row="7"/>
+    <Item Font="align_center" Text="1/5/2" BackgroundColor="#faebd7" Assign="1/5/2" Column="2" Format="dec" Row="7"/>
+    <Item Font="align_center" Text="1/5/3" BackgroundColor="#faebd7" Assign="1/5/3" Column="3" Format="dec" Row="7"/>
+    <Item Font="align_center" Text="1/5/4" BackgroundColor="#faebd7" Assign="1/5/4" Column="4" Format="dec" Row="7"/>
+    <Item Font="align_center" Text="1/5/5" BackgroundColor="#faebd7" Assign="1/5/5" Column="5" Format="dec" Row="7"/>
+    <Item Font="align_center" Text="1/5/6" BackgroundColor="#faebd7" Assign="1/5/6" Column="6" Format="dec" Row="7"/>
+    <Item Font="align_right" Text="Режим работы фильтра" Column="0" Row="8"/>
+    <Item Font="align_center" Text="1/45/1" SSSelector="di_filtr_mode" BackgroundColor="#faebd7" Assign="1/45/1" Column="1" Format="dec" Row="8"/>
+    <Item Font="align_center" Text="1/45/2" SSSelector="di_filtr_mode" BackgroundColor="#faebd7" Assign="1/45/2" Column="2" Format="dec" Row="8"/>
+    <Item Font="align_center" Text="1/45/3" SSSelector="di_filtr_mode" BackgroundColor="#faebd7" Assign="1/45/3" Column="3" Format="dec" Row="8"/>
+    <Item Font="align_center" Text="1/45/4" SSSelector="di_filtr_mode" BackgroundColor="#faebd7" Assign="1/45/4" Column="4" Format="dec" Row="8"/>
+    <Item Font="align_center" Text="1/45/5" SSSelector="di_filtr_mode" BackgroundColor="#faebd7" Assign="1/45/5" Column="5" Format="dec" Row="8"/>
+    <Item Font="align_center" Text="1/45/6" SSSelector="di_filtr_mode" BackgroundColor="#faebd7" Assign="1/45/6" Column="6" Format="dec" Row="8"/>
+    <Item Font="align_right" Text="Окно фильтрации, мсек" Column="0" Row="9"/>
+    <Item Font="align_center" Text="1/6/1" BackgroundColor="#faebd7" Assign="1/6/1" Column="1" Format="dec" Row="9"/>
+    <Item Font="align_center" Text="1/6/2" BackgroundColor="#faebd7" Assign="1/6/2" Column="2" Format="dec" Row="9"/>
+    <Item Font="align_center" Text="1/6/3" BackgroundColor="#faebd7" Assign="1/6/3" Column="3" Format="dec" Row="9"/>
+    <Item Font="align_center" Text="1/6/4" BackgroundColor="#faebd7" Assign="1/6/4" Column="4" Format="dec" Row="9"/>
+    <Item Font="align_center" Text="1/6/5" BackgroundColor="#faebd7" Assign="1/6/5" Column="5" Format="dec" Row="9"/>
+    <Item Font="align_center" Text="1/6/6" BackgroundColor="#faebd7" Assign="1/6/6" Column="6" Format="dec" Row="9"/>
+    <Item Font="align_right" Text="Пост. времени фильтра,  мс" Column="0" Row="10"/>
+    <Item Font="align_center" Text="1/7/1" BackgroundColor="#faebd7" Assign="1/7/1" Column="1" Format="dec" Row="10"/>
+    <Item Font="align_center" Text="1/7/2" BackgroundColor="#faebd7" Assign="1/7/2" Column="2" Format="dec" Row="10"/>
+    <Item Font="align_center" Text="1/7/3" BackgroundColor="#faebd7" Assign="1/7/3" Column="3" Format="dec" Row="10"/>
+    <Item Font="align_center" Text="1/7/4" BackgroundColor="#faebd7" Assign="1/7/4" Column="4" Format="dec" Row="10"/>
+    <Item Font="align_center" Text="1/7/5" BackgroundColor="#faebd7" Assign="1/7/5" Column="5" Format="dec" Row="10"/>
+    <Item Font="align_center" Text="1/7/6" BackgroundColor="#faebd7" Assign="1/7/6" Column="6" Format="dec" Row="10"/>
+    <Item Font="align_right" Text="Значение переменной состояния фильтра" Column="0" Row="11"/>
+    <Item Font="align_center" Text="1/43/1" BackgroundColor="#faebd7" Assign="1/43/1" Column="1" Format="dec" Row="11"/>
+    <Item Font="align_center" Text="1/43/2" BackgroundColor="#faebd7" Assign="1/43/2" Column="2" Format="dec" Row="11"/>
+    <Item Font="align_center" Text="1/43/3" BackgroundColor="#faebd7" Assign="1/43/3" Column="3" Format="dec" Row="11"/>
+    <Item Font="align_center" Text="1/43/4" BackgroundColor="#faebd7" Assign="1/43/4" Column="4" Format="dec" Row="11"/>
+    <Item Font="align_center" Text="1/43/5" BackgroundColor="#faebd7" Assign="1/43/5" Column="5" Format="dec" Row="11"/>
+    <Item Font="align_center" Text="1/43/6" BackgroundColor="#faebd7" Assign="1/43/6" Column="6" Format="dec" Row="11"/>
+    <Item Font="bold;align_right" Text="Состояние" Column="0" Row="12"/>
+    <Item Font="bold;align_center" Text="1/2/1" SSSelector="di" BackgroundColor="#faebd7" Assign="1/2/1" Column="1" Format="dec" Row="12"/>
+    <Item Font="bold;align_center" Text="1/2/2" SSSelector="di" BackgroundColor="#faebd7" Assign="1/2/2" Column="2" Format="dec" Row="12"/>
+    <Item Font="bold;align_center" Text="1/2/3" SSSelector="di" BackgroundColor="#faebd7" Assign="1/2/3" Column="3" Format="dec" Row="12"/>
+    <Item Font="bold;align_center" Text="1/2/4" SSSelector="di" BackgroundColor="#faebd7" Assign="1/2/4" Column="4" Format="dec" Row="12"/>
+    <Item Font="bold;align_center" Text="1/2/5" SSSelector="di" BackgroundColor="#faebd7" Assign="1/2/5" Column="5" Format="dec" Row="12"/>
+    <Item Font="bold;align_center" Text="1/2/6" SSSelector="di" BackgroundColor="#faebd7" Assign="1/2/6" Column="6" Format="dec" Row="12"/>
+    <Item Font="bold;align_right" Text="Индивидуальная Очистка счетчиков" Column="0" Row="13"/>
+    <Item Font="align_center" Text="1/40/1" SSSelector="di_erase_counter" BackgroundColor="#faebd7" Assign="1/40/1" Column="1" Format="bin" Row="13"/>
+    <Item Font="align_center" Text="1/40/2" SSSelector="di_erase_counter" BackgroundColor="#faebd7" Assign="1/40/2" Column="2" Format="bin" Row="13"/>
+    <Item Font="align_center" Text="1/40/3" SSSelector="di_erase_counter" BackgroundColor="#faebd7" Assign="1/40/3" Column="3" Format="bin" Row="13"/>
+    <Item Font="align_center" Text="1/40/4" SSSelector="di_erase_counter" BackgroundColor="#faebd7" Assign="1/40/4" Column="4" Format="bin" Row="13"/>
+    <Item Font="align_center" Text="1/40/5" SSSelector="di_erase_counter" BackgroundColor="#faebd7" Assign="1/40/5" Column="5" Format="bin" Row="13"/>
+    <Item Font="align_center" Text="1/40/6" SSSelector="di_erase_counter" BackgroundColor="#faebd7" Assign="1/40/6" Column="6" Format="bin" Row="13"/>
+    <Item Font="bold;align_right" Text="Период и метод измерения частоты" Column="0" Row="14"/>
+    <Item Font="bold;align_center" Text="1/4/1" SSSelector="di_freq_period" BackgroundColor="#faebd7" Assign="1/4/1" Column="1" Format="dec" Row="14"/>
+    <Item Font="bold;align_center" Text="1/4/2" SSSelector="di_freq_method" BackgroundColor="#faebd7" Assign="1/4/2" Column="2" Format="dec" Row="14"/>
     <Item Column="3" Row="14"/>
     <Item Column="4" Row="14"/>
     <Item Column="5" Row="14"/>
     <Item Column="6" Row="14"/>
-    <Item BackgroundColor="#aaff00" Column="0" Text="Дискретные Выходы" Row="15" Font="bold;underline;align_right"/>
-    <Item BackgroundColor="#aaff00" Column="1" Text="1/8/33" SSSelector="do1" Row="15" Format="dec" Assign="1/8/33" Font="bold;align_center"/>
-    <Item BackgroundColor="#aaff00" Column="2" Text="1/8/34" SSSelector="do2" Row="15" Format="dec" Assign="1/8/34" Font="bold;align_center"/>
-    <Item BackgroundColor="#aaff00" Column="3" Text="1/8/35" SSSelector="do3" Row="15" Format="dec" Assign="1/8/35" Font="bold;align_center"/>
-    <Item BackgroundColor="#aaff00" Column="4" Text="1/8/36" SSSelector="do4" Row="15" Format="dec" Assign="1/8/36" Font="bold;align_center"/>
-    <Item BackgroundColor="#aaff00" Column="5" Text="1/8/37" SSSelector="do5" Row="15" Format="dec" Assign="1/8/37" Font="bold;align_center"/>
-    <Item BackgroundColor="#aaff00" Column="6" Text="1/8/38" SSSelector="do6" Row="15" Format="dec" Assign="1/8/38" Font="bold;align_center"/>
-    <Item Column="0" Text="ШИМ, мсек" Row="16" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/9/1" Row="16" Format="dec" Assign="1/9/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/9/2" Row="16" Format="dec" Assign="1/9/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/9/3" Row="16" Format="dec" Assign="1/9/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/9/4" Row="16" Format="dec" Assign="1/9/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/9/5" Row="16" Format="dec" Assign="1/9/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/9/6" Row="16" Format="dec" Assign="1/9/6" Font="align_center"/>
-    <Item Column="0" Text="Период ЧИМ, мсек" Row="17" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/10/1" Row="17" Format="dec" Assign="1/10/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/10/2" Row="17" Format="dec" Assign="1/10/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/10/3" Row="17" Format="dec" Assign="1/10/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/10/4" Row="17" Format="dec" Assign="1/10/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/10/5" Row="17" Format="dec" Assign="1/10/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/10/6" Row="17" Format="dec" Assign="1/10/6" Font="align_center"/>
-    <Item Column="0" Text="Длительность ЧИМ, мсек" Row="18" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/11/1" Row="18" Format="dec" Assign="1/11/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/11/2" Row="18" Format="dec" Assign="1/11/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/11/3" Row="18" Format="dec" Assign="1/11/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/11/4" Row="18" Format="dec" Assign="1/11/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/11/5" Row="18" Format="dec" Assign="1/11/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/11/6" Row="18" Format="dec" Assign="1/11/6" Font="align_center"/>
-    <Item Column="0" Text="Счет времени ЧИМ, мсек" Row="19" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/13/1" Row="19" Format="dec" Assign="1/13/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/13/2" Row="19" Format="dec" Assign="1/13/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/13/3" Row="19" Format="dec" Assign="1/13/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/13/4" Row="19" Format="dec" Assign="1/13/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/13/5" Row="19" Format="dec" Assign="1/13/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/13/6" Row="19" Format="dec" Assign="1/13/6" Font="align_center"/>
-    <Item Column="0" Text="Состояние" Row="20" Font="bold;align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/8/1" SSSelector="do" Row="20" Format="dec" Assign="1/8/1" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/8/2" SSSelector="do" Row="20" Format="dec" Assign="1/8/2" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/8/3" SSSelector="do" Row="20" Format="dec" Assign="1/8/3" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/8/4" SSSelector="do" Row="20" Format="dec" Assign="1/8/4" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/8/5" SSSelector="do" Row="20" Format="dec" Assign="1/8/5" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/8/6" SSSelector="do" Row="20" Format="dec" Assign="1/8/6" Font="bold;align_center"/>
-    <Item Column="0" Text="Взаимоблокировка пар, мсек" Row="21" Font="bold;align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/14/1" Row="21" Format="dec" Assign="1/14/1" Font="bold;align_center"/>
-    <Item Column="2" Row="21"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/14/2" Row="21" Format="dec" Assign="1/14/2" Font="bold;align_center"/>
-    <Item Column="4" Row="21"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/14/3" Row="21" Format="dec" Assign="1/14/3" Font="bold;align_center"/>
-    <Item Column="6" Row="21"/>
-    <Item Column="0" Text="Состояние вых с учетом типа канала и блокировок" Row="22" Font="bold;align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/15/1" SSSelector="di" Row="22" Format="dec" Assign="1/15/1" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/15/2" SSSelector="di" Row="22" Format="dec" Assign="1/15/2" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/15/3" SSSelector="di" Row="22" Format="dec" Assign="1/15/3" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/15/4" SSSelector="di" Row="22" Format="dec" Assign="1/15/4" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/15/5" SSSelector="di" Row="22" Format="dec" Assign="1/15/5" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/15/6" SSSelector="di" Row="22" Format="dec" Assign="1/15/6" Font="bold;align_center"/>
-    <Item BackgroundColor="#aaff00" Column="0" Text="Частота Дискретных Входов" Row="23" Font="bold;underline;align_right"/>
-    <Item BackgroundColor="#aaff00" Column="1" Text="1/8/33" SSSelector="di1" Row="23" Format="dec" Assign="1/8/33" Font="bold;align_center"/>
-    <Item BackgroundColor="#aaff00" Column="2" Text="1/8/34" SSSelector="di2" Row="23" Format="dec" Assign="1/8/34" Font="bold;align_center"/>
-    <Item BackgroundColor="#aaff00" Column="3" Text="1/8/35" SSSelector="di3" Row="23" Format="dec" Assign="1/8/35" Font="bold;align_center"/>
-    <Item BackgroundColor="#aaff00" Column="4" Text="1/8/36" SSSelector="di4" Row="23" Format="dec" Assign="1/8/36" Font="bold;align_center"/>
-    <Item BackgroundColor="#aaff00" Column="5" Text="1/8/37" SSSelector="di5" Row="23" Format="dec" Assign="1/8/37" Font="bold;align_center"/>
-    <Item BackgroundColor="#aaff00" Column="6" Text="1/8/38" SSSelector="di6" Row="23" Format="dec" Assign="1/8/38" Font="bold;align_center"/>
-    <Item Column="0" Text="Частота, Гц" Row="24" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/5/1" Row="24" Format="dec" Assign="1/5/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/5/2" Row="24" Format="dec" Assign="1/5/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/5/3" Row="24" Format="dec" Assign="1/5/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/5/4" Row="24" Format="dec" Assign="1/5/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/5/5" Row="24" Format="dec" Assign="1/5/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/5/6" Row="24" Format="dec" Assign="1/5/6" Font="align_center"/>
-    <Item Column="0" Text="Нормировка X1" Row="25" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/23/1" Row="25" Format="dec" Assign="1/23/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/23/2" Row="25" Format="dec" Assign="1/23/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/23/3" Row="25" Format="dec" Assign="1/23/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/23/4" Row="25" Format="dec" Assign="1/23/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/23/5" Row="25" Format="dec" Assign="1/23/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/23/6" Row="25" Format="dec" Assign="1/23/6" Font="align_center"/>
-    <Item Column="0" Text="Y1" Row="26" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/24/1" Row="26" Format="dec" Assign="1/24/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/24/2" Row="26" Format="dec" Assign="1/24/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/24/3" Row="26" Format="dec" Assign="1/24/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/24/4" Row="26" Format="dec" Assign="1/24/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/24/5" Row="26" Format="dec" Assign="1/24/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/24/6" Row="26" Format="dec" Assign="1/24/6" Font="align_center"/>
-    <Item Column="0" Text="X2" Row="27" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/25/1" Row="27" Format="dec" Assign="1/25/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/25/2" Row="27" Format="dec" Assign="1/25/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/25/3" Row="27" Format="dec" Assign="1/25/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/25/4" Row="27" Format="dec" Assign="1/25/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/25/5" Row="27" Format="dec" Assign="1/25/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/25/6" Row="27" Format="dec" Assign="1/25/6" Font="align_center"/>
-    <Item Column="0" Text="Y2" Row="28" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/26/1" Row="28" Format="dec" Assign="1/26/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/26/2" Row="28" Format="dec" Assign="1/26/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/26/3" Row="28" Format="dec" Assign="1/26/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/26/4" Row="28" Format="dec" Assign="1/26/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/26/5" Row="28" Format="dec" Assign="1/26/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/26/6" Row="28" Format="dec" Assign="1/26/6" Font="align_center"/>
-    <Item Column="0" Text="Результат" Row="29" Font="bold;align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/27/1" Row="29" Format="dec" Assign="1/27/1" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/27/2" Row="29" Format="dec" Assign="1/27/2" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/27/3" Row="29" Format="dec" Assign="1/27/3" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/27/4" Row="29" Format="dec" Assign="1/27/4" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/27/5" Row="29" Format="dec" Assign="1/27/5" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/27/6" Row="29" Format="dec" Assign="1/27/6" Font="bold;align_center"/>
-    <Item Column="0" Text="Нижняя Уставка" Row="30" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/33/1" Row="30" Format="dec" Assign="1/33/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/33/2" Row="30" Format="dec" Assign="1/33/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/33/3" Row="30" Format="dec" Assign="1/33/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/33/4" Row="30" Format="dec" Assign="1/33/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/33/5" Row="30" Format="dec" Assign="1/33/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/33/6" Row="30" Format="dec" Assign="1/33/6" Font="align_center"/>
-    <Item Column="0" Text="Верхняя Уставка" Row="31" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/34/1" Row="31" Format="dec" Assign="1/34/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/34/2" Row="31" Format="dec" Assign="1/34/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/34/3" Row="31" Format="dec" Assign="1/34/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/34/4" Row="31" Format="dec" Assign="1/34/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/34/5" Row="31" Format="dec" Assign="1/34/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/34/6" Row="31" Format="dec" Assign="1/34/6" Font="align_center"/>
-    <Item Column="0" Text="Гистерезис Нижней Уставки" Row="32" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/35/1" Row="32" Format="dec" Assign="1/35/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/35/2" Row="32" Format="dec" Assign="1/35/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/35/3" Row="32" Format="dec" Assign="1/35/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/35/4" Row="32" Format="dec" Assign="1/35/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/35/5" Row="32" Format="dec" Assign="1/35/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/35/6" Row="32" Format="dec" Assign="1/35/6" Font="align_center"/>
-    <Item Column="0" Text="Гистерезис Верхней Уставки" Row="33" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/36/1" Row="33" Format="dec" Assign="1/36/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/36/2" Row="33" Format="dec" Assign="1/36/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/36/3" Row="33" Format="dec" Assign="1/36/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/36/4" Row="33" Format="dec" Assign="1/36/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/36/5" Row="33" Format="dec" Assign="1/36/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/36/6" Row="33" Format="dec" Assign="1/36/6" Font="align_center"/>
-    <Item Column="0" Text="Счетчик выходов за Нижнюю Уставку" Row="34" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/37/1" Row="34" Format="dec" Assign="1/37/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/37/2" Row="34" Format="dec" Assign="1/37/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/37/3" Row="34" Format="dec" Assign="1/37/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/37/4" Row="34" Format="dec" Assign="1/37/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/37/5" Row="34" Format="dec" Assign="1/37/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/37/6" Row="34" Format="dec" Assign="1/37/6" Font="align_center"/>
-    <Item Column="0" Text="Счетчик выходов за Верхнюю Уставку" Row="35" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/38/1" Row="35" Format="dec" Assign="1/38/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/38/2" Row="35" Format="dec" Assign="1/38/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/38/3" Row="35" Format="dec" Assign="1/38/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/38/4" Row="35" Format="dec" Assign="1/38/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/38/5" Row="35" Format="dec" Assign="1/38/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/38/6" Row="35" Format="dec" Assign="1/38/6" Font="align_center"/>
-    <Item Column="0" Text="За Нижней Уставкой" Row="36" Font="bold;align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/39/1" SSSelector="di_nu" Row="36" Format="dec" Assign="1/39/1" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/39/2" SSSelector="di_nu" Row="36" Format="dec" Assign="1/39/2" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/39/3" SSSelector="di_nu" Row="36" Format="dec" Assign="1/39/3" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/39/4" SSSelector="di_nu" Row="36" Format="dec" Assign="1/39/4" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/39/5" SSSelector="di_nu" Row="36" Format="dec" Assign="1/39/5" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/39/6" SSSelector="di_nu" Row="36" Format="dec" Assign="1/39/6" Font="bold;align_center"/>
-    <Item Column="0" Text="За Верхней Уставкой" Row="37" Font="bold;align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/39/33" SSSelector="di_vu" Row="37" Format="dec" Assign="1/39/33" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/39/34" SSSelector="di_vu" Row="37" Format="dec" Assign="1/39/34" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/39/35" SSSelector="di_vu" Row="37" Format="dec" Assign="1/39/35" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/39/36" SSSelector="di_vu" Row="37" Format="dec" Assign="1/39/36" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/39/37" SSSelector="di_vu" Row="37" Format="dec" Assign="1/39/37" Font="bold;align_center"/>
-    <Item BackgroundColor="#faebd7" Column="6" Text="1/39/38" SSSelector="di_vu" Row="37" Format="dec" Assign="1/39/38" Font="bold;align_center"/>
-    <Item Column="0" Row="38"/>
-    <Item Column="1" Row="38"/>
-    <Item Column="2" Row="38"/>
-    <Item Column="3" Row="38"/>
-    <Item Column="4" Row="38"/>
-    <Item Column="5" Row="38"/>
-    <Item Column="6" Row="38"/>
-    <Item BackgroundColor="#00007f" Column="0" Row="39"/>
-    <Item BackgroundColor="#00007f" Column="1" Row="39"/>
-    <Item BackgroundColor="#00007f" Column="2" Row="39"/>
-    <Item BackgroundColor="#00007f" Column="3" Row="39"/>
-    <Item BackgroundColor="#00007f" Column="4" Row="39"/>
-    <Item BackgroundColor="#00007f" Column="5" Row="39"/>
-    <Item BackgroundColor="#00007f" Column="6" Row="39"/>
-    <Item Column="0" Text="Настройки в ППЗУ" Row="40" Font="bold;underline;align_right"/>
-    <Item Column="1" Row="40"/>
-    <Item Column="2" Row="40"/>
-    <Item Column="3" Row="40"/>
-    <Item Column="4" Row="40"/>
-    <Item Column="5" Row="40"/>
-    <Item Column="6" Row="40"/>
-    <Item Column="0" Text="Чтение/Запись/Стир./Ст.Алг. - 105/90/75/85" Row="41" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/1/3" Row="41" Assign="1/1/3" Font="underline;align_center"/>
-    <Item Column="2" Text="Кол-во записей в flash" Row="41" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/12/2" Row="41" Format="dec" Assign="1/12/2" Font="align_center"/>
+    <Item Font="bold;align_right" Text="Очистка счетчиков" Column="0" Row="15"/>
+    <Item Font="bold;align_center" Text="1/1/1" SSSelector="di_erase_counters" BackgroundColor="#faebd7" Assign="1/1/1" Column="1" Format="dec" Row="15"/>
+    <Item Column="2" Row="15"/>
+    <Item Column="3" Row="15"/>
+    <Item Column="4" Row="15"/>
+    <Item Column="5" Row="15"/>
+    <Item Column="6" Row="15"/>
+    <Item Font="bold;underline;align_right" Text="Дискретные Выходы" BackgroundColor="#aaff00" Column="0" Row="16"/>
+    <Item Font="bold;align_center" Text="1/8/33" SSSelector="do1" BackgroundColor="#aaff00" Assign="1/8/33" Column="1" Format="dec" Row="16"/>
+    <Item Font="bold;align_center" Text="1/8/34" SSSelector="do2" BackgroundColor="#aaff00" Assign="1/8/34" Column="2" Format="dec" Row="16"/>
+    <Item Font="bold;align_center" Text="1/8/35" SSSelector="do3" BackgroundColor="#aaff00" Assign="1/8/35" Column="3" Format="dec" Row="16"/>
+    <Item Font="bold;align_center" Text="1/8/36" SSSelector="do4" BackgroundColor="#aaff00" Assign="1/8/36" Column="4" Format="dec" Row="16"/>
+    <Item Font="bold;align_center" Text="1/8/37" SSSelector="do5" BackgroundColor="#aaff00" Assign="1/8/37" Column="5" Format="dec" Row="16"/>
+    <Item Font="bold;align_center" Text="1/8/38" SSSelector="do6" BackgroundColor="#aaff00" Assign="1/8/38" Column="6" Format="dec" Row="16"/>
+    <Item Font="align_right" Text="ШИМ, мсек" Column="0" Row="17"/>
+    <Item Font="align_center" Text="1/9/1" BackgroundColor="#faebd7" Assign="1/9/1" Column="1" Format="dec" Row="17"/>
+    <Item Font="align_center" Text="1/9/2" BackgroundColor="#faebd7" Assign="1/9/2" Column="2" Format="dec" Row="17"/>
+    <Item Font="align_center" Text="1/9/3" BackgroundColor="#faebd7" Assign="1/9/3" Column="3" Format="dec" Row="17"/>
+    <Item Font="align_center" Text="1/9/4" BackgroundColor="#faebd7" Assign="1/9/4" Column="4" Format="dec" Row="17"/>
+    <Item Font="align_center" Text="1/9/5" BackgroundColor="#faebd7" Assign="1/9/5" Column="5" Format="dec" Row="17"/>
+    <Item Font="align_center" Text="1/9/6" BackgroundColor="#faebd7" Assign="1/9/6" Column="6" Format="dec" Row="17"/>
+    <Item Font="align_right" Text="Период ЧИМ, мсек" Column="0" Row="18"/>
+    <Item Font="align_center" Text="1/10/1" BackgroundColor="#faebd7" Assign="1/10/1" Column="1" Format="dec" Row="18"/>
+    <Item Font="align_center" Text="1/10/2" BackgroundColor="#faebd7" Assign="1/10/2" Column="2" Format="dec" Row="18"/>
+    <Item Font="align_center" Text="1/10/3" BackgroundColor="#faebd7" Assign="1/10/3" Column="3" Format="dec" Row="18"/>
+    <Item Font="align_center" Text="1/10/4" BackgroundColor="#faebd7" Assign="1/10/4" Column="4" Format="dec" Row="18"/>
+    <Item Font="align_center" Text="1/10/5" BackgroundColor="#faebd7" Assign="1/10/5" Column="5" Format="dec" Row="18"/>
+    <Item Font="align_center" Text="1/10/6" BackgroundColor="#faebd7" Assign="1/10/6" Column="6" Format="dec" Row="18"/>
+    <Item Font="align_right" Text="Длительность ЧИМ, мсек" Column="0" Row="19"/>
+    <Item Font="align_center" Text="1/11/1" BackgroundColor="#faebd7" Assign="1/11/1" Column="1" Format="dec" Row="19"/>
+    <Item Font="align_center" Text="1/11/2" BackgroundColor="#faebd7" Assign="1/11/2" Column="2" Format="dec" Row="19"/>
+    <Item Font="align_center" Text="1/11/3" BackgroundColor="#faebd7" Assign="1/11/3" Column="3" Format="dec" Row="19"/>
+    <Item Font="align_center" Text="1/11/4" BackgroundColor="#faebd7" Assign="1/11/4" Column="4" Format="dec" Row="19"/>
+    <Item Font="align_center" Text="1/11/5" BackgroundColor="#faebd7" Assign="1/11/5" Column="5" Format="dec" Row="19"/>
+    <Item Font="align_center" Text="1/11/6" BackgroundColor="#faebd7" Assign="1/11/6" Column="6" Format="dec" Row="19"/>
+    <Item Font="align_right" Text="Счет времени ЧИМ, мсек" Column="0" Row="20"/>
+    <Item Font="align_center" Text="1/13/1" BackgroundColor="#faebd7" Assign="1/13/1" Column="1" Format="dec" Row="20"/>
+    <Item Font="align_center" Text="1/13/2" BackgroundColor="#faebd7" Assign="1/13/2" Column="2" Format="dec" Row="20"/>
+    <Item Font="align_center" Text="1/13/3" BackgroundColor="#faebd7" Assign="1/13/3" Column="3" Format="dec" Row="20"/>
+    <Item Font="align_center" Text="1/13/4" BackgroundColor="#faebd7" Assign="1/13/4" Column="4" Format="dec" Row="20"/>
+    <Item Font="align_center" Text="1/13/5" BackgroundColor="#faebd7" Assign="1/13/5" Column="5" Format="dec" Row="20"/>
+    <Item Font="align_center" Text="1/13/6" BackgroundColor="#faebd7" Assign="1/13/6" Column="6" Format="dec" Row="20"/>
+    <Item Font="bold;align_right" Text="Состояние" Column="0" Row="21"/>
+    <Item Font="bold;align_center" Text="1/8/1" SSSelector="do" BackgroundColor="#faebd7" Assign="1/8/1" Column="1" Format="dec" Row="21"/>
+    <Item Font="bold;align_center" Text="1/8/2" SSSelector="do" BackgroundColor="#faebd7" Assign="1/8/2" Column="2" Format="dec" Row="21"/>
+    <Item Font="bold;align_center" Text="1/8/3" SSSelector="do" BackgroundColor="#faebd7" Assign="1/8/3" Column="3" Format="dec" Row="21"/>
+    <Item Font="bold;align_center" Text="1/8/4" SSSelector="do" BackgroundColor="#faebd7" Assign="1/8/4" Column="4" Format="dec" Row="21"/>
+    <Item Font="bold;align_center" Text="1/8/5" SSSelector="do" BackgroundColor="#faebd7" Assign="1/8/5" Column="5" Format="dec" Row="21"/>
+    <Item Font="bold;align_center" Text="1/8/6" SSSelector="do" BackgroundColor="#faebd7" Assign="1/8/6" Column="6" Format="dec" Row="21"/>
+    <Item Font="bold;align_right" Text="Взаимоблокировка пар, мсек" Column="0" Row="22"/>
+    <Item Font="bold;align_center" Text="1/14/1" BackgroundColor="#faebd7" Assign="1/14/1" Column="1" Format="dec" Row="22"/>
+    <Item Column="2" Row="22"/>
+    <Item Font="bold;align_center" Text="1/14/2" BackgroundColor="#faebd7" Assign="1/14/2" Column="3" Format="dec" Row="22"/>
+    <Item Column="4" Row="22"/>
+    <Item Font="bold;align_center" Text="1/14/3" BackgroundColor="#faebd7" Assign="1/14/3" Column="5" Format="dec" Row="22"/>
+    <Item Column="6" Row="22"/>
+    <Item Font="bold;align_right" Text="Состояние вых с учетом типа канала и блокировок" Column="0" Row="23"/>
+    <Item Font="bold;align_center" Text="1/15/1" SSSelector="di" BackgroundColor="#faebd7" Assign="1/15/1" Column="1" Format="dec" Row="23"/>
+    <Item Font="bold;align_center" Text="1/15/2" SSSelector="di" BackgroundColor="#faebd7" Assign="1/15/2" Column="2" Format="dec" Row="23"/>
+    <Item Font="bold;align_center" Text="1/15/3" SSSelector="di" BackgroundColor="#faebd7" Assign="1/15/3" Column="3" Format="dec" Row="23"/>
+    <Item Font="bold;align_center" Text="1/15/4" SSSelector="di" BackgroundColor="#faebd7" Assign="1/15/4" Column="4" Format="dec" Row="23"/>
+    <Item Font="bold;align_center" Text="1/15/5" SSSelector="di" BackgroundColor="#faebd7" Assign="1/15/5" Column="5" Format="dec" Row="23"/>
+    <Item Font="bold;align_center" Text="1/15/6" SSSelector="di" BackgroundColor="#faebd7" Assign="1/15/6" Column="6" Format="dec" Row="23"/>
+    <Item Font="bold;underline;align_right" Text="Частота Дискретных Входов" BackgroundColor="#aaff00" Column="0" Row="24"/>
+    <Item Font="bold;align_center" Text="1/8/33" SSSelector="di1" BackgroundColor="#aaff00" Assign="1/8/33" Column="1" Format="dec" Row="24"/>
+    <Item Font="bold;align_center" Text="1/8/34" SSSelector="di2" BackgroundColor="#aaff00" Assign="1/8/34" Column="2" Format="dec" Row="24"/>
+    <Item Font="bold;align_center" Text="1/8/35" SSSelector="di3" BackgroundColor="#aaff00" Assign="1/8/35" Column="3" Format="dec" Row="24"/>
+    <Item Font="bold;align_center" Text="1/8/36" SSSelector="di4" BackgroundColor="#aaff00" Assign="1/8/36" Column="4" Format="dec" Row="24"/>
+    <Item Font="bold;align_center" Text="1/8/37" SSSelector="di5" BackgroundColor="#aaff00" Assign="1/8/37" Column="5" Format="dec" Row="24"/>
+    <Item Font="bold;align_center" Text="1/8/38" SSSelector="di6" BackgroundColor="#aaff00" Assign="1/8/38" Column="6" Format="dec" Row="24"/>
+    <Item Font="align_right" Text="Частота, Гц" Column="0" Row="25"/>
+    <Item Font="align_center" Text="1/5/1" BackgroundColor="#faebd7" Assign="1/5/1" Column="1" Format="dec" Row="25"/>
+    <Item Font="align_center" Text="1/5/2" BackgroundColor="#faebd7" Assign="1/5/2" Column="2" Format="dec" Row="25"/>
+    <Item Font="align_center" Text="1/5/3" BackgroundColor="#faebd7" Assign="1/5/3" Column="3" Format="dec" Row="25"/>
+    <Item Font="align_center" Text="1/5/4" BackgroundColor="#faebd7" Assign="1/5/4" Column="4" Format="dec" Row="25"/>
+    <Item Font="align_center" Text="1/5/5" BackgroundColor="#faebd7" Assign="1/5/5" Column="5" Format="dec" Row="25"/>
+    <Item Font="align_center" Text="1/5/6" BackgroundColor="#faebd7" Assign="1/5/6" Column="6" Format="dec" Row="25"/>
+    <Item Font="align_right" Text="Нормировка X1" Column="0" Row="26"/>
+    <Item Font="align_center" Text="1/23/1" BackgroundColor="#faebd7" Assign="1/23/1" Column="1" Format="dec" Row="26"/>
+    <Item Font="align_center" Text="1/23/2" BackgroundColor="#faebd7" Assign="1/23/2" Column="2" Format="dec" Row="26"/>
+    <Item Font="align_center" Text="1/23/3" BackgroundColor="#faebd7" Assign="1/23/3" Column="3" Format="dec" Row="26"/>
+    <Item Font="align_center" Text="1/23/4" BackgroundColor="#faebd7" Assign="1/23/4" Column="4" Format="dec" Row="26"/>
+    <Item Font="align_center" Text="1/23/5" BackgroundColor="#faebd7" Assign="1/23/5" Column="5" Format="dec" Row="26"/>
+    <Item Font="align_center" Text="1/23/6" BackgroundColor="#faebd7" Assign="1/23/6" Column="6" Format="dec" Row="26"/>
+    <Item Font="align_right" Text="Y1" Column="0" Row="27"/>
+    <Item Font="align_center" Text="1/24/1" BackgroundColor="#faebd7" Assign="1/24/1" Column="1" Format="dec" Row="27"/>
+    <Item Font="align_center" Text="1/24/2" BackgroundColor="#faebd7" Assign="1/24/2" Column="2" Format="dec" Row="27"/>
+    <Item Font="align_center" Text="1/24/3" BackgroundColor="#faebd7" Assign="1/24/3" Column="3" Format="dec" Row="27"/>
+    <Item Font="align_center" Text="1/24/4" BackgroundColor="#faebd7" Assign="1/24/4" Column="4" Format="dec" Row="27"/>
+    <Item Font="align_center" Text="1/24/5" BackgroundColor="#faebd7" Assign="1/24/5" Column="5" Format="dec" Row="27"/>
+    <Item Font="align_center" Text="1/24/6" BackgroundColor="#faebd7" Assign="1/24/6" Column="6" Format="dec" Row="27"/>
+    <Item Font="align_right" Text="X2" Column="0" Row="28"/>
+    <Item Font="align_center" Text="1/25/1" BackgroundColor="#faebd7" Assign="1/25/1" Column="1" Format="dec" Row="28"/>
+    <Item Font="align_center" Text="1/25/2" BackgroundColor="#faebd7" Assign="1/25/2" Column="2" Format="dec" Row="28"/>
+    <Item Font="align_center" Text="1/25/3" BackgroundColor="#faebd7" Assign="1/25/3" Column="3" Format="dec" Row="28"/>
+    <Item Font="align_center" Text="1/25/4" BackgroundColor="#faebd7" Assign="1/25/4" Column="4" Format="dec" Row="28"/>
+    <Item Font="align_center" Text="1/25/5" BackgroundColor="#faebd7" Assign="1/25/5" Column="5" Format="dec" Row="28"/>
+    <Item Font="align_center" Text="1/25/6" BackgroundColor="#faebd7" Assign="1/25/6" Column="6" Format="dec" Row="28"/>
+    <Item Font="align_right" Text="Y2" Column="0" Row="29"/>
+    <Item Font="align_center" Text="1/26/1" BackgroundColor="#faebd7" Assign="1/26/1" Column="1" Format="dec" Row="29"/>
+    <Item Font="align_center" Text="1/26/2" BackgroundColor="#faebd7" Assign="1/26/2" Column="2" Format="dec" Row="29"/>
+    <Item Font="align_center" Text="1/26/3" BackgroundColor="#faebd7" Assign="1/26/3" Column="3" Format="dec" Row="29"/>
+    <Item Font="align_center" Text="1/26/4" BackgroundColor="#faebd7" Assign="1/26/4" Column="4" Format="dec" Row="29"/>
+    <Item Font="align_center" Text="1/26/5" BackgroundColor="#faebd7" Assign="1/26/5" Column="5" Format="dec" Row="29"/>
+    <Item Font="align_center" Text="1/26/6" BackgroundColor="#faebd7" Assign="1/26/6" Column="6" Format="dec" Row="29"/>
+    <Item Font="bold;align_right" Text="Результат" Column="0" Row="30"/>
+    <Item Font="bold;align_center" Text="1/27/1" BackgroundColor="#faebd7" Assign="1/27/1" Column="1" Format="dec" Row="30"/>
+    <Item Font="bold;align_center" Text="1/27/2" BackgroundColor="#faebd7" Assign="1/27/2" Column="2" Format="dec" Row="30"/>
+    <Item Font="bold;align_center" Text="1/27/3" BackgroundColor="#faebd7" Assign="1/27/3" Column="3" Format="dec" Row="30"/>
+    <Item Font="bold;align_center" Text="1/27/4" BackgroundColor="#faebd7" Assign="1/27/4" Column="4" Format="dec" Row="30"/>
+    <Item Font="bold;align_center" Text="1/27/5" BackgroundColor="#faebd7" Assign="1/27/5" Column="5" Format="dec" Row="30"/>
+    <Item Font="bold;align_center" Text="1/27/6" BackgroundColor="#faebd7" Assign="1/27/6" Column="6" Format="dec" Row="30"/>
+    <Item Font="align_right" Text="Нижняя Уставка" Column="0" Row="31"/>
+    <Item Font="align_center" Text="1/33/1" BackgroundColor="#faebd7" Assign="1/33/1" Column="1" Format="dec" Row="31"/>
+    <Item Font="align_center" Text="1/33/2" BackgroundColor="#faebd7" Assign="1/33/2" Column="2" Format="dec" Row="31"/>
+    <Item Font="align_center" Text="1/33/3" BackgroundColor="#faebd7" Assign="1/33/3" Column="3" Format="dec" Row="31"/>
+    <Item Font="align_center" Text="1/33/4" BackgroundColor="#faebd7" Assign="1/33/4" Column="4" Format="dec" Row="31"/>
+    <Item Font="align_center" Text="1/33/5" BackgroundColor="#faebd7" Assign="1/33/5" Column="5" Format="dec" Row="31"/>
+    <Item Font="align_center" Text="1/33/6" BackgroundColor="#faebd7" Assign="1/33/6" Column="6" Format="dec" Row="31"/>
+    <Item Font="align_right" Text="Верхняя Уставка" Column="0" Row="32"/>
+    <Item Font="align_center" Text="1/34/1" BackgroundColor="#faebd7" Assign="1/34/1" Column="1" Format="dec" Row="32"/>
+    <Item Font="align_center" Text="1/34/2" BackgroundColor="#faebd7" Assign="1/34/2" Column="2" Format="dec" Row="32"/>
+    <Item Font="align_center" Text="1/34/3" BackgroundColor="#faebd7" Assign="1/34/3" Column="3" Format="dec" Row="32"/>
+    <Item Font="align_center" Text="1/34/4" BackgroundColor="#faebd7" Assign="1/34/4" Column="4" Format="dec" Row="32"/>
+    <Item Font="align_center" Text="1/34/5" BackgroundColor="#faebd7" Assign="1/34/5" Column="5" Format="dec" Row="32"/>
+    <Item Font="align_center" Text="1/34/6" BackgroundColor="#faebd7" Assign="1/34/6" Column="6" Format="dec" Row="32"/>
+    <Item Font="align_right" Text="Гистерезис Нижней Уставки" Column="0" Row="33"/>
+    <Item Font="align_center" Text="1/35/1" BackgroundColor="#faebd7" Assign="1/35/1" Column="1" Format="dec" Row="33"/>
+    <Item Font="align_center" Text="1/35/2" BackgroundColor="#faebd7" Assign="1/35/2" Column="2" Format="dec" Row="33"/>
+    <Item Font="align_center" Text="1/35/3" BackgroundColor="#faebd7" Assign="1/35/3" Column="3" Format="dec" Row="33"/>
+    <Item Font="align_center" Text="1/35/4" BackgroundColor="#faebd7" Assign="1/35/4" Column="4" Format="dec" Row="33"/>
+    <Item Font="align_center" Text="1/35/5" BackgroundColor="#faebd7" Assign="1/35/5" Column="5" Format="dec" Row="33"/>
+    <Item Font="align_center" Text="1/35/6" BackgroundColor="#faebd7" Assign="1/35/6" Column="6" Format="dec" Row="33"/>
+    <Item Font="align_right" Text="Гистерезис Верхней Уставки" Column="0" Row="34"/>
+    <Item Font="align_center" Text="1/36/1" BackgroundColor="#faebd7" Assign="1/36/1" Column="1" Format="dec" Row="34"/>
+    <Item Font="align_center" Text="1/36/2" BackgroundColor="#faebd7" Assign="1/36/2" Column="2" Format="dec" Row="34"/>
+    <Item Font="align_center" Text="1/36/3" BackgroundColor="#faebd7" Assign="1/36/3" Column="3" Format="dec" Row="34"/>
+    <Item Font="align_center" Text="1/36/4" BackgroundColor="#faebd7" Assign="1/36/4" Column="4" Format="dec" Row="34"/>
+    <Item Font="align_center" Text="1/36/5" BackgroundColor="#faebd7" Assign="1/36/5" Column="5" Format="dec" Row="34"/>
+    <Item Font="align_center" Text="1/36/6" BackgroundColor="#faebd7" Assign="1/36/6" Column="6" Format="dec" Row="34"/>
+    <Item Font="align_right" Text="Счетчик выходов за Нижнюю Уставку" Column="0" Row="35"/>
+    <Item Font="align_center" Text="1/37/1" BackgroundColor="#faebd7" Assign="1/37/1" Column="1" Format="dec" Row="35"/>
+    <Item Font="align_center" Text="1/37/2" BackgroundColor="#faebd7" Assign="1/37/2" Column="2" Format="dec" Row="35"/>
+    <Item Font="align_center" Text="1/37/3" BackgroundColor="#faebd7" Assign="1/37/3" Column="3" Format="dec" Row="35"/>
+    <Item Font="align_center" Text="1/37/4" BackgroundColor="#faebd7" Assign="1/37/4" Column="4" Format="dec" Row="35"/>
+    <Item Font="align_center" Text="1/37/5" BackgroundColor="#faebd7" Assign="1/37/5" Column="5" Format="dec" Row="35"/>
+    <Item Font="align_center" Text="1/37/6" BackgroundColor="#faebd7" Assign="1/37/6" Column="6" Format="dec" Row="35"/>
+    <Item Font="align_right" Text="Счетчик выходов за Верхнюю Уставку" Column="0" Row="36"/>
+    <Item Font="align_center" Text="1/38/1" BackgroundColor="#faebd7" Assign="1/38/1" Column="1" Format="dec" Row="36"/>
+    <Item Font="align_center" Text="1/38/2" BackgroundColor="#faebd7" Assign="1/38/2" Column="2" Format="dec" Row="36"/>
+    <Item Font="align_center" Text="1/38/3" BackgroundColor="#faebd7" Assign="1/38/3" Column="3" Format="dec" Row="36"/>
+    <Item Font="align_center" Text="1/38/4" BackgroundColor="#faebd7" Assign="1/38/4" Column="4" Format="dec" Row="36"/>
+    <Item Font="align_center" Text="1/38/5" BackgroundColor="#faebd7" Assign="1/38/5" Column="5" Format="dec" Row="36"/>
+    <Item Font="align_center" Text="1/38/6" BackgroundColor="#faebd7" Assign="1/38/6" Column="6" Format="dec" Row="36"/>
+    <Item Font="bold;align_right" Text="За Нижней Уставкой" Column="0" Row="37"/>
+    <Item Font="bold;align_center" Text="1/39/1" SSSelector="di_nu" BackgroundColor="#faebd7" Assign="1/39/1" Column="1" Format="dec" Row="37"/>
+    <Item Font="bold;align_center" Text="1/39/2" SSSelector="di_nu" BackgroundColor="#faebd7" Assign="1/39/2" Column="2" Format="dec" Row="37"/>
+    <Item Font="bold;align_center" Text="1/39/3" SSSelector="di_nu" BackgroundColor="#faebd7" Assign="1/39/3" Column="3" Format="dec" Row="37"/>
+    <Item Font="bold;align_center" Text="1/39/4" SSSelector="di_nu" BackgroundColor="#faebd7" Assign="1/39/4" Column="4" Format="dec" Row="37"/>
+    <Item Font="bold;align_center" Text="1/39/5" SSSelector="di_nu" BackgroundColor="#faebd7" Assign="1/39/5" Column="5" Format="dec" Row="37"/>
+    <Item Font="bold;align_center" Text="1/39/6" SSSelector="di_nu" BackgroundColor="#faebd7" Assign="1/39/6" Column="6" Format="dec" Row="37"/>
+    <Item Font="bold;align_right" Text="За Верхней Уставкой" Column="0" Row="38"/>
+    <Item Font="bold;align_center" Text="1/39/33" SSSelector="di_vu" BackgroundColor="#faebd7" Assign="1/39/33" Column="1" Format="dec" Row="38"/>
+    <Item Font="bold;align_center" Text="1/39/34" SSSelector="di_vu" BackgroundColor="#faebd7" Assign="1/39/34" Column="2" Format="dec" Row="38"/>
+    <Item Font="bold;align_center" Text="1/39/35" SSSelector="di_vu" BackgroundColor="#faebd7" Assign="1/39/35" Column="3" Format="dec" Row="38"/>
+    <Item Font="bold;align_center" Text="1/39/36" SSSelector="di_vu" BackgroundColor="#faebd7" Assign="1/39/36" Column="4" Format="dec" Row="38"/>
+    <Item Font="bold;align_center" Text="1/39/37" SSSelector="di_vu" BackgroundColor="#faebd7" Assign="1/39/37" Column="5" Format="dec" Row="38"/>
+    <Item Font="bold;align_center" Text="1/39/38" SSSelector="di_vu" BackgroundColor="#faebd7" Assign="1/39/38" Column="6" Format="dec" Row="38"/>
+    <Item Column="0" Row="39"/>
+    <Item Column="1" Row="39"/>
+    <Item Column="2" Row="39"/>
+    <Item Column="3" Row="39"/>
+    <Item Column="4" Row="39"/>
+    <Item Column="5" Row="39"/>
+    <Item Column="6" Row="39"/>
+    <Item BackgroundColor="#00007f" Column="0" Row="40"/>
+    <Item BackgroundColor="#00007f" Column="1" Row="40"/>
+    <Item BackgroundColor="#00007f" Column="2" Row="40"/>
+    <Item BackgroundColor="#00007f" Column="3" Row="40"/>
+    <Item BackgroundColor="#00007f" Column="4" Row="40"/>
+    <Item BackgroundColor="#00007f" Column="5" Row="40"/>
+    <Item BackgroundColor="#00007f" Column="6" Row="40"/>
+    <Item Font="bold;underline;align_right" Text="Настройки в ППЗУ" Column="0" Row="41"/>
+    <Item Column="1" Row="41"/>
+    <Item Column="2" Row="41"/>
+    <Item Column="3" Row="41"/>
     <Item Column="4" Row="41"/>
     <Item Column="5" Row="41"/>
     <Item Column="6" Row="41"/>
-    <Item Column="0" Text="Сохранять настройки DO в fram" Row="42" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/1/4" Row="42" Assign="1/1/4" Font="align_center"/>
-    <Item Column="2" Row="42"/>
-    <Item Column="3" Row="42"/>
+    <Item Font="align_right" Text="Чтение/Запись/Стир./Ст.Алг. - 105/90/75/85" Column="0" Row="42"/>
+    <Item Font="underline;align_center" Text="1/1/3" BackgroundColor="#faebd7" Assign="1/1/3" Column="1" Row="42"/>
+    <Item Font="align_right" Text="Кол-во записей в flash" Column="2" Row="42"/>
+    <Item Font="align_center" Text="1/12/2" BackgroundColor="#faebd7" Assign="1/12/2" Column="3" Format="dec" Row="42"/>
     <Item Column="4" Row="42"/>
     <Item Column="5" Row="42"/>
     <Item Column="6" Row="42"/>
-    <Item Column="0" Row="43"/>
-    <Item Column="1" Row="43"/>
+    <Item Font="align_right" Text="Сохранять настройки DO в fram" Column="0" Row="43"/>
+    <Item Font="align_center" Text="1/1/4" BackgroundColor="#faebd7" Assign="1/1/4" Column="1" Row="43"/>
     <Item Column="2" Row="43"/>
     <Item Column="3" Row="43"/>
     <Item Column="4" Row="43"/>
     <Item Column="5" Row="43"/>
     <Item Column="6" Row="43"/>
-    <Item Column="0" Text="Статистика" Row="44" Font="bold;underline;align_right"/>
+    <Item Column="0" Row="44"/>
     <Item Column="1" Row="44"/>
     <Item Column="2" Row="44"/>
     <Item Column="3" Row="44"/>
     <Item Column="4" Row="44"/>
     <Item Column="5" Row="44"/>
     <Item Column="6" Row="44"/>
-    <Item Column="0" Text="Общее время работы" Row="45" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/18/1" Row="45" Assign="1/18/1" Font="align_center"/>
+    <Item Font="bold;underline;align_right" Text="Статистика" Column="0" Row="45"/>
+    <Item Column="1" Row="45"/>
     <Item Column="2" Row="45"/>
     <Item Column="3" Row="45"/>
     <Item Column="4" Row="45"/>
     <Item Column="5" Row="45"/>
     <Item Column="6" Row="45"/>
-    <Item Column="0" Text="Время после старта" Row="46" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/18/2" Row="46" Assign="1/18/2" Font="align_center"/>
+    <Item Font="align_right" Text="Общее время работы" Column="0" Row="46"/>
+    <Item Font="align_center" Text="1/18/1" BackgroundColor="#faebd7" Assign="1/18/1" Column="1" Row="46"/>
     <Item Column="2" Row="46"/>
     <Item Column="3" Row="46"/>
     <Item Column="4" Row="46"/>
     <Item Column="5" Row="46"/>
     <Item Column="6" Row="46"/>
-    <Item Column="0" Text="Количество рестартов" Row="47" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/18/3" Row="47" Assign="1/18/3" Font="align_center"/>
+    <Item Font="align_right" Text="Время после старта" Column="0" Row="47"/>
+    <Item Font="align_center" Text="1/18/2" BackgroundColor="#faebd7" Assign="1/18/2" Column="1" Row="47"/>
     <Item Column="2" Row="47"/>
     <Item Column="3" Row="47"/>
     <Item Column="4" Row="47"/>
     <Item Column="5" Row="47"/>
     <Item Column="6" Row="47"/>
-    <Item Column="0" Text="Количество записей в flash" Row="48" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/18/4" Row="48" Assign="1/18/4" Font="align_center"/>
+    <Item Font="align_right" Text="Количество рестартов" Column="0" Row="48"/>
+    <Item Font="align_center" Text="1/18/3" BackgroundColor="#faebd7" Assign="1/18/3" Column="1" Row="48"/>
     <Item Column="2" Row="48"/>
     <Item Column="3" Row="48"/>
     <Item Column="4" Row="48"/>
     <Item Column="5" Row="48"/>
     <Item Column="6" Row="48"/>
-    <Item Column="0" Text="Количество записей Алгоблоков в flash" Row="49" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/18/5" Row="49" Assign="1/18/5" Font="align_center"/>
+    <Item Font="align_right" Text="Количество записей в flash" Column="0" Row="49"/>
+    <Item Font="align_center" Text="1/18/4" BackgroundColor="#faebd7" Assign="1/18/4" Column="1" Row="49"/>
     <Item Column="2" Row="49"/>
     <Item Column="3" Row="49"/>
     <Item Column="4" Row="49"/>
     <Item Column="5" Row="49"/>
     <Item Column="6" Row="49"/>
-    <Item Column="0" Text="Ошибка чтения fram(0-нет ошибки)" Row="50" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/18/6" Row="50" Assign="1/18/6" Font="align_center"/>
+    <Item Font="align_right" Text="Количество записей Алгоблоков в flash" Column="0" Row="50"/>
+    <Item Font="align_center" Text="1/18/5" BackgroundColor="#faebd7" Assign="1/18/5" Column="1" Row="50"/>
     <Item Column="2" Row="50"/>
     <Item Column="3" Row="50"/>
     <Item Column="4" Row="50"/>
     <Item Column="5" Row="50"/>
     <Item Column="6" Row="50"/>
-    <Item Column="0" Row="51"/>
-    <Item Column="1" Row="51"/>
+    <Item Font="align_right" Text="Ошибка чтения fram(0-нет ошибки)" Column="0" Row="51"/>
+    <Item Font="align_center" Text="1/18/6" BackgroundColor="#faebd7" Assign="1/18/6" Column="1" Row="51"/>
     <Item Column="2" Row="51"/>
     <Item Column="3" Row="51"/>
     <Item Column="4" Row="51"/>
@@ -373,377 +373,384 @@
     <Item Column="4" Row="52"/>
     <Item Column="5" Row="52"/>
     <Item Column="6" Row="52"/>
-    <Item Column="0" Text="Алгоблочная программа" Row="53" Font="bold;underline;align_right"/>
-    <Item Column="1" Text="Размер в FLASH" Row="53" Font="align_center"/>
-    <Item Column="2" Text="Размер в ОЗУ" Row="53" Font="align_center"/>
-    <Item Column="3" Text="Макс.пакет по USB" Row="53" Font="align_center"/>
-    <Item Column="4" Text="Очередь MODBUS" Row="53" Font="align_center"/>
-    <Item Column="5" Text="Размер в ППЗУ" Row="53" Font="align_center"/>
+    <Item Column="0" Row="53"/>
+    <Item Column="1" Row="53"/>
+    <Item Column="2" Row="53"/>
+    <Item Column="3" Row="53"/>
+    <Item Column="4" Row="53"/>
+    <Item Column="5" Row="53"/>
     <Item Column="6" Row="53"/>
-    <Item Column="0" Text="Системные параметры " Row="54" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/29/1" Row="54" Assign="1/29/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/29/2" Row="54" Assign="1/29/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/30/5" Row="54" Assign="1/30/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/30/6" Row="54" Assign="1/30/6" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/29/4" Row="54" Assign="1/29/4" Font="align_center"/>
+    <Item Font="bold;underline;align_right" Text="Алгоблочная программа" Column="0" Row="54"/>
+    <Item Font="align_center" Text="Размер в FLASH" Column="1" Row="54"/>
+    <Item Font="align_center" Text="Размер в ОЗУ" Column="2" Row="54"/>
+    <Item Font="align_center" Text="Макс.пакет по USB" Column="3" Row="54"/>
+    <Item Font="align_center" Text="Очередь MODBUS" Column="4" Row="54"/>
+    <Item Font="align_center" Text="Размер в ППЗУ" Column="5" Row="54"/>
     <Item Column="6" Row="54"/>
-    <Item Column="0" Text="Данные Алгоблочной программы" Row="55" Font="bold;align_right"/>
-    <Item Column="1" Row="55"/>
-    <Item Column="2" Row="55"/>
-    <Item Column="3" Row="55"/>
-    <Item Column="4" Row="55"/>
-    <Item Column="5" Row="55"/>
+    <Item Font="align_right" Text="Системные параметры " Column="0" Row="55"/>
+    <Item Font="align_center" Text="1/29/1" BackgroundColor="#faebd7" Assign="1/29/1" Column="1" Row="55"/>
+    <Item Font="align_center" Text="1/29/2" BackgroundColor="#faebd7" Assign="1/29/2" Column="2" Row="55"/>
+    <Item Font="align_center" Text="1/30/5" BackgroundColor="#faebd7" Assign="1/30/5" Column="3" Row="55"/>
+    <Item Font="align_center" Text="1/30/6" BackgroundColor="#faebd7" Assign="1/30/6" Column="4" Row="55"/>
+    <Item Font="align_center" Text="1/29/4" BackgroundColor="#faebd7" Assign="1/29/4" Column="5" Row="55"/>
     <Item Column="6" Row="55"/>
-    <Item Column="0" Text="Параметры в ППЗУ" Row="56" Font="align_right"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/1" Row="56" Assign="1/31/1" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/51" Row="56" Assign="1/31/51" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/101" Row="56" Assign="1/31/101" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/151" Row="56" Assign="1/31/151" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/201" Row="56" Assign="1/31/201" Font="align_center"/>
+    <Item Font="bold;align_right" Text="Данные Алгоблочной программы" Column="0" Row="56"/>
+    <Item Column="1" Row="56"/>
+    <Item Column="2" Row="56"/>
+    <Item Column="3" Row="56"/>
+    <Item Column="4" Row="56"/>
+    <Item Column="5" Row="56"/>
     <Item Column="6" Row="56"/>
-    <Item Column="0" Row="57"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/2" Row="57" Assign="1/31/2" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/52" Row="57" Assign="1/31/52" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/102" Row="57" Assign="1/31/102" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/152" Row="57" Assign="1/31/152" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/202" Row="57" Assign="1/31/202" Font="align_center"/>
+    <Item Font="align_right" Text="Параметры в ППЗУ" Column="0" Row="57"/>
+    <Item Font="align_center" Text="1/31/1" BackgroundColor="#faebd7" Assign="1/31/1" Column="1" Row="57"/>
+    <Item Font="align_center" Text="1/31/51" BackgroundColor="#faebd7" Assign="1/31/51" Column="2" Row="57"/>
+    <Item Font="align_center" Text="1/31/101" BackgroundColor="#faebd7" Assign="1/31/101" Column="3" Row="57"/>
+    <Item Font="align_center" Text="1/31/151" BackgroundColor="#faebd7" Assign="1/31/151" Column="4" Row="57"/>
+    <Item Font="align_center" Text="1/31/201" BackgroundColor="#faebd7" Assign="1/31/201" Column="5" Row="57"/>
     <Item Column="6" Row="57"/>
     <Item Column="0" Row="58"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/3" Row="58" Assign="1/31/3" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/53" Row="58" Assign="1/31/53" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/103" Row="58" Assign="1/31/103" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/153" Row="58" Assign="1/31/153" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/203" Row="58" Assign="1/31/203" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/2" BackgroundColor="#faebd7" Assign="1/31/2" Column="1" Row="58"/>
+    <Item Font="align_center" Text="1/31/52" BackgroundColor="#faebd7" Assign="1/31/52" Column="2" Row="58"/>
+    <Item Font="align_center" Text="1/31/102" BackgroundColor="#faebd7" Assign="1/31/102" Column="3" Row="58"/>
+    <Item Font="align_center" Text="1/31/152" BackgroundColor="#faebd7" Assign="1/31/152" Column="4" Row="58"/>
+    <Item Font="align_center" Text="1/31/202" BackgroundColor="#faebd7" Assign="1/31/202" Column="5" Row="58"/>
     <Item Column="6" Row="58"/>
     <Item Column="0" Row="59"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/4" Row="59" Assign="1/31/4" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/54" Row="59" Assign="1/31/54" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/104" Row="59" Assign="1/31/104" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/154" Row="59" Assign="1/31/154" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/204" Row="59" Assign="1/31/204" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/3" BackgroundColor="#faebd7" Assign="1/31/3" Column="1" Row="59"/>
+    <Item Font="align_center" Text="1/31/53" BackgroundColor="#faebd7" Assign="1/31/53" Column="2" Row="59"/>
+    <Item Font="align_center" Text="1/31/103" BackgroundColor="#faebd7" Assign="1/31/103" Column="3" Row="59"/>
+    <Item Font="align_center" Text="1/31/153" BackgroundColor="#faebd7" Assign="1/31/153" Column="4" Row="59"/>
+    <Item Font="align_center" Text="1/31/203" BackgroundColor="#faebd7" Assign="1/31/203" Column="5" Row="59"/>
     <Item Column="6" Row="59"/>
     <Item Column="0" Row="60"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/5" Row="60" Assign="1/31/5" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/55" Row="60" Assign="1/31/55" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/105" Row="60" Assign="1/31/105" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/155" Row="60" Assign="1/31/155" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/205" Row="60" Assign="1/31/205" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/4" BackgroundColor="#faebd7" Assign="1/31/4" Column="1" Row="60"/>
+    <Item Font="align_center" Text="1/31/54" BackgroundColor="#faebd7" Assign="1/31/54" Column="2" Row="60"/>
+    <Item Font="align_center" Text="1/31/104" BackgroundColor="#faebd7" Assign="1/31/104" Column="3" Row="60"/>
+    <Item Font="align_center" Text="1/31/154" BackgroundColor="#faebd7" Assign="1/31/154" Column="4" Row="60"/>
+    <Item Font="align_center" Text="1/31/204" BackgroundColor="#faebd7" Assign="1/31/204" Column="5" Row="60"/>
     <Item Column="6" Row="60"/>
     <Item Column="0" Row="61"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/6" Row="61" Assign="1/31/6" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/56" Row="61" Assign="1/31/56" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/106" Row="61" Assign="1/31/106" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/156" Row="61" Assign="1/31/156" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/206" Row="61" Assign="1/31/206" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/5" BackgroundColor="#faebd7" Assign="1/31/5" Column="1" Row="61"/>
+    <Item Font="align_center" Text="1/31/55" BackgroundColor="#faebd7" Assign="1/31/55" Column="2" Row="61"/>
+    <Item Font="align_center" Text="1/31/105" BackgroundColor="#faebd7" Assign="1/31/105" Column="3" Row="61"/>
+    <Item Font="align_center" Text="1/31/155" BackgroundColor="#faebd7" Assign="1/31/155" Column="4" Row="61"/>
+    <Item Font="align_center" Text="1/31/205" BackgroundColor="#faebd7" Assign="1/31/205" Column="5" Row="61"/>
     <Item Column="6" Row="61"/>
     <Item Column="0" Row="62"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/7" Row="62" Assign="1/31/7" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/57" Row="62" Assign="1/31/57" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/107" Row="62" Assign="1/31/107" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/157" Row="62" Assign="1/31/157" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/207" Row="62" Assign="1/31/207" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/6" BackgroundColor="#faebd7" Assign="1/31/6" Column="1" Row="62"/>
+    <Item Font="align_center" Text="1/31/56" BackgroundColor="#faebd7" Assign="1/31/56" Column="2" Row="62"/>
+    <Item Font="align_center" Text="1/31/106" BackgroundColor="#faebd7" Assign="1/31/106" Column="3" Row="62"/>
+    <Item Font="align_center" Text="1/31/156" BackgroundColor="#faebd7" Assign="1/31/156" Column="4" Row="62"/>
+    <Item Font="align_center" Text="1/31/206" BackgroundColor="#faebd7" Assign="1/31/206" Column="5" Row="62"/>
     <Item Column="6" Row="62"/>
     <Item Column="0" Row="63"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/8" Row="63" Assign="1/31/8" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/58" Row="63" Assign="1/31/58" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/108" Row="63" Assign="1/31/108" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/158" Row="63" Assign="1/31/158" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/208" Row="63" Assign="1/31/208" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/7" BackgroundColor="#faebd7" Assign="1/31/7" Column="1" Row="63"/>
+    <Item Font="align_center" Text="1/31/57" BackgroundColor="#faebd7" Assign="1/31/57" Column="2" Row="63"/>
+    <Item Font="align_center" Text="1/31/107" BackgroundColor="#faebd7" Assign="1/31/107" Column="3" Row="63"/>
+    <Item Font="align_center" Text="1/31/157" BackgroundColor="#faebd7" Assign="1/31/157" Column="4" Row="63"/>
+    <Item Font="align_center" Text="1/31/207" BackgroundColor="#faebd7" Assign="1/31/207" Column="5" Row="63"/>
     <Item Column="6" Row="63"/>
     <Item Column="0" Row="64"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/9" Row="64" Assign="1/31/9" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/59" Row="64" Assign="1/31/59" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/109" Row="64" Assign="1/31/109" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/159" Row="64" Assign="1/31/159" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/209" Row="64" Assign="1/31/209" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/8" BackgroundColor="#faebd7" Assign="1/31/8" Column="1" Row="64"/>
+    <Item Font="align_center" Text="1/31/58" BackgroundColor="#faebd7" Assign="1/31/58" Column="2" Row="64"/>
+    <Item Font="align_center" Text="1/31/108" BackgroundColor="#faebd7" Assign="1/31/108" Column="3" Row="64"/>
+    <Item Font="align_center" Text="1/31/158" BackgroundColor="#faebd7" Assign="1/31/158" Column="4" Row="64"/>
+    <Item Font="align_center" Text="1/31/208" BackgroundColor="#faebd7" Assign="1/31/208" Column="5" Row="64"/>
     <Item Column="6" Row="64"/>
     <Item Column="0" Row="65"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/10" Row="65" Assign="1/31/10" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/60" Row="65" Assign="1/31/60" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/110" Row="65" Assign="1/31/110" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/160" Row="65" Assign="1/31/160" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/210" Row="65" Assign="1/31/210" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/9" BackgroundColor="#faebd7" Assign="1/31/9" Column="1" Row="65"/>
+    <Item Font="align_center" Text="1/31/59" BackgroundColor="#faebd7" Assign="1/31/59" Column="2" Row="65"/>
+    <Item Font="align_center" Text="1/31/109" BackgroundColor="#faebd7" Assign="1/31/109" Column="3" Row="65"/>
+    <Item Font="align_center" Text="1/31/159" BackgroundColor="#faebd7" Assign="1/31/159" Column="4" Row="65"/>
+    <Item Font="align_center" Text="1/31/209" BackgroundColor="#faebd7" Assign="1/31/209" Column="5" Row="65"/>
     <Item Column="6" Row="65"/>
     <Item Column="0" Row="66"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/11" Row="66" Assign="1/31/11" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/61" Row="66" Assign="1/31/61" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/111" Row="66" Assign="1/31/111" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/161" Row="66" Assign="1/31/161" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/211" Row="66" Assign="1/31/211" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/10" BackgroundColor="#faebd7" Assign="1/31/10" Column="1" Row="66"/>
+    <Item Font="align_center" Text="1/31/60" BackgroundColor="#faebd7" Assign="1/31/60" Column="2" Row="66"/>
+    <Item Font="align_center" Text="1/31/110" BackgroundColor="#faebd7" Assign="1/31/110" Column="3" Row="66"/>
+    <Item Font="align_center" Text="1/31/160" BackgroundColor="#faebd7" Assign="1/31/160" Column="4" Row="66"/>
+    <Item Font="align_center" Text="1/31/210" BackgroundColor="#faebd7" Assign="1/31/210" Column="5" Row="66"/>
     <Item Column="6" Row="66"/>
     <Item Column="0" Row="67"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/12" Row="67" Assign="1/31/12" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/62" Row="67" Assign="1/31/62" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/112" Row="67" Assign="1/31/112" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/162" Row="67" Assign="1/31/162" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/212" Row="67" Assign="1/31/212" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/11" BackgroundColor="#faebd7" Assign="1/31/11" Column="1" Row="67"/>
+    <Item Font="align_center" Text="1/31/61" BackgroundColor="#faebd7" Assign="1/31/61" Column="2" Row="67"/>
+    <Item Font="align_center" Text="1/31/111" BackgroundColor="#faebd7" Assign="1/31/111" Column="3" Row="67"/>
+    <Item Font="align_center" Text="1/31/161" BackgroundColor="#faebd7" Assign="1/31/161" Column="4" Row="67"/>
+    <Item Font="align_center" Text="1/31/211" BackgroundColor="#faebd7" Assign="1/31/211" Column="5" Row="67"/>
     <Item Column="6" Row="67"/>
     <Item Column="0" Row="68"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/13" Row="68" Assign="1/31/13" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/63" Row="68" Assign="1/31/63" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/113" Row="68" Assign="1/31/113" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/163" Row="68" Assign="1/31/163" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/213" Row="68" Assign="1/31/213" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/12" BackgroundColor="#faebd7" Assign="1/31/12" Column="1" Row="68"/>
+    <Item Font="align_center" Text="1/31/62" BackgroundColor="#faebd7" Assign="1/31/62" Column="2" Row="68"/>
+    <Item Font="align_center" Text="1/31/112" BackgroundColor="#faebd7" Assign="1/31/112" Column="3" Row="68"/>
+    <Item Font="align_center" Text="1/31/162" BackgroundColor="#faebd7" Assign="1/31/162" Column="4" Row="68"/>
+    <Item Font="align_center" Text="1/31/212" BackgroundColor="#faebd7" Assign="1/31/212" Column="5" Row="68"/>
     <Item Column="6" Row="68"/>
     <Item Column="0" Row="69"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/14" Row="69" Assign="1/31/14" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/64" Row="69" Assign="1/31/64" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/114" Row="69" Assign="1/31/114" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/164" Row="69" Assign="1/31/164" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/214" Row="69" Assign="1/31/214" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/13" BackgroundColor="#faebd7" Assign="1/31/13" Column="1" Row="69"/>
+    <Item Font="align_center" Text="1/31/63" BackgroundColor="#faebd7" Assign="1/31/63" Column="2" Row="69"/>
+    <Item Font="align_center" Text="1/31/113" BackgroundColor="#faebd7" Assign="1/31/113" Column="3" Row="69"/>
+    <Item Font="align_center" Text="1/31/163" BackgroundColor="#faebd7" Assign="1/31/163" Column="4" Row="69"/>
+    <Item Font="align_center" Text="1/31/213" BackgroundColor="#faebd7" Assign="1/31/213" Column="5" Row="69"/>
     <Item Column="6" Row="69"/>
     <Item Column="0" Row="70"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/15" Row="70" Assign="1/31/15" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/65" Row="70" Assign="1/31/65" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/115" Row="70" Assign="1/31/115" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/165" Row="70" Assign="1/31/165" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/215" Row="70" Assign="1/31/215" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/14" BackgroundColor="#faebd7" Assign="1/31/14" Column="1" Row="70"/>
+    <Item Font="align_center" Text="1/31/64" BackgroundColor="#faebd7" Assign="1/31/64" Column="2" Row="70"/>
+    <Item Font="align_center" Text="1/31/114" BackgroundColor="#faebd7" Assign="1/31/114" Column="3" Row="70"/>
+    <Item Font="align_center" Text="1/31/164" BackgroundColor="#faebd7" Assign="1/31/164" Column="4" Row="70"/>
+    <Item Font="align_center" Text="1/31/214" BackgroundColor="#faebd7" Assign="1/31/214" Column="5" Row="70"/>
     <Item Column="6" Row="70"/>
     <Item Column="0" Row="71"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/16" Row="71" Assign="1/31/16" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/66" Row="71" Assign="1/31/66" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/116" Row="71" Assign="1/31/116" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/166" Row="71" Assign="1/31/166" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/216" Row="71" Assign="1/31/216" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/15" BackgroundColor="#faebd7" Assign="1/31/15" Column="1" Row="71"/>
+    <Item Font="align_center" Text="1/31/65" BackgroundColor="#faebd7" Assign="1/31/65" Column="2" Row="71"/>
+    <Item Font="align_center" Text="1/31/115" BackgroundColor="#faebd7" Assign="1/31/115" Column="3" Row="71"/>
+    <Item Font="align_center" Text="1/31/165" BackgroundColor="#faebd7" Assign="1/31/165" Column="4" Row="71"/>
+    <Item Font="align_center" Text="1/31/215" BackgroundColor="#faebd7" Assign="1/31/215" Column="5" Row="71"/>
     <Item Column="6" Row="71"/>
     <Item Column="0" Row="72"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/17" Row="72" Assign="1/31/17" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/67" Row="72" Assign="1/31/67" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/117" Row="72" Assign="1/31/117" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/167" Row="72" Assign="1/31/167" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/217" Row="72" Assign="1/31/217" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/16" BackgroundColor="#faebd7" Assign="1/31/16" Column="1" Row="72"/>
+    <Item Font="align_center" Text="1/31/66" BackgroundColor="#faebd7" Assign="1/31/66" Column="2" Row="72"/>
+    <Item Font="align_center" Text="1/31/116" BackgroundColor="#faebd7" Assign="1/31/116" Column="3" Row="72"/>
+    <Item Font="align_center" Text="1/31/166" BackgroundColor="#faebd7" Assign="1/31/166" Column="4" Row="72"/>
+    <Item Font="align_center" Text="1/31/216" BackgroundColor="#faebd7" Assign="1/31/216" Column="5" Row="72"/>
     <Item Column="6" Row="72"/>
     <Item Column="0" Row="73"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/18" Row="73" Assign="1/31/18" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/68" Row="73" Assign="1/31/68" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/118" Row="73" Assign="1/31/118" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/168" Row="73" Assign="1/31/168" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/218" Row="73" Assign="1/31/218" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/17" BackgroundColor="#faebd7" Assign="1/31/17" Column="1" Row="73"/>
+    <Item Font="align_center" Text="1/31/67" BackgroundColor="#faebd7" Assign="1/31/67" Column="2" Row="73"/>
+    <Item Font="align_center" Text="1/31/117" BackgroundColor="#faebd7" Assign="1/31/117" Column="3" Row="73"/>
+    <Item Font="align_center" Text="1/31/167" BackgroundColor="#faebd7" Assign="1/31/167" Column="4" Row="73"/>
+    <Item Font="align_center" Text="1/31/217" BackgroundColor="#faebd7" Assign="1/31/217" Column="5" Row="73"/>
     <Item Column="6" Row="73"/>
     <Item Column="0" Row="74"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/19" Row="74" Assign="1/31/19" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/69" Row="74" Assign="1/31/69" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/119" Row="74" Assign="1/31/119" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/169" Row="74" Assign="1/31/169" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/219" Row="74" Assign="1/31/219" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/18" BackgroundColor="#faebd7" Assign="1/31/18" Column="1" Row="74"/>
+    <Item Font="align_center" Text="1/31/68" BackgroundColor="#faebd7" Assign="1/31/68" Column="2" Row="74"/>
+    <Item Font="align_center" Text="1/31/118" BackgroundColor="#faebd7" Assign="1/31/118" Column="3" Row="74"/>
+    <Item Font="align_center" Text="1/31/168" BackgroundColor="#faebd7" Assign="1/31/168" Column="4" Row="74"/>
+    <Item Font="align_center" Text="1/31/218" BackgroundColor="#faebd7" Assign="1/31/218" Column="5" Row="74"/>
     <Item Column="6" Row="74"/>
     <Item Column="0" Row="75"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/20" Row="75" Assign="1/31/20" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/70" Row="75" Assign="1/31/70" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/120" Row="75" Assign="1/31/120" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/170" Row="75" Assign="1/31/170" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/220" Row="75" Assign="1/31/220" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/19" BackgroundColor="#faebd7" Assign="1/31/19" Column="1" Row="75"/>
+    <Item Font="align_center" Text="1/31/69" BackgroundColor="#faebd7" Assign="1/31/69" Column="2" Row="75"/>
+    <Item Font="align_center" Text="1/31/119" BackgroundColor="#faebd7" Assign="1/31/119" Column="3" Row="75"/>
+    <Item Font="align_center" Text="1/31/169" BackgroundColor="#faebd7" Assign="1/31/169" Column="4" Row="75"/>
+    <Item Font="align_center" Text="1/31/219" BackgroundColor="#faebd7" Assign="1/31/219" Column="5" Row="75"/>
     <Item Column="6" Row="75"/>
     <Item Column="0" Row="76"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/21" Row="76" Assign="1/31/21" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/71" Row="76" Assign="1/31/71" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/121" Row="76" Assign="1/31/121" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/171" Row="76" Assign="1/31/171" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/221" Row="76" Assign="1/31/221" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/20" BackgroundColor="#faebd7" Assign="1/31/20" Column="1" Row="76"/>
+    <Item Font="align_center" Text="1/31/70" BackgroundColor="#faebd7" Assign="1/31/70" Column="2" Row="76"/>
+    <Item Font="align_center" Text="1/31/120" BackgroundColor="#faebd7" Assign="1/31/120" Column="3" Row="76"/>
+    <Item Font="align_center" Text="1/31/170" BackgroundColor="#faebd7" Assign="1/31/170" Column="4" Row="76"/>
+    <Item Font="align_center" Text="1/31/220" BackgroundColor="#faebd7" Assign="1/31/220" Column="5" Row="76"/>
     <Item Column="6" Row="76"/>
     <Item Column="0" Row="77"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/22" Row="77" Assign="1/31/22" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/72" Row="77" Assign="1/31/72" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/122" Row="77" Assign="1/31/122" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/172" Row="77" Assign="1/31/172" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/222" Row="77" Assign="1/31/222" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/21" BackgroundColor="#faebd7" Assign="1/31/21" Column="1" Row="77"/>
+    <Item Font="align_center" Text="1/31/71" BackgroundColor="#faebd7" Assign="1/31/71" Column="2" Row="77"/>
+    <Item Font="align_center" Text="1/31/121" BackgroundColor="#faebd7" Assign="1/31/121" Column="3" Row="77"/>
+    <Item Font="align_center" Text="1/31/171" BackgroundColor="#faebd7" Assign="1/31/171" Column="4" Row="77"/>
+    <Item Font="align_center" Text="1/31/221" BackgroundColor="#faebd7" Assign="1/31/221" Column="5" Row="77"/>
     <Item Column="6" Row="77"/>
     <Item Column="0" Row="78"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/23" Row="78" Assign="1/31/23" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/73" Row="78" Assign="1/31/73" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/123" Row="78" Assign="1/31/123" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/173" Row="78" Assign="1/31/173" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/223" Row="78" Assign="1/31/223" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/22" BackgroundColor="#faebd7" Assign="1/31/22" Column="1" Row="78"/>
+    <Item Font="align_center" Text="1/31/72" BackgroundColor="#faebd7" Assign="1/31/72" Column="2" Row="78"/>
+    <Item Font="align_center" Text="1/31/122" BackgroundColor="#faebd7" Assign="1/31/122" Column="3" Row="78"/>
+    <Item Font="align_center" Text="1/31/172" BackgroundColor="#faebd7" Assign="1/31/172" Column="4" Row="78"/>
+    <Item Font="align_center" Text="1/31/222" BackgroundColor="#faebd7" Assign="1/31/222" Column="5" Row="78"/>
     <Item Column="6" Row="78"/>
     <Item Column="0" Row="79"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/24" Row="79" Assign="1/31/24" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/74" Row="79" Assign="1/31/74" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/124" Row="79" Assign="1/31/124" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/174" Row="79" Assign="1/31/174" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/224" Row="79" Assign="1/31/224" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/23" BackgroundColor="#faebd7" Assign="1/31/23" Column="1" Row="79"/>
+    <Item Font="align_center" Text="1/31/73" BackgroundColor="#faebd7" Assign="1/31/73" Column="2" Row="79"/>
+    <Item Font="align_center" Text="1/31/123" BackgroundColor="#faebd7" Assign="1/31/123" Column="3" Row="79"/>
+    <Item Font="align_center" Text="1/31/173" BackgroundColor="#faebd7" Assign="1/31/173" Column="4" Row="79"/>
+    <Item Font="align_center" Text="1/31/223" BackgroundColor="#faebd7" Assign="1/31/223" Column="5" Row="79"/>
     <Item Column="6" Row="79"/>
     <Item Column="0" Row="80"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/25" Row="80" Assign="1/31/25" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/75" Row="80" Assign="1/31/75" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/125" Row="80" Assign="1/31/125" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/175" Row="80" Assign="1/31/175" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/225" Row="80" Assign="1/31/225" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/24" BackgroundColor="#faebd7" Assign="1/31/24" Column="1" Row="80"/>
+    <Item Font="align_center" Text="1/31/74" BackgroundColor="#faebd7" Assign="1/31/74" Column="2" Row="80"/>
+    <Item Font="align_center" Text="1/31/124" BackgroundColor="#faebd7" Assign="1/31/124" Column="3" Row="80"/>
+    <Item Font="align_center" Text="1/31/174" BackgroundColor="#faebd7" Assign="1/31/174" Column="4" Row="80"/>
+    <Item Font="align_center" Text="1/31/224" BackgroundColor="#faebd7" Assign="1/31/224" Column="5" Row="80"/>
     <Item Column="6" Row="80"/>
     <Item Column="0" Row="81"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/26" Row="81" Assign="1/31/26" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/76" Row="81" Assign="1/31/76" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/126" Row="81" Assign="1/31/126" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/176" Row="81" Assign="1/31/176" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/226" Row="81" Assign="1/31/226" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/25" BackgroundColor="#faebd7" Assign="1/31/25" Column="1" Row="81"/>
+    <Item Font="align_center" Text="1/31/75" BackgroundColor="#faebd7" Assign="1/31/75" Column="2" Row="81"/>
+    <Item Font="align_center" Text="1/31/125" BackgroundColor="#faebd7" Assign="1/31/125" Column="3" Row="81"/>
+    <Item Font="align_center" Text="1/31/175" BackgroundColor="#faebd7" Assign="1/31/175" Column="4" Row="81"/>
+    <Item Font="align_center" Text="1/31/225" BackgroundColor="#faebd7" Assign="1/31/225" Column="5" Row="81"/>
     <Item Column="6" Row="81"/>
     <Item Column="0" Row="82"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/27" Row="82" Assign="1/31/27" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/77" Row="82" Assign="1/31/77" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/127" Row="82" Assign="1/31/127" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/177" Row="82" Assign="1/31/177" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/227" Row="82" Assign="1/31/227" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/26" BackgroundColor="#faebd7" Assign="1/31/26" Column="1" Row="82"/>
+    <Item Font="align_center" Text="1/31/76" BackgroundColor="#faebd7" Assign="1/31/76" Column="2" Row="82"/>
+    <Item Font="align_center" Text="1/31/126" BackgroundColor="#faebd7" Assign="1/31/126" Column="3" Row="82"/>
+    <Item Font="align_center" Text="1/31/176" BackgroundColor="#faebd7" Assign="1/31/176" Column="4" Row="82"/>
+    <Item Font="align_center" Text="1/31/226" BackgroundColor="#faebd7" Assign="1/31/226" Column="5" Row="82"/>
     <Item Column="6" Row="82"/>
     <Item Column="0" Row="83"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/28" Row="83" Assign="1/31/28" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/78" Row="83" Assign="1/31/78" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/128" Row="83" Assign="1/31/128" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/178" Row="83" Assign="1/31/178" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/228" Row="83" Assign="1/31/228" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/27" BackgroundColor="#faebd7" Assign="1/31/27" Column="1" Row="83"/>
+    <Item Font="align_center" Text="1/31/77" BackgroundColor="#faebd7" Assign="1/31/77" Column="2" Row="83"/>
+    <Item Font="align_center" Text="1/31/127" BackgroundColor="#faebd7" Assign="1/31/127" Column="3" Row="83"/>
+    <Item Font="align_center" Text="1/31/177" BackgroundColor="#faebd7" Assign="1/31/177" Column="4" Row="83"/>
+    <Item Font="align_center" Text="1/31/227" BackgroundColor="#faebd7" Assign="1/31/227" Column="5" Row="83"/>
     <Item Column="6" Row="83"/>
     <Item Column="0" Row="84"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/29" Row="84" Assign="1/31/29" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/79" Row="84" Assign="1/31/79" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/129" Row="84" Assign="1/31/129" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/179" Row="84" Assign="1/31/179" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/229" Row="84" Assign="1/31/229" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/28" BackgroundColor="#faebd7" Assign="1/31/28" Column="1" Row="84"/>
+    <Item Font="align_center" Text="1/31/78" BackgroundColor="#faebd7" Assign="1/31/78" Column="2" Row="84"/>
+    <Item Font="align_center" Text="1/31/128" BackgroundColor="#faebd7" Assign="1/31/128" Column="3" Row="84"/>
+    <Item Font="align_center" Text="1/31/178" BackgroundColor="#faebd7" Assign="1/31/178" Column="4" Row="84"/>
+    <Item Font="align_center" Text="1/31/228" BackgroundColor="#faebd7" Assign="1/31/228" Column="5" Row="84"/>
     <Item Column="6" Row="84"/>
     <Item Column="0" Row="85"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/30" Row="85" Assign="1/31/30" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/80" Row="85" Assign="1/31/80" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/130" Row="85" Assign="1/31/130" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/180" Row="85" Assign="1/31/180" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/230" Row="85" Assign="1/31/230" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/29" BackgroundColor="#faebd7" Assign="1/31/29" Column="1" Row="85"/>
+    <Item Font="align_center" Text="1/31/79" BackgroundColor="#faebd7" Assign="1/31/79" Column="2" Row="85"/>
+    <Item Font="align_center" Text="1/31/129" BackgroundColor="#faebd7" Assign="1/31/129" Column="3" Row="85"/>
+    <Item Font="align_center" Text="1/31/179" BackgroundColor="#faebd7" Assign="1/31/179" Column="4" Row="85"/>
+    <Item Font="align_center" Text="1/31/229" BackgroundColor="#faebd7" Assign="1/31/229" Column="5" Row="85"/>
     <Item Column="6" Row="85"/>
     <Item Column="0" Row="86"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/31" Row="86" Assign="1/31/31" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/81" Row="86" Assign="1/31/81" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/131" Row="86" Assign="1/31/131" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/181" Row="86" Assign="1/31/181" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/231" Row="86" Assign="1/31/231" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/30" BackgroundColor="#faebd7" Assign="1/31/30" Column="1" Row="86"/>
+    <Item Font="align_center" Text="1/31/80" BackgroundColor="#faebd7" Assign="1/31/80" Column="2" Row="86"/>
+    <Item Font="align_center" Text="1/31/130" BackgroundColor="#faebd7" Assign="1/31/130" Column="3" Row="86"/>
+    <Item Font="align_center" Text="1/31/180" BackgroundColor="#faebd7" Assign="1/31/180" Column="4" Row="86"/>
+    <Item Font="align_center" Text="1/31/230" BackgroundColor="#faebd7" Assign="1/31/230" Column="5" Row="86"/>
     <Item Column="6" Row="86"/>
     <Item Column="0" Row="87"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/32" Row="87" Assign="1/31/32" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/82" Row="87" Assign="1/31/82" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/132" Row="87" Assign="1/31/132" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/182" Row="87" Assign="1/31/182" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/232" Row="87" Assign="1/31/232" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/31" BackgroundColor="#faebd7" Assign="1/31/31" Column="1" Row="87"/>
+    <Item Font="align_center" Text="1/31/81" BackgroundColor="#faebd7" Assign="1/31/81" Column="2" Row="87"/>
+    <Item Font="align_center" Text="1/31/131" BackgroundColor="#faebd7" Assign="1/31/131" Column="3" Row="87"/>
+    <Item Font="align_center" Text="1/31/181" BackgroundColor="#faebd7" Assign="1/31/181" Column="4" Row="87"/>
+    <Item Font="align_center" Text="1/31/231" BackgroundColor="#faebd7" Assign="1/31/231" Column="5" Row="87"/>
     <Item Column="6" Row="87"/>
     <Item Column="0" Row="88"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/33" Row="88" Assign="1/31/33" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/83" Row="88" Assign="1/31/83" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/133" Row="88" Assign="1/31/133" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/183" Row="88" Assign="1/31/183" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/233" Row="88" Assign="1/31/233" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/32" BackgroundColor="#faebd7" Assign="1/31/32" Column="1" Row="88"/>
+    <Item Font="align_center" Text="1/31/82" BackgroundColor="#faebd7" Assign="1/31/82" Column="2" Row="88"/>
+    <Item Font="align_center" Text="1/31/132" BackgroundColor="#faebd7" Assign="1/31/132" Column="3" Row="88"/>
+    <Item Font="align_center" Text="1/31/182" BackgroundColor="#faebd7" Assign="1/31/182" Column="4" Row="88"/>
+    <Item Font="align_center" Text="1/31/232" BackgroundColor="#faebd7" Assign="1/31/232" Column="5" Row="88"/>
     <Item Column="6" Row="88"/>
     <Item Column="0" Row="89"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/34" Row="89" Assign="1/31/34" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/84" Row="89" Assign="1/31/84" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/134" Row="89" Assign="1/31/134" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/184" Row="89" Assign="1/31/184" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/234" Row="89" Assign="1/31/234" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/33" BackgroundColor="#faebd7" Assign="1/31/33" Column="1" Row="89"/>
+    <Item Font="align_center" Text="1/31/83" BackgroundColor="#faebd7" Assign="1/31/83" Column="2" Row="89"/>
+    <Item Font="align_center" Text="1/31/133" BackgroundColor="#faebd7" Assign="1/31/133" Column="3" Row="89"/>
+    <Item Font="align_center" Text="1/31/183" BackgroundColor="#faebd7" Assign="1/31/183" Column="4" Row="89"/>
+    <Item Font="align_center" Text="1/31/233" BackgroundColor="#faebd7" Assign="1/31/233" Column="5" Row="89"/>
     <Item Column="6" Row="89"/>
     <Item Column="0" Row="90"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/35" Row="90" Assign="1/31/35" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/85" Row="90" Assign="1/31/85" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/135" Row="90" Assign="1/31/135" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/185" Row="90" Assign="1/31/185" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/235" Row="90" Assign="1/31/235" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/34" BackgroundColor="#faebd7" Assign="1/31/34" Column="1" Row="90"/>
+    <Item Font="align_center" Text="1/31/84" BackgroundColor="#faebd7" Assign="1/31/84" Column="2" Row="90"/>
+    <Item Font="align_center" Text="1/31/134" BackgroundColor="#faebd7" Assign="1/31/134" Column="3" Row="90"/>
+    <Item Font="align_center" Text="1/31/184" BackgroundColor="#faebd7" Assign="1/31/184" Column="4" Row="90"/>
+    <Item Font="align_center" Text="1/31/234" BackgroundColor="#faebd7" Assign="1/31/234" Column="5" Row="90"/>
     <Item Column="6" Row="90"/>
     <Item Column="0" Row="91"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/36" Row="91" Assign="1/31/36" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/86" Row="91" Assign="1/31/86" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/136" Row="91" Assign="1/31/136" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/186" Row="91" Assign="1/31/186" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/236" Row="91" Assign="1/31/236" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/35" BackgroundColor="#faebd7" Assign="1/31/35" Column="1" Row="91"/>
+    <Item Font="align_center" Text="1/31/85" BackgroundColor="#faebd7" Assign="1/31/85" Column="2" Row="91"/>
+    <Item Font="align_center" Text="1/31/135" BackgroundColor="#faebd7" Assign="1/31/135" Column="3" Row="91"/>
+    <Item Font="align_center" Text="1/31/185" BackgroundColor="#faebd7" Assign="1/31/185" Column="4" Row="91"/>
+    <Item Font="align_center" Text="1/31/235" BackgroundColor="#faebd7" Assign="1/31/235" Column="5" Row="91"/>
     <Item Column="6" Row="91"/>
     <Item Column="0" Row="92"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/37" Row="92" Assign="1/31/37" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/87" Row="92" Assign="1/31/87" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/137" Row="92" Assign="1/31/137" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/187" Row="92" Assign="1/31/187" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/237" Row="92" Assign="1/31/237" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/36" BackgroundColor="#faebd7" Assign="1/31/36" Column="1" Row="92"/>
+    <Item Font="align_center" Text="1/31/86" BackgroundColor="#faebd7" Assign="1/31/86" Column="2" Row="92"/>
+    <Item Font="align_center" Text="1/31/136" BackgroundColor="#faebd7" Assign="1/31/136" Column="3" Row="92"/>
+    <Item Font="align_center" Text="1/31/186" BackgroundColor="#faebd7" Assign="1/31/186" Column="4" Row="92"/>
+    <Item Font="align_center" Text="1/31/236" BackgroundColor="#faebd7" Assign="1/31/236" Column="5" Row="92"/>
     <Item Column="6" Row="92"/>
     <Item Column="0" Row="93"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/38" Row="93" Assign="1/31/38" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/88" Row="93" Assign="1/31/88" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/138" Row="93" Assign="1/31/138" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/188" Row="93" Assign="1/31/188" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/238" Row="93" Assign="1/31/238" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/37" BackgroundColor="#faebd7" Assign="1/31/37" Column="1" Row="93"/>
+    <Item Font="align_center" Text="1/31/87" BackgroundColor="#faebd7" Assign="1/31/87" Column="2" Row="93"/>
+    <Item Font="align_center" Text="1/31/137" BackgroundColor="#faebd7" Assign="1/31/137" Column="3" Row="93"/>
+    <Item Font="align_center" Text="1/31/187" BackgroundColor="#faebd7" Assign="1/31/187" Column="4" Row="93"/>
+    <Item Font="align_center" Text="1/31/237" BackgroundColor="#faebd7" Assign="1/31/237" Column="5" Row="93"/>
     <Item Column="6" Row="93"/>
     <Item Column="0" Row="94"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/39" Row="94" Assign="1/31/39" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/89" Row="94" Assign="1/31/89" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/139" Row="94" Assign="1/31/139" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/189" Row="94" Assign="1/31/189" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/239" Row="94" Assign="1/31/239" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/38" BackgroundColor="#faebd7" Assign="1/31/38" Column="1" Row="94"/>
+    <Item Font="align_center" Text="1/31/88" BackgroundColor="#faebd7" Assign="1/31/88" Column="2" Row="94"/>
+    <Item Font="align_center" Text="1/31/138" BackgroundColor="#faebd7" Assign="1/31/138" Column="3" Row="94"/>
+    <Item Font="align_center" Text="1/31/188" BackgroundColor="#faebd7" Assign="1/31/188" Column="4" Row="94"/>
+    <Item Font="align_center" Text="1/31/238" BackgroundColor="#faebd7" Assign="1/31/238" Column="5" Row="94"/>
     <Item Column="6" Row="94"/>
     <Item Column="0" Row="95"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/40" Row="95" Assign="1/31/40" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/90" Row="95" Assign="1/31/90" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/140" Row="95" Assign="1/31/140" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/190" Row="95" Assign="1/31/190" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/240" Row="95" Assign="1/31/240" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/39" BackgroundColor="#faebd7" Assign="1/31/39" Column="1" Row="95"/>
+    <Item Font="align_center" Text="1/31/89" BackgroundColor="#faebd7" Assign="1/31/89" Column="2" Row="95"/>
+    <Item Font="align_center" Text="1/31/139" BackgroundColor="#faebd7" Assign="1/31/139" Column="3" Row="95"/>
+    <Item Font="align_center" Text="1/31/189" BackgroundColor="#faebd7" Assign="1/31/189" Column="4" Row="95"/>
+    <Item Font="align_center" Text="1/31/239" BackgroundColor="#faebd7" Assign="1/31/239" Column="5" Row="95"/>
     <Item Column="6" Row="95"/>
     <Item Column="0" Row="96"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/41" Row="96" Assign="1/31/41" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/91" Row="96" Assign="1/31/91" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/141" Row="96" Assign="1/31/141" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/191" Row="96" Assign="1/31/191" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/241" Row="96" Assign="1/31/241" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/40" BackgroundColor="#faebd7" Assign="1/31/40" Column="1" Row="96"/>
+    <Item Font="align_center" Text="1/31/90" BackgroundColor="#faebd7" Assign="1/31/90" Column="2" Row="96"/>
+    <Item Font="align_center" Text="1/31/140" BackgroundColor="#faebd7" Assign="1/31/140" Column="3" Row="96"/>
+    <Item Font="align_center" Text="1/31/190" BackgroundColor="#faebd7" Assign="1/31/190" Column="4" Row="96"/>
+    <Item Font="align_center" Text="1/31/240" BackgroundColor="#faebd7" Assign="1/31/240" Column="5" Row="96"/>
     <Item Column="6" Row="96"/>
     <Item Column="0" Row="97"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/42" Row="97" Assign="1/31/42" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/92" Row="97" Assign="1/31/92" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/142" Row="97" Assign="1/31/142" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/192" Row="97" Assign="1/31/192" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/242" Row="97" Assign="1/31/242" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/41" BackgroundColor="#faebd7" Assign="1/31/41" Column="1" Row="97"/>
+    <Item Font="align_center" Text="1/31/91" BackgroundColor="#faebd7" Assign="1/31/91" Column="2" Row="97"/>
+    <Item Font="align_center" Text="1/31/141" BackgroundColor="#faebd7" Assign="1/31/141" Column="3" Row="97"/>
+    <Item Font="align_center" Text="1/31/191" BackgroundColor="#faebd7" Assign="1/31/191" Column="4" Row="97"/>
+    <Item Font="align_center" Text="1/31/241" BackgroundColor="#faebd7" Assign="1/31/241" Column="5" Row="97"/>
     <Item Column="6" Row="97"/>
     <Item Column="0" Row="98"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/43" Row="98" Assign="1/31/43" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/93" Row="98" Assign="1/31/93" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/143" Row="98" Assign="1/31/143" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/193" Row="98" Assign="1/31/193" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/243" Row="98" Assign="1/31/243" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/42" BackgroundColor="#faebd7" Assign="1/31/42" Column="1" Row="98"/>
+    <Item Font="align_center" Text="1/31/92" BackgroundColor="#faebd7" Assign="1/31/92" Column="2" Row="98"/>
+    <Item Font="align_center" Text="1/31/142" BackgroundColor="#faebd7" Assign="1/31/142" Column="3" Row="98"/>
+    <Item Font="align_center" Text="1/31/192" BackgroundColor="#faebd7" Assign="1/31/192" Column="4" Row="98"/>
+    <Item Font="align_center" Text="1/31/242" BackgroundColor="#faebd7" Assign="1/31/242" Column="5" Row="98"/>
     <Item Column="6" Row="98"/>
     <Item Column="0" Row="99"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/44" Row="99" Assign="1/31/44" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/94" Row="99" Assign="1/31/94" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/144" Row="99" Assign="1/31/144" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/194" Row="99" Assign="1/31/194" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/244" Row="99" Assign="1/31/244" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/43" BackgroundColor="#faebd7" Assign="1/31/43" Column="1" Row="99"/>
+    <Item Font="align_center" Text="1/31/93" BackgroundColor="#faebd7" Assign="1/31/93" Column="2" Row="99"/>
+    <Item Font="align_center" Text="1/31/143" BackgroundColor="#faebd7" Assign="1/31/143" Column="3" Row="99"/>
+    <Item Font="align_center" Text="1/31/193" BackgroundColor="#faebd7" Assign="1/31/193" Column="4" Row="99"/>
+    <Item Font="align_center" Text="1/31/243" BackgroundColor="#faebd7" Assign="1/31/243" Column="5" Row="99"/>
     <Item Column="6" Row="99"/>
     <Item Column="0" Row="100"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/45" Row="100" Assign="1/31/45" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/95" Row="100" Assign="1/31/95" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/145" Row="100" Assign="1/31/145" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/195" Row="100" Assign="1/31/195" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/245" Row="100" Assign="1/31/245" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/44" BackgroundColor="#faebd7" Assign="1/31/44" Column="1" Row="100"/>
+    <Item Font="align_center" Text="1/31/94" BackgroundColor="#faebd7" Assign="1/31/94" Column="2" Row="100"/>
+    <Item Font="align_center" Text="1/31/144" BackgroundColor="#faebd7" Assign="1/31/144" Column="3" Row="100"/>
+    <Item Font="align_center" Text="1/31/194" BackgroundColor="#faebd7" Assign="1/31/194" Column="4" Row="100"/>
+    <Item Font="align_center" Text="1/31/244" BackgroundColor="#faebd7" Assign="1/31/244" Column="5" Row="100"/>
     <Item Column="6" Row="100"/>
     <Item Column="0" Row="101"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/46" Row="101" Assign="1/31/46" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/96" Row="101" Assign="1/31/96" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/146" Row="101" Assign="1/31/146" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/196" Row="101" Assign="1/31/196" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/246" Row="101" Assign="1/31/246" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/45" BackgroundColor="#faebd7" Assign="1/31/45" Column="1" Row="101"/>
+    <Item Font="align_center" Text="1/31/95" BackgroundColor="#faebd7" Assign="1/31/95" Column="2" Row="101"/>
+    <Item Font="align_center" Text="1/31/145" BackgroundColor="#faebd7" Assign="1/31/145" Column="3" Row="101"/>
+    <Item Font="align_center" Text="1/31/195" BackgroundColor="#faebd7" Assign="1/31/195" Column="4" Row="101"/>
+    <Item Font="align_center" Text="1/31/245" BackgroundColor="#faebd7" Assign="1/31/245" Column="5" Row="101"/>
     <Item Column="6" Row="101"/>
     <Item Column="0" Row="102"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/47" Row="102" Assign="1/31/47" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/97" Row="102" Assign="1/31/97" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/147" Row="102" Assign="1/31/147" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/197" Row="102" Assign="1/31/197" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/247" Row="102" Assign="1/31/247" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/46" BackgroundColor="#faebd7" Assign="1/31/46" Column="1" Row="102"/>
+    <Item Font="align_center" Text="1/31/96" BackgroundColor="#faebd7" Assign="1/31/96" Column="2" Row="102"/>
+    <Item Font="align_center" Text="1/31/146" BackgroundColor="#faebd7" Assign="1/31/146" Column="3" Row="102"/>
+    <Item Font="align_center" Text="1/31/196" BackgroundColor="#faebd7" Assign="1/31/196" Column="4" Row="102"/>
+    <Item Font="align_center" Text="1/31/246" BackgroundColor="#faebd7" Assign="1/31/246" Column="5" Row="102"/>
     <Item Column="6" Row="102"/>
     <Item Column="0" Row="103"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/48" Row="103" Assign="1/31/48" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/98" Row="103" Assign="1/31/98" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/148" Row="103" Assign="1/31/148" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/198" Row="103" Assign="1/31/198" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/248" Row="103" Assign="1/31/248" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/47" BackgroundColor="#faebd7" Assign="1/31/47" Column="1" Row="103"/>
+    <Item Font="align_center" Text="1/31/97" BackgroundColor="#faebd7" Assign="1/31/97" Column="2" Row="103"/>
+    <Item Font="align_center" Text="1/31/147" BackgroundColor="#faebd7" Assign="1/31/147" Column="3" Row="103"/>
+    <Item Font="align_center" Text="1/31/197" BackgroundColor="#faebd7" Assign="1/31/197" Column="4" Row="103"/>
+    <Item Font="align_center" Text="1/31/247" BackgroundColor="#faebd7" Assign="1/31/247" Column="5" Row="103"/>
     <Item Column="6" Row="103"/>
     <Item Column="0" Row="104"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/49" Row="104" Assign="1/31/49" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/99" Row="104" Assign="1/31/99" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/149" Row="104" Assign="1/31/149" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/199" Row="104" Assign="1/31/199" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/249" Row="104" Assign="1/31/249" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/48" BackgroundColor="#faebd7" Assign="1/31/48" Column="1" Row="104"/>
+    <Item Font="align_center" Text="1/31/98" BackgroundColor="#faebd7" Assign="1/31/98" Column="2" Row="104"/>
+    <Item Font="align_center" Text="1/31/148" BackgroundColor="#faebd7" Assign="1/31/148" Column="3" Row="104"/>
+    <Item Font="align_center" Text="1/31/198" BackgroundColor="#faebd7" Assign="1/31/198" Column="4" Row="104"/>
+    <Item Font="align_center" Text="1/31/248" BackgroundColor="#faebd7" Assign="1/31/248" Column="5" Row="104"/>
     <Item Column="6" Row="104"/>
     <Item Column="0" Row="105"/>
-    <Item BackgroundColor="#faebd7" Column="1" Text="1/31/50" Row="105" Assign="1/31/50" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="2" Text="1/31/100" Row="105" Assign="1/31/100" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="3" Text="1/31/150" Row="105" Assign="1/31/150" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="4" Text="1/31/200" Row="105" Assign="1/31/200" Font="align_center"/>
-    <Item BackgroundColor="#faebd7" Column="5" Text="1/31/250" Row="105" Assign="1/31/250" Font="align_center"/>
+    <Item Font="align_center" Text="1/31/49" BackgroundColor="#faebd7" Assign="1/31/49" Column="1" Row="105"/>
+    <Item Font="align_center" Text="1/31/99" BackgroundColor="#faebd7" Assign="1/31/99" Column="2" Row="105"/>
+    <Item Font="align_center" Text="1/31/149" BackgroundColor="#faebd7" Assign="1/31/149" Column="3" Row="105"/>
+    <Item Font="align_center" Text="1/31/199" BackgroundColor="#faebd7" Assign="1/31/199" Column="4" Row="105"/>
+    <Item Font="align_center" Text="1/31/249" BackgroundColor="#faebd7" Assign="1/31/249" Column="5" Row="105"/>
     <Item Column="6" Row="105"/>
+    <Item Column="0" Row="106"/>
+    <Item Font="align_center" Text="1/31/50" BackgroundColor="#faebd7" Assign="1/31/50" Column="1" Row="106"/>
+    <Item Font="align_center" Text="1/31/100" BackgroundColor="#faebd7" Assign="1/31/100" Column="2" Row="106"/>
+    <Item Font="align_center" Text="1/31/150" BackgroundColor="#faebd7" Assign="1/31/150" Column="3" Row="106"/>
+    <Item Font="align_center" Text="1/31/200" BackgroundColor="#faebd7" Assign="1/31/200" Column="4" Row="106"/>
+    <Item Font="align_center" Text="1/31/250" BackgroundColor="#faebd7" Assign="1/31/250" Column="5" Row="106"/>
+    <Item Column="6" Row="106"/>
     <SettingsSheet>enum dido
 { =0:Вход
   =1:Выход
@@ -833,45 +840,49 @@ enum algo
 { =0:Включено
   =1:Отключено
 }
-
+enum di_filtr_mode
+{ = 0:Эксп. 0.33 0.66
+  = 1:Ск.окно 0.33 0.66
+}
 </SettingsSheet>
   </Table>
   <MBConfig>
-    <Module N="1" Node="1" Name="PC100-mPC102">
-      <Slot Length="4" N="1" Addr="0002" Type="bytes" Desc="Режимы работы и Настройки модуля"/>
-      <Slot Length="64" N="2" Addr="0006" Type="bits" Desc="Дискретные Входы (Биты)"/>
-      <Slot Length="8" N="3" Addr="8200" Type="dwords" Desc="Дискретные Входы (Счетчик импульсов)"/>
-      <Slot Length="2" N="4" Addr="0016" Type="bytes" Desc="Дискретные Входы (Режим и метод измерения частоты импульсов)"/>
-      <Slot Length="6" N="5" Addr="8280" Type="floats" Desc="Дискретные Входы (Частота импульсов)"/>
-      <Slot Length="32" N="6" Addr="8300" Type="words" Desc="Дискретные Входы (Ширина окна фильтрации в мс)"/>
-      <Slot Length="6" N="7" Addr="8340" Type="words" Desc="ДискретныеВходы (Постоянная времени экспотенциального фильтра в мс)"/>
-      <Slot Length="64" N="8" Addr="000E" Type="bits" Desc="Дискретные Выходы (Биты и DI/DO)"/>
-      <Slot Length="6" N="9" Addr="8400" Type="words" Desc="ДискретныеВыходы (Длительность импульса ШИМ в мс)"/>
-      <Slot Length="6" N="10" Addr="8440" Type="words" Desc="Дискретные Выходы (Период ЧИМ в мс)"/>
-      <Slot Length="6" N="11" Addr="8480" Type="words" Desc="Дискретные Выходы (Длительность импульса ЧИМ  в мс)"/>
-      <Slot Length="2" N="12" Addr="8580" Type="dwords" Desc="Рабочие и справочные параметры"/>
-      <Slot Length="6" N="13" Addr="84C0" Type="dwords" Desc="Дискртеные Выходы (Счетчик времени ЧИМ в мс)"/>
-      <Slot Length="3" N="14" Addr="0200" Type="words" Desc="Дискретные Выходы (Блокировка пар)"/>
-      <Slot Length="32" N="15" Addr="0018" Type="bits" Desc="Дискретные выходы с учетом выбора канала и блокировки пар"/>
-      <Slot Length="6" N="18" Addr="C000" Type="dwords" Desc="Статистика и Времена выполнения"/>
-      <Slot Length="8" N="23" Addr="8600" Type="floats" Desc="Частота Дискретных Входов (Нормировка X1)"/>
-      <Slot Length="8" N="24" Addr="8680" Type="floats" Desc="Частота Дискретных Входов (Нормировка X2)"/>
-      <Slot Length="8" N="25" Addr="8700" Type="floats" Desc="Частота Дискретных Входов (Нормировка Y1)"/>
-      <Slot Length="8" N="26" Addr="8780" Type="floats" Desc="Частота Дискретных Входов (Нормировка Y2)"/>
-      <Slot Length="8" N="27" Addr="8800" Type="floats" Desc="Частота Дискретных Входов (Результат)"/>
-      <Slot Length="4" N="29" Addr="64" Type="dwords" Desc="Алгоблоки (Системные параметры)"/>
-      <Slot Length="8" N="30" Addr="64" Type="words" Desc="Алгоблоки (Системные параметры)"/>
-      <Slot Length="250" N="31" Addr="B000" Type="bytes" Desc="Алгоблоки (Параметры в ППЗУ)"/>
-      <Slot Length="8" N="33" Addr="8900" Type="floats" Desc="Частота Дискретных Входов (Нижняя Уставка)"/>
-      <Slot Length="8" N="34" Addr="8980" Type="floats" Desc="Частота Дискретных Входов (Верхняя Уставка)"/>
-      <Slot Length="8" N="35" Addr="8A00" Type="floats" Desc="Частота Дискретных Входов (гистерезис Нижней Уставки)"/>
-      <Slot Length="8" N="36" Addr="8A80" Type="floats" Desc="Частота Дискретных Входов (Гистерезис Верхней Уставки)"/>
-      <Slot Length="8" N="37" Addr="8B00" Type="dwords" Desc="Частота Дискретных Входов (Счетчик выходов за Нижнюю Уставку)"/>
-      <Slot Length="8" N="38" Addr="8B80" Type="dwords" Desc="Частота Дискретных Входов (Счетчик выходов за Верхнюю Уставку)"/>
-      <Slot Length="64" N="39" Addr="8C00" Type="bits" Desc="Частота Дискретных Входов (За Нижней и Верхней Уставками)"/>
-      <Slot Length="8" N="40" Addr="0002" Type="bits" Desc="Индивидуальный сброс счетчиков"/>
-      <Slot Length="6" N="43" Addr="8350" Type="floats" Desc="Значения выхода экспоненциального фильтра дискретных входов 1..6"/>
-      <Slot Length="8" N="44" Addr="8370" Type="bits" Desc="Биты дискретных входов после фильтрации окном и перед экспоненциальной фильтрацией"/>
+    <Module Name="PC100-mPC102" Node="1" N="1">
+      <Slot Desc="Режимы работы и Настройки модуля" N="1" Addr="0002" Length="4" Type="bytes"/>
+      <Slot Desc="Дискретные Входы (Биты)" N="2" Addr="0006" Length="64" Type="bits"/>
+      <Slot Desc="Дискретные Входы (Счетчик импульсов)" N="3" Addr="8200" Length="8" Type="dwords"/>
+      <Slot Desc="Дискретные Входы (Режим и метод измерения частоты импульсов)" N="4" Addr="0016" Length="2" Type="bytes"/>
+      <Slot Desc="Дискретные Входы (Частота импульсов)" N="5" Addr="8280" Length="6" Type="floats"/>
+      <Slot Desc="Дискретные Входы (Ширина окна фильтрации в мс)" N="6" Addr="8300" Length="32" Type="words"/>
+      <Slot Desc="ДискретныеВходы (Постоянная времени экспотенциального фильтра в мс)" N="7" Addr="8340" Length="6" Type="words"/>
+      <Slot Desc="Дискретные Выходы (Биты и DI/DO)" N="8" Addr="000E" Length="64" Type="bits"/>
+      <Slot Desc="ДискретныеВыходы (Длительность импульса ШИМ в мс)" N="9" Addr="8400" Length="6" Type="words"/>
+      <Slot Desc="Дискретные Выходы (Период ЧИМ в мс)" N="10" Addr="8440" Length="6" Type="words"/>
+      <Slot Desc="Дискретные Выходы (Длительность импульса ЧИМ  в мс)" N="11" Addr="8480" Length="6" Type="words"/>
+      <Slot Desc="Рабочие и справочные параметры" N="12" Addr="8580" Length="2" Type="dwords"/>
+      <Slot Desc="Дискртеные Выходы (Счетчик времени ЧИМ в мс)" N="13" Addr="84C0" Length="6" Type="dwords"/>
+      <Slot Desc="Дискретные Выходы (Блокировка пар)" N="14" Addr="0200" Length="3" Type="words"/>
+      <Slot Desc="Дискретные выходы с учетом выбора канала и блокировки пар" N="15" Addr="0018" Length="32" Type="bits"/>
+      <Slot Desc="Статистика и Времена выполнения" N="18" Addr="C000" Length="6" Type="dwords"/>
+      <Slot Desc="Частота Дискретных Входов (Нормировка X1)" N="23" Addr="8600" Length="8" Type="floats"/>
+      <Slot Desc="Частота Дискретных Входов (Нормировка X2)" N="24" Addr="8680" Length="8" Type="floats"/>
+      <Slot Desc="Частота Дискретных Входов (Нормировка Y1)" N="25" Addr="8700" Length="8" Type="floats"/>
+      <Slot Desc="Частота Дискретных Входов (Нормировка Y2)" N="26" Addr="8780" Length="8" Type="floats"/>
+      <Slot Desc="Частота Дискретных Входов (Результат)" N="27" Addr="8800" Length="8" Type="floats"/>
+      <Slot Desc="Алгоблоки (Системные параметры)" N="29" Addr="64" Length="4" Type="dwords"/>
+      <Slot Desc="Алгоблоки (Системные параметры)" N="30" Addr="64" Length="8" Type="words"/>
+      <Slot Desc="Алгоблоки (Параметры в ППЗУ)" N="31" Addr="B000" Length="250" Type="bytes"/>
+      <Slot Desc="Частота Дискретных Входов (Нижняя Уставка)" N="33" Addr="8900" Length="8" Type="floats"/>
+      <Slot Desc="Частота Дискретных Входов (Верхняя Уставка)" N="34" Addr="8980" Length="8" Type="floats"/>
+      <Slot Desc="Частота Дискретных Входов (гистерезис Нижней Уставки)" N="35" Addr="8A00" Length="8" Type="floats"/>
+      <Slot Desc="Частота Дискретных Входов (Гистерезис Верхней Уставки)" N="36" Addr="8A80" Length="8" Type="floats"/>
+      <Slot Desc="Частота Дискретных Входов (Счетчик выходов за Нижнюю Уставку)" N="37" Addr="8B00" Length="8" Type="dwords"/>
+      <Slot Desc="Частота Дискретных Входов (Счетчик выходов за Верхнюю Уставку)" N="38" Addr="8B80" Length="8" Type="dwords"/>
+      <Slot Desc="Частота Дискретных Входов (За Нижней и Верхней Уставками)" N="39" Addr="8C00" Length="64" Type="bits"/>
+      <Slot Desc="Индивидуальный сброс счетчиков" N="40" Addr="0002" Length="8" Type="bits"/>
+      <Slot Desc="Значения выхода экспоненциального фильтра дискретных входов 1..6" N="43" Addr="8350" Length="6" Type="floats"/>
+      <Slot Desc="Биты дискретных входов после фильтрации окном и перед экспоненциальной фильтрацией" N="44" Addr="8370" Length="8" Type="bits"/>
+      <Slot Desc="Режим работы фильтра дискретых входов" N="45" Addr="8380" Length="6" Type="bytes"/>
     </Module>
   </MBConfig>
 </MKStudio>
