@@ -56,6 +56,7 @@
     <addaction name="action_export"/>
     <addaction name="action_export_h"/>
     <addaction name="action_HTML_export"/>
+    <addaction name="action_Markdown_export"/>
     <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menu_table">
@@ -235,6 +236,11 @@
   <action name="action_export_h">
    <property name="text">
     <string>Экспорт .h-файла</string>
+   </property>
+  </action>
+  <action name="action_Markdown_export">
+   <property name="text">
+    <string>Экспорт Markdown в буфер обмена</string>
    </property>
   </action>
  </widget>

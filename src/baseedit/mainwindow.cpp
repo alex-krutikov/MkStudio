@@ -532,7 +532,58 @@ void MainWindow::on_action_HTML_export_triggered()
   md->setText( str );
   QApplication::clipboard()->setMimeData( md );
 
-  QMessageBox::information( this, app_header, "База скопирована в буфер обмена." );
+  QMessageBox::information( this, app_header, "База скопирована в буфер обмена в формате HTML." );
+}
+
+//==============================================================================
+//
+//==============================================================================
+void MainWindow::on_action_Markdown_export_triggered()
+{
+    QString out;
+
+    QAbstractItemModel *model = tw->model();
+    int rows    = model->rowCount();
+    int columns = model->columnCount();
+
+    out += "\n|";
+
+    for(int i=0; i < columns; i++) {
+        if (tw->isColumnHidden(i))
+            continue;
+        out += tw->model()->headerData(i, Qt::Horizontal).toString() + " |";
+    }
+
+    out += "\n|";
+
+    for(int i=0; i < columns; i++) {
+        if (tw->isColumnHidden(i))
+            continue;
+        out += "---|";
+    }
+
+    out += "\n";
+
+    for(int i=0; i < rows; i++)
+    { out += "| ";
+      for(int j=0 ; j < columns ; j++)
+      {
+        if (tw->isColumnHidden(j))
+            continue;
+
+        QModelIndex index = model->index(i,j);
+        QString disp_role         = model->data( index, Qt::DisplayRole    ).toString();
+        out += disp_role;
+        out += " |";
+      }
+      out += "\n";
+    }
+
+    QMimeData *md = new QMimeData;
+    md->setText(out);
+    QApplication::clipboard()->setMimeData(md);
+
+    QMessageBox::information(this, app_header, "База скопирована в буфер обмена в формате Markdown." );
 }
 
 //==============================================================================

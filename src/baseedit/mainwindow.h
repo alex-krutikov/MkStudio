@@ -42,6 +42,7 @@ private slots:
   void update_recent_files();
   void recent_files_activated( QAction* act );
   void on_action_HTML_export_triggered();
+  void on_action_Markdown_export_triggered();
 
   void on_action_show_modbus_toggled();
   void check_tw_activation(const QModelIndex&);
