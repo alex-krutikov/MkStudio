@@ -61,12 +61,20 @@ MODULES = {
             "flash_begin": 0x00084000,
             "flash_end": 0x000A0000,
             "sector_size": 256,
+    },
+    "MB100": {
+            "module_name": "MB100",
+            "cpu_name": "LPC2124        ",
+            "flash_begin": 0x00002000,
+            "flash_end": 0x0003A000,
+            "sector_size": 8192,
     }
 }
 
 
 def main():
-    write_mmpm_bin(MODULES['PC100'], "Du100SAM3X_20.bin", "fw-mmpm.bin")
+    # write_mmpm_bin(MODULES['PC100'], "Du100SAM3X_20.bin", "fw-mmpm.bin")
+    # write_mmpm_bin(MODULES['MB100'], "Mb100_05_01_604K.bin", "fw-mmpm.bin")
 
 
 if __name__ == '__main__':
