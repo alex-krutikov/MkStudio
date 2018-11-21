@@ -1,4 +1,4 @@
-#include "serialport.h"
+﻿#include "serialport.h"
 #include "serialport_p.h"
 
 #include "console.h"
@@ -16,15 +16,12 @@
 #include <setupapi.h>
 #include <dbt.h>
 
-extern "C" WINUSERAPI HDEVNOTIFY WINAPI RegisterDeviceNotificationW(HANDLE,LPVOID,DWORD);
-extern "C" WINUSERAPI BOOL WINAPI UnregisterDeviceNotification(HANDLE);
-
 //===================================================================
 // Оконная функция
 //===================================================================
 LRESULT CALLBACK SerialPortWndProc(HWND hwnd, UINT Message, WPARAM wparam,LPARAM lparam)
 {
-  SerialPortPrivate *spp = (SerialPortPrivate*)GetWindowLongPtr( hwnd, GWL_USERDATA );
+  SerialPortPrivate *spp = (SerialPortPrivate*)GetWindowLongPtr( hwnd, GWLP_USERDATA );
   if( Message == WM_DEVICECHANGE )
   { Console::Print(Console::Information, "WM_DEVICECHANGE  wParam=" + QString::number( wparam , 16) + " \n" );
     spp->close();
@@ -54,11 +51,11 @@ SerialPortPrivate::SerialPortPrivate( SerialPort *sp_arg )
   w.lpfnWndProc = SerialPortWndProc;
   w.hInstance = 0;
   w.hbrBackground = (WHITE_BRUSH);
-  w.lpszClassName = _T("SerialPortNotifyWindows");
+  w.lpszClassName = TEXT("SerialPortNotifyWindows");
   RegisterClass(&w);
-  hwnd = CreateWindow(_T("SerialPortNotifyWindows"),_T("SerialPortNotifyWindow"),0,
+  hwnd = CreateWindow(TEXT("SerialPortNotifyWindows"),TEXT("SerialPortNotifyWindow"),0,
 		0,0,0,0,NULL,NULL,0,NULL);
-  SetWindowLongPtr( hwnd, GWL_USERDATA, (LONG)this );
+  SetWindowLongPtr( hwnd, GWLP_USERDATA , (LONG)this );
   ShowWindow(hwnd,SW_HIDE);
 }
 
@@ -481,7 +478,7 @@ QStringList SerialPortPrivate::queryComPorts()
   typedef BOOL (__stdcall SETUPDIGETDEVICEREGISTRYPROPERTY)(HDEVINFO, PSP_DEVINFO_DATA, DWORD, PDWORD, PBYTE, DWORD, PDWORD);
 
   //Get the various function pointers we require from setupapi.dll
-  HINSTANCE hSetupAPI = LoadLibrary(_T("SETUPAPI.DLL"));
+  HINSTANCE hSetupAPI = LoadLibrary(TEXT("SETUPAPI.DLL"));
   if (hSetupAPI == NULL)
     return QStringList();
 
@@ -529,10 +526,10 @@ QStringList SerialPortPrivate::queryComPorts()
       HKEY hDeviceKey = lpfnLPSETUPDIOPENDEVREGKEY(hDevInfoSet, &devInfo, DICS_FLAG_GLOBAL, 0, DIREG_DEV, KEY_QUERY_VALUE);
       if (hDeviceKey != INVALID_HANDLE_VALUE )
       { //Read in the name of the port
-        TCHAR pszPortName[256];
+        WCHAR pszPortName[256];
         DWORD dwSize = sizeof(pszPortName);
         DWORD dwType = 0;
-  	    if ((RegQueryValueEx(hDeviceKey, _T("PortName"), NULL, &dwType, reinterpret_cast<LPBYTE>(pszPortName), &dwSize) == ERROR_SUCCESS) && (dwType == REG_SZ))
+        if ((RegQueryValueEx(hDeviceKey, TEXT("PortName"), NULL, &dwType, reinterpret_cast<LPBYTE>(pszPortName), &dwSize) == ERROR_SUCCESS) && (dwType == REG_SZ))
         { //If it looks like "COMX" then
           //add it to the array which will be returned
           size_t nLen = _tcslen(pszPortName);
@@ -549,7 +546,7 @@ QStringList SerialPortPrivate::queryComPorts()
 
       //If the port was a serial port, then also try to get its friendly name
       if (bAdded)
-      { TCHAR pszFriendlyName[256];
+      { WCHAR pszFriendlyName[256];
         DWORD dwSize = sizeof(pszFriendlyName);
         DWORD dwType = 0;
         if (lpfnSETUPDIGETDEVICEREGISTRYPROPERTY(hDevInfoSet, &devInfo, SPDRP_DEVICEDESC, &dwType, reinterpret_cast<PBYTE>(pszFriendlyName), dwSize, &dwSize) && (dwType == REG_SZ))
