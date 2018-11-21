@@ -55,7 +55,7 @@ SerialPortPrivate::SerialPortPrivate( SerialPort *sp_arg )
   RegisterClass(&w);
   hwnd = CreateWindow(TEXT("SerialPortNotifyWindows"),TEXT("SerialPortNotifyWindow"),0,
 		0,0,0,0,NULL,NULL,0,NULL);
-  SetWindowLongPtr( hwnd, GWLP_USERDATA , (LONG)this );
+  SetWindowLongPtr( hwnd, GWLP_USERDATA , (LONG_PTR)this );
   ShowWindow(hwnd,SW_HIDE);
 }
 
