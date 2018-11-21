@@ -1,4 +1,4 @@
-Product {
+﻿Product {
     type: "staticlibrary"
 
     Depends { name: "Qt.core" }
@@ -49,4 +49,8 @@ Product {
         files: "serialport_unix.cpp"
     }
 
+    Properties {
+        condition: qbs.targetOS.contains("windows")
+        cpp.staticLibraries: ["user32", "advapi32"]
+    }
 }

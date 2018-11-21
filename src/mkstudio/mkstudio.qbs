@@ -1,4 +1,4 @@
-Project {
+﻿Project {
 
     property stringList mkstudioFiles: [
         "mainwindow.h",
@@ -33,11 +33,6 @@ Project {
         Depends { name: "Qt.xml" }
 
         cpp.cxxLanguageVersion: "c++14"
-
-        cpp.commonCompilerFlags: [
-            "-fdata-sections",
-            "-ffunction-sections",
-        ]
 
         files: mkstudioFiles
 
