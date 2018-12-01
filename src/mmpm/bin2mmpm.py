@@ -74,7 +74,7 @@ MODULES = {
 
 def main():
     # write_mmpm_bin(MODULES['PC100'], "Du100SAM3X_20.bin", "fw-mmpm.bin")
-    # write_mmpm_bin(MODULES['MB100'], "Mb100_05_01_604K.bin", "fw-mmpm.bin")
+    # write_mmpm_bin(MODULES['MB100'], "Mb100_05_01_499K_100K.bin", "mmpm-MB100_05_01_499K_100K.bin")
 
 
 if __name__ == '__main__':
