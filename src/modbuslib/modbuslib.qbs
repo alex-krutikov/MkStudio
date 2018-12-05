@@ -22,7 +22,9 @@
         "serialport.h",
         "serialport_p.h",
         "mbtcpserver.h",
+        "mbudpserver.h",
         "mbtcp.h",
+        "mbudp.h",
         "mbtypes.h",
         "packed_struct_begin.h",
         "packed_struct_end.h",
@@ -34,7 +36,9 @@
         "console.cpp",
         "xfiles.cpp",
         "mbtcp.cpp",
+        "mbudp.cpp",
         "mbtcpserver.cpp",
+        "mbudpserver.cpp",
     ]
 
     Group {

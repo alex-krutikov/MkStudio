@@ -1,4 +1,4 @@
-#ifndef __mainwindow_h_
+﻿#ifndef __mainwindow_h_
 #define __mainwindow_h_
 
 #include <QMainWindow>
@@ -28,7 +28,7 @@ private:
   void console_update();
 
   std::unique_ptr<AbstractSerialPort> serialport;
-  std::unique_ptr<ModbusTcpServer> tcpserver;
+  std::unique_ptr<QObject> tcpserver;
 };
 
 #endif

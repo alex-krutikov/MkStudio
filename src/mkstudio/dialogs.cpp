@@ -1,10 +1,11 @@
-#include "dialogs.h"
+﻿#include "dialogs.h"
 
 #include "utils.h"
 
 #include <mbmasterxml.h>
 #include <serialport.h>
 #include <mbtcp.h>
+#include <mbudp.h>
 
 #include <qwt_painter.h>
 #include <qwt_plot_canvas.h>
@@ -47,6 +48,7 @@ InitDialog::InitDialog(QWidget *parent, bool isArduinoOnly)
 
   if (!isArduinoOnly)
   { cb_portname->addItem( "Modbus TCP", "===TCP===" );
+    cb_portname->addItem( "Modbus UDP", "===UDP===" );
   }
 
   i = cb_portname->findData( portname );
@@ -86,7 +88,7 @@ InitDialog::InitDialog(QWidget *parent, bool isArduinoOnly)
 void InitDialog::on_cb_portname_currentIndexChanged(int)
 {
   QString str = cb_portname->itemData( cb_portname->currentIndex() ).toString();
-  bool b = ( str == "===TCP===" );
+  bool b = (( str == "===TCP===" ) || ( str == "===UDP===" ));
 
   cb_portspeed->setHidden(   b );
   l_speed->setHidden(        b );
@@ -117,9 +119,16 @@ void InitDialog::accept()
   settings.setValue( "cycle_time", sb_cycle_time->value() );
 
   if( str == "===TCP===" )
-  { str = le_tcp_server->text();
+  {
+    str = le_tcp_server->text();
     m_port.reset(new MbTcpPort);
-  } else
+  }
+  else if( str == "===UDP===" )
+  {
+    str = le_tcp_server->text();
+    m_port.reset(new MbUdpPort);
+  }
+  else
   { m_port.reset(new SerialPort);
   }
 

@@ -1,8 +1,10 @@
-#include <QScrollBar>
+﻿#include <QScrollBar>
+#include <QDebug>
 
 #include "mainwindow.h"
 #include "main.h"
 #include "mbtcpserver.h"
+#include "mbudpserver.h"
 
 #include "serialport.h"
 #include "crc.h"
@@ -371,6 +373,10 @@ MainWindow::MainWindow()
   move(pos);
 
   //----------------------------------------------------------------------
+  cb_protocol->clear();
+  cb_protocol->addItem("UDP");
+  cb_protocol->addItem("TCP");
+  //----------------------------------------------------------------------
   int i;
   QString str,str2;
   cb_portname->clear();
@@ -380,8 +386,8 @@ MainWindow::MainWindow()
     str2.replace(';',"        ( ");
     cb_portname->addItem( str2+" )", str.section(';',0,0) );
   }
-  cb_portname->addItem( "Эмулятор", "__EMULATOR__" );
-  cb_portname->addItem( "Эмулятор Arduino", "__EMULATOR_ARDUINO__" );
+  cb_portname->addItem( u8"Эмулятор", "__EMULATOR__" );
+  cb_portname->addItem( u8"Эмулятор Arduino", "__EMULATOR_ARDUINO__" );
   i = cb_portname->findData( settings.value("portname").toString() );
   if( i >= 0 ) cb_portname->setCurrentIndex(i);
   //----------------------------------------------------------------------
@@ -411,6 +417,7 @@ MainWindow::MainWindow()
   connect( cb_portname,  SIGNAL( currentIndexChanged(int) ), this, SLOT( settingsChanged() ));
   connect( cb_portspeed, SIGNAL( currentIndexChanged(int) ), this, SLOT( settingsChanged() ));
   connect( le_timeout,   SIGNAL( textChanged(const QString&) ), this, SLOT( settingsChanged() ));
+  connect( cb_protocol,  SIGNAL( currentIndexChanged(int)), this, SLOT( settingsChanged() ));
   connect( le_tcp_port,  SIGNAL( textChanged(const QString&) ), this, SLOT( settingsChanged() ));
   connect( cb_mb_packet, SIGNAL( toggled (bool) ),              this, SLOT( settingsChanged() ));
 
@@ -474,9 +481,18 @@ void MainWindow::settingsChanged()
 
   Console::setMessageTypes( Console::ModbusPacket, show_mb_packets );
 
-  if( !tcpserver.get() || sender() == le_tcp_port )
+  if( !tcpserver.get() || sender() == le_tcp_port  || sender() == cb_protocol)
   {
-    tcpserver.reset(new ModbusTcpServer( this, serialport.get(), tcpport ));
+      if (cb_protocol->currentText() == "TCP")
+      {
+        tcpserver.reset();
+        tcpserver.reset(new ModbusTcpServer( this, serialport.get(), tcpport ));
+      }
+      else if (cb_protocol->currentText() == "UDP")
+      {
+        tcpserver.reset();
+        tcpserver.reset(new ModbusUdpServer( this, serialport.get(), tcpport ));
+      }
   }
 }
 
