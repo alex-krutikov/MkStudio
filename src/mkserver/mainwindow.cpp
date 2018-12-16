@@ -386,8 +386,8 @@ MainWindow::MainWindow()
     str2.replace(';',"        ( ");
     cb_portname->addItem( str2+" )", str.section(';',0,0) );
   }
-  cb_portname->addItem( u8"Эмулятор", "__EMULATOR__" );
-  cb_portname->addItem( u8"Эмулятор Arduino", "__EMULATOR_ARDUINO__" );
+  cb_portname->addItem( "Эмулятор", "__EMULATOR__" );
+  cb_portname->addItem( "Эмулятор Arduino", "__EMULATOR_ARDUINO__" );
   i = cb_portname->findData( settings.value("portname").toString() );
   if( i >= 0 ) cb_portname->setCurrentIndex(i);
   //----------------------------------------------------------------------

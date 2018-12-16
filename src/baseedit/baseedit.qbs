@@ -1,4 +1,4 @@
-import qbs
+﻿import qbs
 
 Project {
 
@@ -9,6 +9,11 @@ Project {
         Depends { name: "Qt.xml" }
 
         cpp.cxxLanguageVersion: "c++14"
+
+        Properties {
+            condition: cpp.compilerName.contains("cl.exe") // MSVC compiler
+            cpp.cxxFlags: "/utf-8"
+        }
 
         consoleApplication: false
 

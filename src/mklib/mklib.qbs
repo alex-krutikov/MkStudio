@@ -1,4 +1,4 @@
-Product {
+﻿Product {
     type: "staticlibrary"
 
     Depends { name: "qwt" }
@@ -13,6 +13,11 @@ Product {
     }
 
     cpp.cxxLanguageVersion: "c++14"
+
+    Properties {
+        condition: cpp.compilerName.contains("cl.exe") // MSVC compiler
+        cpp.cxxFlags: "/utf-8"
+    }
 
     cpp.includePaths: ["."]
 

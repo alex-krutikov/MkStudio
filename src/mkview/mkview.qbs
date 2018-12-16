@@ -1,4 +1,4 @@
-Product {
+﻿Product {
     type: "application"
 
     Depends { name: "qwt" }
@@ -9,6 +9,11 @@ Product {
     Depends { name: "Qt.xml" }
 
     cpp.cxxLanguageVersion: "c++14"
+
+    Properties {
+        condition: cpp.compilerName.contains("cl.exe") // MSVC compiler
+        cpp.cxxFlags: "/utf-8"
+    }
 
     consoleApplication: false
 

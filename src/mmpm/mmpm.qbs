@@ -1,4 +1,4 @@
-Product {
+﻿Product {
     type: "application"
 
     name: "mmpm"
@@ -10,6 +10,11 @@ Product {
     Depends { name: "modbuslib" }
 
     cpp.cxxLanguageVersion: "c++14"
+
+    Properties {
+        condition: cpp.compilerName.contains("cl.exe") // MSVC compiler
+        cpp.cxxFlags: "/utf-8"
+    }
 
     consoleApplication: false
 
