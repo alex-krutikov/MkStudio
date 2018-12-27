@@ -7,6 +7,7 @@
 
 #include <QUdpSocket>
 #include <QNetworkDatagram>
+#include <QList>
 
 //==============================================================================
 /// Предсказание длины ответного пакета в соответствии с протоколом MIKKON Modbus
@@ -84,6 +85,8 @@ void ModbusUdpServerThread::run()
 {
   QUdpSocket socket;
 
+  QList<QNetworkDatagram> udp_requests;
+
   bool ok = socket.bind(QHostAddress::Any, udp_port);
 
   QString message = ok ? QString("UDP Server started on port %1.\n").arg(udp_port)
@@ -96,9 +99,54 @@ void ModbusUdpServerThread::run()
 
   while(!exit_flag) {
 
+      if (!socket.isValid())  {
+          socket.close();
+          bool ok = socket.bind(QHostAddress::Any, udp_port);
+          QString message = ok ? QString("UDP Server started on port %1.\n").arg(udp_port)
+                               : QString("UDP Server: Unable to listen port %1.\n").arg(udp_port);
+          Console::Print( Console::Information, message );
+          if (!ok) {
+              QThread::msleep(500);
+          }
+      }
+
       while(socket.hasPendingDatagrams()) {
 
           QNetworkDatagram req_datagram = socket.receiveDatagram();
+
+          if (!req_datagram.isValid()) {
+            Console::Print( Console::ModbusPacket, "UDP Received request invalid\n");
+            Console::Print( Console::Information, "UDP socket error: \"" + socket.errorString() + "\"\n");
+            continue;
+          }
+
+          for (auto it = udp_requests.begin(); it != udp_requests.end(); ++it) {
+              if (req_datagram.senderPort() == it->senderPort()) {
+                  if (req_datagram.senderAddress() == it->senderAddress()) {
+                    udp_requests.erase(it);
+                    Console::Print( Console::Warning, QString("UDP: Request overrun from host: %1:%2\n")
+                                    .arg(req_datagram.senderAddress().toString()).arg(req_datagram.senderPort()));
+                    break;
+                  }
+              }
+
+          }
+
+          udp_requests.push_front(req_datagram);
+
+          Console::Print( Console::ModbusPacket, "UDP Received request:" + QByteArray2QString( req_datagram.data() ) + "\n" );
+      }
+
+      if (udp_requests.isEmpty()) {
+            socket.waitForReadyRead(100);
+      }
+
+      if(!udp_requests.isEmpty()) {
+          Console::Print( Console::ModbusPacket, "\nUDP Process request (queue size:   " + QString::number(udp_requests.count())+ ")\n" );
+
+          QNetworkDatagram req_datagram = udp_requests.first();
+          udp_requests.pop_front();
+
           QByteArray udp_req = req_datagram.data();
           QByteArray udp_ans;
 
@@ -155,7 +203,6 @@ void ModbusUdpServerThread::run()
               Console::Print(Console::ModbusPacket, "UDP Req: Wrong request format:" + QByteArray2QString( udp_req ) + "\n\n" );
           }
       }
-      socket.waitForReadyRead(100);
   }
 }
 
