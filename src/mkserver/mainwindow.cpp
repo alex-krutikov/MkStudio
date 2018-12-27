@@ -420,10 +420,13 @@ MainWindow::MainWindow()
   connect( cb_protocol,  SIGNAL( currentIndexChanged(int)), this, SLOT( settingsChanged() ));
   connect( le_tcp_port,  SIGNAL( textChanged(const QString&) ), this, SLOT( settingsChanged() ));
   connect( cb_mb_packet, SIGNAL( toggled (bool) ),              this, SLOT( settingsChanged() ));
+  connect( pb_console_clear,    SIGNAL( clicked() ),          te, SLOT( clear() ));
 
   te->setMaximumBlockCount( 10000 );
   te->setFont( QFont("Courier",8 ) );
   te->setWordWrapMode( QTextOption::NoWrap );
+  te->setReadOnly(true);
+  te->setTextInteractionFlags(Qt::TextSelectableByMouse);
 
   settingsChanged();
   te->setFocus();
@@ -503,9 +506,7 @@ void MainWindow::settingsChanged()
 void MainWindow::console_update()
 {
   QString str = Console::takeMessage();
-  if( !str.isEmpty() ) te->insertPlainText( str );
-  QScrollBar *sb = te->verticalScrollBar();
-  if( ! sb->isSliderDown() )	sb->setValue( sb->maximum() );
+  if( !str.isEmpty() ) te->appendPlainText( str );
 }
 
 //==============================================================================
