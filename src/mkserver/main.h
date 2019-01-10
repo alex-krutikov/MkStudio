@@ -1,4 +1,4 @@
-#ifndef __main_h__
+﻿#ifndef __main_h__
 #define __main_h__
 
 #include "mainwindow.h"
@@ -15,7 +15,7 @@ public:
     }
 };
 
-extern MainWindow   *mainwindow;
-extern QString       app_header;
+// extern MainWindow   *mainwindow;
+// extern QString       app_header;
 
 #endif

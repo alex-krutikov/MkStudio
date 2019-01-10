@@ -233,6 +233,6 @@ ModbusUdpServer::~ModbusUdpServer()
   { sp_thread->terminate();
     sp_thread->wait(5000);
   }
-  Console::Print( Console::Information, QString("UDP Server stoped on port %1.\n").arg(sp_thread->udp_port) );
+  Console::Print( Console::Information, QString("UDP Server stopped on port %1.\n").arg(sp_thread->udp_port) );
 }
 

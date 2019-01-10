@@ -1,4 +1,4 @@
-#include "mbtcpserver.h"
+﻿#include "mbtcpserver.h"
 
 #include "abstractserialport.h"
 #include "crc.h"
@@ -73,8 +73,8 @@ void ModbusTcpServerThread::run()
   server = new QTcpServer(this);
   ok = server->listen( QHostAddress::Any, mb_tcp_port );
 
-  QString message = ok ? QString("Server started on port %1.\n").arg(mb_tcp_port)
-                       : QString("Unable to listen port %1.\n").arg(mb_tcp_port);
+  QString message = ok ? QString("TCP Server started on port %1.\n").arg(mb_tcp_port)
+                       : QString("TCP Server: Unable to listen port %1.\n").arg(mb_tcp_port);
   Console::Print( Console::Information, message );
 
   connect( server, SIGNAL( newConnection() ), this, SLOT( newConnection() ) );
@@ -255,7 +255,7 @@ ModbusTcpServer::~ModbusTcpServer()
   { sp_thread->terminate();
     sp_thread->wait(5000);
   }
-  Console::Print( Console::Information, QString("Server stoped on port %1.\n").arg(mb_tcp_port) );
+  Console::Print( Console::Information, QString("TCP Server stopped on port %1.\n").arg(mb_tcp_port) );
   delete sp_thread;
 }
 

@@ -363,7 +363,7 @@ public:
 MainWindow::MainWindow()
 {
   setupUi( this );
-  setWindowTitle( app_header );
+  setWindowTitle("MKServer");
 
   Settings settings;
   QPoint pos = settings.value("pos", QPoint(200, 200)).toPoint();
@@ -374,8 +374,8 @@ MainWindow::MainWindow()
 
   //----------------------------------------------------------------------
   cb_protocol->clear();
-  cb_protocol->addItem("UDP");
-  cb_protocol->addItem("TCP");
+  cb_protocol->addItem("Modbus UDP", "UDP");
+  cb_protocol->addItem("Modbus TCP", "TCP");
   //----------------------------------------------------------------------
   int i;
   QString str,str2;
@@ -486,12 +486,12 @@ void MainWindow::settingsChanged()
 
   if( !tcpserver.get() || sender() == le_tcp_port  || sender() == cb_protocol)
   {
-      if (cb_protocol->currentText() == "TCP")
+      if (cb_protocol->currentData() == "TCP")
       {
         tcpserver.reset();
         tcpserver.reset(new ModbusTcpServer( this, serialport.get(), tcpport ));
       }
-      else if (cb_protocol->currentText() == "UDP")
+      else if (cb_protocol->currentData() == "UDP")
       {
         tcpserver.reset();
         tcpserver.reset(new ModbusUdpServer( this, serialport.get(), tcpport ));
