@@ -175,7 +175,7 @@ void ModbusTcpServerThread::readyRead()
 
     if (replay_delay)
     {
-        Console::Print( Console::ModbusPacket, QString("TCP Ans: Waiting delay %1 ms").arg(replay_delay));
+        Console::Print( Console::ModbusPacket, QString("TCP Ans: Waiting delay %1 ms\n").arg(replay_delay));
         QThread::msleep(replay_delay);
     }
 

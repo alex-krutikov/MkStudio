@@ -188,7 +188,7 @@ void ModbusUdpServerThread::run()
 
                   if (replay_delay)
                   {
-                      Console::Print( Console::ModbusPacket, QString("UDP Ans: Waiting delay %1 ms").arg(replay_delay));
+                      Console::Print( Console::ModbusPacket, QString("UDP Ans: Waiting delay %1 ms\n").arg(replay_delay));
                       QThread::msleep(replay_delay);
                   }
 
