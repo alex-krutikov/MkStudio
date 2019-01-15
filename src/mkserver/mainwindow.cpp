@@ -524,6 +524,9 @@ void MainWindow::replyDelayChanged(int value)
 //==============================================================================
 void MainWindow::console_update()
 {
+  if (cb_console_pause->isChecked())
+      return;
+
   QString str = Console::takeMessage();
   if( !str.isEmpty() ) te->appendPlainText( str );
 }

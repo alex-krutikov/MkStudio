@@ -129,6 +129,13 @@
        </spacer>
       </item>
       <item>
+       <widget class="QCheckBox" name="cb_console_pause">
+        <property name="text">
+         <string>пауза</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QToolButton" name="pb_console_clear">
         <property name="text">
          <string>Очистить консоль</string>
@@ -151,6 +158,7 @@
   <tabstop>cb_portspeed</tabstop>
   <tabstop>le_timeout</tabstop>
   <tabstop>cb_mb_packet</tabstop>
+  <tabstop>cb_console_pause</tabstop>
   <tabstop>pb_console_clear</tabstop>
   <tabstop>te</tabstop>
  </tabstops>
