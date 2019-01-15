@@ -8,6 +8,9 @@
 #include <QUdpSocket>
 #include <QNetworkDatagram>
 #include <QList>
+#include <QThread>
+
+#include <atomic>
 
 //==============================================================================
 /// Предсказание длины ответного пакета в соответствии с протоколом MIKKON Modbus
@@ -75,7 +78,8 @@ protected:
 private:
   AbstractSerialPort *sp;
   uint16_t udp_port;
-  volatile bool exit_flag;
+  std::atomic_bool exit_flag;
+  std::atomic_int replay_delay;
 };
 
 //#############################################################################
@@ -182,6 +186,12 @@ void ModbusUdpServerThread::run()
                   udp_ans.append( (char) (mb_ans.size()) );
                   udp_ans.append( mb_ans );
 
+                  if (replay_delay)
+                  {
+                      Console::Print( Console::ModbusPacket, QString("UDP Ans: Waiting delay %1 ms").arg(replay_delay));
+                      QThread::msleep(replay_delay);
+                  }
+
                   Console::Print( Console::ModbusPacket, "UDP Ans:" + QByteArray2QString( udp_ans ) + "\n\n" );
 
                   int j = socket.writeDatagram(std::move(req_datagram).makeReply(udp_ans));
@@ -209,14 +219,22 @@ void ModbusUdpServerThread::run()
 //#############################################################################
 //
 //#############################################################################
-ModbusUdpServer::ModbusUdpServer( QObject *parent, AbstractSerialPort *sp,  uint16_t udp_port )
-  : QObject( parent )
-  , sp_thread(std::make_unique<ModbusUdpServerThread>())
+ModbusUdpServer::ModbusUdpServer(AbstractSerialPort *sp,  uint16_t udp_port)
+  : sp_thread(std::make_unique<ModbusUdpServerThread>())
 {
   sp_thread->sp = sp;
   sp_thread->udp_port = udp_port;
+  sp_thread->replay_delay = 0;
   sp_thread->start();
 
+}
+
+//=============================================================================
+//
+//=============================================================================
+void ModbusUdpServer::setReplyDelay(int delay)
+{
+    sp_thread->replay_delay = delay;
 }
 
 //=============================================================================

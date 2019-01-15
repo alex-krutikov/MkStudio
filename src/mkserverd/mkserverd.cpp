@@ -1,4 +1,4 @@
-#include "serialport.h"
+﻿#include "serialport.h"
 #include "mbtcp.h"
 #include "mbtcpserver.h"
 
@@ -190,7 +190,7 @@ int main(int argc, char *argv[])
   ret = init();
   if( ret ) return ret;
 
-  ModbusTcpServer server( 0, sp, tcpport );
+  ModbusTcpServer server(sp, tcpport );
 
   app.exec();
 

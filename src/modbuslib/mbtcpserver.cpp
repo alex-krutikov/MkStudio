@@ -173,6 +173,12 @@ void ModbusTcpServerThread::readyRead()
     tcp_ans.append( (char) mb_ans.size() );
     tcp_ans.append( mb_ans );
 
+    if (replay_delay)
+    {
+        Console::Print( Console::ModbusPacket, QString("TCP Ans: Waiting delay %1 ms").arg(replay_delay));
+        QThread::msleep(replay_delay);
+    }
+
     Console::Print( Console::ModbusPacket, "TCP Ans:" + QByteArray2QString( tcp_ans ) + "\n\n" );
 
     int j = socket->write( tcp_ans );
@@ -232,15 +238,24 @@ void ModbusTcpServerThread::disconnected()
 //#############################################################################
 //
 //#############################################################################
-ModbusTcpServer::ModbusTcpServer( QObject *parent, AbstractSerialPort *sp,  int mb_tcp_port )
-  : QObject( parent ), sp( sp ), mb_tcp_port( mb_tcp_port )
+ModbusTcpServer::ModbusTcpServer(AbstractSerialPort *sp,  int mb_tcp_port )
+  : sp( sp ), mb_tcp_port( mb_tcp_port )
 {
   sp_thread = new ModbusTcpServerThread;
 
   sp_thread->sp = sp;
   sp_thread->mb_tcp_port = mb_tcp_port;
+  sp_thread->replay_delay = 0;
   sp_thread->moveToThread( sp_thread );
   sp_thread->start();
+}
+
+//=============================================================================
+//
+//=============================================================================
+void ModbusTcpServer::setReplyDelay(int delay)
+{
+    sp_thread->replay_delay = delay;
 }
 
 //=============================================================================

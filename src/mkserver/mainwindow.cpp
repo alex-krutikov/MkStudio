@@ -373,11 +373,16 @@ MainWindow::MainWindow()
   move(pos);
 
   //----------------------------------------------------------------------
+  sb_repaly_delay->setMinimum(0);
+  sb_repaly_delay->setMaximum(10000); // 10 sec
+  //----------------------------------------------------------------------
   cb_protocol->clear();
   cb_protocol->addItem("Modbus UDP", "UDP");
   cb_protocol->addItem("Modbus TCP", "TCP");
+  int i = cb_protocol->findData( settings.value("protocol","UDP").toString() );
+  if( i >= 0 ) cb_protocol->setCurrentIndex(i);
+
   //----------------------------------------------------------------------
-  int i;
   QString str,str2;
   cb_portname->clear();
   QStringList ports = SerialPort::queryComPorts();
@@ -413,6 +418,8 @@ MainWindow::MainWindow()
   //----------------------------------------------------------------------
   cb_mb_packet->setChecked(  settings.value("show_mb_packets").toBool() );
   //----------------------------------------------------------------------
+  sb_repaly_delay->setValue(settings.value("reply_delay").toInt());
+  //----------------------------------------------------------------------
 
   connect( cb_portname,  SIGNAL( currentIndexChanged(int) ), this, SLOT( settingsChanged() ));
   connect( cb_portspeed, SIGNAL( currentIndexChanged(int) ), this, SLOT( settingsChanged() ));
@@ -421,6 +428,8 @@ MainWindow::MainWindow()
   connect( le_tcp_port,  SIGNAL( textChanged(const QString&) ), this, SLOT( settingsChanged() ));
   connect( cb_mb_packet, SIGNAL( toggled (bool) ),              this, SLOT( settingsChanged() ));
   connect( pb_console_clear,    SIGNAL( clicked() ),          te, SLOT( clear() ));
+  connect( sb_repaly_delay,    SIGNAL( valueChanged(int) ), this, SLOT( replyDelayChanged(int) ));
+
 
   te->setMaximumBlockCount( 10000 );
   te->setFont( QFont("Courier",8 ) );
@@ -459,6 +468,7 @@ void MainWindow::settingsChanged()
   int tcpport      = le_tcp_port->text().toInt();
   bool show_mb_packets   = cb_mb_packet->isChecked();
 
+  settings.setValue("protocol",   cb_protocol->currentData());
   settings.setValue("portname",   portname  );
   settings.setValue("portspeed",  portspeed );
   settings.setValue("timeout",   timeout );
@@ -489,14 +499,23 @@ void MainWindow::settingsChanged()
       if (cb_protocol->currentData() == "TCP")
       {
         tcpserver.reset();
-        tcpserver.reset(new ModbusTcpServer( this, serialport.get(), tcpport ));
+        tcpserver.reset(new ModbusTcpServer(serialport.get(), tcpport ));
       }
       else if (cb_protocol->currentData() == "UDP")
       {
         tcpserver.reset();
-        tcpserver.reset(new ModbusUdpServer( this, serialport.get(), tcpport ));
+        tcpserver.reset(new ModbusUdpServer(serialport.get(), tcpport ));
       }
+      tcpserver->setReplyDelay(sb_repaly_delay->value());
   }
+}
+
+//==============================================================================
+//
+//==============================================================================
+void MainWindow::replyDelayChanged(int value)
+{
+    tcpserver->setReplyDelay(value);
 }
 
 
@@ -520,4 +539,6 @@ void MainWindow::closeEvent ( QCloseEvent * event )
   settings.setValue("pos", pos());
   settings.setValue("size", size());
   settings.setValue("mainwindow", saveState() );
+
+  settings.setValue("reply_delay", sb_repaly_delay->value());
 }

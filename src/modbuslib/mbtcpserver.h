@@ -1,10 +1,14 @@
-#ifndef __MBTCPSERVER_H__
+﻿#ifndef __MBTCPSERVER_H__
 #define __MBTCPSERVER_H__
+
+#include "abstractmbserver.h"
 
 #include <QObject>
 #include <QThread>
 #include <QByteArray>
 #include <QMap>
+
+#include <atomic>
 
 class AbstractSerialPort;
 class QTcpServer;
@@ -42,18 +46,21 @@ private:
   AbstractSerialPort *sp;
   int mb_tcp_port;
   QTcpServer *server;
+  std::atomic_int replay_delay;
+
   QMap< QTcpSocket*, ModbusTcpServerThreadItem  > map;
 };
 
 //=============================================================================
 //
 //=============================================================================
-class ModbusTcpServer : public QObject
+class ModbusTcpServer : public AbstractMBServer
 {
-  Q_OBJECT
 public:
-  ModbusTcpServer( QObject *parent = 0, AbstractSerialPort *sp = 0, int mb_tcp_port=502 );
+  ModbusTcpServer(AbstractSerialPort *sp = 0, int mb_tcp_port=502 );
   ~ModbusTcpServer();
+
+  void setReplyDelay(int delay) override;
 
 private:
   ModbusTcpServerThread *sp_thread;

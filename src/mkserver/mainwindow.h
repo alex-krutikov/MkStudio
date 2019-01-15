@@ -6,7 +6,7 @@
 #include <memory>
 
 class AbstractSerialPort;
-class ModbusTcpServer;
+class AbstractMBServer;
 
 //==============================================================================
 // главное окно
@@ -23,12 +23,13 @@ protected:
   void timerEvent(QTimerEvent *event);
 private slots:
   void settingsChanged();
+  void replyDelayChanged(int);
 private:
   void closeEvent ( QCloseEvent * event );
   void console_update();
 
   std::unique_ptr<AbstractSerialPort> serialport;
-  std::unique_ptr<QObject> tcpserver;
+  std::unique_ptr<AbstractMBServer> tcpserver;
 };
 
 #endif

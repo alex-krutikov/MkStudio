@@ -14,6 +14,7 @@
 
     files: [
         "abstractserialport.h",
+        "abstractmbserver.h",
         "console.h",
         "crc.h",
         "mbcommon.h",

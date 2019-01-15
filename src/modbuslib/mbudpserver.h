@@ -1,8 +1,7 @@
 ﻿#ifndef __MBUDPSERVER_H__
 #define __MBUDPSERVER_H__
 
-#include <QObject>
-#include <QThread>
+#include "abstractmbserver.h"
 
 #include <memory>
 
@@ -12,12 +11,13 @@ class ModbusUdpServerThread;
 //=============================================================================
 //
 //=============================================================================
-class ModbusUdpServer : public QObject
+class ModbusUdpServer : public AbstractMBServer
 {
-  Q_OBJECT
 public:
-  ModbusUdpServer( QObject *parent = 0, AbstractSerialPort *sp = 0, uint16_t udp_port = 502 );
+  ModbusUdpServer(AbstractSerialPort *sp = 0, uint16_t udp_port = 502);
   ~ModbusUdpServer();
+
+  void setReplyDelay(int delay) override;
 
 private:
   std::unique_ptr<ModbusUdpServerThread> sp_thread;
