@@ -161,9 +161,10 @@ int MbUdpPort::query( const QByteArray &request, QByteArray &answer, int *errorc
 
   bool ok = true;
   if( udp_ans.size() < 6 ) ok = false;
-  else if( udp_ans[2] || udp_ans[3] || udp_ans[4] ) ok = false;
   else if( udp_ans[0] != udp_header[0] ) ok = false;
   else if( udp_ans[1] != udp_header[1] ) ok = false;
+  else if( udp_ans[2] || udp_ans[3]) ok = false;
+  else if( (((uint8_t)udp_ans[4] << 8) | (uint8_t)udp_ans[5]) != (udp_ans.size() - 6)) ok = false;
 
   if (!ok)
   {
