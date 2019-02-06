@@ -1,6 +1,7 @@
-#include "console.h"
+﻿#include "console.h"
 
 #include <QMutex>
+#include <QTime>
 
 static QMutex mutex;
 static QString message;
@@ -12,9 +13,12 @@ static int message_types;
 //=============================================================================
 void Console::Print( MessageType mtype, const QString &message )
 {
+  const QString timeStamp = QTime::currentTime().toString(QStringView(u"hh:mm:ss.zzz"));
+  const QString text = QString("%1  %2").arg(timeStamp).arg(message);
+
   QMutexLocker locker( &mutex );
   if( mtype & message_types )
-  { ::message += message;
+  { ::message += text;
     if( ::message.length() > 16384 ) ::message.remove(0,4096);
   }
 }

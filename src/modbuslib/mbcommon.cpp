@@ -1,4 +1,4 @@
-#include "mbcommon.h"
+﻿#include "mbcommon.h"
 
 //===================================================================
 //
@@ -65,7 +65,7 @@ QString QByteArray2QString( const QByteArray &ba, int mode )
 	QString s;
 	QString str;
 	if( mode == 0 )
-	{ str = QString("(length=%1) ").arg( ba.size(),4 );
+    { str = QString("(size=%1) ").arg( ba.size(),4 );
 	}
 
 	for( i=0; i<len; i++ )

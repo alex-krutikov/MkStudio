@@ -30,6 +30,7 @@
         "packed_struct_begin.h",
         "packed_struct_end.h",
         "xfiles.h",
+        "utils.h",
         "mbmaster.cpp",
         "mbcommon.cpp",
         "crc.cpp",
@@ -40,6 +41,7 @@
         "mbudp.cpp",
         "mbtcpserver.cpp",
         "mbudpserver.cpp",
+        "utils.cpp",
     ]
 
     Group {
