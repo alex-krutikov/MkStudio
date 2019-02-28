@@ -6,6 +6,11 @@
 
     cpp.cxxLanguageVersion: "c++14"
 
+    Properties {
+        condition: cpp.compilerName.contains("cl.exe") // MSVC compiler
+        cpp.cxxFlags: "/utf-8"
+    }
+
     Export {
         Depends { name: "cpp" }
         cpp.includePaths: ["."]

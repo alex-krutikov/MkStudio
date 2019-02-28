@@ -4,8 +4,9 @@
 #include "mbcommon.h"
 #include "crc.h"
 
-#include <QUdpSocket>
+#include <QElapsedTimer>
 #include <QNetworkDatagram>
+#include <QUdpSocket>
 
 //=============================================================================
 //
@@ -130,45 +131,50 @@ int MbUdpPort::query( const QByteArray &request, QByteArray &answer, int *errorc
   Console::Print( Console::ModbusPacket, "MB_UDP: udp_header  = " + QByteArray2QString( udp_header ) +"\n" );
   Console::Print( Console::ModbusPacket, "MB_UDP: udp_request = " + QByteArray2QString( udp_req ) +"\n" );
 
-  while(d->socket->hasPendingDatagrams())
-  {
-      d->socket->receiveDatagram();
-  }
-
   d->socket->writeDatagram((udp_header + udp_req), d->udp_host, d->udp_port);
 
-  timeout_counter=0;
-  while(!d->socket->hasPendingDatagrams())
+  QElapsedTimer timeout_timer;
+  timeout_timer.start();
+
+  bool ok = false;
+  QNetworkDatagram datagram;
+
+  while (timeout_timer.elapsed() < udp_timeout)
   {
-    d->socket->waitForReadyRead(100);
-    timeout_counter += 100;
-    if( timeout_counter >= udp_timeout )
-    {
-        Console::Print( Console::Error, "MB_UDP: Error: UDP timeout.\n" );
-        return 0;
-    }
+      d->socket->waitForReadyRead(10);
+      if (d->socket->hasPendingDatagrams())
+      {
+          datagram = d->socket->receiveDatagram();
+
+          if (!datagram.isValid())
+          {
+              Console::Print( Console::Error, "MB_UDP: Error: Received UDP datagram is invalid.\n" );
+              return 0;
+          }
+
+          udp_ans = datagram.data();
+
+          ok = true;
+          if( udp_ans.size() < 6 ) ok = false;
+          else if( udp_ans[0] != udp_header[0] ) ok = false;
+          else if( udp_ans[1] != udp_header[1] ) ok = false;
+          else if( udp_ans[2] || udp_ans[3]) ok = false;
+          else if( (((uint8_t)udp_ans[4] << 8) | (uint8_t)udp_ans[5]) != (udp_ans.size() - 6)) ok = false;
+
+          if (!ok)
+          {
+              Console::Print( Console::Error, QString("MB_UDP: Error: Wrong UDP. Expected header: [%1] answer: [%2]\n").arg(QByteArray2QString(udp_header)).arg(QByteArray2QString(udp_ans)));
+          }
+
+          if (ok) {
+              break;
+          }
+      }
   }
-
-  QNetworkDatagram datagram = d->socket->receiveDatagram();
-
-  if (!datagram.isValid())
-  {
-      Console::Print( Console::Error, "MB_UDP: Error: Received UDP datagram is invalid.\n" );
-      return 0;
-  }
-
-  udp_ans = datagram.data();
-
-  bool ok = true;
-  if( udp_ans.size() < 6 ) ok = false;
-  else if( udp_ans[0] != udp_header[0] ) ok = false;
-  else if( udp_ans[1] != udp_header[1] ) ok = false;
-  else if( udp_ans[2] || udp_ans[3]) ok = false;
-  else if( (((uint8_t)udp_ans[4] << 8) | (uint8_t)udp_ans[5]) != (udp_ans.size() - 6)) ok = false;
 
   if (!ok)
   {
-      Console::Print( Console::Error, "MB_UDP: Error: Wrong UDP anser: " + QByteArray2QString( udp_ans ) +"\n" );
+      Console::Print( Console::Error, "MB_UDP: Error: UDP timeout.\n" );
       return 0;
   }
 
