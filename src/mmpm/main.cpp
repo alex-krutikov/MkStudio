@@ -1,12 +1,13 @@
+﻿#include "console.h"
+#include "main.h"
 #include "mainwindow.h"
+#include "misc.h"
 #include "modbus.h"
 #include "thread.h"
-#include "misc.h"
-#include "main.h"
 
-#include <QTranslator>
 #include <QDate>
 #include <QTime>
+#include <QTranslator>
 
 MainWindow   *mainwindow;
 ModbusMaster *modbus;
@@ -37,6 +38,8 @@ int main(int argc, char *argv[])
   if ( qt_translator->load( ":tr/qt_ru.qm" ) )
   { app.installTranslator( qt_translator );
   }
+
+  Console::setTimestampShow(false);
 
   helpdialog  = new HelpDialog;
   modbus      = new ModbusMaster;

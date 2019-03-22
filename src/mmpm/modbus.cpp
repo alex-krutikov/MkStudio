@@ -119,7 +119,7 @@ int ModbusMaster::go()
        && ( ans[2]==req[2] ) )
     { return 1;
     } else
-    { Console::Print( Console::ModbusError, tr("  Ошибка пакета\n").arg(attempts));
+    { Console::Print( Console::ModbusError, tr("  Ошибка пакета (попытка %1)\n").arg(attempts));
     }
     err_counter++;
     if( single_mode ) return 0;

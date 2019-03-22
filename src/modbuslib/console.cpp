@@ -6,6 +6,7 @@
 static QMutex mutex;
 static QString message;
 static int message_types;
+static bool show_timestamp = true;
 
 
 //=============================================================================
@@ -13,8 +14,13 @@ static int message_types;
 //=============================================================================
 void Console::Print( MessageType mtype, const QString &message )
 {
-  const QString timeStamp = QTime::currentTime().toString(QStringView(u"hh:mm:ss.zzz"));
-  const QString text = QString("%1  %2").arg(timeStamp).arg(message);
+  QString text = message;
+
+  if (show_timestamp)
+  {
+    const QString timeStamp = QTime::currentTime().toString(QStringView(u"hh:mm:ss.zzz"));
+    text = QString("%1  %2").arg(timeStamp).arg(message);
+  }
 
   QMutexLocker locker( &mutex );
   if( mtype & message_types )
@@ -62,3 +68,12 @@ int  Console::messageTypes()
   return message_types;
 }
 
+//=============================================================================
+/// Добавлять или нет метку времени в начало каждой строки
+//
+/// \param show true - установить отображение, false - убрать отображение
+//=============================================================================
+void Console::setTimestampShow(bool show)
+{
+    show_timestamp = show;
+}
