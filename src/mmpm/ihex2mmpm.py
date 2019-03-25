@@ -44,17 +44,20 @@ def write_mmpm_from_ihex(info, in_filename, out_filename):
     header[0x58:0x5C] = struct.pack('<L', info['sector_size'])
 
     ih = intelhex.IntelHex()
+    # ih.padding = 0x00 # change padding byte
     ih.fromfile(in_filename, format='hex')
     ih_minaddr = ih.minaddr()
     ih_maxaddr = ih.maxaddr()
     ih_size = ih_maxaddr - ih_minaddr + 1
 
     if (ih_minaddr != info['flash_begin']):
-        print("Error: ihex start addr (0x{:X}),  flash start addr (0x{:X})".format(ih_minaddr, info['flash_begin']))
+        print("Error: ihex start addr (0x{:X}),  flash start addr (0x{:X})"
+              .format(ih_minaddr, info['flash_begin']))
         exit(1)
 
     if (ih_maxaddr >= info['flash_end']):
-        print("Error: ihex end addr (0x{:X}) > flash end addr (0x{:X})".format(ih_maxaddr, info['flash_end']))
+        print("Error: ihex end addr (0x{:X}) > flash end addr (0x{:X})"
+              .format(ih_maxaddr, info['flash_end']))
         exit(1)
 
     firmware_bin = bytearray(ih_size)
@@ -85,6 +88,13 @@ MODULES = {
             "flash_begin": 0x00002000,
             "flash_end": 0x0003A000,
             "sector_size": 8192,
+    },
+    "PC100-SamE70N20": {
+            "module_name": "PC100SAME70N20",
+            "cpu_name": "ATSAME70N20    ",
+            "flash_begin": 0x00404000,
+            "flash_end": 0x00440000,
+            "sector_size": 512,
     }
 }
 
@@ -119,6 +129,11 @@ FILES = [
         "out_filename": "mmpm-Du102SAM3X_20-{}.bin",
         "module": "PC100"
     },
+    {
+        "in_filename": "Pc100SamE70N20_40.hex",
+        "out_filename": "mmpm-Pc100SamE70N20_40-{}.bin",
+        "module": "PC100-SamE70N20"
+    },
 ]
 
 
@@ -130,7 +145,8 @@ def main():
             out_filename = item['out_filename'].format(now)
 
             print("ihex found: {}".format(in_filename))
-            write_mmpm_from_ihex(MODULES[item['module']], in_filename, out_filename)
+            write_mmpm_from_ihex(MODULES[item['module']],
+                                 in_filename, out_filename)
             print("mmpm written: {}".format(out_filename))
 
 if __name__ == '__main__':
