@@ -115,6 +115,11 @@ FILES = [
         "module": "PC100"
     },
     {
+        "in_filename": "Pc100SAM3X-40C2_x32.hex",
+        "out_filename": "mmpm-Pc100SAM3X_40C2-{}.bin",
+        "module": "PC100"
+    },
+    {
         "in_filename": "Du100SAM3X_10_x32.hex",
         "out_filename": "mmpm-Du100SAM3X_10-{}.bin",
         "module": "PC100"
