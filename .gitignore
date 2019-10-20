@@ -10,7 +10,7 @@ Makefile
 *.dll
 *.bak
 *.pro.user
-*.user
+*.user*
 *.ilk
 *.pdb
 

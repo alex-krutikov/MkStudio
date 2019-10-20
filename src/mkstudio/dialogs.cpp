@@ -33,6 +33,10 @@ InitDialog::InitDialog(QWidget *parent, bool isArduinoOnly)
 
   Utils::Settings settings;
 
+  errorLabel->clear();
+
+  resize(0,0); // resize to minimal size
+
   QString str,str2,portname;
   QStringList sl;
   int i;
@@ -136,6 +140,13 @@ void InitDialog::accept()
   {  m_port->setName( str );
      m_port->setSpeed( cb_portspeed->currentText().toInt() );
      m_port->setAnswerTimeout( timeout );
+  }
+
+  if (!m_port->open())
+  {
+      m_port.reset();
+      errorLabel->setText("Не могу открыть порт. Возможно, что порт используется другим приложением.");
+      return;
   }
 
   done( QDialog::Accepted );

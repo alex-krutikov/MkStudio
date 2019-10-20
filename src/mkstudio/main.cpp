@@ -45,13 +45,6 @@ int main(int argc, char *argv[])
       return 0;
 
   AbstractSerialPortPtr port = initdialog.port();
-  if( !port->open() )
-  { QMessageBox::critical(0, Utils::AppInfo::title(),
-                             "Ошибка открытия порта.\n\n"
-                             "Возможно, что порт используется\n"
-                             "другим приложением." );
-    return 0;
-  }
 
   QString portname = port->name();
   QString portspeed = QString::number(port->speed());

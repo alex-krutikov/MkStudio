@@ -7,14 +7,23 @@
     <x>0</x>
     <y>0</y>
     <width>285</width>
-    <height>239</height>
+    <height>242</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
   <layout class="QVBoxLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>3</number>
+   </property>
+   <property name="topMargin">
+    <number>3</number>
+   </property>
+   <property name="rightMargin">
+    <number>3</number>
+   </property>
+   <property name="bottomMargin">
     <number>3</number>
    </property>
    <item>
@@ -72,7 +81,7 @@
      <item row="3" column="1">
       <widget class="QSpinBox" name="sb_timeout">
        <property name="minimum">
-        <number>20</number>
+        <number>0</number>
        </property>
        <property name="maximum">
         <number>20000</number>
@@ -181,20 +190,17 @@
     </layout>
    </item>
    <item>
-    <spacer>
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
+    <widget class="QLabel" name="errorLabel">
+     <property name="styleSheet">
+      <string notr="true">color:red; font:bold</string>
      </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Minimum</enum>
+     <property name="text">
+      <string>TextLabel</string>
      </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>5</height>
-      </size>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
-    </spacer>
+    </widget>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
