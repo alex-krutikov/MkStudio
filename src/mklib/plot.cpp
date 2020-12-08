@@ -1,4 +1,4 @@
-#include "plot.h"
+﻿#include "plot.h"
 
 #include "mktable.h"
 #include "mbmasterxml.h"
@@ -117,6 +117,7 @@ Plot::Plot( QString title, QList<QTableWidgetItem *> mkItemList,bool min_flag, Q
   picker->startTimer(30);
 
   grid = new QwtPlotGrid;
+  grid->setAxis(QwtPlot::xBottom, QwtPlot::yRight);
   grid->enableXMin(true);
   grid->enableYMin(true);
   grid->setMajPen(QPen(Qt::darkGray,  0, Qt::DotLine));
