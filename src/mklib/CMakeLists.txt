@@ -12,13 +12,6 @@ add_library(mklib)
 
 target_compile_features(mklib PRIVATE cxx_std_17)
 
-if(CMAKE_COMPILER_IS_GNUCC)
-    target_compile_options(mklib
-        PRIVATE
-            -Wno-deprecated-declarations
-    )
-endif()
-
 target_include_directories(mklib PRIVATE . INTERFACE . )
 
 target_sources(mklib
@@ -40,7 +33,6 @@ target_sources(mklib
         mktable.cpp
         mktable.h
         mktable_p.h
-        pch.h
         plot.cpp
         plot.h
         scaledraw.h

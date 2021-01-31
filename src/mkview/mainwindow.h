@@ -1,8 +1,8 @@
 #ifndef __mainwindow__h__
 #define __mainwindow__h__
 
-#include "ui_initdialog.h"
-#include "ui_settings.h"
+#include "ui/ui_initdialog.h"
+#include "ui/ui_settings.h"
 #include "mbmasterxml.h"
 #include "serialport.h"
 
@@ -54,7 +54,7 @@ public:
 //=======================================================================================
 //
 //=======================================================================================
-#include "ui_mainwindowxml.h"
+#include "ui/ui_mainwindowxml.h"
 class MainWindowXml : public QMainWindow,
                       public Ui::MainWindowXml
 {
@@ -80,7 +80,7 @@ private:
 //=======================================================================================
 //
 //=======================================================================================
-#include "ui_midialog.h"
+#include "ui/ui_midialog.h"
 class ModuleInfoDialog : public QDialog,
                          public Ui::ModuleInfoDialog
 {

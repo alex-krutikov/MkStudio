@@ -11,15 +11,6 @@ add_executable(mkstudio WIN32)
 
 target_compile_features(mkstudio PRIVATE cxx_std_17)
 
-if(CMAKE_COMPILER_IS_GNUCC)
-    target_compile_options(mklib
-        PRIVATE
-            -Wno-deprecated-declarations
-    )
-endif()
-
-target_include_directories(mkstudio PRIVATE . INTERFACE . )
-
 target_sources(mkstudio
     PRIVATE
         dialogs.cpp
@@ -32,7 +23,6 @@ target_sources(mkstudio
         misc.cpp
         misc.h
         mkstudio.qrc
-        pch.h
         utils.h
 )
 

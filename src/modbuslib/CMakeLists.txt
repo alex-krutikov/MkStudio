@@ -9,13 +9,6 @@ add_library(modbuslib)
 
 target_compile_features(modbuslib PRIVATE cxx_std_17)
 
-if(CMAKE_COMPILER_IS_GNUCC)
-    target_compile_options(qwt
-        PRIVATE
-            -Wno-deprecated-declarations
-    )
-endif()
-
 target_include_directories(modbuslib INTERFACE . )
 
 target_sources(modbuslib
@@ -43,7 +36,6 @@ target_sources(modbuslib
         mbudpserver.h
         packed_struct_begin.h
         packed_struct_end.h
-        pch.h
         serialport.cpp
         serialport.h
         serialport_p.h

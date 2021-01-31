@@ -11,7 +11,7 @@ class AbstractMBServer;
 //==============================================================================
 // главное окно
 //==============================================================================
-#include "ui_mainwindow.h"
+#include "ui/ui_mainwindow.h"
 class MainWindow : public QMainWindow,
                    public Ui::MainWindow
 {

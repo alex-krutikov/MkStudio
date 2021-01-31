@@ -118,11 +118,13 @@ add_library(qwt)
 
 target_compile_features(qwt PRIVATE cxx_std_17)
 
-if(CMAKE_COMPILER_IS_GNUCC)
-    target_compile_options(qwt
-        PRIVATE
-            -Wno-deprecated-declarations
-    )
+if(QWT_DISABLE_WARNINGS)
+    if(CMAKE_COMPILER_IS_GNUCC)
+        target_compile_options(qwt
+            PRIVATE
+                -w
+        )
+    endif()
 endif()
 
 target_include_directories(qwt INTERFACE . )

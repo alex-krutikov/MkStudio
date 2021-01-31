@@ -3,12 +3,12 @@
 
 #include "mmpm_types.h"
 
-#include "ui_mainwindow.h"
-#include "ui_initdialog.h"
-#include "ui_optdialog.h"
-#include "ui_helpdialog.h"
-#include "ui_selectsourcedialog.h"
-#include "ui_downloaddialog.h"
+#include "ui/ui_mainwindow.h"
+#include "ui/ui_initdialog.h"
+#include "ui/ui_optdialog.h"
+#include "ui/ui_helpdialog.h"
+#include "ui/ui_selectsourcedialog.h"
+#include "ui/ui_downloaddialog.h"
 
 #include <QMainWindow>
 #include <QThread>
