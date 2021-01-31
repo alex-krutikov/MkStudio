@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 3.1)
 
 set(QWT_PLOT ON)
 set(QWT_DISABLE_WARNINGS ON)

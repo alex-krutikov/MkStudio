@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 3.1)
 
 find_package(Qt5 COMPONENTS Core Xml REQUIRED)
 
