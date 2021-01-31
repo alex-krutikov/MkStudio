@@ -4,7 +4,7 @@
 
 #include <QScrollBar>
 
-#include "ui_consolewidget.h"
+#include "ui/ui_consolewidget.h"
 
 //###################################################################
 //

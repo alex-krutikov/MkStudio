@@ -6,7 +6,7 @@
 #include <QMenu>
 #include <QMessageBox>
 
-#include "ui_mbconfigwidget.h"
+#include "ui/ui_mbconfigwidget.h"
 
 #define MODULES_MAX_N   50
 #define SLOTS_MAX_N    100

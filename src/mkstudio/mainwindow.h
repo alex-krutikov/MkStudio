@@ -15,7 +15,7 @@ struct TableClipboardItem
 
 typedef QVector<TableClipboardItem> TableClipboard;
 
-#include "ui_mainwindow.h"
+#include "ui/ui_mainwindow.h"
 //==============================================================================
 /// Главное окно
 //==============================================================================

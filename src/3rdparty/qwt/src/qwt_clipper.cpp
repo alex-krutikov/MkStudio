@@ -11,6 +11,8 @@
 #include "qwt_math.h"
 #include "qwt_clipper.h"
 
+#include <QList>
+
 static inline QwtDoubleRect boundingRect(const QwtPolygonF &polygon)
 {
 #if QT_VERSION < 0x040000

@@ -1,6 +1,6 @@
 #include "helpwidget.h"
 
-#include "ui_helpwidget.h"
+#include "ui/ui_helpwidget.h"
 
 HelpWidget::HelpWidget( QWidget *parent )
   : QWidget( parent ), ui( new Ui::HelpWidget )

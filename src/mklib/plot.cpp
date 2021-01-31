@@ -20,8 +20,8 @@
 #include <qwt_plot_zoomer.h>
 #include <qwt_math.h>
 
-#include "ui_plot.h"
-#include "ui_plotisrdialog.h"
+#include "ui/ui_plot.h"
+#include "ui/ui_plotisrdialog.h"
 
 //##############################################################################
 //

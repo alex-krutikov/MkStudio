@@ -7,7 +7,7 @@
 #include <mbcommon.h>
 #include <mbmaster_p.h>
 
-#include "ui_mbmasterwidget.h"
+#include "ui/ui_mbmasterwidget.h"
 
 struct MTMSlot
 {

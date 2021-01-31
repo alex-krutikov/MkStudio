@@ -19,8 +19,8 @@
 #include <QFile>
 #include <QMessageBox>
 
-#include "ui_slotwidget.h"
-#include "ui_slotdialog.h"
+#include "ui/ui_slotwidget.h"
+#include "ui/ui_slotdialog.h"
 
 //###################################################################
 ///Окно с представлением слота (используется по двойному нажатию на слот)

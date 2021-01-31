@@ -1,0 +1,59 @@
+cmake_minimum_required(VERSION 3.7)
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
+
+find_package(Qt5 COMPONENTS Widgets Xml REQUIRED)
+
+
+add_library(mklib)
+
+target_compile_features(mklib PRIVATE cxx_std_17)
+
+if(CMAKE_COMPILER_IS_GNUCC)
+    target_compile_options(mklib
+        PRIVATE
+            -Wno-deprecated-declarations
+    )
+endif()
+
+target_include_directories(mklib PRIVATE . INTERFACE . )
+
+target_sources(mklib
+    PRIVATE
+        consolewidget.cpp
+        consolewidget.h
+        helpwidget.cpp
+        helpwidget.h
+        mbconfigwidget.cpp
+        mbconfigwidget.h
+        mbmasterwidget.cpp
+        mbmasterwidget.h
+        mbmasterxml.cpp
+        mbmasterxml.h
+        mk_global.h
+        mklib.qrc
+        mkpicker.cpp
+        mkpicker.h
+        mktable.cpp
+        mktable.h
+        mktable_p.h
+        pch.h
+        plot.cpp
+        plot.h
+        scaledraw.h
+        shortcut.h
+        slotconfigtableview.cpp
+        slotconfigtableview.h
+        slotwidget.cpp
+        slotwidget.h
+)
+
+target_link_libraries(mklib
+    modbuslib
+    qwt
+    Qt5::Widgets
+    Qt5::Xml
+)
