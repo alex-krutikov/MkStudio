@@ -1,4 +1,4 @@
-#include "mbconfigwidget.h"
+﻿#include "mbconfigwidget.h"
 
 #include <mbcommon.h>
 
@@ -9,7 +9,7 @@
 #include "ui/ui_mbconfigwidget.h"
 
 #define MODULES_MAX_N   50
-#define SLOTS_MAX_N    100
+#define SLOTS_MAX_N    200
 
 class ModulesModel : public QAbstractTableModel
 {
