@@ -6,10 +6,6 @@
 
 #include <QMap>
 
-#ifndef _UNICODE
-#define _UNICODE
-#endif
-
 #include <winuser.h>
 #include <windows.h>
 #include <tchar.h>

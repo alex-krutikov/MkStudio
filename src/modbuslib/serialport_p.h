@@ -1,11 +1,19 @@
-#ifndef __SERIALPORTPRIVATE__H__
+﻿#ifndef __SERIALPORTPRIVATE__H__
 #define __SERIALPORTPRIVATE__H__
 
 #include <QVector>
 #include <QMutex>
 
 #ifdef Q_OS_WIN32
-  #include <windows.h>
+    #ifndef UNICODE
+    #define UNICODE
+    #endif
+
+    #ifndef _UNICODE
+    #define _UNICODE
+    #endif
+
+    #include <windows.h>
 #endif
 
 class SerialPort;
