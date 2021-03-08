@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 
 #include "dialogs.h"
 #include "misc.h"
@@ -57,9 +57,11 @@ MainWindow::MainWindow(MBMasterXMLPtr mbmaster, bool isArduinoOnly)
   Utils::Settings settings;
   QPoint pos = settings.value("pos", QPoint(100,100)).toPoint();
   QSize size = settings.value("size", QSize(1000,800)).toSize();
+  const bool maximized = settings.value("maximized", false).toBool();
   current_config_values_filename = settings.value( "values_file", "").toString();
   move( pos );
   resize( size );
+  if (maximized) showMaximized();
   restoreState( settings.value("mainwindow").toByteArray() );
 
   QShortcut *shortcutDel = new QShortcut( QKeySequence( Qt::Key_Delete ), this);
@@ -1571,8 +1573,16 @@ void MainWindow::closeEvent ( QCloseEvent * event )
   helpWidget.close();
 
   Utils::Settings settings;
-  settings.setValue("pos", pos());
-  settings.setValue("size", size());
+
+  settings.setValue("maximized", isMaximized());
+  if (isMaximized())
+  { settings.setValue("pos", normalGeometry().topLeft());
+    settings.setValue("size", normalGeometry().size());
+  } else {
+    settings.setValue("pos", pos());
+    settings.setValue("size", size());
+  }
+
   settings.setValue("mainwindow", saveState() );
   settings.setValue("conf_file", current_config_filename );
   settings.setValue("values_file", current_config_values_filename );
