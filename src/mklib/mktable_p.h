@@ -1,13 +1,13 @@
 #ifndef __TABLE_P_H__
 #define __TABLE_P_H__
 
+#include <QItemDelegate>
+#include <QListWidget>
+#include <QModelIndex>
 #include <QTableWidget>
 #include <QTimer>
-#include <QItemDelegate>
-#include <QWidget>
-#include <QModelIndex>
-#include <QListWidget>
 #include <QVector>
+#include <QWidget>
 
 class MKTable;
 class QMouseEvent;
@@ -17,19 +17,25 @@ class QMouseEvent;
 //---------------------------------------------------------------------------
 class MKTableItemDelegate : public QItemDelegate
 {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  MKTableItemDelegate( MKTable *parent = 0 );
-  void paint ( QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index ) const;
-  void setModelData ( QWidget * editor, QAbstractItemModel * model, const QModelIndex &index ) const;
-  QWidget *createEditor ( QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index ) const;
-  void setEditorData( QWidget *editor, const QModelIndex &index ) const;
-  void updateEditorGeometry ( QWidget * editor, const QStyleOptionViewItem & option, const QModelIndex & index ) const;
+    MKTableItemDelegate(MKTable *parent = 0);
+    void paint(QPainter *painter, const QStyleOptionViewItem &option,
+               const QModelIndex &index) const;
+    void setModelData(QWidget *editor, QAbstractItemModel *model,
+                      const QModelIndex &index) const;
+    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option,
+                          const QModelIndex &index) const;
+    void setEditorData(QWidget *editor, const QModelIndex &index) const;
+    void updateEditorGeometry(QWidget *editor,
+                              const QStyleOptionViewItem &option,
+                              const QModelIndex &index) const;
 private slots:
-  void commitAndCloseEditor();
+    void commitAndCloseEditor();
+
 private:
-  bool eventFilter(QObject *obj, QEvent *ev);
-  MKTable *table;
+    bool eventFilter(QObject *obj, QEvent *ev);
+    MKTable *table;
 };
 
 //---------------------------------------------------------------------------
@@ -37,27 +43,30 @@ private:
 //---------------------------------------------------------------------------
 class MKTableItemCBWidget : public QListWidget
 {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  MKTableItemCBWidget( QWidget *parent = 0 );
-  void setConfirmEdit( bool confEdit ){ confirmEdit = confEdit; }
-  void highlightcursor();
+    MKTableItemCBWidget(QWidget *parent = 0);
+    void setConfirmEdit(bool confEdit) { confirmEdit = confEdit; }
+    void highlightcursor();
 signals:
-  void editingFinished();
-protected:
-  void mouseReleaseEvent( QMouseEvent * event );
-  void mouseMoveEvent ( QMouseEvent * event );
-  void leaveEvent ( QEvent * event );
-  void showEvent( QShowEvent * event );
+    void editingFinished();
 
-   QStyleOptionViewItem viewOptions() const
-   { QStyleOptionViewItem option = QListView::viewOptions();
-     option.showDecorationSelected = true;
-     return option;
-   }
+protected:
+    void mouseReleaseEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void leaveEvent(QEvent *event);
+    void showEvent(QShowEvent *event);
+
+    QStyleOptionViewItem viewOptions() const
+    {
+        QStyleOptionViewItem option = QListView::viewOptions();
+        option.showDecorationSelected = true;
+        return option;
+    }
+
 private:
-  int row_under_mouse;
-  bool confirmEdit;
+    int row_under_mouse;
+    bool confirmEdit;
 };
 
 /*! \page xml_table_desc Формат XML документа таблицы
@@ -90,8 +99,8 @@ private:
 
   \b \c "[номер модуля]/[номер слота]/[номер сигнала]".
 
-  Если атрибут не задан или не соответствует формату, считается, что ячейка содержит
-  текст и не отностится к опросу.
+  Если атрибут не задан или не соответствует формату, считается, что ячейка
+содержит текст и не отностится к опросу.
 
   Пример:
 

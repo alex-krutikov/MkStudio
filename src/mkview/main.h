@@ -13,11 +13,12 @@ class Settings : public QSettings
 {
 public:
     Settings()
-        : QSettings(QDir::homePath() + "/.mkview/mkview.conf", QSettings::IniFormat)
+        : QSettings(QDir::homePath() + "/.mkview/mkview.conf",
+                    QSettings::IniFormat)
     {
     }
 };
 
-extern QString        app_header;
+extern QString app_header;
 
 #endif

@@ -1,18 +1,18 @@
 #ifndef __TABLE_H__
 #define __TABLE_H__
 
+#include "mbmasterxml.h"
 #include "mk_global.h"
 #include "shortcut.h"
-#include "mbmasterxml.h"
 
+#include <QDomDocument>
+#include <QItemDelegate>
+#include <QListWidget>
+#include <QModelIndex>
 #include <QTableWidget>
 #include <QTimer>
-#include <QItemDelegate>
-#include <QWidget>
-#include <QModelIndex>
-#include <QListWidget>
 #include <QVector>
-#include <QDomDocument>
+#include <QWidget>
 
 class MBMasterXML;
 class QMouseEvent;
@@ -25,87 +25,96 @@ class MKTableItemDelegate;
 //---------------------------------------------------------------------------
 class MK_EXPORT MKTable : public QTableWidget
 {
-  Q_OBJECT
-  // ???? Q_ENUMS(ShortCut::SCut)
-  friend class MKTableItemDelegate;
+    Q_OBJECT
+    // ???? Q_ENUMS(ShortCut::SCut)
+    friend class MKTableItemDelegate;
+
 public:
-  enum Mode { Edit = 0, Polling };
-  enum { IndexRole          = Qt::UserRole,
-         FormatRole         = Qt::UserRole+1,
-         AssignRole         = Qt::UserRole+2,
-         SSSelectorRole     = Qt::UserRole+3,
-         SSConfirmEditRole  = Qt::UserRole+4,
-         RecorderParamsRole = Qt::UserRole+5};
-  MKTable( QWidget *parent = 0 );
-  ~MKTable();
-  bool loadConfiguration( const QDomDocument &doc );
-  void saveConfiguration( QDomDocument &doc );
-  QStringList getHorizontalHeaderLabels();
+    enum Mode
+    {
+        Edit = 0,
+        Polling
+    };
+    enum
+    {
+        IndexRole = Qt::UserRole,
+        FormatRole = Qt::UserRole + 1,
+        AssignRole = Qt::UserRole + 2,
+        SSSelectorRole = Qt::UserRole + 3,
+        SSConfirmEditRole = Qt::UserRole + 4,
+        RecorderParamsRole = Qt::UserRole + 5
+    };
+    MKTable(QWidget *parent = 0);
+    ~MKTable();
+    bool loadConfiguration(const QDomDocument &doc);
+    void saveConfiguration(QDomDocument &doc);
+    QStringList getHorizontalHeaderLabels();
 
-  void setMBMaster( MBMasterXMLPtr mm ) { mbmaster = mm; }
-  void setMode( enum Mode m );
-  void setSettingsSheet( const QString &ss);
-  QString settingsSheet();
-  
-  void setOptimizeReadMode( bool optimizeRead );
-  bool optimizeReadMode();
+    void setMBMaster(MBMasterXMLPtr mm) { mbmaster = mm; }
+    void setMode(enum Mode m);
+    void setSettingsSheet(const QString &ss);
+    QString settingsSheet();
 
-  QSize sizeHint() const;
-  bool getCurrentItemConfirmEdit(){return currentItemConfirmEdit;}
-  void closeAllRecorders();
-  QList<QDomElement> shortcutList;
-  QHash<int, ShortCut*> hotkey;
+    void setOptimizeReadMode(bool optimizeRead);
+    bool optimizeReadMode();
+
+    QSize sizeHint() const;
+    bool getCurrentItemConfirmEdit() { return currentItemConfirmEdit; }
+    void closeAllRecorders();
+    QList<QDomElement> shortcutList;
+    QHash<int, ShortCut *> hotkey;
 
 private:
-  void mouseMoveEvent( QMouseEvent *event );
-  void mousePressEvent( QMouseEvent *event );
-  void mouseReleaseEvent( QMouseEvent *event );
-  void mouseDoubleClickEvent( QMouseEvent *event );
-  void keyPressEvent( QKeyEvent *event );
-  void contextMenuEvent( QContextMenuEvent *e );
-  void ss_process();
-  static QString format_output( const MMValue &value,
-                         const MBDataType &datatype, int type );
-  enum Mode mode;
-  QTimer timer;
-  MBMasterXMLPtr mbmaster;
-  MKTableItemDelegate *delegate;
-  bool currentItemConfirmEdit;
+    void mouseMoveEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
+    void mouseDoubleClickEvent(QMouseEvent *event);
+    void keyPressEvent(QKeyEvent *event);
+    void contextMenuEvent(QContextMenuEvent *e);
+    void ss_process();
+    static QString format_output(const MMValue &value,
+                                 const MBDataType &datatype, int type);
+    enum Mode mode;
+    QTimer timer;
+    MBMasterXMLPtr mbmaster;
+    MKTableItemDelegate *delegate;
+    bool currentItemConfirmEdit;
 
-  /*struct MKTable_SS_Enum
-  { QMap<int,QString> map_display;
-    QMap<int,QString> map_menu;
-  };*/
-  struct MapEmul
-  {
-    int key;
-    QString value;
-  };
+    /*struct MKTable_SS_Enum
+    { QMap<int,QString> map_display;
+      QMap<int,QString> map_menu;
+    };*/
+    struct MapEmul
+    {
+        int key;
+        QString value;
+    };
 
-  struct MKTable_SS_Enum
-  { QVector<MapEmul> map_display;
-    QVector<MapEmul> map_menu;
-  };
-  struct MKTableAssignData;
+    struct MKTable_SS_Enum
+    {
+        QVector<MapEmul> map_display;
+        QVector<MapEmul> map_menu;
+    };
+    struct MKTableAssignData;
 
-  QVector<MKTableAssignData> assign_data;
-  QVector<MKTable_SS_Enum>   ss_enum;
-  QMap<QString,int> ss_enum_name2index;
+    QVector<MKTableAssignData> assign_data;
+    QVector<MKTable_SS_Enum> ss_enum;
+    QMap<QString, int> ss_enum_name2index;
 
-  QString settingssheet_str;
-  bool optimize_read_mode;
-  quint32 plots_count;
+    QString settingssheet_str;
+    bool optimize_read_mode;
+    quint32 plots_count;
 private slots:
-  void refresh();
-  void slotMinimize(bool);
-  void slotPlotClose();
-  void slotPlotOpen();
-  void loadShortCuts(const QDomDocument &);
+    void refresh();
+    void slotMinimize(bool);
+    void slotPlotClose();
+    void slotPlotOpen();
+    void loadShortCuts(const QDomDocument &);
 signals:
-  void item_changed_by_editor();
-  void signalCloseAllRecorders();
-  void signalMinimizeStateChange( bool state );
-  void signalMinimizeAllHide( bool state );
+    void item_changed_by_editor();
+    void signalCloseAllRecorders();
+    void signalMinimizeStateChange(bool state);
+    void signalMinimizeAllHide(bool state);
 };
 
 /*! \page xml_table_desc Формат XML документа таблицы
@@ -138,8 +147,8 @@ signals:
 
   \b \c "[номер модуля]/[номер слота]/[номер сигнала]".
 
-  Если атрибут не задан или не соответствует формату, считается, что ячейка содержит
-  текст и не отностится к опросу.
+  Если атрибут не задан или не соответствует формату, считается, что ячейка
+содержит текст и не отностится к опросу.
 
   Пример:
 

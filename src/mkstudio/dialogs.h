@@ -10,101 +10,110 @@ class QwtPlotCurve;
 //==============================================================================
 /// Окно выбора порта и скорости
 //==============================================================================
-class InitDialog : public QDialog,
-                   public Ui::InitDialog
+class InitDialog
+    : public QDialog
+    , public Ui::InitDialog
 {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  InitDialog(QWidget *parent = 0, bool arduinoOnly = false);
-  void accept();
-  AbstractSerialPortPtr port() const {return m_port;}
-  bool portsFound() const;
+    InitDialog(QWidget *parent = 0, bool arduinoOnly = false);
+    void accept();
+    AbstractSerialPortPtr port() const { return m_port; }
+    bool portsFound() const;
 private slots:
-  void on_cb_portname_currentIndexChanged(int);
+    void on_cb_portname_currentIndexChanged(int);
+
 private:
-  AbstractSerialPortPtr  m_port;
-  const bool arduinoOnly;
+    AbstractSerialPortPtr m_port;
+    const bool arduinoOnly;
 };
 
 #include "ui/ui_assigndialog.h"
 //==============================================================================
 /// Диалог "Привязка параметров"
 //==============================================================================
-class AssignDialog : public QDialog,
-                     public Ui::AssignDialog
+class AssignDialog
+    : public QDialog
+    , public Ui::AssignDialog
 {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  AssignDialog( QWidget *parent = 0,
-                const QString &assign = QString(),
-                const QString &format = QString(),
-                const QString &ss     = QString(),
-                const QStringList &sl = QStringList(),
-                const bool &ss_confirm = bool() );
-  QString assign;
-  QString format;
-  QString ss;
-  bool    ss_confirm;
+    AssignDialog(QWidget *parent = 0, const QString &assign = QString(),
+                 const QString &format = QString(),
+                 const QString &ss = QString(),
+                 const QStringList &sl = QStringList(),
+                 const bool &ss_confirm = bool());
+    QString assign;
+    QString format;
+    QString ss;
+    bool ss_confirm;
+
 private:
-  void accept();
+    void accept();
 };
 
 #include "ui/ui_settingsdialog.h"
 //==============================================================================
 /// Диалог "Настройки"
 //==============================================================================
-class SettingsDialog : public QDialog,
-                       public Ui::SettingsDialog
+class SettingsDialog
+    : public QDialog
+    , public Ui::SettingsDialog
 {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  SettingsDialog( QWidget *parent = 0 );
+    SettingsDialog(QWidget *parent = 0);
 };
 
 #include "ui/ui_texteditdialog.h"
 //==============================================================================
 /// Диалог "Редактирование текста"
 //==============================================================================
-class TextEditDialog : public QDialog,
-                       public Ui::TextEditDialog
+class TextEditDialog
+    : public QDialog
+    , public Ui::TextEditDialog
 {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  TextEditDialog( QWidget *parent = 0 );
+    TextEditDialog(QWidget *parent = 0);
 };
 
 #include "ui/ui_unitedslots.h"
 //==============================================================================
 /// Диалог "Редактирование текста"
 //==============================================================================
-class UnitedSlots : public QWidget,
-                    public Ui::UnitedSlots
+class UnitedSlots
+    : public QWidget
+    , public Ui::UnitedSlots
 {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  UnitedSlots( QWidget *parent = 0, MBMasterXMLPtr mm = MBMasterXMLPtr());
-  void timerEvent ( QTimerEvent * event );
+    UnitedSlots(QWidget *parent = 0, MBMasterXMLPtr mm = MBMasterXMLPtr());
+    void timerEvent(QTimerEvent *event);
+
 private:
-  static const int curves_num = 10;
-  MBMasterXMLPtr mm;
-  QwtPlotCurve *curves[curves_num];
+    static const int curves_num = 10;
+    MBMasterXMLPtr mm;
+    QwtPlotCurve *curves[curves_num];
 };
 
 //==============================================================================
 /// Диалог настройки горячих клавиш
 //==============================================================================
-#include "ui/ui_shortcuts.h"
 #include "shortcut.h"
+#include "ui/ui_shortcuts.h"
 #include <QDomDocument>
 
-class ShortCutsDialog : public QDialog, public Ui::ShortCutsDialog
+class ShortCutsDialog
+    : public QDialog
+    , public Ui::ShortCutsDialog
 {
     Q_OBJECT
 public:
     ShortCutsDialog(QWidget *parent = 0, QString config_file = "");
     void keyPressEvent(QKeyEvent *);
     QList<QDomElement> shortcutList;
-    QHash<int, ShortCut*> hotkey;
+    QHash<int, ShortCut *> hotkey;
 
 private slots:
     void tableItemChanged(QTableWidgetItem *);
@@ -118,11 +127,26 @@ private slots:
 private:
     QTableWidget *tw;
     QTableWidgetItem *blankItem;
-    enum{keyCodeRole = Qt::UserRole, keyNameRole = Qt::UserRole+1,
-         assignRole = Qt::UserRole+2, actionRole = Qt::UserRole+3,
-         blankRole = Qt::UserRole+4, separatorRole = Qt::UserRole+5};
-    enum{NameCol = 0, KeyCol = 1, AssignCol = 2, SeparatorCol = 3};
-    enum{DataCol = 0};
+    enum
+    {
+        keyCodeRole = Qt::UserRole,
+        keyNameRole = Qt::UserRole + 1,
+        assignRole = Qt::UserRole + 2,
+        actionRole = Qt::UserRole + 3,
+        blankRole = Qt::UserRole + 4,
+        separatorRole = Qt::UserRole + 5
+    };
+    enum
+    {
+        NameCol = 0,
+        KeyCol = 1,
+        AssignCol = 2,
+        SeparatorCol = 3
+    };
+    enum
+    {
+        DataCol = 0
+    };
 };
 
 //==============================================================================
@@ -136,11 +160,13 @@ class AssignDelegate : public QItemDelegate
     Q_OBJECT
 public:
     AssignDelegate(QObject *parent = 0);
-    QWidget *createEditor (QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option,
+                          const QModelIndex &index) const;
     void setEditorData(QWidget *editor, const QModelIndex &index) const;
 private slots:
-  void commitAndCloseEditor();
+    void commitAndCloseEditor();
+
 private:
-  bool eventFilter(QObject*, QEvent*);
+    bool eventFilter(QObject *, QEvent *);
 };
 #endif

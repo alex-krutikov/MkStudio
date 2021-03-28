@@ -1,16 +1,16 @@
 ﻿#ifndef __SERIALPORTPRIVATE__H__
 #define __SERIALPORTPRIVATE__H__
 
-#include <QVector>
 #include <QMutex>
+#include <QVector>
 
 #ifdef Q_OS_WIN32
     #ifndef UNICODE
-    #define UNICODE
+        #define UNICODE
     #endif
 
     #ifndef _UNICODE
-    #define _UNICODE
+        #define _UNICODE
     #endif
 
     #include <windows.h>
@@ -25,47 +25,49 @@ class QWidget;
 
 struct st_XBeeRoute
 {
-  int a1;
-  int a2;
-  int addr;
+    int a1;
+    int a2;
+    int addr;
 };
 
 class SerialPortPrivate
 {
-  friend class SerialPort;
+    friend class SerialPort;
 #ifdef Q_OS_WIN32
-  friend LRESULT CALLBACK SerialPortWndProc(HWND hwnd, UINT Message, WPARAM wparam,LPARAM lparam);
+    friend LRESULT CALLBACK SerialPortWndProc(HWND hwnd, UINT Message,
+                                              WPARAM wparam, LPARAM lparam);
 #endif
 
-  SerialPortPrivate( SerialPort *sp);
-  virtual ~SerialPortPrivate();
+    SerialPortPrivate(SerialPort *sp);
+    virtual ~SerialPortPrivate();
 
-  bool open();
-  bool reopen();
-  void close();
+    bool open();
+    bool reopen();
+    void close();
 
-  int  query( const QByteArray &request, QByteArray &answer, int *errorcode);
+    int query(const QByteArray &request, QByteArray &answer, int *errorcode);
 
-  int  queryXBee( const QByteArray &request, QByteArray &answer, int *errorcode, int xbee_addr );
+    int queryXBee(const QByteArray &request, QByteArray &answer, int *errorcode,
+                  int xbee_addr);
 
-  static QStringList queryComPorts();
+    static QStringList queryComPorts();
 
-  QVector<st_XBeeRoute> xbee_route_table;
-  QMutex mutex;
+    QVector<st_XBeeRoute> xbee_route_table;
+    QMutex mutex;
 
 #ifdef Q_OS_WIN32
-  void usleep(DWORD us);
+    void usleep(DWORD us);
 
-  HANDLE hport;
-  LARGE_INTEGER freq;
-  bool perf_cnt_ok;
-  HWND hwnd;
+    HANDLE hport;
+    LARGE_INTEGER freq;
+    bool perf_cnt_ok;
+    HWND hwnd;
 #endif
 #ifdef Q_OS_UNIX
-  int fd;
+    int fd;
 #endif
-  SerialPort *sp;
-  int last_error_id;
+    SerialPort *sp;
+    int last_error_id;
 };
 
 #endif

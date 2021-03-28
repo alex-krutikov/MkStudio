@@ -10,9 +10,9 @@
 
 */
 
-#include "mbl_global.h"
+    #include "mbl_global.h"
 
-#include <QString>
+    #include <QString>
 
 class ConsolePrivate;
 
@@ -22,21 +22,22 @@ class ConsolePrivate;
 class Console
 {
 public:
-  /// Типы сообщений
-  enum MessageType
-    { AllTypes          =  -1, ///< Любой тип
-      Error             =   1, ///< Ошибка
-      Warning           =   2, ///< Предупреждение
-      Information       =   4, ///< Информацтонное сообщение
-      Debug             =   8, ///< Отладочное сообщение
-      ModbusPacket      =  16, ///< Пакет Modbus
-      ModbusError       =  32, ///< Ошибка связи (Modbus)
+    /// Типы сообщений
+    enum MessageType
+    {
+        AllTypes = -1,     ///< Любой тип
+        Error = 1,         ///< Ошибка
+        Warning = 2,       ///< Предупреждение
+        Information = 4,   ///< Информацтонное сообщение
+        Debug = 8,         ///< Отладочное сообщение
+        ModbusPacket = 16, ///< Пакет Modbus
+        ModbusError = 32,  ///< Ошибка связи (Modbus)
     };
-  static MBL_EXPORT void Print( MessageType mtype, const QString &message );
-  static MBL_EXPORT QString takeMessage();
-  static MBL_EXPORT void setMessageTypes( int type, bool status = true );
-  static MBL_EXPORT int messageTypes();
-  static MBL_EXPORT void setTimestampShow(bool show);
+    static MBL_EXPORT void Print(MessageType mtype, const QString &message);
+    static MBL_EXPORT QString takeMessage();
+    static MBL_EXPORT void setMessageTypes(int type, bool status = true);
+    static MBL_EXPORT int messageTypes();
+    static MBL_EXPORT void setTimestampShow(bool show);
 };
 
 #endif

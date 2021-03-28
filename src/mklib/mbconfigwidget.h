@@ -3,10 +3,12 @@
 
 #include "mk_global.h"
 
-#include <QWidget>
 #include <QString>
+#include <QWidget>
 
-namespace Ui { class MBConfigWidget; }
+namespace Ui {
+class MBConfigWidget;
+}
 class MBConfigWidgetPrivate;
 class QByteArray;
 class QDomDocument;
@@ -18,28 +20,29 @@ class QModelIndex;
 //===================================================================
 class MK_EXPORT MBConfigWidget : public QWidget
 {
-  Q_OBJECT
-  friend class MBConfigWidgetItemDelegate;
-public:
-  MBConfigWidget( QWidget *parent = 0 );
-  ~MBConfigWidget();
+    Q_OBJECT
+    friend class MBConfigWidgetItemDelegate;
 
-  void clearConfiguration();
-  void loadConfiguration( const QByteArray &xml );
-  void loadConfiguration( const QDomDocument &doc );
-  void saveConfiguration( QByteArray &xml );
-  void saveConfiguration( QDomDocument &doc );
-  QString exportConfiguration();
-  void setSlotAttributes(int module, int slot, const QString &attributes);
-  void setArduinoOnly(bool isArduino);
+public:
+    MBConfigWidget(QWidget *parent = 0);
+    ~MBConfigWidget();
+
+    void clearConfiguration();
+    void loadConfiguration(const QByteArray &xml);
+    void loadConfiguration(const QDomDocument &doc);
+    void saveConfiguration(QByteArray &xml);
+    void saveConfiguration(QDomDocument &doc);
+    QString exportConfiguration();
+    void setSlotAttributes(int module, int slot, const QString &attributes);
+    void setArduinoOnly(bool isArduino);
 
 private:
-  Ui::MBConfigWidget    *ui;
-  MBConfigWidgetPrivate *d;
+    Ui::MBConfigWidget *ui;
+    MBConfigWidgetPrivate *d;
 private slots:
-  void on_tw1_customContextMenuRequested ( const QPoint& );  
-  void tw1_currentRowChanged(const QModelIndex&current,
-                             const QModelIndex&previous);
+    void on_tw1_customContextMenuRequested(const QPoint &);
+    void tw1_currentRowChanged(const QModelIndex &current,
+                               const QModelIndex &previous);
 };
 
 #endif

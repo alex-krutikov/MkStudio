@@ -14,14 +14,13 @@ class ModbusUdpServerThread;
 class ModbusUdpServer : public AbstractMBServer
 {
 public:
-  ModbusUdpServer(AbstractSerialPort *sp = 0, uint16_t udp_port = 502);
-  ~ModbusUdpServer();
+    ModbusUdpServer(AbstractSerialPort *sp = 0, uint16_t udp_port = 502);
+    ~ModbusUdpServer();
 
-  void setReplyDelay(int delay) override;
+    void setReplyDelay(int delay) override;
 
 private:
-  std::unique_ptr<ModbusUdpServerThread> sp_thread;
-
+    std::unique_ptr<ModbusUdpServerThread> sp_thread;
 };
 
 #endif

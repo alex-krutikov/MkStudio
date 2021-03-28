@@ -6,53 +6,57 @@
 
 #include <QMap>
 
-#include <winuser.h>
-#include <windows.h>
-#include <tchar.h>
-#include <setupapi.h>
 #include <dbt.h>
+#include <setupapi.h>
+#include <tchar.h>
+#include <windows.h>
+#include <winuser.h>
 
 //===================================================================
 // Оконная функция
 //===================================================================
-LRESULT CALLBACK SerialPortWndProc(HWND hwnd, UINT Message, WPARAM wparam,LPARAM lparam)
+LRESULT CALLBACK SerialPortWndProc(HWND hwnd, UINT Message, WPARAM wparam,
+                                   LPARAM lparam)
 {
-  SerialPortPrivate *spp = (SerialPortPrivate*)GetWindowLongPtr( hwnd, GWLP_USERDATA );
-  if( Message == WM_DEVICECHANGE )
-  { Console::Print(Console::Information, "WM_DEVICECHANGE  wParam=" + QString::number( wparam , 16) + " \n" );
-    spp->close();
-  }
-  return DefWindowProc(hwnd,Message,wparam,lparam);
+    SerialPortPrivate *spp
+        = (SerialPortPrivate *)GetWindowLongPtr(hwnd, GWLP_USERDATA);
+    if (Message == WM_DEVICECHANGE)
+    {
+        Console::Print(Console::Information,
+                       "WM_DEVICECHANGE  wParam=" + QString::number(wparam, 16)
+                           + " \n");
+        spp->close();
+    }
+    return DefWindowProc(hwnd, Message, wparam, lparam);
 }
 
 //===================================================================
 // Инициализация
 //===================================================================
-SerialPortPrivate::SerialPortPrivate( SerialPort *sp_arg )
-  : sp( sp_arg )
+SerialPortPrivate::SerialPortPrivate(SerialPort *sp_arg)
+    : sp(sp_arg)
 {
-  QMutexLocker mutex_locker( &mutex );
+    QMutexLocker mutex_locker(&mutex);
 
-  hport = 0;
-  last_error_id = 0;
+    hport = 0;
+    last_error_id = 0;
 
-  perf_cnt_ok = QueryPerformanceCounter(&freq);
-  if (perf_cnt_ok)
-  { perf_cnt_ok = QueryPerformanceFrequency(&freq);
-  }
+    perf_cnt_ok = QueryPerformanceCounter(&freq);
+    if (perf_cnt_ok) { perf_cnt_ok = QueryPerformanceFrequency(&freq); }
 
-  WNDCLASS w;
-  memset(&w,0,sizeof(WNDCLASS));
-  w.style = CS_HREDRAW | CS_VREDRAW;
-  w.lpfnWndProc = SerialPortWndProc;
-  w.hInstance = 0;
-  w.hbrBackground = (WHITE_BRUSH);
-  w.lpszClassName = TEXT("SerialPortNotifyWindows");
-  RegisterClass(&w);
-  hwnd = CreateWindow(TEXT("SerialPortNotifyWindows"),TEXT("SerialPortNotifyWindow"),0,
-		0,0,0,0,NULL,NULL,0,NULL);
-  SetWindowLongPtr( hwnd, GWLP_USERDATA , (LONG_PTR)this );
-  ShowWindow(hwnd,SW_HIDE);
+    WNDCLASS w;
+    memset(&w, 0, sizeof(WNDCLASS));
+    w.style = CS_HREDRAW | CS_VREDRAW;
+    w.lpfnWndProc = SerialPortWndProc;
+    w.hInstance = 0;
+    w.hbrBackground = (WHITE_BRUSH);
+    w.lpszClassName = TEXT("SerialPortNotifyWindows");
+    RegisterClass(&w);
+    hwnd = CreateWindow(TEXT("SerialPortNotifyWindows"),
+                        TEXT("SerialPortNotifyWindow"), 0, 0, 0, 0, 0, NULL,
+                        NULL, 0, NULL);
+    SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)this);
+    ShowWindow(hwnd, SW_HIDE);
 }
 
 //===================================================================
@@ -60,8 +64,8 @@ SerialPortPrivate::SerialPortPrivate( SerialPort *sp_arg )
 //===================================================================
 SerialPortPrivate::~SerialPortPrivate()
 {
-  close();
-  DestroyWindow( hwnd );
+    close();
+    DestroyWindow(hwnd);
 }
 
 //===================================================================
@@ -69,79 +73,82 @@ SerialPortPrivate::~SerialPortPrivate()
 //===================================================================
 bool SerialPortPrivate::open()
 {
-  QMutexLocker mutex_locker( &mutex );
+    QMutexLocker mutex_locker(&mutex);
 
-  if( hport ) return true;
-  
-  if( GetVersion() & 0x80000000 )
-  { // Windows 9X
-    hport = CreateFileA( ("\\\\.\\"+sp->portname).toLatin1(),
-                    GENERIC_READ|GENERIC_WRITE,
-                    0,NULL,OPEN_EXISTING,0,NULL );
+    if (hport) return true;
 
-  } else
-  { // Windows NT/XP...
-    hport = CreateFileW( (WCHAR*)("\\\\.\\"+sp->portname).utf16(),
-                    GENERIC_READ|GENERIC_WRITE,
-                    0,NULL,OPEN_EXISTING,0,NULL );
-  }
+    if (GetVersion() & 0x80000000)
+    { // Windows 9X
+        hport = CreateFileA(("\\\\.\\" + sp->portname).toLatin1(),
+                            GENERIC_READ | GENERIC_WRITE, 0, NULL,
+                            OPEN_EXISTING, 0, NULL);
 
-  if(hport==INVALID_HANDLE_VALUE)
-  { if( last_error_id != 1 )
-    { last_error_id = 1;
-      Console::Print( Console::Error, "ERROR Can't open port!\n" );
-      sp->lastError_str="Can't open port!";
+    } else
+    { // Windows NT/XP...
+        hport = CreateFileW((WCHAR *)("\\\\.\\" + sp->portname).utf16(),
+                            GENERIC_READ | GENERIC_WRITE, 0, NULL,
+                            OPEN_EXISTING, 0, NULL);
     }
-    hport=0;
-    return false;
-  }
 
-  // Инициализируем COM-порт.
-  DCB dcb;
-  memset( &dcb, 0, sizeof( dcb) );
-  dcb.DCBlength=sizeof(DCB);
-  dcb.BaudRate=sp->portspeed;
-  dcb.fBinary=1; //8 бит.
-  dcb.fParity=0; // без паритета.
-  dcb.fOutxCtsFlow=0;
-  dcb.fOutxDsrFlow=0;
-  dcb.fDtrControl=DTR_CONTROL_DISABLE;
-  dcb.fDsrSensitivity=0;
-  dcb.fTXContinueOnXoff=1;
-  dcb.fOutX=0;
-  dcb.fInX=0;
-  dcb.fErrorChar=0;
-  dcb.fNull=0;
-  dcb.fRtsControl = ( GetVersion() & 0x80000000 )
-                    ? RTS_CONTROL_DISABLE  // Windows 95/98/ME
-                    : RTS_CONTROL_TOGGLE;  // Windows NT/2000/XP...
-  dcb.fAbortOnError=0;
-  dcb.wReserved=0;
-  dcb.XonLim=100;
-  dcb.XoffLim=10;
-  dcb.ByteSize=8;
-  dcb.StopBits=0;	// 1 стоп.
+    if (hport == INVALID_HANDLE_VALUE)
+    {
+        if (last_error_id != 1)
+        {
+            last_error_id = 1;
+            Console::Print(Console::Error, "ERROR Can't open port!\n");
+            sp->lastError_str = "Can't open port!";
+        }
+        hport = 0;
+        return false;
+    }
 
-  if(!SetCommState(hport,&dcb))
-  {	CloseHandle(hport);
-        hport=0;
-        sp->lastError_str="Can't init port!";
-	  return false;
-  }
+    // Инициализируем COM-порт.
+    DCB dcb;
+    memset(&dcb, 0, sizeof(dcb));
+    dcb.DCBlength = sizeof(DCB);
+    dcb.BaudRate = sp->portspeed;
+    dcb.fBinary = 1; // 8 бит.
+    dcb.fParity = 0; // без паритета.
+    dcb.fOutxCtsFlow = 0;
+    dcb.fOutxDsrFlow = 0;
+    dcb.fDtrControl = DTR_CONTROL_DISABLE;
+    dcb.fDsrSensitivity = 0;
+    dcb.fTXContinueOnXoff = 1;
+    dcb.fOutX = 0;
+    dcb.fInX = 0;
+    dcb.fErrorChar = 0;
+    dcb.fNull = 0;
+    dcb.fRtsControl = (GetVersion() & 0x80000000)
+                        ? RTS_CONTROL_DISABLE // Windows 95/98/ME
+                        : RTS_CONTROL_TOGGLE; // Windows NT/2000/XP...
+    dcb.fAbortOnError = 0;
+    dcb.wReserved = 0;
+    dcb.XonLim = 100;
+    dcb.XoffLim = 10;
+    dcb.ByteSize = 8;
+    dcb.StopBits = 0; // 1 стоп.
 
-  // Устанавливаем таймауты.
-  COMMTIMEOUTS ct;
-  memset( &ct, 0 , sizeof(ct) );
-  ct.ReadTotalTimeoutConstant = sp->current_answer_timeout;
-  SetCommTimeouts(hport,&ct);
+    if (!SetCommState(hport, &dcb))
+    {
+        CloseHandle(hport);
+        hport = 0;
+        sp->lastError_str = "Can't init port!";
+        return false;
+    }
 
-  // Сбрасываем порт.
-  PurgeComm(hport,PURGE_TXCLEAR|PURGE_RXCLEAR);
+    // Устанавливаем таймауты.
+    COMMTIMEOUTS ct;
+    memset(&ct, 0, sizeof(ct));
+    ct.ReadTotalTimeoutConstant = sp->current_answer_timeout;
+    SetCommTimeouts(hport, &ct);
 
-  // Устанавливаем размер буферов приема и передачи.
-  SetupComm(hport,512,512);
+    // Сбрасываем порт.
+    PurgeComm(hport, PURGE_TXCLEAR | PURGE_RXCLEAR);
 
-  return true;
+    // Устанавливаем размер буферов приема и передачи.
+    SetupComm(hport, 512, 512);
+
+    return true;
 }
 
 //===================================================================
@@ -149,8 +156,8 @@ bool SerialPortPrivate::open()
 //===================================================================
 bool SerialPortPrivate::reopen()
 {
-  if( hport == 0 ) return open();
-  return false;
+    if (hport == 0) return open();
+    return false;
 }
 
 //===================================================================
@@ -158,274 +165,322 @@ bool SerialPortPrivate::reopen()
 //===================================================================
 void SerialPortPrivate::close()
 {
-  if( hport )
-  { QMutexLocker mutex_locker( &mutex );
-    CloseHandle( hport );
-    hport = 0;
-  }
+    if (hport)
+    {
+        QMutexLocker mutex_locker(&mutex);
+        CloseHandle(hport);
+        hport = 0;
+    }
 }
 
 //===================================================================
 // Посылка запроса и получение ответа MODBUS RTU
 //===================================================================
-int SerialPortPrivate::query( const QByteArray &request,
-                                  QByteArray &answer, int *errorcode)
+int SerialPortPrivate::query(const QByteArray &request, QByteArray &answer,
+                             int *errorcode)
 {
-  bool ok;
-  DWORD i,j,answer_size;
+    bool ok;
+    DWORD i, j, answer_size;
 
-  if( hport == 0 )
-  { reopen();
-    return 0;
-  }
-
-  QMutexLocker mutex_locker( &mutex );
-
-  if( sp->answer_timeout != sp->current_answer_timeout )
-  { COMMTIMEOUTS ct;
-    memset( &ct, 0 , sizeof(ct) );
-    ct.ReadTotalTimeoutConstant = sp->answer_timeout;
-    SetCommTimeouts(hport,&ct);
-    sp->current_answer_timeout =  sp->answer_timeout;
-  }
-
-  PurgeComm(hport,PURGE_TXCLEAR|PURGE_RXCLEAR);
-
-  Console::Print( Console::ModbusPacket, "MODBUS: Request: "+QByteArray2QString( request )+"\n");
-
-  // задержка перед запросом 4 байтовых интервала на выбранной скорости
-  usleep((8 * 10 * 1000000 / sp->speed()));
-
-  // запрос
-  ok = WriteFile( hport, request.data(), request.length(),  &j, 0 );
-  if(!ok)
-  { if( last_error_id != 2 )
-    { last_error_id = 2;
-      Console::Print( Console::Error, "MODBUS: ERROR: WriteFile (return value).\n" );
+    if (hport == 0)
+    {
+        reopen();
+        return 0;
     }
-    return -1;
-  }
-  if((int)j != request.length() )
-  { Console::Print( Console::Error, "MODBUS: ERROR: WriteFile (wrong length).\n" );
-    return 0;
-  }
 
-  // ответ: чтение первых 5 байт
-  answer_size = answer.length();
-  if(errorcode) *errorcode=0;
-  if( !answer_size && sp->portname.contains("COM") )
-  { CloseHandle( hport );
-    hport = 0;
-    return 0;
-  }
+    QMutexLocker mutex_locker(&mutex);
 
-  i=0;
-  if( answer_size > 5 )
-  { ok = ReadFile( hport, answer.data(), 5, &i, 0 );
-    if(!ok)
-    { if( last_error_id != 3 )
-      { last_error_id = 3;
-        Console::Print( Console::Error, "MODBUS: ERROR: ReadFile (return value).\n" );
-      }
-      return 0;
+    if (sp->answer_timeout != sp->current_answer_timeout)
+    {
+        COMMTIMEOUTS ct;
+        memset(&ct, 0, sizeof(ct));
+        ct.ReadTotalTimeoutConstant = sp->answer_timeout;
+        SetCommTimeouts(hport, &ct);
+        sp->current_answer_timeout = sp->answer_timeout;
     }
-    if((i==5)&&(answer[1]&0x80)) goto error1;
-    if(i==0) goto error2;
-  }
-  // ответ: чтение оставшихся байт
-  j=i;
-  while(1)
-  { ok = ReadFile( hport, answer.data()+j, answer_size-j, &i, 0 );
-    if(!ok)
-    { if( last_error_id != 3 )
-      { last_error_id = 3;
-        Console::Print( Console::Error, "MODBUS: ERROR: ReadFile (return value).\n" );
-      }
-      return 0;
+
+    PurgeComm(hport, PURGE_TXCLEAR | PURGE_RXCLEAR);
+
+    Console::Print(Console::ModbusPacket,
+                   "MODBUS: Request: " + QByteArray2QString(request) + "\n");
+
+    // задержка перед запросом 4 байтовых интервала на выбранной скорости
+    usleep((8 * 10 * 1000000 / sp->speed()));
+
+    // запрос
+    ok = WriteFile(hport, request.data(), request.length(), &j, 0);
+    if (!ok)
+    {
+        if (last_error_id != 2)
+        {
+            last_error_id = 2;
+            Console::Print(Console::Error,
+                           "MODBUS: ERROR: WriteFile (return value).\n");
+        }
+        return -1;
     }
-    j += i;
-    if( i == 0           ) break;
-    if( j == answer_size ) break;
-  }
+    if ((int)j != request.length())
+    {
+        Console::Print(Console::Error,
+                       "MODBUS: ERROR: WriteFile (wrong length).\n");
+        return 0;
+    }
 
-  // анализ ошибок
-  if( j == 0 )                goto error2;
-  else if(j != answer_size )  goto error3;
+    // ответ: чтение первых 5 байт
+    answer_size = answer.length();
+    if (errorcode) *errorcode = 0;
+    if (!answer_size && sp->portname.contains("COM"))
+    {
+        CloseHandle(hport);
+        hport = 0;
+        return 0;
+    }
 
-  Console::Print( Console::ModbusPacket, "MODBUS:  Answer: "+QByteArray2QString( answer )+"\n");
+    i = 0;
+    if (answer_size > 5)
+    {
+        ok = ReadFile(hport, answer.data(), 5, &i, 0);
+        if (!ok)
+        {
+            if (last_error_id != 3)
+            {
+                last_error_id = 3;
+                Console::Print(Console::Error,
+                               "MODBUS: ERROR: ReadFile (return value).\n");
+            }
+            return 0;
+        }
+        if ((i == 5) && (answer[1] & 0x80)) goto error1;
+        if (i == 0) goto error2;
+    }
+    // ответ: чтение оставшихся байт
+    j = i;
+    while (1)
+    {
+        ok = ReadFile(hport, answer.data() + j, answer_size - j, &i, 0);
+        if (!ok)
+        {
+            if (last_error_id != 3)
+            {
+                last_error_id = 3;
+                Console::Print(Console::Error,
+                               "MODBUS: ERROR: ReadFile (return value).\n");
+            }
+            return 0;
+        }
+        j += i;
+        if (i == 0) break;
+        if (j == answer_size) break;
+    }
 
-  if( last_error_id )
-  {  Console::Print( Console::ModbusError, "MODBUS: OK.\n" );
-     last_error_id = 0;
-  }
-  return j;
-error1:
-  {
-  Console::Print( Console::ModbusError, "MODBUS: Error flag in answer. " );
-  QByteArray ba = answer;
-  ba.resize( 5 );
-  Console::Print( Console::ModbusError, " [ "+QByteArray2QString( ba, 1 )+" ]\n");
-  if(errorcode) *errorcode=answer[2];
-  return 5;
-  }
-error2:
-  {
-  if( last_error_id != 4 )
-  Console::Print( Console::ModbusError, "MODBUS: TimeOut.\n" );
-  last_error_id = 4;
-  return 0;
-  }
-error3:
-   {
-   Console::Print( Console::ModbusError, QString("MODBUS: ERROR: ReadFile Wrong answer length. (expected=%1, real=%2) ")
-                              .arg(answer.length()).arg(j) );
-   QByteArray ba = answer;
-   ba.resize( j );
-   Console::Print( Console::ModbusError, "Answer: "+QByteArray2QString( ba, 1 )+"\n");
-   return j;
-   }
+    // анализ ошибок
+    if (j == 0)
+        goto error2;
+    else if (j != answer_size)
+        goto error3;
+
+    Console::Print(Console::ModbusPacket,
+                   "MODBUS:  Answer: " + QByteArray2QString(answer) + "\n");
+
+    if (last_error_id)
+    {
+        Console::Print(Console::ModbusError, "MODBUS: OK.\n");
+        last_error_id = 0;
+    }
+    return j;
+error1 : {
+    Console::Print(Console::ModbusError, "MODBUS: Error flag in answer. ");
+    QByteArray ba = answer;
+    ba.resize(5);
+    Console::Print(Console::ModbusError,
+                   " [ " + QByteArray2QString(ba, 1) + " ]\n");
+    if (errorcode) *errorcode = answer[2];
+    return 5;
+}
+error2 : {
+    if (last_error_id != 4)
+        Console::Print(Console::ModbusError, "MODBUS: TimeOut.\n");
+    last_error_id = 4;
+    return 0;
+}
+error3 : {
+    Console::Print(Console::ModbusError,
+                   QString("MODBUS: ERROR: ReadFile Wrong answer length. "
+                           "(expected=%1, real=%2) ")
+                       .arg(answer.length())
+                       .arg(j));
+    QByteArray ba = answer;
+    ba.resize(j);
+    Console::Print(Console::ModbusError,
+                   "Answer: " + QByteArray2QString(ba, 1) + "\n");
+    return j;
+}
 }
 
 //===================================================================
 // Посылка запроса и получение ответа (протокол XBee)
 //===================================================================
-int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
-                                       int *errorcode, int xbee_addr )
+int SerialPortPrivate::queryXBee(const QByteArray &request, QByteArray &answer,
+                                 int *errorcode, int xbee_addr)
 {
-  Q_UNUSED(errorcode);
+    Q_UNUSED(errorcode);
 
-  bool ok;
-  unsigned char crc;
-  int i,a;
-  DWORD j;
+    bool ok;
+    unsigned char crc;
+    int i, a;
+    DWORD j;
 
-  // подготовка порта
+    // подготовка порта
 
-  if( hport == 0 )
-  { reopen();
-    return 0;
-  }
-  
-  QMutexLocker mutex_locker( &mutex );
-
-  if( sp->answer_timeout != sp->current_answer_timeout )
-  { COMMTIMEOUTS ct;
-    memset( &ct, 0 , sizeof(ct) );
-    ct.ReadTotalTimeoutConstant = sp->answer_timeout;
-    SetCommTimeouts(hport,&ct);
-    sp->current_answer_timeout =  sp->answer_timeout;
-  }
-
-  PurgeComm(hport,PURGE_TXCLEAR|PURGE_RXCLEAR);
-
-  // подготовка данных
-
-  QByteArray ba;
-  ba.resize(8);
-  ba[0] = 0x7E;
-  ba[3] = 0x01; // API identifier
-  ba[4] = 0x00; // Frame ID
-  ba[5] = xbee_addr >> 8;
-  ba[6] = xbee_addr;
-  ba[7] = 0; // Options
-  ba.append( request ); // Data
-
-  a = ba.size()-3;
-  ba[1] = a >> 8;
-  ba[2] = a;
-
-  a = ba.size();
-  crc=0;
-  for( i=3; i<a; i++ ) crc += ba[i];
-  crc=0xFF-crc;
-  ba.append( crc ); // CRC
-
-  Console::Print( Console::ModbusPacket, "XBEE: Request: "+QByteArray2QString( ba )+"\n");
-
-  // задержка перед запросом 8 байтовых интервалов на выбранной скорости
-  usleep((8 * 10 * 1000000 / sp->speed()));
-
-  // запрос
-  ok = WriteFile( hport, ba.data(), ba.length(),  &j, 0 );
-  if(!ok)
-  { if( last_error_id != 2 )
-    { last_error_id = 2;
-      Console::Print( Console::Error, "XBEE: ERROR: WriteFile (return value).\n" );
+    if (hport == 0)
+    {
+        reopen();
+        return 0;
     }
-    return -1;
-  }
-  if((int)j != ba.length() )
-  { Console::Print( Console::Error, "XBEE: ERROR: WriteFile (wrong length).\n" );
-    return 0;
-  }
 
-  // ответ
+    QMutexLocker mutex_locker(&mutex);
 
-  ba.resize( 3 ); // первые три байта ответа
-  i=0;
-
-  while(1)
-  { ok = ReadFile( hport, ba.data()+i, ba.size()-i, &j, 0 );
-    if(!ok)
-    { if( last_error_id != 3 )
-      { last_error_id = 3;
-        Console::Print( Console::Error, "XBEE: ERROR: ReadFile (return value).\n" );
-      }
-      return 0;
+    if (sp->answer_timeout != sp->current_answer_timeout)
+    {
+        COMMTIMEOUTS ct;
+        memset(&ct, 0, sizeof(ct));
+        ct.ReadTotalTimeoutConstant = sp->answer_timeout;
+        SetCommTimeouts(hport, &ct);
+        sp->current_answer_timeout = sp->answer_timeout;
     }
-    i += j;
-    if( j == 0         ) break;
-    if( i == ba.size() ) break;
-  }
 
-  // анализ первых байт
+    PurgeComm(hport, PURGE_TXCLEAR | PURGE_RXCLEAR);
 
-  if( i != 3 )
-  { Console::Print( Console::Error, "XBEE: ERROR: No answer.\n" );
-    return 0;
-  }
+    // подготовка данных
 
-  if( ba[0] != (char)0x7E )
-  { Console::Print( Console::Error, "XBEE: ERROR: Receive packet's first byte is not 0x7E.\n" );
-    return 0;
-  }
+    QByteArray ba;
+    ba.resize(8);
+    ba[0] = 0x7E;
+    ba[3] = 0x01; // API identifier
+    ba[4] = 0x00; // Frame ID
+    ba[5] = xbee_addr >> 8;
+    ba[6] = xbee_addr;
+    ba[7] = 0;          // Options
+    ba.append(request); // Data
 
-  // дочтение остальных данных
+    a = ba.size() - 3;
+    ba[1] = a >> 8;
+    ba[2] = a;
 
-  a = ( (unsigned char)ba[1] << 8 ) | (unsigned char)ba[2];
-  ba.resize( ba.size() + a + 1 );
+    a = ba.size();
+    crc = 0;
+    for (i = 3; i < a; i++)
+        crc += ba[i];
+    crc = 0xFF - crc;
+    ba.append(crc); // CRC
 
-  while(1)
-  { ok = ReadFile( hport, ba.data()+i, ba.size()-i, &j, 0 );
-    if(!ok)
-    { if( last_error_id != 3 )
-      { last_error_id = 3;
-        Console::Print( Console::Error, "XBEE: ERROR: ReadFile (return value).\n" );
-      }
-      return 0;
+    Console::Print(Console::ModbusPacket,
+                   "XBEE: Request: " + QByteArray2QString(ba) + "\n");
+
+    // задержка перед запросом 8 байтовых интервалов на выбранной скорости
+    usleep((8 * 10 * 1000000 / sp->speed()));
+
+    // запрос
+    ok = WriteFile(hport, ba.data(), ba.length(), &j, 0);
+    if (!ok)
+    {
+        if (last_error_id != 2)
+        {
+            last_error_id = 2;
+            Console::Print(Console::Error,
+                           "XBEE: ERROR: WriteFile (return value).\n");
+        }
+        return -1;
     }
-    i += j;
-    if( j == 0         ) break;
-    if( i == ba.size() ) break;
-  }
+    if ((int)j != ba.length())
+    {
+        Console::Print(Console::Error,
+                       "XBEE: ERROR: WriteFile (wrong length).\n");
+        return 0;
+    }
 
-  // анализ XBee CRC
+    // ответ
 
-  a = ba.size();
-  crc=0;
-  for( i=3; i<a; i++ ) crc += ba[i];
-  if( crc != 0xFF )
-  { Console::Print( Console::Error, "XBEE: ERROR: XBee CRC error.\n" );
-    return 0;
-  }
+    ba.resize(3); // первые три байта ответа
+    i = 0;
 
-  // подготовка ответа
+    while (1)
+    {
+        ok = ReadFile(hport, ba.data() + i, ba.size() - i, &j, 0);
+        if (!ok)
+        {
+            if (last_error_id != 3)
+            {
+                last_error_id = 3;
+                Console::Print(Console::Error,
+                               "XBEE: ERROR: ReadFile (return value).\n");
+            }
+            return 0;
+        }
+        i += j;
+        if (j == 0) break;
+        if (i == ba.size()) break;
+    }
 
-  Console::Print( Console::ModbusPacket, "XBEE: Answer:  "+QByteArray2QString( ba )+"\n");
-  ba = ba.mid( 8, a-9 );
+    // анализ первых байт
 
-  answer.replace(0, ba.size(), ba );
-  return ba.size();
+    if (i != 3)
+    {
+        Console::Print(Console::Error, "XBEE: ERROR: No answer.\n");
+        return 0;
+    }
+
+    if (ba[0] != (char)0x7E)
+    {
+        Console::Print(
+            Console::Error,
+            "XBEE: ERROR: Receive packet's first byte is not 0x7E.\n");
+        return 0;
+    }
+
+    // дочтение остальных данных
+
+    a = ((unsigned char)ba[1] << 8) | (unsigned char)ba[2];
+    ba.resize(ba.size() + a + 1);
+
+    while (1)
+    {
+        ok = ReadFile(hport, ba.data() + i, ba.size() - i, &j, 0);
+        if (!ok)
+        {
+            if (last_error_id != 3)
+            {
+                last_error_id = 3;
+                Console::Print(Console::Error,
+                               "XBEE: ERROR: ReadFile (return value).\n");
+            }
+            return 0;
+        }
+        i += j;
+        if (j == 0) break;
+        if (i == ba.size()) break;
+    }
+
+    // анализ XBee CRC
+
+    a = ba.size();
+    crc = 0;
+    for (i = 3; i < a; i++)
+        crc += ba[i];
+    if (crc != 0xFF)
+    {
+        Console::Print(Console::Error, "XBEE: ERROR: XBee CRC error.\n");
+        return 0;
+    }
+
+    // подготовка ответа
+
+    Console::Print(Console::ModbusPacket,
+                   "XBEE: Answer:  " + QByteArray2QString(ba) + "\n");
+    ba = ba.mid(8, a - 9);
+
+    answer.replace(0, ba.size(), ba);
+    return ba.size();
 }
 
 //===================================================================
@@ -433,18 +488,22 @@ int SerialPortPrivate::queryXBee( const QByteArray &request, QByteArray &answer,
 //===================================================================
 void SerialPortPrivate::usleep(DWORD us)
 {
-  LARGE_INTEGER curr, stop;
+    LARGE_INTEGER curr, stop;
 
-  if( perf_cnt_ok )
-  { QueryPerformanceCounter(&curr);
-    stop.QuadPart = curr.QuadPart + (freq.QuadPart * 1000 * us / 1000000000);
-    do
-    { Sleep(0);
-      QueryPerformanceCounter(&curr);
-    } while (curr.QuadPart < stop.QuadPart);
-  } else
-  { Sleep((us + 999) / 1000);
-  }
+    if (perf_cnt_ok)
+    {
+        QueryPerformanceCounter(&curr);
+        stop.QuadPart
+            = curr.QuadPart + (freq.QuadPart * 1000 * us / 1000000000);
+        do
+        {
+            Sleep(0);
+            QueryPerformanceCounter(&curr);
+        } while (curr.QuadPart < stop.QuadPart);
+    } else
+    {
+        Sleep((us + 999) / 1000);
+    }
 }
 
 
@@ -454,110 +513,147 @@ void SerialPortPrivate::usleep(DWORD us)
 //===================================================================
 QStringList SerialPortPrivate::queryComPorts()
 {
-  if( GetVersion() & 0x80000000 )
-  { // Windows98
-    QStringList sl;
-    for(int i=1;i<=9;i++) sl << QString("COM%1;Serial Port %2").arg(i).arg(i);
-    return sl;
-  }
-
-  QString str;
-  QRegExp regexp("^COM([0-9]{1,2})");
-  QMap<int, QString> map;
-
-  const GUID GUID_DEVINTERFACE_COMPORT = {0x86e0d1e0L, 0x8089, 0x11d0, 0x9c, 0xe4, 0x08, 0x00, 0x3e, 0x30, 0x1f, 0x73};
-
-  typedef HKEY (__stdcall SETUPDIOPENDEVREGKEY)(HDEVINFO, PSP_DEVINFO_DATA, DWORD, DWORD, DWORD, REGSAM);
-  typedef BOOL (__stdcall SETUPDIDESTROYDEVICEINFOLIST)(HDEVINFO);
-  typedef BOOL (__stdcall SETUPDIENUMDEVICEINFO)(HDEVINFO, DWORD, PSP_DEVINFO_DATA);
-  typedef HDEVINFO (__stdcall SETUPDIGETCLASSDEVS)(LPGUID, LPCTSTR, HWND, DWORD);
-  typedef BOOL (__stdcall SETUPDIGETDEVICEREGISTRYPROPERTY)(HDEVINFO, PSP_DEVINFO_DATA, DWORD, PDWORD, PBYTE, DWORD, PDWORD);
-
-  //Get the various function pointers we require from setupapi.dll
-  HINSTANCE hSetupAPI = LoadLibrary(TEXT("SETUPAPI.DLL"));
-  if (hSetupAPI == NULL)
-    return QStringList();
-
-  SETUPDIOPENDEVREGKEY* lpfnLPSETUPDIOPENDEVREGKEY = reinterpret_cast<SETUPDIOPENDEVREGKEY*>(GetProcAddress(hSetupAPI, "SetupDiOpenDevRegKey"));
-  #ifdef _UNICODE
-  SETUPDIGETCLASSDEVS* lpfnSETUPDIGETCLASSDEVS = reinterpret_cast<SETUPDIGETCLASSDEVS*>(GetProcAddress(hSetupAPI, "SetupDiGetClassDevsW"));
-  SETUPDIGETDEVICEREGISTRYPROPERTY* lpfnSETUPDIGETDEVICEREGISTRYPROPERTY = reinterpret_cast<SETUPDIGETDEVICEREGISTRYPROPERTY*>(GetProcAddress(hSetupAPI, "SetupDiGetDeviceRegistryPropertyW"));
-  #else
-  SETUPDIGETCLASSDEVS* lpfnSETUPDIGETCLASSDEVS = reinterpret_cast<SETUPDIGETCLASSDEVS*>(GetProcAddress(hSetupAPI, "SetupDiGetClassDevsA"));
-  SETUPDIGETDEVICEREGISTRYPROPERTY* lpfnSETUPDIGETDEVICEREGISTRYPROPERTY = reinterpret_cast<SETUPDIGETDEVICEREGISTRYPROPERTY*>(GetProcAddress(hSetupAPI, "SetupDiGetDeviceRegistryPropertyA"));
-  #endif
-  SETUPDIDESTROYDEVICEINFOLIST* lpfnSETUPDIDESTROYDEVICEINFOLIST = reinterpret_cast<SETUPDIDESTROYDEVICEINFOLIST*>(GetProcAddress(hSetupAPI, "SetupDiDestroyDeviceInfoList"));
-  SETUPDIENUMDEVICEINFO* lpfnSETUPDIENUMDEVICEINFO = reinterpret_cast<SETUPDIENUMDEVICEINFO*>(GetProcAddress(hSetupAPI, "SetupDiEnumDeviceInfo"));
-
-  if ((lpfnLPSETUPDIOPENDEVREGKEY == NULL) || (lpfnSETUPDIDESTROYDEVICEINFOLIST == NULL) ||
-      (lpfnSETUPDIENUMDEVICEINFO == NULL) || (lpfnSETUPDIGETCLASSDEVS == NULL) || (lpfnSETUPDIGETDEVICEREGISTRYPROPERTY == NULL))
-  { //Unload the setup dll
-    FreeLibrary(hSetupAPI);
-    SetLastError(ERROR_CALL_NOT_IMPLEMENTED);
-    return QStringList();
-  }
-
-  //Now create a "device information set" which is required to enumerate all the ports
-  GUID guid = GUID_DEVINTERFACE_COMPORT;
-  HDEVINFO hDevInfoSet = lpfnSETUPDIGETCLASSDEVS(&guid, NULL, NULL, DIGCF_PRESENT | DIGCF_ALLCLASSES);
-  //HDEVINFO hDevInfoSet = lpfnSETUPDIGETCLASSDEVS(&guid, NULL, NULL, DIGCF_DEVICEINTERFACE );
-  if (hDevInfoSet == INVALID_HANDLE_VALUE)
-  { //Unload the setup dll
-    FreeLibrary(hSetupAPI);
-    return QStringList();
-  }
-
-  //Finally do the enumeration
-  BOOL bMoreItems = TRUE;
-  int nIndex = 0;
-  SP_DEVINFO_DATA devInfo;
-  while (bMoreItems)
-  { //Enumerate the current device
-    devInfo.cbSize = sizeof(SP_DEVINFO_DATA);
-    bMoreItems = lpfnSETUPDIENUMDEVICEINFO(hDevInfoSet, nIndex, &devInfo);
-    if (bMoreItems)
-    { //Did we find a serial port for this device
-      BOOL bAdded = FALSE;
-      //Get the registry key which stores the ports settings
-      HKEY hDeviceKey = lpfnLPSETUPDIOPENDEVREGKEY(hDevInfoSet, &devInfo, DICS_FLAG_GLOBAL, 0, DIREG_DEV, KEY_QUERY_VALUE);
-      if (hDeviceKey != INVALID_HANDLE_VALUE )
-      { //Read in the name of the port
-        WCHAR pszPortName[256];
-        DWORD dwSize = sizeof(pszPortName);
-        DWORD dwType = 0;
-        if ((RegQueryValueEx(hDeviceKey, TEXT("PortName"), NULL, &dwType, reinterpret_cast<LPBYTE>(pszPortName), &dwSize) == ERROR_SUCCESS) && (dwType == REG_SZ))
-        { //If it looks like "COMX" then
-          //add it to the array which will be returned
-          size_t nLen = _tcslen(pszPortName);
-          if (nLen > 3)
-          {  str = QString::fromWCharArray( pszPortName );
-             //if( str.startsWith("COM") )
-             if( regexp.exactMatch( str ) )
-               bAdded = TRUE;
-          }
-        }
-        //Close the key now that we are finished with it
-        RegCloseKey(hDeviceKey);
-      }
-
-      //If the port was a serial port, then also try to get its friendly name
-      if (bAdded)
-      { WCHAR pszFriendlyName[256];
-        DWORD dwSize = sizeof(pszFriendlyName);
-        DWORD dwType = 0;
-        if (lpfnSETUPDIGETDEVICEREGISTRYPROPERTY(hDevInfoSet, &devInfo, SPDRP_DEVICEDESC, &dwType, reinterpret_cast<PBYTE>(pszFriendlyName), dwSize, &dwSize) && (dwType == REG_SZ))
-        str +=";"+QString::fromWCharArray( pszFriendlyName );
-        if( regexp.indexIn(str) > -1 ) map[ regexp.cap(1).toInt() ] = str;
-      }
+    if (GetVersion() & 0x80000000)
+    { // Windows98
+        QStringList sl;
+        for (int i = 1; i <= 9; i++)
+            sl << QString("COM%1;Serial Port %2").arg(i).arg(i);
+        return sl;
     }
-    ++nIndex;
-  }
-  //Free up the "device information set" now that we are finished with it
-  lpfnSETUPDIDESTROYDEVICEINFOLIST(hDevInfoSet);
-  //Unload the setup dll
-  FreeLibrary(hSetupAPI);
-  //Return the success indicator
 
-  return  map.values();
+    QString str;
+    QRegExp regexp("^COM([0-9]{1,2})");
+    QMap<int, QString> map;
+
+    const GUID GUID_DEVINTERFACE_COMPORT
+        = {0x86e0d1e0L, 0x8089, 0x11d0, 0x9c, 0xe4, 0x08,
+           0x00,        0x3e,   0x30,   0x1f, 0x73};
+
+    typedef HKEY(__stdcall SETUPDIOPENDEVREGKEY)(HDEVINFO, PSP_DEVINFO_DATA,
+                                                 DWORD, DWORD, DWORD, REGSAM);
+    typedef BOOL(__stdcall SETUPDIDESTROYDEVICEINFOLIST)(HDEVINFO);
+    typedef BOOL(__stdcall SETUPDIENUMDEVICEINFO)(HDEVINFO, DWORD,
+                                                  PSP_DEVINFO_DATA);
+    typedef HDEVINFO(__stdcall SETUPDIGETCLASSDEVS)(LPGUID, LPCTSTR, HWND,
+                                                    DWORD);
+    typedef BOOL(__stdcall SETUPDIGETDEVICEREGISTRYPROPERTY)(
+        HDEVINFO, PSP_DEVINFO_DATA, DWORD, PDWORD, PBYTE, DWORD, PDWORD);
+
+    // Get the various function pointers we require from setupapi.dll
+    HINSTANCE hSetupAPI = LoadLibrary(TEXT("SETUPAPI.DLL"));
+    if (hSetupAPI == NULL) return QStringList();
+
+    SETUPDIOPENDEVREGKEY *lpfnLPSETUPDIOPENDEVREGKEY
+        = reinterpret_cast<SETUPDIOPENDEVREGKEY *>(
+            GetProcAddress(hSetupAPI, "SetupDiOpenDevRegKey"));
+#ifdef _UNICODE
+    SETUPDIGETCLASSDEVS *lpfnSETUPDIGETCLASSDEVS
+        = reinterpret_cast<SETUPDIGETCLASSDEVS *>(
+            GetProcAddress(hSetupAPI, "SetupDiGetClassDevsW"));
+    SETUPDIGETDEVICEREGISTRYPROPERTY *lpfnSETUPDIGETDEVICEREGISTRYPROPERTY
+        = reinterpret_cast<SETUPDIGETDEVICEREGISTRYPROPERTY *>(
+            GetProcAddress(hSetupAPI, "SetupDiGetDeviceRegistryPropertyW"));
+#else
+    SETUPDIGETCLASSDEVS *lpfnSETUPDIGETCLASSDEVS
+        = reinterpret_cast<SETUPDIGETCLASSDEVS *>(
+            GetProcAddress(hSetupAPI, "SetupDiGetClassDevsA"));
+    SETUPDIGETDEVICEREGISTRYPROPERTY *lpfnSETUPDIGETDEVICEREGISTRYPROPERTY
+        = reinterpret_cast<SETUPDIGETDEVICEREGISTRYPROPERTY *>(
+            GetProcAddress(hSetupAPI, "SetupDiGetDeviceRegistryPropertyA"));
+#endif
+    SETUPDIDESTROYDEVICEINFOLIST *lpfnSETUPDIDESTROYDEVICEINFOLIST
+        = reinterpret_cast<SETUPDIDESTROYDEVICEINFOLIST *>(
+            GetProcAddress(hSetupAPI, "SetupDiDestroyDeviceInfoList"));
+    SETUPDIENUMDEVICEINFO *lpfnSETUPDIENUMDEVICEINFO
+        = reinterpret_cast<SETUPDIENUMDEVICEINFO *>(
+            GetProcAddress(hSetupAPI, "SetupDiEnumDeviceInfo"));
+
+    if ((lpfnLPSETUPDIOPENDEVREGKEY == NULL)
+        || (lpfnSETUPDIDESTROYDEVICEINFOLIST == NULL)
+        || (lpfnSETUPDIENUMDEVICEINFO == NULL)
+        || (lpfnSETUPDIGETCLASSDEVS == NULL)
+        || (lpfnSETUPDIGETDEVICEREGISTRYPROPERTY == NULL))
+    { // Unload the setup dll
+        FreeLibrary(hSetupAPI);
+        SetLastError(ERROR_CALL_NOT_IMPLEMENTED);
+        return QStringList();
+    }
+
+    // Now create a "device information set" which is required to enumerate all
+    // the ports
+    GUID guid = GUID_DEVINTERFACE_COMPORT;
+    HDEVINFO hDevInfoSet = lpfnSETUPDIGETCLASSDEVS(
+        &guid, NULL, NULL, DIGCF_PRESENT | DIGCF_ALLCLASSES);
+    // HDEVINFO hDevInfoSet = lpfnSETUPDIGETCLASSDEVS(&guid, NULL, NULL,
+    // DIGCF_DEVICEINTERFACE );
+    if (hDevInfoSet == INVALID_HANDLE_VALUE)
+    { // Unload the setup dll
+        FreeLibrary(hSetupAPI);
+        return QStringList();
+    }
+
+    // Finally do the enumeration
+    BOOL bMoreItems = TRUE;
+    int nIndex = 0;
+    SP_DEVINFO_DATA devInfo;
+    while (bMoreItems)
+    { // Enumerate the current device
+        devInfo.cbSize = sizeof(SP_DEVINFO_DATA);
+        bMoreItems = lpfnSETUPDIENUMDEVICEINFO(hDevInfoSet, nIndex, &devInfo);
+        if (bMoreItems)
+        { // Did we find a serial port for this device
+            BOOL bAdded = FALSE;
+            // Get the registry key which stores the ports settings
+            HKEY hDeviceKey = lpfnLPSETUPDIOPENDEVREGKEY(
+                hDevInfoSet, &devInfo, DICS_FLAG_GLOBAL, 0, DIREG_DEV,
+                KEY_QUERY_VALUE);
+            if (hDeviceKey != INVALID_HANDLE_VALUE)
+            { // Read in the name of the port
+                WCHAR pszPortName[256];
+                DWORD dwSize = sizeof(pszPortName);
+                DWORD dwType = 0;
+                if ((RegQueryValueEx(
+                         hDeviceKey, TEXT("PortName"), NULL, &dwType,
+                         reinterpret_cast<LPBYTE>(pszPortName), &dwSize)
+                     == ERROR_SUCCESS)
+                    && (dwType == REG_SZ))
+                { // If it looks like "COMX" then
+                    // add it to the array which will be returned
+                    size_t nLen = _tcslen(pszPortName);
+                    if (nLen > 3)
+                    {
+                        str = QString::fromWCharArray(pszPortName);
+                        // if( str.startsWith("COM") )
+                        if (regexp.exactMatch(str)) bAdded = TRUE;
+                    }
+                }
+                // Close the key now that we are finished with it
+                RegCloseKey(hDeviceKey);
+            }
+
+            // If the port was a serial port, then also try to get its friendly
+            // name
+            if (bAdded)
+            {
+                WCHAR pszFriendlyName[256];
+                DWORD dwSize = sizeof(pszFriendlyName);
+                DWORD dwType = 0;
+                if (lpfnSETUPDIGETDEVICEREGISTRYPROPERTY(
+                        hDevInfoSet, &devInfo, SPDRP_DEVICEDESC, &dwType,
+                        reinterpret_cast<PBYTE>(pszFriendlyName), dwSize,
+                        &dwSize)
+                    && (dwType == REG_SZ))
+                    str += ";" + QString::fromWCharArray(pszFriendlyName);
+                if (regexp.indexIn(str) > -1) map[regexp.cap(1).toInt()] = str;
+            }
+        }
+        ++nIndex;
+    }
+    // Free up the "device information set" now that we are finished with it
+    lpfnSETUPDIDESTROYDEVICEINFOLIST(hDevInfoSet);
+    // Unload the setup dll
+    FreeLibrary(hSetupAPI);
+    // Return the success indicator
+
+    return map.values();
 }
-

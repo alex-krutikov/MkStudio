@@ -12,28 +12,30 @@ class MbTcpPortPrivate;
 class MBL_EXPORT MbTcpPort : public AbstractSerialPort
 {
 public:
-  MbTcpPort();
-  virtual ~MbTcpPort();
+    MbTcpPort();
+    virtual ~MbTcpPort();
 
-  void setName( const QString &portname );
-  void setSpeed( const int speed );
-  void setAnswerTimeout(int timeout );
-  bool open();
-  void close();
+    void setName(const QString &portname);
+    void setSpeed(const int speed);
+    void setAnswerTimeout(int timeout);
+    bool open();
+    void close();
 
-  int query( const QByteArray &request, QByteArray &answer, int *errorcode=0);
+    int query(const QByteArray &request, QByteArray &answer,
+              int *errorcode = 0);
 
-  QString name(); //!< Имя интерфейса
-  int speed() { return 0;   } //!< Скорость интерфейса
-  int answerTimeout() const;
-  QString lastError() const;
-  void resetLastErrorType();
+    QString name();           //!< Имя интерфейса
+    int speed() { return 0; } //!< Скорость интерфейса
+    int answerTimeout() const;
+    QString lastError() const;
+    void resetLastErrorType();
 
-  static QStringList queryComPorts();
+    static QStringList queryComPorts();
 
-  bool console_out_packets;
+    bool console_out_packets;
+
 private:
-  MbTcpPortPrivate *d;
+    MbTcpPortPrivate *d;
 };
 
 #endif

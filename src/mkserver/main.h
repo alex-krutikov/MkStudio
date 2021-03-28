@@ -10,7 +10,8 @@ class Settings : public QSettings
 {
 public:
     Settings()
-        : QSettings(QDir::homePath() + "/.mkserver_config", QSettings::IniFormat)
+        : QSettings(QDir::homePath() + "/.mkserver_config",
+                    QSettings::IniFormat)
     {
     }
 };

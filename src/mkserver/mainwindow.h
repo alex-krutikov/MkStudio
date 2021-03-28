@@ -12,24 +12,27 @@ class AbstractMBServer;
 // главное окно
 //==============================================================================
 #include "ui/ui_mainwindow.h"
-class MainWindow : public QMainWindow,
-                   public Ui::MainWindow
+class MainWindow
+    : public QMainWindow
+    , public Ui::MainWindow
 {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  MainWindow();
-  virtual ~MainWindow();
-protected:
-  void timerEvent(QTimerEvent *event);
-private slots:
-  void settingsChanged();
-  void replyDelayChanged(int);
-private:
-  void closeEvent ( QCloseEvent * event );
-  void console_update();
+    MainWindow();
+    virtual ~MainWindow();
 
-  std::unique_ptr<AbstractSerialPort> serialport;
-  std::unique_ptr<AbstractMBServer> tcpserver;
+protected:
+    void timerEvent(QTimerEvent *event);
+private slots:
+    void settingsChanged();
+    void replyDelayChanged(int);
+
+private:
+    void closeEvent(QCloseEvent *event);
+    void console_update();
+
+    std::unique_ptr<AbstractSerialPort> serialport;
+    std::unique_ptr<AbstractMBServer> tcpserver;
 };
 
 #endif

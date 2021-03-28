@@ -6,17 +6,17 @@
 #include "thread.h"
 
 #include <QDir>
-#include <QSettings>
 #include <QNetworkAccessManager>
+#include <QSettings>
 
 #ifndef DEFAULT_SERVER_URL
-#define DEFAULT_SERVER_URL "http://37.139.19.214/mmpm"
+    #define DEFAULT_SERVER_URL "http://37.139.19.214/mmpm"
 #endif
 
-extern MainWindow   *mainwindow;
+extern MainWindow *mainwindow;
 extern ModbusMaster *modbus;
-extern Thread       *thread1;
-extern HelpDialog   *helpdialog;
+extern Thread *thread1;
+extern HelpDialog *helpdialog;
 
 extern QString temp_str;
 extern QString temp_str2;

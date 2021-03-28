@@ -6,17 +6,20 @@
 #include <QWidget>
 
 class QUrl;
-namespace Ui { class HelpWidget; }
+namespace Ui {
+class HelpWidget;
+}
 
 class MK_EXPORT HelpWidget : public QWidget
 {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  HelpWidget(QWidget *parent = 0);
-  virtual ~HelpWidget();
-  void setContents( const QUrl &url );
+    HelpWidget(QWidget *parent = 0);
+    virtual ~HelpWidget();
+    void setContents(const QUrl &url);
+
 private:
-  Ui::HelpWidget *ui;
+    Ui::HelpWidget *ui;
 };
 
 

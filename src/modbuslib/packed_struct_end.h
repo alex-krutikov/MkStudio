@@ -1,10 +1,10 @@
 #if defined(Q_CC_MSVC)
 
-  #pragma pack(pop)
+    #pragma pack(pop)
 
 #elif defined(Q_CC_GNU)
 #else
 
-  #error Unsupported compiler
+    #error Unsupported compiler
 
 #endif

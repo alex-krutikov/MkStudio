@@ -10,13 +10,14 @@ class Settings : public QSettings
 {
 public:
     Settings()
-        : QSettings(QDir::homePath() + "/.baseedit_config", QSettings::IniFormat)
+        : QSettings(QDir::homePath() + "/.baseedit_config",
+                    QSettings::IniFormat)
     {
     }
 };
 
 extern QApplication *appication;
-extern MainWindow   *mainwindow;
-extern QString       app_header;
+extern MainWindow *mainwindow;
+extern QString app_header;
 
 #endif

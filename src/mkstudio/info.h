@@ -9,10 +9,7 @@
 class ProgramInformation
 {
 public:
-  static QString version()
-  {
-     return "20091019";
-  }
+    static QString version() { return "20091019"; }
 };
 
 #endif

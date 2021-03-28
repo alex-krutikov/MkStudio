@@ -1,24 +1,23 @@
 #include "mainwindow.h"
-#include "main.h"
-#include "interface.h"
-#include "serialport.h"
-#include "mbtcp.h"
-#include "mbmasterxml.h"
-#include "serialport.h"
-#include "mktable.h"
 #include "crc.h"
+#include "interface.h"
+#include "main.h"
+#include "mbmasterxml.h"
+#include "mbtcp.h"
+#include "mktable.h"
+#include "serialport.h"
 
 #include <QDesktopWidget>
 #include <QMessageBox>
 #include <QPluginLoader>
 
 #ifdef Q_OS_WIN32
-  #define PLUGIN_FILE_MASK1 "mkview_*.dll"
-  #define PLUGIN_FILE_MASK2 ".dll"
+    #define PLUGIN_FILE_MASK1 "mkview_*.dll"
+    #define PLUGIN_FILE_MASK2 ".dll"
 #endif
 #ifdef Q_OS_UNIX
-  #define PLUGIN_FILE_MASK1 "libmkview_*.so"
-  #define PLUGIN_FILE_MASK2 ".so"
+    #define PLUGIN_FILE_MASK1 "libmkview_*.so"
+    #define PLUGIN_FILE_MASK2 ".so"
 #endif
 
 //##############################################################################
@@ -27,74 +26,76 @@
 class InfoLabel : public QLineEdit
 {
 public:
-  InfoLabel( QWidget *parent = 0 )
-    : QLineEdit( parent )
-  {
-    setReadOnly( true );
-    setFocusPolicy( Qt::NoFocus );
-    setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
-    setMinimumWidth(130);
-    setFrame( false );
-    QPalette p = palette();
-    p.setColor( QPalette::Base, p.color(QPalette::Window) );
-    setPalette( p );
-  }
+    InfoLabel(QWidget *parent = 0)
+        : QLineEdit(parent)
+    {
+        setReadOnly(true);
+        setFocusPolicy(Qt::NoFocus);
+        setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        setMinimumWidth(130);
+        setFrame(false);
+        QPalette p = palette();
+        p.setColor(QPalette::Base, p.color(QPalette::Window));
+        setPalette(p);
+    }
 };
 
 //#######################################################################################
 //
 //#######################################################################################
-InitDialog::InitDialog( QWidget *parent )
-  : QDialog( parent )
+InitDialog::InitDialog(QWidget *parent)
+    : QDialog(parent)
 {
-  QString str,str2;
-  int i;
+    QString str, str2;
+    int i;
 
-  setupUi( this );
-  setWindowTitle(app_header + " - Выбор модуля");
+    setupUi(this);
+    setWindowTitle(app_header + " - Выбор модуля");
 
-  Settings settings;
+    Settings settings;
 
-  //--------------------------------------------------------
-  QStringList ports = SerialPort::queryComPorts();
-  foreach( str, ports )
-  { str2=str;
-    str2.replace(';',"        ( ");
-    cb_portname->addItem( str2+" )", str.section(';',0,0) );
-  }
-  cb_portname->addItem( "Modbus TCP", "===TCP===" );
-  i = cb_portname->findData( settings.value("portname").toString() );
-  if( i >= 0 ) cb_portname->setCurrentIndex(i);
-  //--------------------------------------------------------
-  cb_portspeed->clear();
-  cb_portspeed -> addItems( QStringList() << "300"
-                                          << "600"
-                                          << "1200"
-                                          << "2400"
-                                          << "4800"
-                                          << "9600"
-                                          << "19200"
-                                          << "38400"
-                                          << "57600"
-                                          << "115200"
-                                          << "230400"
-                                          << "460800"
-                                          << "921600" );
-  i = cb_portspeed->findText( settings.value("portspeed","115200").toString() );
-  if( i >= 0 ) cb_portspeed->setCurrentIndex(i);
-  //--------------------------------------------------------
-  setModulesComboBox( cb_modulename );
-  i = cb_modulename->findText( settings.value("modulename").toString() );
-  if( i >= 0 ) cb_modulename->setCurrentIndex(i);
-  //--------------------------------------------------------
-  le_host->setText( settings.value("tcphost","1").toString() );
-  //--------------------------------------------------------
-  QRegExp rx("(\\d{1,3})(\\.\\d{1,2})?");
-  QValidator *validator = new QRegExpValidator(rx, this);
-  le_node->setValidator(validator);
-  le_node->setText( settings.value("modulenode","1").toString() );
-  //--------------------------------------------------------
-  setFocus();
+    //--------------------------------------------------------
+    QStringList ports = SerialPort::queryComPorts();
+    foreach (str, ports)
+    {
+        str2 = str;
+        str2.replace(';', "        ( ");
+        cb_portname->addItem(str2 + " )", str.section(';', 0, 0));
+    }
+    cb_portname->addItem("Modbus TCP", "===TCP===");
+    i = cb_portname->findData(settings.value("portname").toString());
+    if (i >= 0) cb_portname->setCurrentIndex(i);
+    //--------------------------------------------------------
+    cb_portspeed->clear();
+    cb_portspeed->addItems(QStringList() << "300"
+                                         << "600"
+                                         << "1200"
+                                         << "2400"
+                                         << "4800"
+                                         << "9600"
+                                         << "19200"
+                                         << "38400"
+                                         << "57600"
+                                         << "115200"
+                                         << "230400"
+                                         << "460800"
+                                         << "921600");
+    i = cb_portspeed->findText(
+        settings.value("portspeed", "115200").toString());
+    if (i >= 0) cb_portspeed->setCurrentIndex(i);
+    //--------------------------------------------------------
+    setModulesComboBox(cb_modulename);
+    i = cb_modulename->findText(settings.value("modulename").toString());
+    if (i >= 0) cb_modulename->setCurrentIndex(i);
+    //--------------------------------------------------------
+    le_host->setText(settings.value("tcphost", "1").toString());
+    //--------------------------------------------------------
+    QRegExp rx("(\\d{1,3})(\\.\\d{1,2})?");
+    QValidator *validator = new QRegExpValidator(rx, this);
+    le_node->setValidator(validator);
+    le_node->setText(settings.value("modulenode", "1").toString());
+    //--------------------------------------------------------
+    setFocus();
 }
 
 //==============================================================================
@@ -102,62 +103,67 @@ InitDialog::InitDialog( QWidget *parent )
 //==============================================================================
 void InitDialog::on_cb_portname_currentIndexChanged(int)
 {
-  QString str = cb_portname->itemData( cb_portname->currentIndex() ).toString();
-  bool b = ( str == "===TCP===" );
+    QString str = cb_portname->itemData(cb_portname->currentIndex()).toString();
+    bool b = (str == "===TCP===");
 
-  cb_portspeed->setHidden(   b );
-  l_speed->setHidden(        b );
-  l_host->setHidden(      !b );
-  le_host->setHidden( !b );
+    cb_portspeed->setHidden(b);
+    l_speed->setHidden(b);
+    l_host->setHidden(!b);
+    le_host->setHidden(!b);
 }
 
 //==============================================================================
 //
 //==============================================================================
-void InitDialog::setModulesComboBox( QComboBox *cb )
+void InitDialog::setModulesComboBox(QComboBox *cb)
 {
-  QStringList sl;
-  QString str,str2;
+    QStringList sl;
+    QString str, str2;
 
-  cb->clear();
+    cb->clear();
 
-  QDir current_dir(QDir::homePath() + "/.mkview" );
-  //-------------------------------------------------
-  sl = current_dir.entryList( QStringList() << "*.xml" );
-  foreach( str, sl )
-  { str2=str.toUpper();
-    str2.remove(".XML");
-    cb->addItem( str2, current_dir.absoluteFilePath(str) );
-  }
-  current_dir = QDir(qApp->applicationDirPath() + "/mikkon" );
-  //-------------------------------------------------
-  sl = current_dir.entryList( QStringList() << "*.xml" );
-  foreach( str, sl )
-  { str2=str.toUpper();
-    str2.remove(".XML");
-    cb->addItem( str2, current_dir.absoluteFilePath(str) );
-  }
-  //-------------------------------------------------
-  sl = current_dir.entryList( QStringList() << PLUGIN_FILE_MASK1 );
-  QPluginLoader pluginLoader;
-  QObject *plugin;
-  MKViewPluginInterface *ptr;
-  foreach( str, sl )
-  {
-    str2 = current_dir.absoluteFilePath(str);
-    pluginLoader.setFileName( str2 );
-    plugin = pluginLoader.instance();
-    if( plugin == 0) QMessageBox::critical(this,"error",pluginLoader.errorString() );
-    if( plugin == 0) continue;
-    ptr = qobject_cast<MKViewPluginInterface*>(plugin);
-    if( ptr == 0 ) continue;
-    cb->addItem( ptr->moduleName() + " [плагин]", str2 );
-    if( !pluginLoader.unload() )
-    { QMessageBox::critical( this,app_header,"Ошибка при выгрузке плагина.");
+    QDir current_dir(QDir::homePath() + "/.mkview");
+    //-------------------------------------------------
+    sl = current_dir.entryList(QStringList() << "*.xml");
+    foreach (str, sl)
+    {
+        str2 = str.toUpper();
+        str2.remove(".XML");
+        cb->addItem(str2, current_dir.absoluteFilePath(str));
     }
-  }
-  //-------------------------------------------------
-  cb->model()->sort(0);
+    current_dir = QDir(qApp->applicationDirPath() + "/mikkon");
+    //-------------------------------------------------
+    sl = current_dir.entryList(QStringList() << "*.xml");
+    foreach (str, sl)
+    {
+        str2 = str.toUpper();
+        str2.remove(".XML");
+        cb->addItem(str2, current_dir.absoluteFilePath(str));
+    }
+    //-------------------------------------------------
+    sl = current_dir.entryList(QStringList() << PLUGIN_FILE_MASK1);
+    QPluginLoader pluginLoader;
+    QObject *plugin;
+    MKViewPluginInterface *ptr;
+    foreach (str, sl)
+    {
+        str2 = current_dir.absoluteFilePath(str);
+        pluginLoader.setFileName(str2);
+        plugin = pluginLoader.instance();
+        if (plugin == 0)
+            QMessageBox::critical(this, "error", pluginLoader.errorString());
+        if (plugin == 0) continue;
+        ptr = qobject_cast<MKViewPluginInterface *>(plugin);
+        if (ptr == 0) continue;
+        cb->addItem(ptr->moduleName() + " [плагин]", str2);
+        if (!pluginLoader.unload())
+        {
+            QMessageBox::critical(this, app_header,
+                                  "Ошибка при выгрузке плагина.");
+        }
+    }
+    //-------------------------------------------------
+    cb->model()->sort(0);
 }
 
 //=======================================================================================
@@ -165,26 +171,30 @@ void InitDialog::setModulesComboBox( QComboBox *cb )
 //=======================================================================================
 void InitDialog::on_tb_modulehelp_clicked()
 {
-  QString filename = cb_modulename->itemData( cb_modulename->currentIndex() ).toString();
-  if( filename.contains(".xml") )
-  {
-    QMessageBox::information( this, app_header, "Описание модуля отсутствует." );
-    return;
-  }
-  if( filename.contains( PLUGIN_FILE_MASK2 ) )
-  {
-    QObject *plugin;
-    MKViewPluginInterface *ptr;
-    QPluginLoader pluginLoader( filename );
-    plugin = pluginLoader.instance();
-    if( plugin == 0) return;
-    ptr = qobject_cast<MKViewPluginInterface*>(plugin);
-    if( ptr == 0 ) return;
-    ptr->helpWindow( this );
-    if( !pluginLoader.unload() )
-    { QMessageBox::critical( this,app_header,"Ошибка при выгрузке плагина.");
+    QString filename
+        = cb_modulename->itemData(cb_modulename->currentIndex()).toString();
+    if (filename.contains(".xml"))
+    {
+        QMessageBox::information(this, app_header,
+                                 "Описание модуля отсутствует.");
+        return;
     }
-  }
+    if (filename.contains(PLUGIN_FILE_MASK2))
+    {
+        QObject *plugin;
+        MKViewPluginInterface *ptr;
+        QPluginLoader pluginLoader(filename);
+        plugin = pluginLoader.instance();
+        if (plugin == 0) return;
+        ptr = qobject_cast<MKViewPluginInterface *>(plugin);
+        if (ptr == 0) return;
+        ptr->helpWindow(this);
+        if (!pluginLoader.unload())
+        {
+            QMessageBox::critical(this, app_header,
+                                  "Ошибка при выгрузке плагина.");
+        }
+    }
 }
 
 //=======================================================================================
@@ -192,62 +202,68 @@ void InitDialog::on_tb_modulehelp_clicked()
 //=======================================================================================
 void InitDialog::on_tb_moduleinfo_clicked()
 {
-  int ret,i;
+    int ret, i;
 
-  qApp->setOverrideCursor( QCursor( Qt::WaitCursor ) );
+    qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  QString node = module_node();
+    QString node = module_node();
 
-  SerialPort serialport;
-  serialport.setName( portname() );
-  serialport.setSpeed( portspeed() );
-  if( !serialport.open() )
-  { qApp->restoreOverrideCursor();
-    QMessageBox::information(0,app_header,
-                             "Ошибка открытия порта.\n\n"
-                             "Возможно, что порт используется\n"
-                             "другим приложением."   );
-    return;
-  }
+    SerialPort serialport;
+    serialport.setName(portname());
+    serialport.setSpeed(portspeed());
+    if (!serialport.open())
+    {
+        qApp->restoreOverrideCursor();
+        QMessageBox::information(0, app_header,
+                                 "Ошибка открытия порта.\n\n"
+                                 "Возможно, что порт используется\n"
+                                 "другим приложением.");
+        return;
+    }
 
-  QByteArray req;
-  QByteArray ans;
-  req.resize(6);
-  ans.resize(128+6);
-  req[0] = int_module_node();
-  req[1] = 0x41;
-  req[2] = int_module_subnode() << 4;
-  req[3] = 0;
-  req[4] = 0;
-  req[5] = 128;
-  CRC::appendCRC16( req );
+    QByteArray req;
+    QByteArray ans;
+    req.resize(6);
+    ans.resize(128 + 6);
+    req[0] = int_module_node();
+    req[1] = 0x41;
+    req[2] = int_module_subnode() << 4;
+    req[3] = 0;
+    req[4] = 0;
+    req[5] = 128;
+    CRC::appendCRC16(req);
 
-  i=5;
-  while( i-- )
-  {
-    ret = serialport.query( req, ans );
-    if( ret != (128+6) )  continue;
-    if( CRC::CRC16(ans) ) continue;
-    break;
-  }
+    i = 5;
+    while (i--)
+    {
+        ret = serialport.query(req, ans);
+        if (ret != (128 + 6)) continue;
+        if (CRC::CRC16(ans)) continue;
+        break;
+    }
 
-  qApp->restoreOverrideCursor();
+    qApp->restoreOverrideCursor();
 
-  if( ret==0 )
-  {  QMessageBox::information( this, app_header, "Нет связи с модулем." );
-     return;
-  }
-  if( ret!=(128+6) )
-  {  QMessageBox::information( this, app_header, "Ошибка связи с модулем: неверная длина ответа." );
-     return;
-  }
-  if( CRC::CRC16(ans) )
-  {  QMessageBox::information( this, app_header, "Ошибка связи с модулем: ошибка CRC." );
-     return;
-  }
+    if (ret == 0)
+    {
+        QMessageBox::information(this, app_header, "Нет связи с модулем.");
+        return;
+    }
+    if (ret != (128 + 6))
+    {
+        QMessageBox::information(
+            this, app_header, "Ошибка связи с модулем: неверная длина ответа.");
+        return;
+    }
+    if (CRC::CRC16(ans))
+    {
+        QMessageBox::information(this, app_header,
+                                 "Ошибка связи с модулем: ошибка CRC.");
+        return;
+    }
 
-  ModuleInfoDialog dialog( this, ans.right(128+2) );
-  dialog.exec();
+    ModuleInfoDialog dialog(this, ans.right(128 + 2));
+    dialog.exec();
 }
 
 //=======================================================================================
@@ -255,7 +271,7 @@ void InitDialog::on_tb_moduleinfo_clicked()
 //=======================================================================================
 void InitDialog::on_pb_update_clicked()
 {
-     QMessageBox::information( this, app_header, "В разработке" );
+    QMessageBox::information(this, app_header, "В разработке");
 }
 
 //=======================================================================================
@@ -272,7 +288,7 @@ void InitDialog::on_pb_settings_clicked()
 //=======================================================================================
 QString InitDialog::filename()
 {
-  return cb_modulename->itemData( cb_modulename->currentIndex() ).toString();
+    return cb_modulename->itemData(cb_modulename->currentIndex()).toString();
 }
 
 //=======================================================================================
@@ -280,7 +296,7 @@ QString InitDialog::filename()
 //=======================================================================================
 QString InitDialog::portname()
 {
-  return cb_portname->itemData( cb_portname->currentIndex() ).toString();
+    return cb_portname->itemData(cb_portname->currentIndex()).toString();
 }
 
 //=======================================================================================
@@ -288,7 +304,7 @@ QString InitDialog::portname()
 //=======================================================================================
 int InitDialog::portspeed()
 {
-  return cb_portspeed->currentText().toInt();
+    return cb_portspeed->currentText().toInt();
 }
 
 //=======================================================================================
@@ -296,7 +312,7 @@ int InitDialog::portspeed()
 //=======================================================================================
 QString InitDialog::module_node()
 {
-  return le_node->text();
+    return le_node->text();
 }
 
 //=======================================================================================
@@ -304,7 +320,7 @@ QString InitDialog::module_node()
 //=======================================================================================
 QString InitDialog::module_name()
 {
-  return cb_modulename->currentText();
+    return cb_modulename->currentText();
 }
 
 //=======================================================================================
@@ -312,7 +328,7 @@ QString InitDialog::module_name()
 //=======================================================================================
 QString InitDialog::host() const
 {
-  return le_host->text();
+    return le_host->text();
 }
 
 //=======================================================================================
@@ -320,18 +336,18 @@ QString InitDialog::host() const
 //=======================================================================================
 int InitDialog::int_module_node()
 {
-  QRegExp rx("(\\d+)");
-  rx.indexIn( module_node() );
-  return rx.cap(1).toInt();
+    QRegExp rx("(\\d+)");
+    rx.indexIn(module_node());
+    return rx.cap(1).toInt();
 }
 //=======================================================================================
 //
 //=======================================================================================
 int InitDialog::int_module_subnode()
 {
-  QRegExp rx("\\d+\\.(\\d+)");
-  rx.indexIn( module_node() );
-  return rx.cap(1).toInt();
+    QRegExp rx("\\d+\\.(\\d+)");
+    rx.indexIn(module_node());
+    return rx.cap(1).toInt();
 }
 
 //=======================================================================================
@@ -339,13 +355,14 @@ int InitDialog::int_module_subnode()
 //=======================================================================================
 void InitDialog::accept()
 {
-  Settings settings;
-  settings.setValue( "portname",   cb_portname->itemData( cb_portname->currentIndex() ) );
-  settings.setValue( "portspeed",  cb_portspeed->currentText() );
-  settings.setValue( "tcphost",    le_host->text() );
-  settings.setValue( "modulename", cb_modulename->currentText() );
-  settings.setValue( "modulenode", le_node->text() );
-  done( QDialog::Accepted );
+    Settings settings;
+    settings.setValue("portname",
+                      cb_portname->itemData(cb_portname->currentIndex()));
+    settings.setValue("portspeed", cb_portspeed->currentText());
+    settings.setValue("tcphost", le_host->text());
+    settings.setValue("modulename", cb_modulename->currentText());
+    settings.setValue("modulenode", le_node->text());
+    done(QDialog::Accepted);
 }
 
 //#######################################################################################
@@ -360,7 +377,6 @@ SettingsDialog::SettingsDialog(QWidget *parent)
 
     Settings settings;
     le_update_url->setText(settings.value("update_url").toString());
-
 }
 
 //=======================================================================================
@@ -377,102 +393,107 @@ void SettingsDialog::accept()
 //#######################################################################################
 //
 //#######################################################################################
-MainWindowXml::MainWindowXml( QWidget *parent, const QString &portname, int portspeed ,
-                 const QString &host, const QString &xml_filename,int node, int subnode )
-  : QMainWindow( parent )
+MainWindowXml::MainWindowXml(QWidget *parent, const QString &portname,
+                             int portspeed, const QString &host,
+                             const QString &xml_filename, int node, int subnode)
+    : QMainWindow(parent)
 {
-  setupUi( this );
+    setupUi(this);
 
-  Settings settings;
-  int i = settings.value("font_size").toInt();
-  if( i > 6 )
-  { QFont fnt = qApp->font();
-    fnt.setPointSize( i );
-    qApp->setFont( fnt );
-  }
+    Settings settings;
+    int i = settings.value("font_size").toInt();
+    if (i > 6)
+    {
+        QFont fnt = qApp->font();
+        fnt.setPointSize(i);
+        qApp->setFont(fnt);
+    }
 
-  AbstractSerialPortPtr port;
-  if( portname == "===TCP===" )
-  { port.reset(new MbTcpPort);
-    port->setName( host );
-  } else
-  { port.reset(new SerialPort);
-    port->setName( portname );
-  }
+    AbstractSerialPortPtr port;
+    if (portname == "===TCP===")
+    {
+        port.reset(new MbTcpPort);
+        port->setName(host);
+    } else
+    {
+        port.reset(new SerialPort);
+        port->setName(portname);
+    }
 
-  port->setSpeed( portspeed );
+    port->setSpeed(portspeed);
 
-  if( !port->open() )
-  { qApp->restoreOverrideCursor();
-    QMessageBox::information(0,app_header,
-                             "Ошибка открытия порта.\n\n"
-                             "Возможно, что порт используется\n"
-                             "другим приложением.\n\n"
-                             "Порт будет автоматически открыт\nпри его освобождении." );
-  }
+    if (!port->open())
+    {
+        qApp->restoreOverrideCursor();
+        QMessageBox::information(
+            0, app_header,
+            "Ошибка открытия порта.\n\n"
+            "Возможно, что порт используется\n"
+            "другим приложением.\n\n"
+            "Порт будет автоматически открыт\nпри его освобождении.");
+    }
 
-  mbmaster.reset(new MBMasterXML);
-  mbmaster->setTransport( port );
+    mbmaster.reset(new MBMasterXML);
+    mbmaster->setTransport(port);
 
-  tw = new MKTable;
-  tw->setMBMaster(mbmaster);
-  //--------------------------------------------------------------------------------------
+    tw = new MKTable;
+    tw->setMBMaster(mbmaster);
+    //--------------------------------------------------------------------------------------
 
-  QDomNodeList list;
-  QDomDocument doc("MConf");
-  QFile file(xml_filename);
-  file.open(QIODevice::ReadOnly);
-  doc.setContent(&file);
-  file.close();
+    QDomNodeList list;
+    QDomDocument doc("MConf");
+    QFile file(xml_filename);
+    file.open(QIODevice::ReadOnly);
+    doc.setContent(&file);
+    file.close();
 
-  list = doc.elementsByTagName("Table");
-  if( list.count() )
-  { QDomDocument doc_table;
-    doc_table.appendChild( doc_table.importNode( list.item(0), true ) );
-    tw->loadConfiguration( doc_table );
-  }
-  list = doc.elementsByTagName("MBConfig");
-  if( list.count() )
-  {
-    QDomDocument doc_config;
-    doc_config.appendChild( doc_config.importNode( list.item(0), true ) );
-    mbmaster->load_configuration( doc_config );
-    mbmaster->set_module_node( 1, node, subnode );
-    mbmaster->polling_start();
-  }
-  tw->setMode( MKTable::Polling );
+    list = doc.elementsByTagName("Table");
+    if (list.count())
+    {
+        QDomDocument doc_table;
+        doc_table.appendChild(doc_table.importNode(list.item(0), true));
+        tw->loadConfiguration(doc_table);
+    }
+    list = doc.elementsByTagName("MBConfig");
+    if (list.count())
+    {
+        QDomDocument doc_config;
+        doc_config.appendChild(doc_config.importNode(list.item(0), true));
+        mbmaster->load_configuration(doc_config);
+        mbmaster->set_module_node(1, node, subnode);
+        mbmaster->polling_start();
+    }
+    tw->setMode(MKTable::Polling);
 
-  //------- строка статуса -------------------------------------------------------------
+    //------- строка статуса
+    //-------------------------------------------------------------
 
-  statusbar = new QStatusBar();
-  full_time       = new InfoLabel;
-  status_requests = new InfoLabel;
-  status_answers  = new InfoLabel;
-  status_errors   = new InfoLabel;
-  statusbar->addPermanentWidget( full_time       );
-  statusbar->addPermanentWidget( status_requests );
-  statusbar->addPermanentWidget( status_answers  );
-  statusbar->addPermanentWidget( status_errors   );
-  setStatusBar( statusbar );
+    statusbar = new QStatusBar();
+    full_time = new InfoLabel;
+    status_requests = new InfoLabel;
+    status_answers = new InfoLabel;
+    status_errors = new InfoLabel;
+    statusbar->addPermanentWidget(full_time);
+    statusbar->addPermanentWidget(status_requests);
+    statusbar->addPermanentWidget(status_answers);
+    statusbar->addPermanentWidget(status_errors);
+    setStatusBar(statusbar);
 
-  QTimer *timer = new QTimer(this);
-  connect(timer, SIGNAL(timeout()), this, SLOT(group_update()));
-  timer->start(200);
+    QTimer *timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(group_update()));
+    timer->start(200);
 
- //------- геометрия окна по центру экрана ----------------------------------------------
- setWindowTitle( app_header );
- setCentralWidget( tw );
- QRect rs = QApplication::desktop()->availableGeometry();
- QRect rw;
- rw.setSize( sizeHint() );
- if( rw.height() > ( rs.height() - 70 ) )
- { rw.setHeight(  rs.height() - 50 );
- }
- if( rw.width() > ( rs.width() - 50 ) )
- { rw.setWidth(  rs.width() - 70 );
- }
- rw.moveCenter( rs.center() );
- setGeometry( rw );
+    //------- геометрия окна по центру экрана
+    //----------------------------------------------
+    setWindowTitle(app_header);
+    setCentralWidget(tw);
+    QRect rs = QApplication::desktop()->availableGeometry();
+    QRect rw;
+    rw.setSize(sizeHint());
+    if (rw.height() > (rs.height() - 70)) { rw.setHeight(rs.height() - 50); }
+    if (rw.width() > (rs.width() - 50)) { rw.setWidth(rs.width() - 70); }
+    rw.moveCenter(rs.center());
+    setGeometry(rw);
 }
 
 //==============================================================================
@@ -480,11 +501,11 @@ MainWindowXml::MainWindowXml( QWidget *parent, const QString &portname, int port
 //==============================================================================
 void MainWindowXml::on_action_font_increase_triggered()
 {
-  QFont fnt = qApp->font();
-  int a = fnt.pointSize();
-  a += 1;
-  fnt.setPointSize( a );
-  qApp->setFont( fnt );
+    QFont fnt = qApp->font();
+    int a = fnt.pointSize();
+    a += 1;
+    fnt.setPointSize(a);
+    qApp->setFont(fnt);
 }
 
 //==============================================================================
@@ -492,13 +513,12 @@ void MainWindowXml::on_action_font_increase_triggered()
 //==============================================================================
 void MainWindowXml::on_action_font_decrease_triggered()
 {
-  QFont fnt = qApp->font();
-  int a = fnt.pointSize();
-  if( a > 8 )  a -= 1;
-  fnt.setPointSize( a );
-  qApp->setFont( fnt );
+    QFont fnt = qApp->font();
+    int a = fnt.pointSize();
+    if (a > 8) a -= 1;
+    fnt.setPointSize(a);
+    qApp->setFont(fnt);
 }
-
 
 
 //==============================================================================
@@ -506,42 +526,46 @@ void MainWindowXml::on_action_font_decrease_triggered()
 //==============================================================================
 void MainWindowXml::group_update()
 {
-  full_time       -> setText( QString(" Время опроса: %1 мс ").arg(mbmaster->full_time()) );
-  status_requests -> setText( QString(" Запросы: %1 ").arg(mbmaster->request_counter()) );
-  status_answers  -> setText( QString(" Ответы:  %1 ").arg(mbmaster->answer_counter()) );
-  status_errors   -> setText( QString(" Ошибки:  %1 ").arg(mbmaster->error_counter()) );
+    full_time->setText(
+        QString(" Время опроса: %1 мс ").arg(mbmaster->full_time()));
+    status_requests->setText(
+        QString(" Запросы: %1 ").arg(mbmaster->request_counter()));
+    status_answers->setText(
+        QString(" Ответы:  %1 ").arg(mbmaster->answer_counter()));
+    status_errors->setText(
+        QString(" Ошибки:  %1 ").arg(mbmaster->error_counter()));
 }
 
 //-------------------------------------------------------------------------------------------
 //
 //-------------------------------------------------------------------------------------------
-void MainWindowXml::closeEvent( QCloseEvent *event )
+void MainWindowXml::closeEvent(QCloseEvent *event)
 {
-  Q_UNUSED( event );
+    Q_UNUSED(event);
 
-  mbmaster->polling_stop();
+    mbmaster->polling_stop();
 
-  Settings settings;
-  settings.setValue( "font_size",   qApp->font().pointSize() );
+    Settings settings;
+    settings.setValue("font_size", qApp->font().pointSize());
 }
 
 //#######################################################################################
 //
 //#######################################################################################
-ModuleInfoDialog::ModuleInfoDialog( QWidget *parent, const QByteArray &ba )
-  : QDialog ( parent )
+ModuleInfoDialog::ModuleInfoDialog(QWidget *parent, const QByteArray &ba)
+    : QDialog(parent)
 {
-  setupUi( this );
-  setWindowTitle( "Информация о модуле" );
-  MikkonModuleDefinition mmd = MBMasterXML::decodeModuleDefinition( ba );
-  le_name      -> setText( mmd.productName );
-  le_desc      -> setText( mmd.productDescription );
-  le_firmware  -> setText( QString("%1 [%2] %3.%4")
-                               .arg( mmd.releaseDate   )
-                               .arg( mmd.releaseMadeBy )
-                               .arg( mmd.majorVersion  )
-                               .arg( mmd.minorVersion  ) );
-  le_company   -> setText( mmd.companyName );
-  le_copyright -> setText( mmd.legalCopyright );
-  le_id        -> setText( QString().sprintf("%4.4X", mmd.id ) );
+    setupUi(this);
+    setWindowTitle("Информация о модуле");
+    MikkonModuleDefinition mmd = MBMasterXML::decodeModuleDefinition(ba);
+    le_name->setText(mmd.productName);
+    le_desc->setText(mmd.productDescription);
+    le_firmware->setText(QString("%1 [%2] %3.%4")
+                             .arg(mmd.releaseDate)
+                             .arg(mmd.releaseMadeBy)
+                             .arg(mmd.majorVersion)
+                             .arg(mmd.minorVersion));
+    le_company->setText(mmd.companyName);
+    le_copyright->setText(mmd.legalCopyright);
+    le_id->setText(QString().sprintf("%4.4X", mmd.id));
 }

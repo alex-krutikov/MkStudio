@@ -11,12 +11,15 @@ class ScriptHighlighter : public QSyntaxHighlighter
     Q_OBJECT
 public:
     ScriptHighlighter(QTextDocument *parent = 0);
+
 protected:
     void highlightBlock(const QString &text);
+
 private:
     struct HighlightingRule
-    { QRegExp         pattern;
-      QTextCharFormat format;
+    {
+        QRegExp pattern;
+        QTextCharFormat format;
     };
     QVector<HighlightingRule> highlightingRules;
 };

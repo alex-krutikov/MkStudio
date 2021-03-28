@@ -7,8 +7,8 @@
 // глобальные переменные
 //=======================================================================================
 QApplication *application;
-MainWindow   *mainwindow;
-QString       app_header;
+MainWindow *mainwindow;
+QString app_header;
 
 //=======================================================================================
 // MAIN
@@ -19,8 +19,9 @@ int main(int argc, char *argv[])
 
     QApplication application(argc, argv);
 
-    if ( qt_translator.load( ":tr/qt_ru.qm" ) )
-    { application.installTranslator( &qt_translator );
+    if (qt_translator.load(":tr/qt_ru.qm"))
+    {
+        application.installTranslator(&qt_translator);
     }
 
     app_header = "BaseEdit";
@@ -28,9 +29,10 @@ int main(int argc, char *argv[])
     MainWindow mainwindow;
     mainwindow.show();
 
-    QFile file( QCoreApplication::arguments().value(1) );
-    if( file.exists() )
-    { mainwindow.load_file( QFileInfo(file).absoluteFilePath() );
+    QFile file(QCoreApplication::arguments().value(1));
+    if (file.exists())
+    {
+        mainwindow.load_file(QFileInfo(file).absoluteFilePath());
     }
 
     application.exec();

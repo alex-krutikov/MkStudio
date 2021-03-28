@@ -13,7 +13,9 @@ ScriptHighlighter::ScriptHighlighter(QTextDocument *parent)
     QTextCharFormat keywordFormat;
     QTextCharFormat singleLineCommentFormat;
 
-    keywordPatterns << "enum" << "bitmask" << "tooltip";
+    keywordPatterns << "enum"
+                    << "bitmask"
+                    << "tooltip";
 
     // =1:
     cf1.setForeground(Qt::darkBlue);
@@ -26,9 +28,10 @@ ScriptHighlighter::ScriptHighlighter(QTextDocument *parent)
     keywordFormat.setForeground(Qt::darkBlue);
     keywordFormat.setFontWeight(QFont::Bold);
     foreach (QString pattern, keywordPatterns)
-    { rule.pattern = QRegExp("\\b"+pattern+"\\b");
-      rule.format = keywordFormat;
-      highlightingRules << rule;
+    {
+        rule.pattern = QRegExp("\\b" + pattern + "\\b");
+        rule.format = keywordFormat;
+        highlightingRules << rule;
     }
 
     // однострочные комментарии
@@ -43,15 +46,17 @@ ScriptHighlighter::ScriptHighlighter(QTextDocument *parent)
 //==============================================================================
 void ScriptHighlighter::highlightBlock(const QString &text)
 {
-  int index,length;
+    int index, length;
 
-  foreach( HighlightingRule rule, highlightingRules )
-  { QRegExp expression(rule.pattern);
-    index = text.indexOf(expression);
-    while (index >= 0)
-    { length = expression.matchedLength();
-      setFormat(index, length, rule.format);
-      index = text.indexOf(expression, index + length);
+    foreach (HighlightingRule rule, highlightingRules)
+    {
+        QRegExp expression(rule.pattern);
+        index = text.indexOf(expression);
+        while (index >= 0)
+        {
+            length = expression.matchedLength();
+            setFormat(index, length, rule.format);
+            index = text.indexOf(expression, index + length);
+        }
     }
-  }
 }

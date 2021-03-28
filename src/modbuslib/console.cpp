@@ -12,21 +12,23 @@ static bool show_timestamp = true;
 //=============================================================================
 /// Напечатать сообщение
 //=============================================================================
-void Console::Print( MessageType mtype, const QString &message )
+void Console::Print(MessageType mtype, const QString &message)
 {
-  QString text = message;
+    QString text = message;
 
-  if (show_timestamp)
-  {
-    const QString timeStamp = QTime::currentTime().toString(QStringView(u"hh:mm:ss.zzz"));
-    text = QString("%1  %2").arg(timeStamp).arg(message);
-  }
+    if (show_timestamp)
+    {
+        const QString timeStamp
+            = QTime::currentTime().toString(QStringView(u"hh:mm:ss.zzz"));
+        text = QString("%1  %2").arg(timeStamp).arg(message);
+    }
 
-  QMutexLocker locker( &mutex );
-  if( mtype & message_types )
-  { ::message += text;
-    if( ::message.length() > 16384 ) ::message.remove(0,4096);
-  }
+    QMutexLocker locker(&mutex);
+    if (mtype & message_types)
+    {
+        ::message += text;
+        if (::message.length() > 16384) ::message.remove(0, 4096);
+    }
 }
 
 //=============================================================================
@@ -34,10 +36,10 @@ void Console::Print( MessageType mtype, const QString &message )
 //=============================================================================
 QString Console::takeMessage()
 {
-  QMutexLocker locker( &mutex );
-  QString ret = message;
-  message.clear();
-  return ret;
+    QMutexLocker locker(&mutex);
+    QString ret = message;
+    message.clear();
+    return ret;
 }
 
 //=============================================================================
@@ -46,16 +48,16 @@ QString Console::takeMessage()
 /// \param type   тип сообщения
 /// \param status true - установить отображение, false - убрать отображение
 //=============================================================================
-void Console::setMessageTypes( int type, bool status )
+void Console::setMessageTypes(int type, bool status)
 {
-  QMutexLocker locker( &mutex );
-  if( status )
-  { // set
-    message_types |= type;
-  } else
-  { // clear
-    message_types &= ~type;
-  }
+    QMutexLocker locker(&mutex);
+    if (status)
+    { // set
+        message_types |= type;
+    } else
+    { // clear
+        message_types &= ~type;
+    }
 }
 
 //=============================================================================
@@ -63,9 +65,9 @@ void Console::setMessageTypes( int type, bool status )
 //
 /// \return маска типов отображаемых сообщений
 //=============================================================================
-int  Console::messageTypes()
+int Console::messageTypes()
 {
-  return message_types;
+    return message_types;
 }
 
 //=============================================================================

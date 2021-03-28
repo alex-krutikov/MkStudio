@@ -1,19 +1,22 @@
 #ifndef MYSLOTCONFIGTABLEVIEW_H
 #define MYSLOTCONFIGTABLEVIEW_H
 
-#include <QTableView>
 #include <QItemDelegate>
+#include <QTableView>
 
 //===================================================================
 //! Таблица слотов из виджета "Конфигурация сети МК"
 //===================================================================
 class SlotConfigTableView : public QTableView
 {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  SlotConfigTableView(QWidget* parent = 0) : QTableView(parent)  { }
+    SlotConfigTableView(QWidget *parent = 0)
+        : QTableView(parent)
+    {
+    }
 public slots:
-  void handleClick(QModelIndex ind);
+    void handleClick(QModelIndex ind);
 };
 
 //===================================================================
@@ -21,17 +24,22 @@ public slots:
 //===================================================================
 class MBConfigWidgetItemDelegate : public QItemDelegate
 {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  MBConfigWidgetItemDelegate( QWidget *parent = 0 );
-  void setModelData ( QWidget * editor, QAbstractItemModel * model, const QModelIndex &index ) const;
-  QWidget *createEditor ( QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index ) const;
-  void updateEditorGeometry ( QWidget * editor, const QStyleOptionViewItem & option, const QModelIndex & index ) const;
-  void setArduinoOnly(bool arduinoOnly);
+    MBConfigWidgetItemDelegate(QWidget *parent = 0);
+    void setModelData(QWidget *editor, QAbstractItemModel *model,
+                      const QModelIndex &index) const;
+    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option,
+                          const QModelIndex &index) const;
+    void updateEditorGeometry(QWidget *editor,
+                              const QStyleOptionViewItem &option,
+                              const QModelIndex &index) const;
+    void setArduinoOnly(bool arduinoOnly);
 private slots:
-  void commitAndCloseEditor();
+    void commitAndCloseEditor();
+
 private:
-  bool arduinoOnly;
+    bool arduinoOnly;
 };
 
 #endif

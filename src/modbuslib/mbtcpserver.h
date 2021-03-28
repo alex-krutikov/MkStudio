@@ -3,10 +3,10 @@
 
 #include "abstractmbserver.h"
 
-#include <QObject>
-#include <QThread>
 #include <QByteArray>
 #include <QMap>
+#include <QObject>
+#include <QThread>
 
 #include <atomic>
 
@@ -20,12 +20,10 @@ class QTcpSocket;
 //=============================================================================
 struct ModbusTcpServerThreadItem
 {
-  ModbusTcpServerThreadItem()
-  { timeout_timer=0;
-  }
+    ModbusTcpServerThreadItem() { timeout_timer = 0; }
 
-  QByteArray req,ans;
-  int timeout_timer;
+    QByteArray req, ans;
+    int timeout_timer;
 };
 
 //=============================================================================
@@ -33,22 +31,23 @@ struct ModbusTcpServerThreadItem
 //=============================================================================
 class ModbusTcpServerThread : public QThread
 {
-  friend class ModbusTcpServer;
-  Q_OBJECT
+    friend class ModbusTcpServer;
+    Q_OBJECT
 protected:
-  void run();
-  void timerEvent( QTimerEvent * event );
+    void run();
+    void timerEvent(QTimerEvent *event);
 public slots:
-  void newConnection();
-  void readyRead();
-  void disconnected();
-private:
-  AbstractSerialPort *sp;
-  int mb_tcp_port;
-  QTcpServer *server;
-  std::atomic_int replay_delay;
+    void newConnection();
+    void readyRead();
+    void disconnected();
 
-  QMap< QTcpSocket*, ModbusTcpServerThreadItem  > map;
+private:
+    AbstractSerialPort *sp;
+    int mb_tcp_port;
+    QTcpServer *server;
+    std::atomic_int replay_delay;
+
+    QMap<QTcpSocket *, ModbusTcpServerThreadItem> map;
 };
 
 //=============================================================================
@@ -57,16 +56,16 @@ private:
 class ModbusTcpServer : public AbstractMBServer
 {
 public:
-  ModbusTcpServer(AbstractSerialPort *sp = 0, int mb_tcp_port=502 );
-  ~ModbusTcpServer();
+    ModbusTcpServer(AbstractSerialPort *sp = 0, int mb_tcp_port = 502);
+    ~ModbusTcpServer();
 
-  void setReplyDelay(int delay) override;
+    void setReplyDelay(int delay) override;
 
 private:
-  ModbusTcpServerThread *sp_thread;
+    ModbusTcpServerThread *sp_thread;
 
-  AbstractSerialPort *sp;
-  int mb_tcp_port;
+    AbstractSerialPort *sp;
+    int mb_tcp_port;
 };
 
 #endif
