@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>707</width>
+    <width>1023</width>
     <height>633</height>
    </rect>
   </property>
@@ -46,7 +46,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>707</width>
+     <width>1023</width>
      <height>21</height>
     </rect>
    </property>
@@ -105,6 +105,9 @@
     <addaction name="action_align_right"/>
     <addaction name="action_foreground_color"/>
     <addaction name="action_background_color"/>
+    <addaction name="separator"/>
+    <addaction name="action_span"/>
+    <addaction name="action_unspan"/>
     <addaction name="separator"/>
     <addaction name="action_link"/>
    </widget>
@@ -309,6 +312,9 @@
    <addaction name="separator"/>
    <addaction name="action_cell_delete_left"/>
    <addaction name="action_cell_delete_up"/>
+   <addaction name="separator"/>
+   <addaction name="action_span"/>
+   <addaction name="action_unspan"/>
   </widget>
   <widget class="QDockWidget" name="dw_settingssheet">
    <property name="windowTitle">
@@ -777,6 +783,30 @@
    </property>
    <property name="text">
     <string>Горячие клавиши</string>
+   </property>
+  </action>
+  <action name="action_span">
+   <property name="icon">
+    <iconset resource="../mkstudio.qrc">
+     <normaloff>:/icons/res/row_span.png</normaloff>:/icons/res/row_span.png</iconset>
+   </property>
+   <property name="text">
+    <string>Объединить ячейки</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+S</string>
+   </property>
+  </action>
+  <action name="action_unspan">
+   <property name="icon">
+    <iconset resource="../mkstudio.qrc">
+     <normaloff>:/icons/res/row_unspan.png</normaloff>:/icons/res/row_unspan.png</iconset>
+   </property>
+   <property name="text">
+    <string>Убрать объединение ячеек</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+U</string>
    </property>
   </action>
  </widget>

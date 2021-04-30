@@ -273,6 +273,7 @@ void MainWindow::on_action_new_triggered()
     current_config_filename.clear();
     setWindowTitle(Utils::AppInfo::title());
     tw->clear();
+    tw->clearSpans();
     te_settingssheet->clear();
     tw->setRowCount(6);
     tw->setColumnCount(6);
@@ -1465,6 +1466,46 @@ void MainWindow::on_action_united_graph_triggered()
 {
     UnitedSlots *us = new UnitedSlots(this);
     us->show();
+}
+
+//==============================================================================
+///
+//==============================================================================
+void MainWindow::on_action_span_triggered()
+{
+    QTableWidgetItem *titem;
+    QList<QTableWidgetItem *> si = tw->selectedItems();
+    if (si.size() < 2) return;
+    int c1 = si[0]->column();
+    int r1 = si[0]->row();
+    int c2 = c1;
+    int r2 = r1;
+
+    foreach (titem, si)
+    {
+        tw->setSpan(titem->row(), titem->column(), 1, 1);
+
+        r1 = std::min(r1, titem->row());
+        r2 = std::max(r2, titem->row());
+        c1 = std::min(c1, titem->column());
+        c2 = std::max(c2, titem->column());
+    }
+
+    tw->setSpan(r1, c1, r2 - r1 + 1, c2 - c1 + 1);
+}
+
+//==============================================================================
+///
+//==============================================================================
+void MainWindow::on_action_unspan_triggered()
+{
+    QTableWidgetItem *titem;
+    QList<QTableWidgetItem *> si = tw->selectedItems();
+    if (si.size() < 1) return;
+    foreach (titem, si)
+    {
+        tw->setSpan(titem->row(), titem->column(), 1, 1);
+    }
 }
 
 //==============================================================================

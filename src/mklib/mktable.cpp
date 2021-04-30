@@ -179,14 +179,15 @@ bool MKTable::loadConfiguration(const QDomDocument &doc)
         if (!str.isEmpty()) titem->setData(RecorderParamsRole, str);
 
         setItem(row, col, titem);
-        /*
-           // НЕПОНЯТКИ С ОБЪЕДИНЕНИЕМ ЯЧЕЕК
-           str = element.attribute("Span");
-           row_span=str.section(',',0,0).toInt();
-           col_span=str.section(',',1,1).toInt();
-           if((rowSpan(row,col)==1)&&(columnSpan(row,col)==1)&&(( row_span > 1
-           )||( col_span > 1 ))) setSpan(row,col,row_span,col_span);
-        */
+
+        int sr = element.attribute("SpanRow").toInt();
+        int sc = element.attribute("SpanColumn").toInt();
+        if ((sr > 1) || (sc > 1))
+        {
+            if (sr == 0) sr = 1;
+            if (sc == 0) sc = 1;
+            setSpan(row, col, sr, sc);
+        }
     }
     loadShortCuts(doc);
 
@@ -306,6 +307,8 @@ void MKTable::saveConfiguration(QDomDocument &doc)
     {
         for (j = 0; j < columnCount(); j++)
         {
+            int cs = columnSpan(i, j);
+            int rs = rowSpan(i, j);
             titem = item(i, j);
             if (titem == 0) continue;
             tag_item = doc.createElement("Item");
@@ -348,8 +351,8 @@ void MKTable::saveConfiguration(QDomDocument &doc)
             if (confirm) tag_item.setAttribute("SSConfirmEdit", confirm);
             str = titem->data(RecorderParamsRole).toString();
             if (!str.isEmpty()) tag_item.setAttribute("RecorderParams", str);
-            // tag_item.setAttribute("Span",
-            // QString("%1,%2").arg(rowSpan(i,j)).arg(columnSpan(i,j)));
+            if (rs != 1) tag_item.setAttribute("SpanRow", rs);
+            if (cs != 1) tag_item.setAttribute("SpanColumn", cs);
             tag_table.appendChild(tag_item);
         }
     }

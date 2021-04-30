@@ -49,6 +49,8 @@
         <file>res/row.png</file>
         <file>res/row_add.png</file>
         <file>res/row_delete.png</file>
+        <file>res/row_span.png</file>
+        <file>res/row_unspan.png</file>
         <file>res/table_selection_block.png</file>
         <file>res/text_align_center.png</file>
         <file>res/text_align_left.png</file>

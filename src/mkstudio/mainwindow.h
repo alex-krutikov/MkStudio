@@ -79,6 +79,8 @@ private slots:
     void on_action_help_triggered();
     void on_action_help_about_triggered();
     void on_action_united_graph_triggered();
+    void on_action_span_triggered();
+    void on_action_unspan_triggered();
     void del_key_pressed();
     void copy_to_console();
     void context_menu();
