@@ -404,6 +404,8 @@ void MainWindow::on_action_play_triggered()
     action_cell_add_right->setEnabled(!play_mode);
     action_cell_add_down->setEnabled(!play_mode);
     action_row_delete->setEnabled(!play_mode);
+    action_span->setEnabled(!play_mode);
+    action_unspan->setEnabled(!play_mode);
     action_column_delete->setEnabled(!play_mode);
     action_cell_delete_left->setEnabled(!play_mode);
     action_cell_delete_up->setEnabled(!play_mode);
