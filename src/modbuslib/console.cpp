@@ -19,7 +19,7 @@ void Console::Print(MessageType mtype, const QString &message)
     if (show_timestamp)
     {
         const QString timeStamp
-            = QTime::currentTime().toString(QStringView(u"hh:mm:ss.zzz"));
+            = QTime::currentTime().toString("hh:mm:ss.zzz");
         text = QString("%1  %2").arg(timeStamp).arg(message);
     }
 

@@ -11,6 +11,8 @@
 #include <QTextCodec>
 #include <QTextStream>
 
+#include <algorithm>
+
 //#######################################################################################
 // главное окно
 //#######################################################################################
@@ -203,8 +205,8 @@ void MainWindow::on_action_export_triggered()
                 if (item.reg_num_is_big_flag) part2 += "ERROR ";
                 part2 += ")";
             }
-            out << QString().sprintf("\n  // 0x%4.4X", item.addr);
-            out << part2 << endl;
+            out << QString().asprintf("\n  // 0x%4.4X", item.addr);
+            out << part2 << Qt::endl;
         }
         s = item.field.simplified();
         if (!s.isEmpty())
@@ -213,9 +215,12 @@ void MainWindow::on_action_export_triggered()
             {
                 s += ";";
             }
-            out << "  " << s << endl;
+            out << "  " << s << Qt::endl;
         }
-        if (!item.desc.isEmpty()) { out << "      // " << item.desc << endl; }
+        if (!item.desc.isEmpty())
+        {
+            out << "      // " << item.desc << Qt::endl;
+        }
     }
 
     QMessageBox::information(
@@ -260,8 +265,8 @@ void MainWindow::on_action_export_h_triggered()
                 if (item.reg_num_is_big_flag) part2 += "ERROR ";
                 part2 += ")";
             }
-            out << QString().sprintf("\n  // 0x%4.4X", item.addr);
-            out << part2 << endl;
+            out << QString().asprintf("\n  // 0x%4.4X", item.addr);
+            out << part2 << Qt::endl;
         }
         s = item.field.simplified();
         if (!s.isEmpty())
@@ -270,9 +275,12 @@ void MainWindow::on_action_export_h_triggered()
             {
                 s += ";";
             }
-            out << "  " << s << endl;
+            out << "  " << s << Qt::endl;
         }
-        if (!item.desc.isEmpty()) { out << "      // " << item.desc << endl; }
+        if (!item.desc.isEmpty())
+        {
+            out << "      // " << item.desc << Qt::endl;
+        }
     }
 
     out << "};\n"
@@ -337,8 +345,6 @@ void MainWindow::on_action_import_triggered()
 //==============================================================================
 void MainWindow::on_action_copy_triggered()
 {
-    QString str;
-
     QModelIndexList si = tw->selectionModel()->selectedRows();
     if (si.count() == 0) return;
     QVector<int> v;
@@ -346,7 +352,7 @@ void MainWindow::on_action_copy_triggered()
     {
         v << mi.row();
     }
-    qSort(v);
+    std::sort(std::begin(v), std::end(v));
 
     clipboard_buffer = items.mid(v[0], v.count());
 }
@@ -363,7 +369,7 @@ void MainWindow::on_action_paste_triggered()
     {
         v << mi.row();
     }
-    qSort(v);
+    std::sort(std::begin(v), std::end(v));
     int row = v[0];
     model->insertRows(row, clipboard_buffer.count());
     foreach (Item it, clipboard_buffer)
@@ -502,7 +508,7 @@ void MainWindow::on_action_row_delete_triggered()
     {
         v << mi.row();
     }
-    qSort(v);
+    std::sort(std::begin(v), std::end(v));
 
     model->removeRows(v[0], v.count());
     tw->selectRow(v[0]);

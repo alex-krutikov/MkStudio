@@ -986,8 +986,8 @@ void MainWindow::on_action_link_triggered()
 
             // вывод значений в ячейки
             titem->setData(MKTable::AssignRole,
-                           QString().sprintf("%d/%d/%d", module_titem,
-                                             slot_titem, n_titem));
+                           QString().asprintf("%d/%d/%d", module_titem,
+                                              slot_titem, n_titem));
             titem->setData(MKTable::FormatRole, str_format);
             titem->setData(MKTable::SSSelectorRole, str_ss);
             titem->setData(MKTable::SSConfirmEditRole, ss_confirm);

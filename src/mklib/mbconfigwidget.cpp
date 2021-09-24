@@ -81,8 +81,10 @@ signals:
     void rowIndexChangeError(int Row);
 };
 
-struct MBConfigWidgetPrivate
+class MBConfigWidgetPrivate
 {
+    friend class MBConfigWidget;
+
     ModulesModel modules_model;
     SlotsModel slots_model;
 
@@ -715,7 +717,7 @@ QVariant SlotsModel::headerData(int section, Qt::Orientation orientation,
 //===================================================================
 Qt::ItemFlags SlotsModel::flags(const QModelIndex &index) const
 {
-    if (current_module < 0) return 0;
+    if (current_module < 0) return Qt::NoItemFlags;
     int column = index.column();
     int row = index.row();
 

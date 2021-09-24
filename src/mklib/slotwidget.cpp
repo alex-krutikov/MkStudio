@@ -125,7 +125,7 @@ SlotWidget::SlotWidget(QWidget *parent, MBMasterXMLPtr mm, int module, int slot,
     str += " [ " + QString::number(slot2.module.n) + "."
          + QString::number(slot2.n);
     str += " | " + slot2.datatype.toName() + " | "
-         + QString().sprintf("0x%X", slot2.addr);
+         + QString().asprintf("0x%X", slot2.addr);
     str += " | " + QString::number(slot2.len);
     str += " | " + slot2.module.name + " | ";
     str += "узел " + QString::number(slot2.module.node);
@@ -426,7 +426,7 @@ void SlotWidget::save_settings()
 
     // упаковка всех настроек в строку
     QString str;
-    foreach (QString key, settings.uniqueKeys())
+    foreach (QString key, settings.keys())
     {
         str += key + "=" + settings[key].remove(';') + ";";
     }
@@ -1269,13 +1269,13 @@ void SlotDialog::accept()
     // масштаб - база
     if (ui->xscale_base->isChecked())
     {
-        isettings["xscale_base"] = QString().sprintf(
+        isettings["xscale_base"] = QString().asprintf(
             "%d/%d/%d", ui->xscale_base_m->value(), ui->xscale_base_s->value(),
             ui->xscale_base_n->value());
     }
     if (ui->yscale_base->isChecked())
     {
-        isettings["yscale_base"] = QString().sprintf(
+        isettings["yscale_base"] = QString().asprintf(
             "%d/%d/%d", ui->yscale_base_m->value(), ui->yscale_base_s->value(),
             ui->yscale_base_n->value());
     }
@@ -1290,8 +1290,8 @@ void SlotDialog::accept()
     {
         isettings["isr_method"] = "1";
         isettings["isr_value"]
-            = QString().sprintf("%d/%d/%d", ui->sb_isr_m->value(),
-                                ui->sb_isr_s->value(), ui->sb_isr_n->value());
+            = QString().asprintf("%d/%d/%d", ui->sb_isr_m->value(),
+                                 ui->sb_isr_s->value(), ui->sb_isr_n->value());
     }
 
     if (ui->chb_line_trans->isChecked()) { isettings["use_line_trans"] = "1"; }

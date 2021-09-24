@@ -15,6 +15,7 @@
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QProgressDialog>
+#include <QScreen>
 #include <QScrollBar>
 #include <QSettings>
 #include <QStatusBar>
@@ -113,7 +114,7 @@ bool download_firmware(QWidget *parent, const QString &module_name,
     QObject::connect(
         reply,
         static_cast<void (QNetworkReply::*)(QNetworkReply::NetworkError)>(
-            &QNetworkReply::error),
+            &QNetworkReply::errorOccurred),
         &loop, &QEventLoop::quit);
     QObject::connect(reply, &QNetworkReply::sslErrors, &loop,
                      &QEventLoop::quit);
@@ -212,7 +213,7 @@ MainWindow::MainWindow()
         resize(size);
     } else
     {
-        QRect rs = QApplication::desktop()->availableGeometry();
+        QRect rs = QGuiApplication::screens().value(0)->availableGeometry();
         QRect rw;
         rw.setSize(QSize(800, 500));
         if (rw.height() > (rs.height() - 70))

@@ -427,9 +427,9 @@ bool read_data()
         {
             QByteArray ba_ans = ans;
             ba_ans.resize(j);
-            cout << "R: " << QByteArray2QString(req) << endl;
-            cout << "A: " << QByteArray2QString(ba_ans) << endl;
-            cout << endl << "  Data:" << endl << endl;
+            cout << "R: " << QByteArray2QString(req) << Qt::endl;
+            cout << "A: " << QByteArray2QString(ba_ans) << Qt::endl;
+            cout << Qt::endl << "  Data:" << Qt::endl << Qt::endl;
         }
 
         if (j != ans.size()) continue;
@@ -454,7 +454,7 @@ bool read_data()
 
     for (i = 0; i < data_count; i++)
     {
-        cout << ptr_value(i, ans.constData() + dataoff) << endl;
+        cout << ptr_value(i, ans.constData() + dataoff) << Qt::endl;
     }
 
     return 0;
@@ -607,7 +607,7 @@ static bool write_data()
         ok = value_ptr(data[i], req.data() + dataoff, i);
         if (!ok)
         {
-            cerr << "Error: Data is invalid." << endl;
+            cerr << "Error: Data is invalid." << Qt::endl;
             return 0;
         }
     }
@@ -630,8 +630,8 @@ static bool write_data()
         {
             QByteArray ba_ans = ans;
             ba_ans.resize(j);
-            cout << "R: " << QByteArray2QString(req) << endl;
-            cout << "A: " << QByteArray2QString(ba_ans) << endl;
+            cout << "R: " << QByteArray2QString(req) << Qt::endl;
+            cout << "A: " << QByteArray2QString(ba_ans) << Qt::endl;
         }
 
         if (j != ans.size()) continue;

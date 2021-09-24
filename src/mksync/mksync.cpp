@@ -61,7 +61,7 @@ static void print_help()
           "    -nodirs=[Synchronize files at indicated directory. Don't use "
           "any dirs]\n"
           "    -onlyprevused=[Synchronize only files that exists on target]\n";
-    cout << str << endl;
+    cout << str << Qt::endl;
 }
 //=============================================================================
 //
@@ -108,7 +108,7 @@ static int init()
             if (!ok)
             {
                 cout << getCoutParams() + " Error: port speed is invalid"
-                     << endl;
+                     << Qt::endl;
                 return 1;
             }
         } else if (str.startsWith("-timeout="))
@@ -118,7 +118,7 @@ static int init()
             if (!ok)
             {
                 cout << getCoutParams() + " Error: port timeout is invalid"
-                     << endl;
+                     << Qt::endl;
                 return 1;
             }
             if (timeout < 50) timeout = 50;
@@ -131,7 +131,7 @@ static int init()
             {
                 cout << getCoutParams()
                             + " Error: Nnumber of repeats is invalid"
-                     << endl;
+                     << Qt::endl;
                 return 1;
             }
         } else if (str.startsWith("-rpath="))
@@ -157,7 +157,7 @@ static int init()
             if (!ok)
             {
                 hostportnode += str;
-                cout << getCoutParams() + " Error: node is invalid" << endl;
+                cout << getCoutParams() + " Error: node is invalid" << Qt::endl;
                 return 1;
             }
             hostportnode += QString::number(node);
@@ -169,7 +169,7 @@ static int init()
             {
                 cout << getCoutParams()
                             + " Error: maximum data length is invalid"
-                     << endl;
+                     << Qt::endl;
                 return 1;
             }
         } else if (str == "-fast")
@@ -184,7 +184,7 @@ static int init()
             {
                 cout << getCoutParams()
                             + " Error: Nnumber of daysbefore is invalid"
-                     << endl;
+                     << Qt::endl;
                 return 1;
             }
         } else if (str.startsWith("-monthsbefore="))
@@ -195,7 +195,7 @@ static int init()
             {
                 cout << getCoutParams()
                             + " Error: Nnumber of monthsbefore is invalid"
-                     << endl;
+                     << Qt::endl;
                 return 1;
             }
         } else if (str == "-dt")
@@ -216,7 +216,7 @@ static int init()
                 << getCoutParams()
                        + " Configuration error: unknown command line argument: "
                        + str
-                << endl;
+                << Qt::endl;
             print_help();
             return 1;
         }
@@ -227,7 +227,7 @@ static int init()
         cout << getCoutParams()
                     + " Configuration error: sinchronization on date-time not "
                       "supported in fast mode."
-             << endl;
+             << Qt::endl;
         print_help();
         return 1;
     }
@@ -248,7 +248,7 @@ static int init()
         {
             cout << getCoutParams() + " Xml file error: can't find " + xmlf
                         + " in current directory"
-                 << endl;
+                 << Qt::endl;
             return 1;
         }
 
@@ -256,14 +256,14 @@ static int init()
         {
             cout << getCoutParams() + " Xml file error: Can't open " + xmlf
                         + " for read"
-                 << endl;
+                 << Qt::endl;
             return 1;
         }
         if (!doc.setContent(&xmlfile))
         {
             cout << getCoutParams() + " Xml file error: " + xmlf
                         + " have incorrect structure"
-                 << endl;
+                 << Qt::endl;
             xmlfile.close();
             return 1;
         }
@@ -284,7 +284,7 @@ static int init()
         cout << getCoutParams()
                     + " Configuration error: Serial port or tcp/ip host does "
                       "not set."
-             << endl;
+             << Qt::endl;
         print_help();
         return 1;
     }
@@ -294,7 +294,7 @@ static int init()
         cout << getCoutParams()
                     + " Configuration error: Serial port and tcp/ip host can "
                       "not be used together."
-             << endl;
+             << Qt::endl;
         print_help();
         return 1;
     }
@@ -303,7 +303,7 @@ static int init()
     {
         cout << getCoutParams()
                     + " Configuration error: Local path does not set."
-             << endl;
+             << Qt::endl;
         print_help();
         return 1;
     }
@@ -312,7 +312,7 @@ static int init()
     {
         cout << getCoutParams()
                     + " Configuration error: Remote path does not set."
-             << endl;
+             << Qt::endl;
         print_help();
         return 1;
     }
@@ -330,7 +330,7 @@ static int init()
         {
             cout << getCoutParams() + " Error: Unable to open port. ("
                         + portname + ")"
-                 << endl;
+                 << Qt::endl;
             delete sp;
             sp = 0;
             return 1;
@@ -348,7 +348,7 @@ static int init()
         {
             cout << getCoutParams() + " Error: Unable to open port. ("
                         + portname + ")"
-                 << endl;
+                 << Qt::endl;
             delete sp;
             sp = 0;
             return 1;
@@ -366,7 +366,7 @@ static void xfile_print_error(XFiles::Result res)
 {
     if (res == XFiles::Ok) return;
     cout << getCoutParams() + " XFiles error: " + XFiles::decodeResult(res)
-         << endl;
+         << Qt::endl;
 }
 
 //=============================================================================
@@ -429,7 +429,7 @@ bool sync_file(const QString filename, const int filesize, const QString &path)
     {
         cout << getCoutParams() + " File error: Can't open file "
                     + file.fileName() + " for write"
-             << endl;
+             << Qt::endl;
         return false;
     }
 
@@ -440,7 +440,7 @@ bool sync_file(const QString filename, const int filesize, const QString &path)
     }
 
     cout << getCoutParams() + " Update file: " << file.fileName() << " at " << j
-         << "-" << filesize << endl;
+         << "-" << filesize << Qt::endl;
     rep = repeats;
     while (rep--)
     {
@@ -503,7 +503,7 @@ bool process_dir(QString path)
     QDir dir(dirname);
     if (!dir.exists())
     {
-        cout << getCoutParams() + " Create path: " << dirname << endl;
+        cout << getCoutParams() + " Create path: " << dirname << Qt::endl;
         dir.mkpath(dirname);
     }
 
@@ -583,7 +583,7 @@ static int fast_sync_date(const QDate &date, const QString &ext)
     QDir dir(dirname);
     if (!dir.exists())
     {
-        cout << getCoutParams() + " Create path: " << dirname << endl;
+        cout << getCoutParams() + " Create path: " << dirname << Qt::endl;
         dir.mkpath(dirname);
     }
 
@@ -650,10 +650,10 @@ int main(int argc, char *argv[])
     int ret = 0;
 
     ret = init();
-    cout << getCoutParams() + " mksync started" << endl;
+    cout << getCoutParams() + " mksync started" << Qt::endl;
     if (ret)
     {
-        cout << getCoutParams() + " mksync done" << endl;
+        cout << getCoutParams() + " mksync done" << Qt::endl;
         return ret;
     }
 
@@ -671,8 +671,8 @@ int main(int argc, char *argv[])
           && secondCopyBlock.error() != QSharedMemory::AlreadyExists))
     {
         cout << getCoutParams() + " second copy of programm was started"
-             << endl;
-        cout << getCoutParams() + " mksync done" << endl;
+             << Qt::endl;
+        cout << getCoutParams() + " mksync done" << Qt::endl;
         return ret;
     }
 
@@ -702,8 +702,8 @@ int main(int argc, char *argv[])
         {
             cout << getCoutParams() + " Xml file error: Can't open " + xmlf
                         + " for write"
-                 << endl;
-            cout << getCoutParams() + " mksync done" << endl;
+                 << Qt::endl;
+            cout << getCoutParams() + " mksync done" << Qt::endl;
             return 1;
         }
         QDomDocument doc;
@@ -726,7 +726,7 @@ int main(int argc, char *argv[])
         file.close();
     }
 
-    cout << getCoutParams() + " mksync done" << endl;
+    cout << getCoutParams() + " mksync done" << Qt::endl;
 
     return ret;
 }

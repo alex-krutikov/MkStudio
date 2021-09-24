@@ -578,7 +578,7 @@ void MKTable::setMode(enum Mode m)
                 rx.indexIn(str);
                 if (!titem->data(Qt::BackgroundRole).isValid())
                 {
-                    titem->setBackgroundColor("antiquewhite");
+                    titem->setBackground(QBrush{"antiquewhite"});
                 }
                 titem->setText(str);
                 titem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
@@ -650,8 +650,8 @@ void MKTable::setMode(enum Mode m)
                 assign_data << ad;
             }
         }
-        qSort(assign_data.begin(), assign_data.end(),
-              MKTableAssignData::lessThan);
+        std::sort(assign_data.begin(), assign_data.end(),
+                  MKTableAssignData::lessThan);
         for (i = 0; i < assign_data.size(); i++)
         {
             item(assign_data[i].row, assign_data[i].column)
@@ -1241,7 +1241,7 @@ next:
     switch (datatype_id)
     {
     case (MBDataType::Floats):
-        str.sprintf(cf, value.toDouble());
+        str.asprintf(cf, value.toDouble());
         break;
     case (MBDataType::Bits):
     case (MBDataType::Bytes):
@@ -1251,7 +1251,7 @@ next:
     case (MBDataType::HoldingRegisters):
     case (MBDataType::DiscreteInputs):
     case (MBDataType::Coils):
-        str.sprintf(cf, d);
+        str.asprintf(cf, d);
         break;
     }
     return str;
@@ -1525,7 +1525,8 @@ bool MKTableItemDelegate::eventFilter(QObject *obj, QEvent *event)
                 le->clear();
                 if (keyEvent->modifiers() & Qt::ControlModifier)
                     le->setText("1");
-                QKeyEvent enterKeyPress(QEvent::KeyPress, Qt::Key_Enter, 0);
+                QKeyEvent enterKeyPress{QEvent::KeyPress, Qt::Key_Enter,
+                                        Qt::NoModifier};
                 QApplication::sendEvent(obj, &enterKeyPress);
                 return true;
             }

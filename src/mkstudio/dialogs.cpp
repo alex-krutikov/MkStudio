@@ -250,7 +250,7 @@ void AssignDialog::accept()
         return;
     }
 
-    assign = QString().sprintf("%d/%d/%d", im, is, in);
+    assign = QString().asprintf("%d/%d/%d", im, is, in);
 
 
     switch (cb_format->currentIndex())
@@ -330,8 +330,8 @@ UnitedSlots::UnitedSlots(QWidget *parent, MBMasterXMLPtr mm)
     {
         color = QColor((Qt::GlobalColor)(i + 8));
         titem = new QTableWidgetItem;
-        titem->setFlags(0);
-        titem->setBackgroundColor(color);
+        titem->setFlags(Qt::NoItemFlags);
+        titem->setBackground(QBrush{color});
         tw->setItem(i, 0, titem);
 
         curves[i] = new QwtPlotCurve("");

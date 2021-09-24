@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+﻿cmake_minimum_required(VERSION 3.15)
 
 set(CMAKE_AUTOMOC ON)
 
@@ -119,12 +119,12 @@ add_library(qwt)
 target_compile_features(qwt PRIVATE cxx_std_17)
 
 if(QWT_DISABLE_WARNINGS)
-    if(CMAKE_COMPILER_IS_GNUCC)
-        target_compile_options(qwt
-            PRIVATE
-                -w
-        )
-    endif()
+target_compile_options(qwt
+    PRIVATE
+        $<$<CXX_COMPILER_ID:Clang>:-w>
+        $<$<CXX_COMPILER_ID:GNU>:-w>
+        $<$<CXX_COMPILER_ID:MSVC>:/w>
+)
 endif()
 
 target_include_directories(qwt INTERFACE . )

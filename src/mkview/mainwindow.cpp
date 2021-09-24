@@ -10,6 +10,7 @@
 #include <QDesktopWidget>
 #include <QMessageBox>
 #include <QPluginLoader>
+#include <QScreen>
 
 #ifdef Q_OS_WIN32
     #define PLUGIN_FILE_MASK1 "mkview_*.dll"
@@ -230,7 +231,7 @@ void InitDialog::on_tb_moduleinfo_clicked()
     req[2] = int_module_subnode() << 4;
     req[3] = 0;
     req[4] = 0;
-    req[5] = 128;
+    req[5] = (char)128;
     CRC::appendCRC16(req);
 
     i = 5;
@@ -487,7 +488,7 @@ MainWindowXml::MainWindowXml(QWidget *parent, const QString &portname,
     //----------------------------------------------
     setWindowTitle(app_header);
     setCentralWidget(tw);
-    QRect rs = QApplication::desktop()->availableGeometry();
+    QRect rs = QGuiApplication::screens().value(0)->availableGeometry();
     QRect rw;
     rw.setSize(sizeHint());
     if (rw.height() > (rs.height() - 70)) { rw.setHeight(rs.height() - 50); }
@@ -567,5 +568,5 @@ ModuleInfoDialog::ModuleInfoDialog(QWidget *parent, const QByteArray &ba)
                              .arg(mmd.minorVersion));
     le_company->setText(mmd.companyName);
     le_copyright->setText(mmd.legalCopyright);
-    le_id->setText(QString().sprintf("%4.4X", mmd.id));
+    le_id->setText(QString().asprintf("%4.4X", mmd.id));
 }

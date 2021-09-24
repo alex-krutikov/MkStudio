@@ -1270,8 +1270,7 @@ bool Plot::load_recorder_params()
             currentParams = twi->data(MKTable::RecorderParamsRole).toString();
             if (!currentParams.isEmpty())
             {
-                separatedParams
-                    = currentParams.split(";", QString::SkipEmptyParts);
+                separatedParams = currentParams.split(";", Qt::SkipEmptyParts);
                 isr_params.append(separatedParams.last());
                 separatedParams.removeLast();
                 currentParams = separatedParams.join(";");
@@ -1286,7 +1285,7 @@ bool Plot::load_recorder_params()
         if ((plots_count > 1) && (allParams.count() > 1)) return false;
 
         currentParams = allParams.first();
-        separatedParams = currentParams.split(";", QString::SkipEmptyParts);
+        separatedParams = currentParams.split(";", Qt::SkipEmptyParts);
 
         if (separatedParams.count() != 8) return false;
 
@@ -1676,8 +1675,8 @@ void PlotISRDialog::accept()
     } else
     {
         (*isr_param_list)[isr_param_index]
-            = QString().sprintf("%d/%d/%d", ui->sb_isr_m->value(),
-                                ui->sb_isr_s->value(), ui->sb_isr_n->value());
+            = QString().asprintf("%d/%d/%d", ui->sb_isr_m->value(),
+                                 ui->sb_isr_s->value(), ui->sb_isr_n->value());
     }
     done(QDialog::Accepted);
 }

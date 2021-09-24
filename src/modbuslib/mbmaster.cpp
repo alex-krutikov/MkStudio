@@ -6,7 +6,7 @@
 #include "crc.h"
 #include "mbcommon.h"
 
-#include <QTime>
+#include <QElapsedTimer>
 
 #include <stdint.h>
 
@@ -630,9 +630,9 @@ void MBMasterPrivate::run()
 {
     msleep(200);
 
-    QTime stateChanged_timer;
-    QTime full_time_timer;
-    QTime data_request_timer;
+    QElapsedTimer stateChanged_timer;
+    QElapsedTimer full_time_timer;
+    QElapsedTimer data_request_timer;
     int i = 0;
     int j, k;
 

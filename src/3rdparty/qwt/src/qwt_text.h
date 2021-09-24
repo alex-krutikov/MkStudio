@@ -130,8 +130,8 @@ public:
     {
         MinimumLayout = 1
     };
-
-    QwtText(const QString & = QString::null, 
+    
+    QwtText(const QString & = QString{}, 
         TextFormat textFormat = AutoText);
     QwtText(const QwtText &);
     ~QwtText();
