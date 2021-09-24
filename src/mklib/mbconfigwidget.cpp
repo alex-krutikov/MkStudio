@@ -43,6 +43,7 @@ public:
 
 class SlotsModel : public QAbstractTableModel
 {
+    Q_OBJECT
 public:
     struct t_slot_desc
     {
@@ -74,6 +75,10 @@ public:
     void set_current_module(int i);
     int current_module;
     t_slot_desc sd[MODULES_MAX_N][SLOTS_MAX_N];
+
+signals:
+    void rowIndexChanged(int oldRow, int newRow);
+    void rowIndexChangeError(int Row);
 };
 
 struct MBConfigWidgetPrivate
@@ -111,6 +116,14 @@ MBConfigWidget::MBConfigWidget(QWidget *parent)
         }
     }
     d->slots_model.current_module = -1;
+
+    connect(&d->slots_model, &SlotsModel::rowIndexChanged, this,
+            &MBConfigWidget::slotIndexChanged);
+
+    connect(&d->slots_model, &SlotsModel::rowIndexChangeError, [](int) {
+        QMessageBox::information(nullptr, "MKStudio",
+                                 "Ошибка: Слот назанчения не пустой.");
+    });
 
     ui->tw1->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->tw1->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -710,6 +723,7 @@ Qt::ItemFlags SlotsModel::flags(const QModelIndex &index) const
     if (column == 1) flags |= Qt::ItemIsEditable;
     if (!sd[current_module][row].addr.isEmpty())
     {
+        if (column == 0) flags |= Qt::ItemIsEditable;
         if (column == 2) flags |= Qt::ItemIsEditable;
         if (column == 3) flags |= Qt::ItemIsEditable;
         if (column == 4) flags |= Qt::ItemIsEditable;
@@ -739,6 +753,22 @@ bool SlotsModel::setData(const QModelIndex &index, const QVariant &value,
     case (Qt::EditRole):
         switch (column)
         {
+        case (0): {
+            const int newRow = value.toInt() - 1;
+            if (newRow < 0) break;
+            if (newRow >= SLOTS_MAX_N) break;
+            if (newRow == row) break;
+            if (!sd[current_module][newRow].addr.isEmpty())
+            {
+                emit rowIndexChangeError(row);
+                break;
+            }
+            sd[current_module][newRow] = sd[current_module][row];
+            sd[current_module][row] = t_slot_desc {};
+            emit dataChanged(this->index(newRow, 0), this->index(newRow, 3));
+            emit rowIndexChanged(row + 1, newRow + 1);
+            break;
+        }
         case (1):
             str = value.toString().toUpper();
             if (sd[current_module][row].type.isRegister())
@@ -837,3 +867,5 @@ void SlotsModel::set_current_module(int i)
     beginResetModel();
     endResetModel();
 }
+
+#include "mbconfigwidget.moc"

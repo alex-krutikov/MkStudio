@@ -98,6 +98,41 @@ void MKTable::closeAllRecorders()
 //==============================================================================
 //
 //==============================================================================
+void MKTable::replaceSlotIndex(int oldIndex, int newIndex)
+{
+    QRegExp rx("^(\\d+)/(\\d+)/(\\d+)$");
+
+    for (int i = 0; i < rowCount(); i++)
+    {
+        for (int j = 0; j < columnCount(); j++)
+        {
+            QTableWidgetItem *titem = item(i, j);
+            if (!titem) continue;
+
+            QString str = titem->data(AssignRole).toString();
+            if (str.isEmpty()) continue;
+
+            if (!rx.exactMatch(str)) continue;
+            titem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsEditable
+                            | Qt::ItemIsSelectable);
+            rx.indexIn(titem->data(AssignRole).toString());
+            int m_index = rx.cap(1).toInt();
+            int s_index = rx.cap(2).toInt();
+            int i_index = rx.cap(3).toInt();
+
+            if (s_index != oldIndex) continue;
+            s_index = newIndex;
+
+            str = QString {"%1/%2/%3"}.arg(m_index).arg(s_index).arg(i_index);
+            titem->setData(AssignRole, str);
+            titem->setText(str);
+        }
+    }
+}
+
+//==============================================================================
+//
+//==============================================================================
 QStringList MKTable::getHorizontalHeaderLabels()
 {
     int i;

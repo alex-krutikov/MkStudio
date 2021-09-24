@@ -77,6 +77,9 @@ MainWindow::MainWindow(MBMasterXMLPtr mbmaster, bool isArduinoOnly)
     connect(mbmasterwidget, SIGNAL(attributes_saved(int, int, QString)), this,
             SLOT(slot_attributes_saved(int, int, QString)));
 
+    connect(mbconfigwidget, &MBConfigWidget::slotIndexChanged, tw,
+            &MKTable::replaceSlotIndex);
+
     action_copy->setShortcut(QKeySequence::Copy);
     action_cut->setShortcut(QKeySequence::Cut);
     action_paste->setShortcut(QKeySequence::Paste);

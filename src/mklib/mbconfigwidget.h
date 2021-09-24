@@ -43,6 +43,8 @@ private slots:
     void on_tw1_customContextMenuRequested(const QPoint &);
     void tw1_currentRowChanged(const QModelIndex &current,
                                const QModelIndex &previous);
+signals:
+    void slotIndexChanged(int oldIndex, int newIndex);
 };
 
 #endif

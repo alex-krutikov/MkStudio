@@ -61,6 +61,8 @@ public:
     QSize sizeHint() const;
     bool getCurrentItemConfirmEdit() { return currentItemConfirmEdit; }
     void closeAllRecorders();
+    void replaceSlotIndex(int oldIndex, int newIndex);
+
     QList<QDomElement> shortcutList;
     QHash<int, ShortCut *> hotkey;
 
