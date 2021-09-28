@@ -25,7 +25,7 @@ QString qstring_from_c_str(const void *p, int len)
 QString toHex(DWORD i)
 {
     QString str;
-    str.asprintf("0x%08X", (int)i);
+    str = QString::asprintf("0x%08X", (int)i);
     return str;
 }
 

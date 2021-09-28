@@ -250,7 +250,7 @@ void AssignDialog::accept()
         return;
     }
 
-    assign = QString().asprintf("%d/%d/%d", im, is, in);
+    assign = QString::asprintf("%d/%d/%d", im, is, in);
 
 
     switch (cb_format->currentIndex())

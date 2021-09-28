@@ -1241,7 +1241,7 @@ next:
     switch (datatype_id)
     {
     case (MBDataType::Floats):
-        str.asprintf(cf, value.toDouble());
+        str = QString::asprintf(cf, value.toDouble());
         break;
     case (MBDataType::Bits):
     case (MBDataType::Bytes):
@@ -1251,7 +1251,7 @@ next:
     case (MBDataType::HoldingRegisters):
     case (MBDataType::DiscreteInputs):
     case (MBDataType::Coils):
-        str.asprintf(cf, d);
+        str = QString::asprintf(cf, d);
         break;
     }
     return str;

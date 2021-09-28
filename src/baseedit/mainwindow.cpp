@@ -205,7 +205,7 @@ void MainWindow::on_action_export_triggered()
                 if (item.reg_num_is_big_flag) part2 += "ERROR ";
                 part2 += ")";
             }
-            out << QString().asprintf("\n  // 0x%4.4X", item.addr);
+            out << QString::asprintf("\n  // 0x%4.4X", item.addr);
             out << part2 << Qt::endl;
         }
         s = item.field.simplified();
@@ -265,7 +265,7 @@ void MainWindow::on_action_export_h_triggered()
                 if (item.reg_num_is_big_flag) part2 += "ERROR ";
                 part2 += ")";
             }
-            out << QString().asprintf("\n  // 0x%4.4X", item.addr);
+            out << QString::asprintf("\n  // 0x%4.4X", item.addr);
             out << part2 << Qt::endl;
         }
         s = item.field.simplified();

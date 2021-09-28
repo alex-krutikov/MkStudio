@@ -568,5 +568,5 @@ ModuleInfoDialog::ModuleInfoDialog(QWidget *parent, const QByteArray &ba)
                              .arg(mmd.minorVersion));
     le_company->setText(mmd.companyName);
     le_copyright->setText(mmd.legalCopyright);
-    le_id->setText(QString().asprintf("%4.4X", mmd.id));
+    le_id->setText(QString::asprintf("%4.4X", mmd.id));
 }

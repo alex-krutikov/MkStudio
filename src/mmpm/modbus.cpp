@@ -140,7 +140,7 @@ void ModbusMaster::setArray(QString &str, BYTE *data, DWORD len)
     str = "";
     for (i = 0; i < len; i++)
     {
-        s.asprintf(" %2.2X", *(data + i));
+        s = QString::asprintf(" %2.2X", *(data + i));
         str = str + s;
     }
 }

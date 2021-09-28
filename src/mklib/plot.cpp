@@ -1675,8 +1675,8 @@ void PlotISRDialog::accept()
     } else
     {
         (*isr_param_list)[isr_param_index]
-            = QString().asprintf("%d/%d/%d", ui->sb_isr_m->value(),
-                                 ui->sb_isr_s->value(), ui->sb_isr_n->value());
+            = QString::asprintf("%d/%d/%d", ui->sb_isr_m->value(),
+                                ui->sb_isr_s->value(), ui->sb_isr_n->value());
     }
     done(QDialog::Accepted);
 }

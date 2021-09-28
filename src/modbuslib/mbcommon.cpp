@@ -61,7 +61,7 @@ QString QByteArray2QString(const QByteArray &ba, int mode)
 
     for (i = 0; i < len; i++)
     {
-        s.asprintf(" %2.2X", *(unsigned char *)(p + i));
+        s = QString::asprintf(" %2.2X", *(unsigned char *)(p + i));
         str = str + s;
     }
     return str;

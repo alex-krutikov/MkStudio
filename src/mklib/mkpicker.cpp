@@ -37,7 +37,7 @@ QwtText MKPicker::trackerText(const QwtDoublePoint &pos) const
     switch (rubberBand())
     {
     case HLineRubberBand:
-        text.asprintf("%.7g", pos.y());
+        text = QString::asprintf("%.7g", pos.y());
         break;
     case VLineRubberBand:
         text = createLabel(pos.x());
