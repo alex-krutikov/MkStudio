@@ -370,6 +370,26 @@
           </spacer>
          </item>
          <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Узел:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="le_node">
+           <property name="maximumSize">
+            <size>
+             <width>70</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QLabel" name="label">
            <property name="text">
             <string>Подузел:</string>
@@ -377,7 +397,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="le">
+          <widget class="QLineEdit" name="le_subnode">
            <property name="maximumSize">
             <size>
              <width>70</width>
@@ -430,6 +450,22 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>pb2</tabstop>
+  <tabstop>pb1</tabstop>
+  <tabstop>pb6</tabstop>
+  <tabstop>pb4</tabstop>
+  <tabstop>pb8</tabstop>
+  <tabstop>pb11</tabstop>
+  <tabstop>pb5</tabstop>
+  <tabstop>pb3</tabstop>
+  <tabstop>pb7</tabstop>
+  <tabstop>te</tabstop>
+  <tabstop>le_node</tabstop>
+  <tabstop>le_subnode</tabstop>
+  <tabstop>cb_autoscroll</tabstop>
+  <tabstop>pb10</tabstop>
+ </tabstops>
  <resources>
   <include location="../MMpM.qrc"/>
  </resources>

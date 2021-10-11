@@ -227,6 +227,10 @@ int Thread::file_save()
 
     memcpy(&temp_buff[0x20], &crc32, sizeof(crc32));
 
+    if (QFileInfo(firmware_filename).isDir()
+        && !firmware_filename.endsWith(QDir::separator()))
+        firmware_filename += QDir::separator();
+
     if (QFileInfo(firmware_filename).isFile())
         firmware_filename
             = QFileInfo(firmware_filename).absolutePath() + QDir::separator();
@@ -234,9 +238,11 @@ int Thread::file_save()
     if (firmware_filename.isEmpty())
         firmware_filename += QDir().homePath() + QDir::separator();
 
-    QString init_filename = QString::fromLatin1((char *)&info_buffer[0], 16)
-                                .split(QChar('\0'))
-                                .value(0);
+    QString init_filename
+        = QString::fromLatin1((char *)&info_buffer[0], 15).trimmed();
+
+    QString firmware_filename_saved = firmware_filename;
+
     firmware_filename += init_filename;
 
     mainwindow->flag4
@@ -245,7 +251,11 @@ int Thread::file_save()
         msleep(100);
     QString filename = firmware_filename;
 
-    if (filename.isEmpty()) return 0;
+    if (filename.isEmpty())
+    {
+        firmware_filename = firmware_filename_saved;
+        return 0;
+    }
     if (!filename.contains(".bin", Qt::CaseInsensitive)) filename += ".bin";
 
     QFile file(filename);
@@ -313,6 +323,8 @@ int Thread::file_load()
         goto error;
     }
     buffer_len = size - 1024;
+
+    memset((char *)buffer, 0xFF, sizeof(buffer));
 
     file.read((char *)file_info_buffer, 1024);
     file.read((char *)buffer, buffer_len);
@@ -485,6 +497,9 @@ int Thread::mb_reset()
 //==============================================================================
 int Thread::mb_passwd()
 {
+    return 1;
+
+#if 0    
     DWORD passw, answer;
 
     Console::Print(Console::Information, tr("Запрос пароля... "));
@@ -510,6 +525,7 @@ int Thread::mb_passwd()
     }
     Console::Print(Console::Information, tr("OK.\n"));
     return 1;
+#endif
 }
 
 //==============================================================================

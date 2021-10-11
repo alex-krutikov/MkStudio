@@ -73,12 +73,16 @@ class InitDialog
 
 public:
     InitDialog(QWidget *parent = 0);
+    bool isPortsFound() const { return ports_found; }
 
 private:
     void accept();
 private slots:
     void on_pb_help_clicked();
     void on_cb_portname_currentIndexChanged(int);
+
+private:
+    bool ports_found{true};
 };
 
 //==============================================================================

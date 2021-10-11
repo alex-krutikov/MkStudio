@@ -107,6 +107,13 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QCheckBox" name="cb_reset">
+        <property name="text">
+         <string>кнопка &quot;Сброс&quot;</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -164,6 +171,7 @@
   <tabstop>sb_delay</tabstop>
   <tabstop>cb1</tabstop>
   <tabstop>cb2</tabstop>
+  <tabstop>cb_reset</tabstop>
   <tabstop>okButton</tabstop>
   <tabstop>cancelButton</tabstop>
  </tabstops>

@@ -32,6 +32,9 @@ int main(int argc, char *argv[])
     int ret = 0;
     make_crc32table();
 
+    QCoreApplication::setOrganizationName("Umikon");
+    QCoreApplication::setApplicationName("MMpM");
+
     QApplication app(argc, argv);
 
     QTranslator *qt_translator = new QTranslator;
@@ -73,6 +76,7 @@ int main(int argc, char *argv[])
     secret_mode2 = 1;
 
     InitDialog dialog;
+    if (!dialog.isPortsFound()) goto exit;
     if (dialog.exec() == QDialog::Rejected) goto exit;
 
     mainwindow = new MainWindow;

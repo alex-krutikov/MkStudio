@@ -201,29 +201,29 @@ MainWindow::MainWindow()
     setupUi(this);
     setWindowTitle("Менеджер микропрограмм модулей ПТК УМИКОН");
     te->setLineWrapMode(QPlainTextEdit::NoWrap);
+    pb4->hide();
     pb8->hide();
     pb11->hide();
 
+    le_node->setText("127");
+
     Settings settings;
+    QRect rw;
     if (settings.contains("pos") && settings.contains("size"))
     {
         const QPoint pos = settings.value("pos").toPoint();
         const QSize size = settings.value("size").toSize();
-        move(pos);
-        resize(size);
-    } else
-    {
-        QRect rs = QGuiApplication::screens().value(0)->availableGeometry();
-        QRect rw;
-        rw.setSize(QSize(800, 500));
-        if (rw.height() > (rs.height() - 70))
-        {
-            rw.setHeight(rs.height() - 50);
-        }
-        if (rw.width() > (rs.width() - 50)) { rw.setWidth(rs.width() - 70); }
-        rw.moveCenter(rs.center());
-        setGeometry(rw);
+        rw.setTopLeft(pos);
+        rw.setSize(size);
     }
+
+    QRect rs = QGuiApplication::screens().value(0)->availableGeometry();
+    if (rw.isEmpty() || !rs.contains(rw))
+    {
+        rw.setSize(QSize(800, 500));
+        rw.moveCenter(rs.center());
+    }
+    setGeometry(rw);
 
     firmware_filename = settings.value("firmware_filename").toString();
     firmware_server_url
@@ -259,12 +259,15 @@ MainWindow::MainWindow()
 //==============================================================================
 bool MainWindow::set_node()
 {
-    bool ok;
-    BYTE ret;
+    thread1->node = le_node->text().toInt();
+    if (thread1->node < 1) thread1->node = 1;
+    if (thread1->node > 127) thread1->node = 127;
 
+#if 0 //
     if (secret_mode)
     {
-        ret = QInputDialog::getInt(this, tr("MMpM"), tr("Адрес модуля:"),
+        bool ok;
+        BYTE ret = QInputDialog::getInt(this, tr("MMpM"), tr("Адрес модуля:"),
                                    thread1->node, 1, 127, 1, &ok);
         if (!ok)
         {
@@ -278,6 +281,9 @@ bool MainWindow::set_node()
     {
         thread1->node = 127;
     }
+
+#endif
+
     return true;
 }
 
@@ -299,8 +305,12 @@ void MainWindow::on_pb2_clicked()
 {
     if (thread1->isRunning()) return;
     if (!set_node()) return;
+#if 0 // THIS FEATURE DISABLED
     SelectSourceDialog selectSourcedialog(this);
     int res = selectSourcedialog.exec();
+#else
+    int res = SelectSourceDialog::FromFile;
+#endif
     if (res == SelectSourceDialog::FromFile)
     {
         thread1->mode = 2;
@@ -560,7 +570,7 @@ void MainWindow::update()
         flag4 = 0;
     }
 
-    modbus->subnode = le->text().toInt();
+    modbus->subnode = le_subnode->text().toInt();
 
     //////////////////////
 
@@ -597,13 +607,24 @@ InitDialog::InitDialog(QWidget *parent)
     //----------------------------------------------------------------------
     cb_portname->clear();
     QStringList ports = SerialPort::queryComPorts();
+    if (ports.isEmpty())
+    {
+        QMessageBox::information(
+            this, "MMpm",
+            "В Вашей системе не найдено последовательных портов.");
+        ports_found = false;
+    }
     foreach (str, ports)
     {
         str2 = str;
         str2.replace(';', "        ( ");
         cb_portname->addItem(str2 + " )", str.section(';', 0, 0));
     }
+
+#if 0
     cb_portname->addItem("Modbus TCP", "===TCP===");
+#endif
+
     i = cb_portname->findData(settings.value(ini_port_name).toString());
     if (i >= 0) cb_portname->setCurrentIndex(i);
     //----------------------------------------------------------------------
@@ -697,6 +718,9 @@ OptDialog::OptDialog(QWidget *parent)
 
     setWindowTitle(tr("Опции"));
 
+    label->hide();
+    le_server_url->hide();
+
     le_server_url->setText(firmware_server_url);
 
     cb_modbus_packets->setChecked(Console::messageTypes()
@@ -709,7 +733,10 @@ OptDialog::OptDialog(QWidget *parent)
 
     if (!mainwindow->pb8->isHidden()) cb1->setChecked(true);
     if (!mainwindow->pb11->isHidden()) cb2->setChecked(true);
+    if (!mainwindow->pb4->isHidden()) cb_reset->setChecked(true);
     setFocus();
+
+    adjustSize();
 }
 
 //==============================================================================
@@ -738,7 +765,13 @@ void OptDialog::accept()
     {
         mainwindow->pb11->hide();
     }
-
+    if (cb_reset->isChecked())
+    {
+        mainwindow->pb4->show();
+    } else
+    {
+        mainwindow->pb4->hide();
+    }
     Settings settings;
     settings.setValue("firmware_server_url", firmware_server_url);
 
