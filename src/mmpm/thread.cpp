@@ -58,7 +58,7 @@ bool is_memory_filled_with_ff(void *p, size_t len)
 //==============================================================================
 Thread::Thread()
 {
-    node = 0;
+    node = 127;
     flash_begin_ptr = 0;
     flash_end_ptr = 0;
     flash_sector_size = 0;
@@ -817,10 +817,29 @@ int Thread::mb_load_module_type()
         tr("  Адрес конца  FLASH      : %1\n").arg(toHex(flash_end_ptr)));
     Console::Print(
         Console::Information,
-        tr("  Размер сектора FLASH    : %1\n").arg(toHex(flash_sector_size)));
+        tr("  Размер сектора FLASH    : %1\n").arg(flash_sector_size));
     Console::Print(
         Console::Information,
-        tr("  Порции заполнения       : %1\n").arg(toHex(flash_buff_limit)));
+        tr("  Порции заполнения       : %1\n").arg(flash_buff_limit));
+
+    if (buffer_len)
+    {
+
+        Console::Print(Console::Information,
+                       tr("  Длина прошивки (байт)   : %1\n").arg(buffer_len));
+
+        Console::Print(Console::Information,
+                       tr("  Адрес конца прошивки    : %1\n")
+                           .arg(toHex(flash_begin_ptr + buffer_len)));
+    }
+
+    if ((flash_begin_ptr + buffer_len) > flash_end_ptr)
+    {
+        Console::Print(Console::Information,
+                       tr("\nОШИБКА!  Длина прошивки больше доступной области "
+                          "FLASH.\n"));
+        return 0;
+    }
 
     if (loader_bin_length == 0)
     {
