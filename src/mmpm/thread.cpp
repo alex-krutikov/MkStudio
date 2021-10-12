@@ -283,7 +283,7 @@ int Thread::file_load()
 
     Console::Print(Console::Information, "Чтение файла... ");
 
-    memset(buffer, 0, sizeof(buffer));
+    memset(buffer, 0xFF, sizeof(buffer));
     memset(file_info_buffer, 0, sizeof(file_info_buffer));
 
     QString filename = firmware_filename;
@@ -320,8 +320,6 @@ int Thread::file_load()
     }
     buffer_len = size - 1024;
 
-    memset((char *)buffer, 0xFF, sizeof(buffer));
-
     file.read((char *)file_info_buffer, 1024);
     file.read((char *)buffer, buffer_len);
     file.close();
@@ -343,7 +341,7 @@ int Thread::file_load()
     return 1;
 
 error:
-    memset(buffer, 0, sizeof(buffer));
+    memset(buffer, 0xFF, sizeof(buffer));
     memset(file_info_buffer, 0, sizeof(file_info_buffer));
     return 0;
 }
@@ -364,7 +362,7 @@ int Thread::file_load_raw_bin(const QString &filename)
         msleep(100);
     if (mainwindow->flag2 == 0) return 0;
 
-    memset(buffer, 0, sizeof(buffer));
+    memset(buffer, 0xFF, sizeof(buffer));
     memset(file_info_buffer, 0, sizeof(file_info_buffer));
 
     QFile file(filename);
@@ -417,7 +415,7 @@ int Thread::file_load_loader_bin()
 {
     Console::Print(Console::Information, "Чтение файла... \n");
 
-    memset(buffer, 0, sizeof(buffer));
+    memset(buffer, 0xFF, sizeof(buffer));
     memset(file_info_buffer, 0, sizeof(file_info_buffer));
     loader_bin_length = 0;
 
@@ -533,7 +531,7 @@ int Thread::mb_load_flash()
     DWORD data_size;
 
     Console::Print(Console::Information, tr("Чтение FLASH... "));
-    memset(buffer, 0, sizeof(buffer));
+    memset(buffer, 0xFF, sizeof(buffer));
     addr = flash_begin_ptr;
     while (addr < flash_end_ptr)
     {
@@ -944,7 +942,7 @@ int Thread::mb_download_firmware()
 
     if (ba.isEmpty()) return 0;
 
-    memset(buffer, 0, sizeof(buffer));
+    memset(buffer, 0xFF, sizeof(buffer));
     memset(file_info_buffer, 0, sizeof(file_info_buffer));
 
     quint32 size = ba.size();
@@ -976,7 +974,7 @@ int Thread::mb_download_firmware()
         crc32 = update_crc32(crc32, buffer[i]);
     if (crc32 != crc32_from_file)
     {
-        memset(buffer, 0, sizeof(buffer));
+        memset(buffer, 0xFF, sizeof(buffer));
         memset(file_info_buffer, 0, sizeof(file_info_buffer));
         Console::Print(
             Console::Error,
