@@ -180,7 +180,6 @@ void Thread::run()
 //==============================================================================
 int Thread::file_save()
 {
-    WORD crc16;
     DWORD crc32;
     BYTE temp_buff[1024];
     int i, len;
@@ -215,11 +214,6 @@ int Thread::file_save()
     // !!!!!!!!!!!!!!!!!!
 
     len = flash_end_ptr - flash_begin_ptr;
-    crc16 = get_crc16(buffer + 0x80, len - 0x80);
-
-    buffer[0x10] = 1;
-    buffer[0x11] = crc16;
-    buffer[0x12] = crc16 >> 8;
 
     crc32 = 0xFFFFFFFF;
     for (i = 0; i < 1024; i++)
@@ -880,20 +874,6 @@ int Thread::mb_load_module_type()
                        tr("\nОШИБКА!  Длина прошивки больше доступной области "
                           "FLASH.\n"));
         return 0;
-    }
-
-    if (loader_bin_length == 0)
-    {
-        if (buffer[0x10] == 0)
-        {
-            Console::Print(Console::Information,
-                           "Добваление CRC16 в микропрограмму\n");
-            int len = flash_end_ptr - flash_begin_ptr;
-            WORD crc16 = get_crc16(buffer + 0x80, len - 0x80);
-            buffer[0x10] = 1;
-            buffer[0x11] = crc16;
-            buffer[0x12] = crc16 >> 8;
-        }
     }
 
     return 1;
