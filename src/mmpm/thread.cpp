@@ -7,6 +7,8 @@
 
 #include <QBuffer>
 
+#include <algorithm>
+
 namespace {
 
 //==============================================================================
@@ -285,7 +287,7 @@ int Thread::file_load()
     DWORD size;
     QFile file;
 
-    Console::Print(Console::Information, "Чтение файла... \n");
+    Console::Print(Console::Information, "Чтение файла... ");
 
     memset(buffer, 0, sizeof(buffer));
     memset(file_info_buffer, 0, sizeof(file_info_buffer));
@@ -567,12 +569,18 @@ int Thread::mb_verify_flash()
     DWORD i;
     BYTE temp_buffer[256];
 
-    Console::Print(Console::Information, tr("Проверка..."));
+    DWORD flash_verify_end_ptr = flash_begin_ptr + buffer_not_empty_size();
+    if (flash_verify_end_ptr > flash_end_ptr)
+        flash_verify_end_ptr = flash_end_ptr;
+
+    Console::Print(Console::Information, tr("\nПроверка FLASH [%1 - %2] ... ")
+                                             .arg(toHex(flash_begin_ptr))
+                                             .arg(toHex(flash_verify_end_ptr)));
 
     addr = flash_begin_ptr;
-    while (addr < flash_end_ptr)
+    while (addr < flash_verify_end_ptr)
     {
-        data_size = qMin(max_packet_size - 6, flash_end_ptr - addr);
+        data_size = qMin(max_packet_size - 6, flash_verify_end_ptr - addr);
         if (!modbus->func_45_04_flash_read(node, addr, data_size, temp_buffer))
         {
             Console::Print(Console::Error, tr("Ошибка связи!\n"));
@@ -597,9 +605,9 @@ int Thread::mb_verify_flash()
             }
         }
         addr += data_size;
-        mainwindow->pb_value
-            = 50 * (addr - flash_begin_ptr) / (flash_end_ptr - flash_begin_ptr)
-            + 50;
+        mainwindow->pb_value = 50 * (addr - flash_begin_ptr)
+                                 / (flash_verify_end_ptr - flash_begin_ptr + 1)
+                             + 50;
     }
 
     Console::Print(Console::Information, tr("OK.\n"));
@@ -650,22 +658,39 @@ int Thread::mb_write_flash()
     sec1 = (flash_begin_ptr) / flash_sector_size;
     sec2 = (flash_end_ptr) / flash_sector_size - 1;
 
+
+    const DWORD not_empty_size = buffer_not_empty_size();
+    DWORD sec3 = (flash_begin_ptr + not_empty_size) / flash_sector_size;
+
+    if (sec3 < sec1) sec3 = sec1;
+    if (sec3 > sec2) sec3 = sec2;
+
+    qDebug() << "dist" << sec1 << sec2 << sec3;
+
     DWORD addr;
     DWORD data_size;
-    Console::Print(Console::Information, tr("Прошивка модуля... \n"));
+    Console::Print(Console::Information, tr("\nПрошивка модуля: \n"));
 
-    Console::Print(
-        Console::Information,
-        tr("  стирание FLASH (сектора %1-%2)... ").arg(sec1).arg(sec2));
+    const DWORD addr_erase_start = sec1 * flash_sector_size;
+    const DWORD addr_erase_end = (sec3 + 1) * flash_sector_size - 1;
+
+    Console::Print(Console::Information, tr("  стирание FLASH [%1 - %2]\n")
+                                             .arg(toHex(addr_erase_start))
+                                             .arg(toHex(addr_erase_end)));
+
+    Console::Print(Console::Information,
+                   tr("   сектора FLASH (%1 - %2) ... ").arg(sec1).arg(sec3));
 
     // стираем
-    if (!modbus->func_45_05_flash_erase(node, sec1, sec2))
+    if (!modbus->func_45_05_flash_erase(node, sec1, sec3))
     {
         Console::Print(Console::Error, tr("Ошибка связи!\n"));
         return 0;
     }
     msleep(1000);
     Console::Print(Console::Information, tr("OK.\n"));
+
+    Console::Print(Console::Information, tr("Запись FLASH:\n"));
 
     addr = flash_begin_ptr;
     while (addr < flash_end_ptr)
@@ -983,4 +1008,16 @@ int Thread::mb_download_firmware()
                    tr("Микропрограмма получена из интернета.\n"));
 
     return 1;
+}
+
+//==============================================================================
+//
+//==============================================================================
+size_t Thread::buffer_not_empty_size() const
+{
+    auto it = std::find_if_not(std::crbegin(buffer), std::crend(buffer),
+                               [](char x) { return x == (char)0xFF; });
+
+    auto d = std::distance(it, std::crend(buffer));
+    return d;
 }

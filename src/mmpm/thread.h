@@ -35,6 +35,8 @@ private:
     int mb_loader_change();
     int mb_download_firmware();
 
+    size_t buffer_not_empty_size() const;
+
     int loader_bin_length;
     BYTE buffer[1024 * 1024];
     BYTE info_buffer[128];
