@@ -1,9 +1,11 @@
-#include "thread.h"
+﻿#include "thread.h"
 #include "main.h"
 #include "mainwindow.h"
 #include "misc.h"
 
 #include "console.h"
+
+#include <zip.h>
 
 #include <QBuffer>
 
@@ -52,6 +54,110 @@ bool is_memory_filled_with_ff(void *p, size_t len)
 
     return true;
 }
+
+//==============================================================================
+//
+//==============================================================================
+class ZippedFirmwareFile final
+{
+public:
+    struct Exception final : public std::runtime_error
+    {
+        Exception(const std::string &arg)
+            : std::runtime_error{arg}
+        {
+        }
+    };
+
+public:
+    ZippedFirmwareFile(std::string filename);
+    ~ZippedFirmwareFile();
+
+    ZippedFirmwareFile(const ZippedFirmwareFile&) = delete;
+    ZippedFirmwareFile(ZippedFirmwareFile&&) = delete;
+    void operator=(const ZippedFirmwareFile&) = delete;
+    void operator=(ZippedFirmwareFile&&) = delete;
+
+    void read(void *buff, size_t size);
+    size_t size() const { return m_size; }
+
+private:
+    zip_t *m_zipper;
+    zip_file_t *m_file;
+    size_t m_size;
+};
+
+//==============================================================================
+//
+//==============================================================================
+ZippedFirmwareFile::ZippedFirmwareFile(std::string filename)
+{
+    // Открываем zip-archive
+    int errorp;
+    m_zipper = zip_open(filename.c_str(), ZIP_RDONLY, &errorp);
+    if (m_zipper == nullptr)
+    {
+        zip_error_t ziperror;
+        zip_error_init_with_code(&ziperror, errorp);
+        throw ZippedFirmwareFile::Exception("Не могу открыть файл архива:"
+                                            + filename
+                                            + zip_error_strerror(&ziperror));
+    }
+
+
+    // Преобразуем имя файла
+    auto pos = filename.rfind(".zip");
+    if ((pos + 4) != filename.length())
+        throw ZippedFirmwareFile::Exception{"Неправильный формат имени файла."};
+
+    filename.replace(pos, 4, ".bin");
+
+    pos = filename.find_last_of("/\\");
+    if (pos != std::string::npos) filename.erase(0, pos + 1);
+
+
+    // Получаем длину файла
+    struct zip_stat zs;
+    zip_stat_init(&zs);
+    int ret = zip_stat(m_zipper, filename.c_str(),
+                       ZIP_STAT_NAME | ZIP_STAT_SIZE, &zs);
+
+    if (ret != 0)
+        throw ZippedFirmwareFile::Exception("Не могу открыть файл в архиве."
+                                            + filename);
+
+    m_size = zs.size;
+
+    // Открываем файл на чтение
+    m_file = zip_fopen(m_zipper, filename.c_str(), 0);
+    if (m_file == nullptr)
+    {
+        throw ZippedFirmwareFile::Exception("Не могу открыть файл в архиве: "
+                                            + filename);
+    }
+}
+
+//==============================================================================
+//
+//==============================================================================
+ZippedFirmwareFile::~ZippedFirmwareFile()
+{
+    zip_fclose(m_file);
+    zip_close(m_zipper);
+}
+
+//==============================================================================
+//
+//==============================================================================
+void ZippedFirmwareFile::read(void *buff, size_t size)
+{
+    size_t readed = zip_fread(m_file, buff, size);
+
+    if (readed != size)
+        throw ZippedFirmwareFile::Exception(
+            "Failed to read file in zip-archive: ");
+}
+
 
 } // namespace
 
@@ -279,7 +385,6 @@ int Thread::file_load()
     DWORD crc32;
     DWORD crc32_from_file;
     DWORD size;
-    QFile file;
 
     Console::Print(Console::Information, "Чтение файла... ");
 
@@ -298,31 +403,71 @@ int Thread::file_load()
         goto error;
     }
 
-    file.setFileName(firmware_filename);
-    if (!file.open(QIODevice::ReadOnly))
+    if (firmware_filename.endsWith(".bin"))
+    {
+
+        QFile file;
+        file.setFileName(firmware_filename);
+        if (!file.open(QIODevice::ReadOnly))
+        {
+            Console::Print(Console::Error,
+                           tr("\n\n ОШИБКА! Не могу открыть файл!\n"));
+            goto error;
+        }
+
+        size = file.size();
+        if (size <= 1024)
+        {
+            Console::Print(Console::Error,
+                           tr("\n\n ОШИБКА! Размер файла меньше 1K!\n"));
+            goto error;
+        } else if (size >= (1024 * 1024))
+        {
+            Console::Print(Console::Error,
+                           tr("\n\n ОШИБКА! Размер файла больше 1000K!\n"));
+            goto error;
+        }
+        buffer_len = size - 1024;
+
+        file.read((char *)file_info_buffer, 1024);
+        file.read((char *)buffer, buffer_len);
+        file.close();
+
+    } else if (firmware_filename.endsWith(".zip"))
+    {
+        try
+        {
+            ZippedFirmwareFile file{firmware_filename.toStdString()};
+            size = file.size();
+            if (size <= 1024)
+            {
+                Console::Print(Console::Error,
+                               tr("\n\n ОШИБКА! Размер файла меньше 1K!\n"));
+                goto error;
+            } else if (size >= (1024 * 1024))
+            {
+                Console::Print(Console::Error,
+                               tr("\n\n ОШИБКА! Размер файла больше 1000K!\n"));
+                goto error;
+            }
+            buffer_len = size - 1024;
+
+            file.read((char *)file_info_buffer, 1024);
+            file.read((char *)buffer, buffer_len);
+
+        } catch (const ZippedFirmwareFile::Exception &e)
+        {
+            Console::Print(Console::Error,
+                           "\n\n ОШИБКА! " + QString{e.what()} + "\n");
+            return 0;
+        }
+    } else
     {
         Console::Print(Console::Error,
-                       tr("\n\n ОШИБКА! Не могу открыть файл!\n"));
-        goto error;
+                       tr("\n\n ОШИБКА! Неизвестный тип файла прошивки!\n"));
+        return 0;
     }
 
-    size = file.size();
-    if (size <= 1024)
-    {
-        Console::Print(Console::Error,
-                       tr("\n\n ОШИБКА! Размер файла меньше 1K!\n"));
-        goto error;
-    } else if (size >= (1024 * 1024))
-    {
-        Console::Print(Console::Error,
-                       tr("\n\n ОШИБКА! Размер файла больше 1000K!\n"));
-        goto error;
-    }
-    buffer_len = size - 1024;
-
-    file.read((char *)file_info_buffer, 1024);
-    file.read((char *)buffer, buffer_len);
-    file.close();
 
     memcpy(&crc32_from_file, &file_info_buffer[0x20], sizeof(crc32_from_file));
     memset(&file_info_buffer[0x20], 0, sizeof(DWORD));
@@ -656,8 +801,6 @@ int Thread::mb_write_flash()
 
     if (sec3 < sec1) sec3 = sec1;
     if (sec3 > sec2) sec3 = sec2;
-
-    qDebug() << "dist" << sec1 << sec2 << sec3;
 
     DWORD addr;
     DWORD data_size;

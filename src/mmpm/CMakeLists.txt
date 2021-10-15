@@ -33,6 +33,7 @@ target_link_libraries(mmpm
     modbuslib
     mklib
     Qt5::Widgets
+    libzip::zip
 )
 
 install(TARGETS mmpm DESTINATION .)

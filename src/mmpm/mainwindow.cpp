@@ -555,7 +555,7 @@ void MainWindow::update()
             firmware_filename += QDir().homePath() + QDir::separator();
 
         firmware_filename = QFileDialog::getOpenFileName(
-            0, "Загрузить файл", firmware_filename, "*.bin");
+            0, "Загрузить файл", firmware_filename, "*.bin;*.zip");
         timer->start();
         flag3 = 0;
     }
