@@ -12,6 +12,8 @@ class Thread : public QThread
 {
 public:
     Thread();
+    ~Thread();
+
     void setupMaxPacketSize(int max_packet_size);
     int mode;
     BYTE node;

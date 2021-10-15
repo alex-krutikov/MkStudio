@@ -4,6 +4,7 @@
 #include "modbus.h"
 
 #include "console.h"
+#include "global_exit_manager.h"
 #include "serialport.h"
 
 #include <QApplication>
@@ -434,6 +435,8 @@ void MainWindow::closeEvent(QCloseEvent *)
     settings.setValue("size", size());
     settings.setValue("firmware_filename",
                       QFileInfo(firmware_filename).absolutePath());
+
+    GlobalExitManager::instance().activateExit();
 }
 
 //==============================================================================

@@ -3,6 +3,7 @@
 #include "misc.h"
 
 #include "console.h"
+#include "global_exit_manager.h"
 #include "mbtcp.h"
 #include "serialport.h"
 
@@ -92,6 +93,8 @@ int ModbusMaster::go()
 
     while (attempts++ < 50)
     {
+        GlobalExitManager::instance().check();
+
         req_counter++;
         memset(ans, 0, sizeof(ans));
         ba_ans.fill(0);

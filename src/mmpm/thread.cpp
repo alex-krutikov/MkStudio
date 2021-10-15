@@ -4,6 +4,7 @@
 #include "misc.h"
 
 #include "console.h"
+#include "global_exit_manager.h"
 
 #include <zip.h>
 
@@ -176,6 +177,11 @@ Thread::Thread()
     max_packet_size = 128;
 }
 
+Thread::~Thread()
+{
+    wait();
+}
+
 //==============================================================================
 // Modbus Master -- установка максимальной длины пакета
 //==============================================================================
@@ -193,92 +199,96 @@ void Thread::setupMaxPacketSize(int max_packet_size)
 //==============================================================================
 void Thread::run()
 {
-    setTerminationEnabled(true);
-    loader_bin_length = 0;
-    switch (mode)
+    try
     {
-    case (1): // чтение из модуля
-        if (!mb_reset()) break;
-        if (!mb_load_module_type()) break;
-        if (!mb_passwd()) break;
-        if (!mb_load_flash()) break;
-        if (!mb_verify_flash()) break;
-        if (!mb_reset()) break;
-        if (!file_save()) break;
-        Console::Print(Console::Information,
-                       "\nЧтение микропрограммы завершилась успешно.\n");
-        break;
-    case (2): // прошиваем модуль
-        if (!file_load()) break;
-        if (!mb_reset()) break;
-        if (!mb_load_module_type()) break;
-        if (!mb_check_module_type()) break;
-        if (!mb_passwd()) break;
-        if (!mb_write_flash()) break;
-        if (!mb_verify_flash()) break;
-        if (!mb_reset()) break;
-        Console::Print(Console::Information,
-                       "\nЗапись микропрограммы завершилась успешно.\n");
-        break;
-    case (3): // RESET
-        if (!mb_reset()) break;
-        if (!mb_check_module_type()) break;
-        break;
-    case (4): // информация о модуле
-        if (!mb_read_information()) break;
-        break;
-    case (5): // проверка модуля
-        if (!file_load()) break;
-        if (!mb_reset()) break;
-        if (!mb_load_module_type()) break;
-        if (!mb_check_module_type()) break;
-        if (!mb_passwd()) break;
-        if (!mb_verify_flash()) break;
-        if (!mb_reset()) break;
-        Console::Print(Console::Information,
-                       "\nПроверка микропрограммы завершилась успешно.\n");
-        break;
-    case (6): // стереть модуль
-        if (!mb_reset()) break;
-        if (!mb_load_module_type()) break;
-        // if( !mb_check_module_type() ) break;
-        if (!mb_passwd()) break;
-        if (!mb_erase_flash()) break;
-        if (!mb_reset()) break;
-        Console::Print(Console::Information, "\nМикропрограмма стерта.\n");
-        break;
-    case (7): // прошиваем загрузчик
-        if (!file_load_loader_bin()) break;
-        if (!mb_reset()) break;
-        if (!mb_load_module_type()) break;
-        if (!mb_check_module_type()) break;
-        if (!mb_passwd()) break;
-        if (!mb_write_flash()) break;
-        if (!mb_verify_flash()) break;
-        if (!mb_loader_change()) break;
-        Console::Print(Console::Information,
-                       "\n\nЗапись загрузчика прошла успешно.\n");
-        Console::Print(
-            Console::Information,
-            "Для работы модуля необходимо записать в него микропрограмму.\n");
-        break;
-    case (8): // прошиваем модуль прошивкой из интернета
-        if (!mb_reset()) break;
-        if (!mb_load_module_type()) break;
-        if (!mb_download_firmware()) break;
-        if (!mb_reset()) break;
-        if (!mb_load_module_type()) break;
-        if (!mb_check_module_type()) break;
-        if (!mb_passwd()) break;
-        if (!mb_write_flash()) break;
-        if (!mb_verify_flash()) break;
-        if (!mb_reset()) break;
-        Console::Print(Console::Information,
-                       "\nЗапись микропрограммы завершилась успешно.\n");
-        break;
+        loader_bin_length = 0;
+        switch (mode)
+        {
+        case (1): // чтение из модуля
+            if (!mb_reset()) break;
+            if (!mb_load_module_type()) break;
+            if (!mb_passwd()) break;
+            if (!mb_load_flash()) break;
+            if (!mb_verify_flash()) break;
+            if (!mb_reset()) break;
+            if (!file_save()) break;
+            Console::Print(Console::Information,
+                           "\nЧтение микропрограммы завершилась успешно.\n");
+            break;
+        case (2): // прошиваем модуль
+            if (!file_load()) break;
+            if (!mb_reset()) break;
+            if (!mb_load_module_type()) break;
+            if (!mb_check_module_type()) break;
+            if (!mb_passwd()) break;
+            if (!mb_write_flash()) break;
+            if (!mb_verify_flash()) break;
+            if (!mb_reset()) break;
+            Console::Print(Console::Information,
+                           "\nЗапись микропрограммы завершилась успешно.\n");
+            break;
+        case (3): // RESET
+            if (!mb_reset()) break;
+            if (!mb_check_module_type()) break;
+            break;
+        case (4): // информация о модуле
+            if (!mb_read_information()) break;
+            break;
+        case (5): // проверка модуля
+            if (!file_load()) break;
+            if (!mb_reset()) break;
+            if (!mb_load_module_type()) break;
+            if (!mb_check_module_type()) break;
+            if (!mb_passwd()) break;
+            if (!mb_verify_flash()) break;
+            if (!mb_reset()) break;
+            Console::Print(Console::Information,
+                           "\nПроверка микропрограммы завершилась успешно.\n");
+            break;
+        case (6): // стереть модуль
+            if (!mb_reset()) break;
+            if (!mb_load_module_type()) break;
+            // if( !mb_check_module_type() ) break;
+            if (!mb_passwd()) break;
+            if (!mb_erase_flash()) break;
+            if (!mb_reset()) break;
+            Console::Print(Console::Information, "\nМикропрограмма стерта.\n");
+            break;
+        case (7): // прошиваем загрузчик
+            if (!file_load_loader_bin()) break;
+            if (!mb_reset()) break;
+            if (!mb_load_module_type()) break;
+            if (!mb_check_module_type()) break;
+            if (!mb_passwd()) break;
+            if (!mb_write_flash()) break;
+            if (!mb_verify_flash()) break;
+            if (!mb_loader_change()) break;
+            Console::Print(Console::Information,
+                           "\n\nЗапись загрузчика прошла успешно.\n");
+            Console::Print(Console::Information,
+                           "Для работы модуля необходимо записать в него "
+                           "микропрограмму.\n");
+            break;
+        case (8): // прошиваем модуль прошивкой из интернета
+            if (!mb_reset()) break;
+            if (!mb_load_module_type()) break;
+            if (!mb_download_firmware()) break;
+            if (!mb_reset()) break;
+            if (!mb_load_module_type()) break;
+            if (!mb_check_module_type()) break;
+            if (!mb_passwd()) break;
+            if (!mb_write_flash()) break;
+            if (!mb_verify_flash()) break;
+            if (!mb_reset()) break;
+            Console::Print(Console::Information,
+                           "\nЗапись микропрограммы завершилась успешно.\n");
+            break;
+        }
+        Console::Print(Console::Information, tr("\n\n"));
+        mode = 0;
+    } catch (const GlobalExitManager::Exception &)
+    {
     }
-    Console::Print(Console::Information, tr("\n\n"));
-    mode = 0;
 }
 
 //==============================================================================

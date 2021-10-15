@@ -19,6 +19,7 @@ target_sources(modbuslib
         console.h
         crc.cpp
         crc.h
+        global_exit_manager.h
         mbcommon.cpp
         mbcommon.h
         mbl_global.h
