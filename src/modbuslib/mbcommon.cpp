@@ -4,11 +4,17 @@
 //
 //===================================================================
 const char *const MBDataType_id[] = {
-    "unknown",         "bits",
-    "bytes",           "words",
-    "dwords",          "floats",
-    "discrete_inputs", "coils",
-    "input_registers", "holding_registers",
+    "unknown",
+    "bits",
+    "bytes",
+    "words",
+    "dwords",
+    "floats",
+    "doubles",
+    "discrete_inputs",
+    "coils",
+    "input_registers",
+    "holding_registers",
     "dwords_iregs_hl", // рег.вв. дв.слова  ст./мл.
     "dwords_iregs_lh", // рег.вв. дв.слова  мл./ст.
     "floats_iregs_hl", // рег.вв. вещ.числа ст./мл.
@@ -17,8 +23,10 @@ const char *const MBDataType_id[] = {
     "dwords_hregs_lh", // рег.хр. дв.слова  мл./ст.
     "floats_hregs_hl", // рег.хр. вещ.числа ст./мл.
     "floats_hregs_lh", // рег.хр. вещ.числа мл./ст.
-    "bits_arduino",    "bytes_arduino",
-    "words_arduino",   "dwords_arduino",
+    "bits_arduino",
+    "bytes_arduino",
+    "words_arduino",
+    "dwords_arduino",
     "floats_arduino",
 };
 
@@ -29,6 +37,7 @@ const char *const MBDataType_names[] = {
     "слова",
     "дв.слова",
     "вещ.числа",
+    "дв.вещ.числа",
     "дискр. входы",
     "рег. флагов",
     "рег. ввода",

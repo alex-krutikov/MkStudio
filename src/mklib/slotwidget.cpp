@@ -138,6 +138,7 @@ SlotWidget::SlotWidget(QWidget *parent, MBMasterXMLPtr mm, int module, int slot,
     switch (slot2.datatype.id())
     {
     case (MBDataType::Floats):
+    case (MBDataType::Doubles):
         ui->action_format_bin->setEnabled(false);
         ui->action_format_dec->setEnabled(false);
         ui->action_format_unsigned->setEnabled(false);
@@ -708,7 +709,9 @@ void SlotWidget::timerEvent(QTimerEvent *event)
         break;
     }
 
-    if (b_unsigned && (ss.datatype.id() == MBDataType::Floats))
+    if (b_unsigned
+        && ((ss.datatype.id() == MBDataType::Floats)
+            || (ss.datatype.id() == MBDataType::Doubles)))
         b_unsigned = false;
 
     int n = ss.data.size() + 1;

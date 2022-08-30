@@ -97,6 +97,7 @@ public:
         Words,
         Dwords,
         Floats,
+        Doubles,
         DiscreteInputs,
         Coils,
         InputRegisters,

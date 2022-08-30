@@ -303,6 +303,9 @@ void MBMasterPrivate::polling_start()
             case (MBDataType::Floats):
                 j = j * 4;
                 break;
+            case (MBDataType::Doubles):
+                j = j * 8;
+                break;
             default:
                 continue;
                 break;
@@ -347,6 +350,10 @@ void MBMasterPrivate::polling_start()
                     mmsp.offset = k / 4;
                     mmsp.length = len / 4;
                     break;
+                case (MBDataType::Doubles):
+                    mmsp.offset = k / 8;
+                    mmsp.length = len / 8;
+                    break;
                 default:
                     break;
                 }
@@ -384,6 +391,9 @@ void MBMasterPrivate::polling_start()
             break;
         case (MBDataType::Floats):
             j = 4;
+            break;
+        case (MBDataType::Doubles):
+            j = 8;
             break;
         case (MBDataType::HoldingRegisters):
             j = 2;
@@ -1687,6 +1697,13 @@ bool MBMasterPrivate::process_transaction(MMSlotTransaction &tr)
                             (float *)(tr.answer.data() + data_offset + 4 * i));
                     }
                     break;
+                case (MBDataType::Doubles):
+                    for (i = 0; i < tr.length; i++)
+                    {
+                        tr.slot->data[i + tr.offset] = *(
+                            (double *)(tr.answer.data() + data_offset + 8 * i));
+                    }
+                    break;
                 default:
                     break;
                 }
@@ -1744,7 +1761,8 @@ void MBMasterPrivate::setSlotValue(int module, int slot, int index,
         int8_t i8;
         int16_t i16;
         int32_t i32;
-        float f;
+        float f32;
+        double f64;
         char buff[8];
     } buff;
 
@@ -1843,7 +1861,7 @@ void MBMasterPrivate::setSlotValue(int module, int slot, int index,
                 buff_len = 4;
                 break;
             case (MBDataType::FloatsArduino):
-                buff.f = (float)(value.toDouble());
+                buff.f32 = (float)(value.toDouble());
                 buff_len = 4;
                 break;
             default:
@@ -1889,8 +1907,12 @@ void MBMasterPrivate::setSlotValue(int module, int slot, int index,
                 buff_len = 4;
                 break;
             case (MBDataType::Floats):
-                buff.f = (float)(value.toDouble());
+                buff.f32 = (float)(value.toDouble());
                 buff_len = 4;
+                break;
+            case (MBDataType::Doubles):
+                buff.f64 = value.toDouble();
+                buff_len = 8;
                 break;
             default:
                 buff_len = 0;

@@ -1091,6 +1091,9 @@ QString MKTable::format_output(const MMValue &value, const MBDataType &datatype,
         case (MBDataType::Floats):
             cf = (char *)"%7.7g";
             break;
+        case (MBDataType::Doubles):
+            cf = (char *)"%15.15g";
+            break;
         case (MBDataType::Bits):
             cf = (char *)"%u";
             d &= 0x01;
@@ -1129,6 +1132,9 @@ QString MKTable::format_output(const MMValue &value, const MBDataType &datatype,
         {
         case (MBDataType::Floats):
             cf = (char *)"%7.7g";
+            break;
+        case (MBDataType::Doubles):
+            cf = (char *)"%15.15g";
             break;
         case (MBDataType::Bits):
             cf = (char *)"0x%2.2X";
@@ -1169,6 +1175,9 @@ QString MKTable::format_output(const MMValue &value, const MBDataType &datatype,
         case (MBDataType::Floats):
             cf = (char *)"%7.7g";
             break;
+        case (MBDataType::Doubles):
+            cf = (char *)"%15.15g";
+            break;
         case (MBDataType::Bits):
             cf = (char *)"%d";
             break;
@@ -1204,6 +1213,7 @@ QString MKTable::format_output(const MMValue &value, const MBDataType &datatype,
         switch (datatype_id)
         {
         case (MBDataType::Floats):
+        case (MBDataType::Doubles):
             goto next;
             break;
         case (MBDataType::Bits):
@@ -1241,6 +1251,7 @@ next:
     switch (datatype_id)
     {
     case (MBDataType::Floats):
+    case (MBDataType::Doubles):
         str = QString::asprintf(cf, value.toDouble());
         break;
     case (MBDataType::Bits):
