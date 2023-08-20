@@ -102,8 +102,11 @@ Plot::Plot(QString title, QList<QTableWidgetItem *> mkItemList, bool min_flag,
         file_write_counter = 0;
 
         zoomer = new QwtPlotZoomer(ui->plot->canvas());
-        zoomer->setSelectionFlags(QwtPicker::DragSelection
-                                  | QwtPicker::CornerToCorner);
+
+        // TODO fix this
+        // zoomer->setSelectionFlags(QwtPicker::DragSelection
+        //                                  | QwtPicker::CornerToCorner);
+
         zoomer->setTrackerMode(QwtPicker::AlwaysOff);
         zoomer->setMousePattern(QwtEventPattern::MouseSelect1, Qt::LeftButton);
         zoomer->setMousePattern(QwtEventPattern::MouseSelect2, Qt::RightButton);
@@ -113,8 +116,7 @@ Plot::Plot(QString title, QList<QTableWidgetItem *> mkItemList, bool min_flag,
         zoomer->setMousePattern(QwtEventPattern::MouseSelect6, Qt::NoButton);
 
 
-        picker = new MKPicker(QwtPlot::xBottom, QwtPlot::yRight,
-                              QwtPicker::NoSelection,
+        picker = new MKPicker(QwtPlot::xBottom, QwtPlot::yRight, 0,
                               QwtPlotPicker::CrossRubberBand,
                               QwtPicker::AlwaysOn, ui->plot->canvas());
         picker->setTrackerPen(QColor(Qt::white));
@@ -126,11 +128,11 @@ Plot::Plot(QString title, QList<QTableWidgetItem *> mkItemList, bool min_flag,
         picker->startTimer(30);
 
         grid = new QwtPlotGrid;
-        grid->setAxis(QwtPlot::xBottom, QwtPlot::yRight);
+        grid->setAxes(QwtPlot::xBottom, QwtPlot::yRight);
         grid->enableXMin(true);
         grid->enableYMin(true);
-        grid->setMajPen(QPen(Qt::darkGray, 0, Qt::DotLine));
-        grid->setMinPen(QPen(Qt::lightGray, 0, Qt::DotLine));
+        grid->setMajorPen(QPen(Qt::darkGray, 0, Qt::DotLine));
+        grid->setMinorPen(QPen(Qt::lightGray, 0, Qt::DotLine));
         grid->attach(ui->plot);
 
         ui->le_input_signal_range->setValidator(new QDoubleValidator(this));
@@ -173,7 +175,7 @@ Plot::Plot(QString title, QList<QTableWidgetItem *> mkItemList, bool min_flag,
         plot_data1.reset(new QwtPlotCurve("Curve 1"));
         plot_data1->setPen(QPen(Qt::blue, 1));
         plot_data1->setYAxis(QwtPlot::yRight);
-        plot_data1->setRawData(x_data.get(), y_data1.get(), y_data_len);
+        plot_data1->setRawSamples(x_data.get(), y_data1.get(), y_data_len);
         plot_data1->attach(ui->plot);
 
         if (plots_count > 1)
@@ -181,7 +183,7 @@ Plot::Plot(QString title, QList<QTableWidgetItem *> mkItemList, bool min_flag,
             plot_data2.reset(new QwtPlotCurve("Curve 2"));
             plot_data2->setPen(QPen(Qt::green, 1));
             plot_data2->setYAxis(QwtPlot::yRight);
-            plot_data2->setRawData(x_data.get(), y_data2.get(), y_data_len);
+            plot_data2->setRawSamples(x_data.get(), y_data2.get(), y_data_len);
             plot_data2->attach(ui->plot);
         }
         if (plots_count > 2)
@@ -189,7 +191,7 @@ Plot::Plot(QString title, QList<QTableWidgetItem *> mkItemList, bool min_flag,
             plot_data3.reset(new QwtPlotCurve("Curve 3"));
             plot_data3->setPen(QPen(Qt::red, 1));
             plot_data3->setYAxis(QwtPlot::yRight);
-            plot_data3->setRawData(x_data.get(), y_data3.get(), y_data_len);
+            plot_data3->setRawSamples(x_data.get(), y_data3.get(), y_data_len);
             plot_data3->attach(ui->plot);
         }
         if (plots_count > 3)
@@ -197,7 +199,7 @@ Plot::Plot(QString title, QList<QTableWidgetItem *> mkItemList, bool min_flag,
             plot_data4.reset(new QwtPlotCurve("Curve 4"));
             plot_data4->setPen(QPen(Qt::black, 1));
             plot_data4->setYAxis(QwtPlot::yRight);
-            plot_data4->setRawData(x_data.get(), y_data4.get(), y_data_len);
+            plot_data4->setRawSamples(x_data.get(), y_data4.get(), y_data_len);
             plot_data4->attach(ui->plot);
         }
         //--------------------------------------------
@@ -208,10 +210,10 @@ Plot::Plot(QString title, QList<QTableWidgetItem *> mkItemList, bool min_flag,
         ui->hist->enableAxis(QwtPlot::yLeft, false);
 
         QwtPlotCurve *hist_data = new QwtPlotCurve("Curve H");
-        hist_data->setPen(Qt::NoPen);
+        hist_data->setPen(QPen{Qt::NoPen});
         hist_data->setStyle(QwtPlotCurve::Steps);
         hist_data->setBrush(QColor("lightslategrey"));
-        hist_data->setRawData(x_hist_data, y_hist_data, y_hist_data_len);
+        hist_data->setRawSamples(x_hist_data, y_hist_data, y_hist_data_len);
         hist_data->attach(ui->hist);
         //---------
 
@@ -752,22 +754,22 @@ void Plot::params_change()
         x_data.reset(new double[y_data_len]);
         y_data1.reset(new double[y_data_len]);
 
-        plot_data1->setRawData(x_data.get(), y_data1.get(), y_data_len);
+        plot_data1->setRawSamples(x_data.get(), y_data1.get(), y_data_len);
 
         if (plots_count > 1)
         {
             y_data2.reset(new double[y_data_len]);
-            plot_data2->setRawData(x_data.get(), y_data2.get(), y_data_len);
+            plot_data2->setRawSamples(x_data.get(), y_data2.get(), y_data_len);
         }
         if (plots_count > 2)
         {
             y_data3.reset(new double[y_data_len]);
-            plot_data3->setRawData(x_data.get(), y_data3.get(), y_data_len);
+            plot_data3->setRawSamples(x_data.get(), y_data3.get(), y_data_len);
         }
         if (plots_count > 3)
         {
             y_data4.reset(new double[y_data_len]);
-            plot_data4->setRawData(x_data.get(), y_data4.get(), y_data_len);
+            plot_data4->setRawSamples(x_data.get(), y_data4.get(), y_data_len);
         }
         switch (ui->cb_plot_stat->currentIndex())
         {
@@ -959,7 +961,7 @@ void Plot::timerEvent(QTimerEvent *event)
             zoomScale = 60;
             break; // 1 час
         }
-        zoomer->setZoomBase(QwtDoubleRect(0, 0, zoomScale, 1000));
+        zoomer->setZoomBase(QRectF(0, 0, zoomScale, 1000));
 
         time_append += timerInterval;
         if (file_write_flag)
@@ -1544,11 +1546,15 @@ qreal Plot::getYcoord(qreal xcoord, int y_data_index)
 //==============================================================================
 void Plot::moveCanvas()
 {
-    double newX = zoomer->zoomRect().x()
-                + picker->xAxisCoordFromPlot(picker->lastTrackerPosition())
-                - picker->xAxisCoordFromPlot(picker->trackerPosition());
 
-    zoomer->move(newX, 0.0);
+    // TODO fix this
+
+    //    double newX = zoomer->zoomRect().x()
+    //                +
+    //                picker->xAxisCoordFromPlot(picker->lastTrackerPosition())
+    //                - picker->xAxisCoordFromPlot(picker->trackerPosition());
+
+    //    zoomer->move(newX, 0.0);
 }
 //==============================================================================
 //

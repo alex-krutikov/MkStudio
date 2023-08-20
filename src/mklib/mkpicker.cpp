@@ -4,10 +4,12 @@
 
 #include <qwt_painter.h>
 #include <qwt_plot.h>
+#include <qwt_text.h>
 
 #include <QMessageBox>
 #include <QMouseEvent>
 #include <QPainter>
+#include <QPainterPath>
 #include <QPointer>
 #include <QTextDocumentFragment>
 
@@ -23,7 +25,7 @@ QwtText MKPicker::trackerText(const QPoint &pos) const
 //==============================================================================
 //тескст над курсором
 //==============================================================================
-QwtText MKPicker::trackerText(const QwtDoublePoint &pos) const
+QwtText MKPicker::trackerText(const QPointF &pos) const
 {
     if (!atCanvas || pos.x() < 0.0 || !trackerDataVisible) return QwtText("");
     QString text;
@@ -56,7 +58,7 @@ QwtText MKPicker::trackerText(const QwtDoublePoint &pos) const
 //==============================================================================
 void MKPicker::drawRubberBand(QPainter *painter) const
 {
-    const QRect &pRect = pickRect();
+    const QRect pRect = pickArea().boundingRect().toRect();
     const QPoint pos = trackerPosition();
     QPen pen;
     pen.setColor(Qt::red);

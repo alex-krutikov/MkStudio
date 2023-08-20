@@ -13,6 +13,7 @@
 #include <qwt_plot_marker.h>
 #include <qwt_scale_draw.h>
 #include <qwt_scale_widget.h>
+#include <qwt_series_data.h>
 
 #include <QClipboard>
 #include <QDomDocument>
@@ -177,8 +178,8 @@ SlotWidget::SlotWidget(QWidget *parent, MBMasterXMLPtr mm, int module, int slot,
     QwtPlotGrid *grid = new QwtPlotGrid;
     grid->enableXMin(true);
     grid->enableYMin(true);
-    grid->setMajPen(QPen(Qt::black, 1, Qt::DotLine));
-    grid->setMinPen(QPen(Qt::gray, 1, Qt::DotLine));
+    grid->setMajorPen(QPen(Qt::black, 1, Qt::DotLine));
+    grid->setMinorPen(QPen(Qt::gray, 1, Qt::DotLine));
     grid->attach(ui->plot);
 
     ui->plot2->setCanvasBackground(QColor("linen"));
@@ -194,8 +195,8 @@ SlotWidget::SlotWidget(QWidget *parent, MBMasterXMLPtr mm, int module, int slot,
     QwtPlotGrid *grid2 = new QwtPlotGrid;
     grid2->enableXMin(true);
     grid2->enableYMin(true);
-    grid2->setMajPen(QPen(Qt::black, 1, Qt::DotLine));
-    grid2->setMinPen(QPen(Qt::gray, 1, Qt::DotLine));
+    grid2->setMajorPen(QPen(Qt::black, 1, Qt::DotLine));
+    grid2->setMinorPen(QPen(Qt::gray, 1, Qt::DotLine));
     grid2->attach(ui->plot2);
     //настройка гисограммы
     for (int i = 0; i < hist_plot_data_y_len; i++)
@@ -208,11 +209,11 @@ SlotWidget::SlotWidget(QWidget *parent, MBMasterXMLPtr mm, int module, int slot,
     ui->hist->enableAxis(QwtPlot::yLeft, false);
 
     QwtPlotCurve *hist_data = new QwtPlotCurve("Curve 2");
-    hist_data->setPen(Qt::NoPen);
+    hist_data->setPen(QPen{Qt::NoPen});
     hist_data->setStyle(QwtPlotCurve::Steps);
     hist_data->setBrush(QColor("lightslategrey"));
-    hist_data->setRawData(hist_plot_data_x, hist_plot_data_y,
-                          hist_plot_data_y_len);
+    hist_data->setRawSamples(hist_plot_data_x, hist_plot_data_y,
+                             hist_plot_data_y_len);
     hist_data->attach(ui->hist);
     // применение настроек
     QMap<QString, QString> settings2 = settings;
@@ -350,12 +351,12 @@ void SlotWidget::export_data()
 
     if (curve)
     { // экспорт содержания графиков
-        const QwtData &d = curve->data();
-        n = d.size();
+        const QwtSeriesData<QPointF> *d = curve->data();
+        n = d->size();
         for (i = 1; i < n; i++)
         {
-            str += QString::number(d.x(i - 1)) + "\t";
-            str += QString::number(d.y(i), 'g', 8) + "\n";
+            str += QString::number(d->sample(i - 1).x()) + "\t";
+            str += QString::number(d->sample(i).y(), 'g', 8) + "\n";
         }
         str.chop(1);
     }
@@ -741,7 +742,7 @@ void SlotWidget::timerEvent(QTimerEvent *event)
     }
 
     plot_data_y[0] = plot_data_y[1];
-    plot_curve->setData(plot_data_x.constData(), plot_data_y.constData(), n);
+    plot_curve->setSamples(plot_data_x.constData(), plot_data_y.constData(), n);
     ui->plot->replot();
     if (ui->action_view_plot1->isChecked() && ui->action_stat_show->isChecked())
         calc_statistic();
@@ -823,7 +824,8 @@ void SlotWidget::timerEvent(QTimerEvent *event)
     }
 
     plot_data_y[0] = plot_data_y[1];
-    plot2_curve->setData(plot_data_x.constData(), plot_data_y.constData(), n);
+    plot2_curve->setSamples(plot_data_x.constData(), plot_data_y.constData(),
+                            n);
     ui->plot2->replot();
     if (ui->action_view_plot2->isChecked() && ui->action_stat_show->isChecked())
         calc_statistic();

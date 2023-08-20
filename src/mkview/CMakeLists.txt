@@ -24,7 +24,7 @@ target_sources(mkview
 target_link_libraries(mkview
     modbuslib
     mklib
-    qwt
+    qwt6
     Qt5::Widgets
 )
 

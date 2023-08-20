@@ -2,6 +2,7 @@
 #define ABSTRACTSCALEDRAW_H
 
 #include <qwt_scale_draw.h>
+#include <qwt_text.h>
 
 #include <QLocale>
 

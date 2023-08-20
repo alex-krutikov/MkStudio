@@ -1,13 +1,13 @@
 #ifndef MKPICKER_H
 #define MKPICKER_H
 
-#include "plot.h"
-
+#include <qwt_plot_canvas.h>
 #include <qwt_plot_picker.h>
 
 #include <QTimer>
 
 class Plot;
+
 class MKPicker : public QwtPlotPicker
 {
     Q_OBJECT
@@ -15,14 +15,13 @@ class MKPicker : public QwtPlotPicker
 public:
     explicit MKPicker(int xAxis, int yAxis, int selectionFlags,
                       RubberBand rubberBand, DisplayMode trackerMode,
-                      QwtPlotCanvas *cnvs)
-        : QwtPlotPicker(xAxis, yAxis, selectionFlags, rubberBand, trackerMode,
-                        cnvs)
+                      QWidget *parent)
+        : QwtPlotPicker(xAxis, yAxis, rubberBand, trackerMode, parent)
     {
     }
 
     QwtText trackerText(const QPoint &) const;
-    QwtText trackerText(const QwtDoublePoint &) const;
+    QwtText trackerText(const QPointF &) const;
     void drawRubberBand(QPainter *) const;
     void setPlot(Plot *plot) { plt = plot; }
     void refresh() { begin(); }

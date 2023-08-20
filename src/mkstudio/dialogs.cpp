@@ -343,8 +343,8 @@ UnitedSlots::UnitedSlots(QWidget *parent, MBMasterXMLPtr mm)
     QwtPlotGrid *grid = new QwtPlotGrid;
     grid->enableXMin(true);
     grid->enableYMin(true);
-    grid->setMajPen(QPen(Qt::black, 1, Qt::DotLine));
-    grid->setMinPen(QPen(Qt::gray, 1, Qt::DotLine));
+    grid->setMajorPen(QPen(Qt::black, 1, Qt::DotLine));
+    grid->setMinorPen(QPen(Qt::gray, 1, Qt::DotLine));
     grid->attach(plot);
 
     startTimer(1000);
@@ -385,7 +385,8 @@ void UnitedSlots::timerEvent(QTimerEvent *event)
         }
         plot_data_x[0] = 0;
         plot_data_y[0] = plot_data_y[1];
-        curves[i]->setData(plot_data_x.constData(), plot_data_y.constData(), n);
+        curves[i]->setSamples(plot_data_x.constData(), plot_data_y.constData(),
+                              n);
     }
     plot->replot();
 }

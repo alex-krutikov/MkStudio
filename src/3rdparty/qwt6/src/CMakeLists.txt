@@ -262,6 +262,11 @@ add_library(qwt6)
 
 target_compile_features(qwt6 PRIVATE cxx_std_17)
 
+target_compile_definitions(qwt6
+    PRIVATE
+        QWT_MOC_INCLUDE
+)
+
 target_include_directories(qwt6 INTERFACE . )
 
 target_sources(qwt6

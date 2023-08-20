@@ -45,7 +45,7 @@ target_sources(mklib
 
 target_link_libraries(mklib
     modbuslib
-    qwt
+    qwt6
     Qt5::Widgets
     Qt5::Xml
 )
