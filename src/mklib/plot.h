@@ -87,6 +87,7 @@ private:
     std::unique_ptr<QwtPlotCurve> plot_data2;
     std::unique_ptr<QwtPlotCurve> plot_data3;
     std::unique_ptr<QwtPlotCurve> plot_data4;
+    std::unique_ptr<QwtPlotCurve> hist_data;
 
     int y_data_len;
     int plots_count;

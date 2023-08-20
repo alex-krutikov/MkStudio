@@ -209,7 +209,7 @@ Plot::Plot(QString title, QList<QTableWidgetItem *> mkItemList, bool min_flag,
         ui->hist->enableAxis(QwtPlot::yRight, false);
         ui->hist->enableAxis(QwtPlot::yLeft, false);
 
-        QwtPlotCurve *hist_data = new QwtPlotCurve("Curve H");
+        hist_data.reset(new QwtPlotCurve("Curve H"));
         hist_data->setPen(QPen{Qt::NoPen});
         hist_data->setStyle(QwtPlotCurve::Steps);
         hist_data->setBrush(QColor("lightslategrey"));
@@ -912,6 +912,8 @@ void Plot::calc_statistic()
                 y_hist_data[j] += 1;
             }
         }
+
+        hist_data->setRawSamples(x_hist_data, y_hist_data, y_hist_data_len);
         ui->hist->replot();
     }
     QT_CATCH(...) {}
@@ -1173,9 +1175,26 @@ void Plot::timerEvent(QTimerEvent *event)
                 }
             }
         }
+
         // обновление графика
+        plot_data1->setRawSamples(x_data.get(), y_data1.get(), y_data_len);
+        if (plots_count > 1)
+        {
+            plot_data2->setRawSamples(x_data.get(), y_data2.get(), y_data_len);
+        }
+        if (plots_count > 2)
+        {
+            plot_data3->setRawSamples(x_data.get(), y_data3.get(), y_data_len);
+        }
+        if (plots_count > 3)
+        {
+            plot_data4->setRawSamples(x_data.get(), y_data4.get(), y_data_len);
+        }
+
         ui->plot->replot();
+
         picker->refresh();
+
         // возврат в исходное состояние из масштабированного графика
         if ((plots_count > 1) && (koeff != 0) && ui->cb_use_match->isChecked())
         {
