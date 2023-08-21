@@ -10,6 +10,7 @@
 
 #include <QDir>
 #include <QMutex>
+#include <QRegularExpression>
 
 //===================================================================
 //
@@ -381,7 +382,7 @@ int SerialPortPrivate::queryXBee(const QByteArray &request, QByteArray &answer,
 //===================================================================
 QStringList SerialPortPrivate::queryComPorts()
 {
-    QRegExp rx("^tty[A-Z].*");
+    QRegularExpression rx("^tty[A-Z].*");
     QStringList sl;
     QDir dir("/dev");
     int fd;
@@ -389,7 +390,7 @@ QStringList SerialPortPrivate::queryComPorts()
 
     foreach (QString str, dir.entryList(QDir::System, QDir::Name))
     {
-        if (!rx.exactMatch(str)) continue;
+        if (!rx.match(str).hasMatch()) continue;
         str = "/dev/" + str;
         fd = ::open(str.toLocal8Bit(), O_RDWR | O_NOCTTY);
         if (fd < 0) continue;

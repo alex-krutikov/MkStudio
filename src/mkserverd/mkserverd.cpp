@@ -6,6 +6,7 @@
 #include "mbcommon.h"
 
 #include <QCoreApplication>
+#include <QRegExp>
 #include <QTextCodec>
 #include <QTextStream>
 #include <QVector>

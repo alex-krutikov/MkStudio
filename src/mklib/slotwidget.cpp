@@ -19,6 +19,7 @@
 #include <QDomDocument>
 #include <QFile>
 #include <QMessageBox>
+#include <QRegExp>
 
 #include "ui/ui_slotdialog.h"
 #include "ui/ui_slotwidget.h"

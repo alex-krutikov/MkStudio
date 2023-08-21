@@ -8,7 +8,6 @@
 #include "serialport.h"
 
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QDomDocument>
 #include <QFileDialog>
 #include <QInputDialog>
@@ -62,7 +61,7 @@ bool get_firmwares_list(QWidget *parent, const QString &module_name,
     QByteArray data = reply->readAll();
 
     QDomDocument doc;
-    bool ok = doc.setContent(data);
+    bool ok = static_cast<bool>(doc.setContent(data));
     if (!ok)
     {
         *errorMessage = "Ошибка. Сервер выдал некорректные данные.";

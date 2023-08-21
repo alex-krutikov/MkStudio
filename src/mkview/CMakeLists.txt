@@ -4,7 +4,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt6 COMPONENTS Widgets Core5Compat REQUIRED)
 
 add_executable(mkview WIN32)
 
@@ -25,7 +25,8 @@ target_link_libraries(mkview
     modbuslib
     mklib
     qwt6
-    Qt5::Widgets
+    Qt6::Widgets
+    Qt6::Core5Compat
 )
 
 install(TARGETS mkview DESTINATION .)

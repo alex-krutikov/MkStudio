@@ -11,6 +11,8 @@
 #include <QMenu>
 #include <QMessageBox>
 #include <QMouseEvent>
+#include <QRegExp>
+#include <QRegularExpression>
 
 //-----------------------------------------------------------------------------
 // служебная структура - привязка ячеек
@@ -446,7 +448,7 @@ void MKTable::ss_process()
     QString ss = settingssheet_str;
     QString str, str2;
     // удаление комментариев
-    ss.remove(QRegExp("//[^\n]*"));
+    ss.remove(QRegularExpression("//[^\n]*"));
     ss = ss.simplified();
 
     QStringList sl_enum_name; // названия селекторов

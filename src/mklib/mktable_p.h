@@ -59,7 +59,7 @@ protected:
 
     QStyleOptionViewItem viewOptions() const
     {
-        QStyleOptionViewItem option = QListView::viewOptions();
+        QStyleOptionViewItem option = viewOptions();
         option.showDecorationSelected = true;
         return option;
     }

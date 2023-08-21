@@ -7,6 +7,7 @@
 #include <QClipboard>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QRegExp>
 
 #include <qwt_legend.h>
 #include <qwt_math.h>

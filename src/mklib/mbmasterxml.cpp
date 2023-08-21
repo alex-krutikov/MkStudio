@@ -6,6 +6,7 @@
 #include <mbmaster_p.h>
 
 #include <QDomElement>
+#include <QRegExp>
 
 //###################################################################
 //

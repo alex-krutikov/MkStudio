@@ -2046,7 +2046,7 @@ MBMasterPrivate::decodeModuleDefinition(const QByteArray &ba)
     } * st;
     MikkonModuleDefinition md;
 #include "packed_struct_end.h"
-    if (ba.count() < (int)sizeof(st)) return md;
+    if (ba.size() < sizeof(st)) return md;
 
     st = (ModuleDefinition *)ba.data();
     md.id = st->ID;

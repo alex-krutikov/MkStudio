@@ -4,7 +4,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt6 COMPONENTS Widgets REQUIRED)
 
 add_executable(mmpm WIN32)
 
@@ -32,7 +32,7 @@ target_sources(mmpm
 target_link_libraries(mmpm
     modbuslib
     mklib
-    Qt5::Widgets
+    Qt6::Widgets
     libzip::zip
 )
 

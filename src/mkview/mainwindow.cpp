@@ -7,9 +7,9 @@
 #include "mktable.h"
 #include "serialport.h"
 
-#include <QDesktopWidget>
 #include <QMessageBox>
 #include <QPluginLoader>
+#include <QRegExp>
 #include <QScreen>
 
 #ifdef Q_OS_WIN32
@@ -91,9 +91,10 @@ InitDialog::InitDialog(QWidget *parent)
     //--------------------------------------------------------
     le_host->setText(settings.value("tcphost", "1").toString());
     //--------------------------------------------------------
-    QRegExp rx("(\\d{1,3})(\\.\\d{1,2})?");
-    QValidator *validator = new QRegExpValidator(rx, this);
+    QRegularExpression rx("(\\d{1,3})(\\.\\d{1,2})?");
+    QValidator *validator = new QRegularExpressionValidator(rx, this);
     le_node->setValidator(validator);
+
     le_node->setText(settings.value("modulenode", "1").toString());
     //--------------------------------------------------------
     setFocus();

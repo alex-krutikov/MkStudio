@@ -17,10 +17,8 @@
 #endif
 
 class SerialPort;
-class QStringList;
 class QString;
 class QByteArray;
-class QStringList;
 class QWidget;
 
 struct st_XBeeRoute

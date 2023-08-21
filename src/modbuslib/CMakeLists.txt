@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.15)
 
 set(CMAKE_AUTOMOC ON)
 
-find_package(Qt5 COMPONENTS Core Network REQUIRED)
+find_package(Qt6 COMPONENTS Core Network REQUIRED)
 
 
 add_library(modbuslib)
@@ -55,6 +55,6 @@ if (UNIX)
 endif()
 
 target_link_libraries(modbuslib
-    Qt5::Core
-    Qt5::Network
+    Qt6::Core
+    Qt6::Network
 )

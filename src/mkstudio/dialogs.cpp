@@ -7,6 +7,7 @@
 #include <mbudp.h>
 #include <serialport.h>
 
+#include <QRegExp>
 #include <qwt_legend.h>
 #include <qwt_math.h>
 #include <qwt_painter.h>
@@ -18,6 +19,7 @@
 #include <qwt_scale_widget.h>
 
 #include <QCompleter>
+#include <QFile>
 #include <QKeyEvent>
 #include <QMessageBox>
 
@@ -816,9 +818,9 @@ QWidget *AssignDelegate::createEditor(QWidget *parent,
     Q_UNUSED(index);
 
     QLineEdit *line = new QLineEdit(parent);
-    QRegExpValidator *AssignExp = new QRegExpValidator(
-        QRegExp("(\\d+)(\\/)(\\d+)(\\/)([1-9]\\d+)"), parent);
-    line->setValidator(AssignExp);
+    QRegularExpressionValidator *assignExp = new QRegularExpressionValidator(
+        QRegularExpression("(\\d+)(\\/)(\\d+)(\\/)([1-9]\\d+)"), parent);
+    line->setValidator(assignExp);
     line->setFrame(false);
     line->setAlignment(Qt::AlignCenter);
 

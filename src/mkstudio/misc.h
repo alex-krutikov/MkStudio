@@ -1,6 +1,7 @@
 #ifndef _MISC__H_
 #define _MISC__H_
 
+#include <QRegularExpression>
 #include <QSyntaxHighlighter>
 
 //==============================================================================
@@ -18,7 +19,7 @@ protected:
 private:
     struct HighlightingRule
     {
-        QRegExp pattern;
+        QRegularExpression pattern;
         QTextCharFormat format;
     };
     QVector<HighlightingRule> highlightingRules;

@@ -4,7 +4,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt5 COMPONENTS Widgets Xml REQUIRED)
+find_package(Qt6 COMPONENTS Widgets Xml Core5Compat REQUIRED)
 
 add_executable(baseedit WIN32)
 
@@ -24,8 +24,9 @@ target_sources(baseedit
 )
 
 target_link_libraries(baseedit
-    Qt5::Widgets
-    Qt5::Xml
+    Qt6::Widgets
+    Qt6::Xml
+    Qt6::Core5Compat
 )
 
 install(TARGETS baseedit DESTINATION .)

@@ -3,11 +3,13 @@
 #include "main.h"
 #include "model.h"
 
+#include <QActionGroup>
 #include <QClipboard>
 #include <QDomDocument>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QMimeData>
+#include <QRegExp>
 #include <QTextCodec>
 #include <QTextStream>
 
@@ -182,16 +184,9 @@ void MainWindow::on_action_save_as_triggered()
 //==============================================================================
 void MainWindow::on_action_export_triggered()
 {
-    QString s;
+    QString outStr;
+    QTextStream out(&outStr);
 
-    QString filename = current_file_name;
-    if (filename.endsWith(".base")) filename.chop(5);
-    QFile file(filename + ".inc");
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate
-                   | QIODevice::Text))
-        return;
-    QTextStream out(&file);
-    out.setCodec(QTextCodec::codecForName("Windows-1251"));
 
     foreach (Item item, items)
     {
@@ -208,7 +203,7 @@ void MainWindow::on_action_export_triggered()
             out << QString::asprintf("\n  // 0x%4.4X", item.addr);
             out << part2 << Qt::endl;
         }
-        s = item.field.simplified();
+        QString s = item.field.simplified();
         if (!s.isEmpty())
         {
             if ((!s.contains("#")) && (!s.contains(";")) && (!s.endsWith(",")))
@@ -223,6 +218,16 @@ void MainWindow::on_action_export_triggered()
         }
     }
 
+    QString filename = current_file_name;
+    if (filename.endsWith(".base")) filename.chop(5);
+    QFile file(filename + ".inc");
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate
+                   | QIODevice::Text))
+        return;
+
+    QTextCodec *codec = QTextCodec::codecForName("Windows-1251");
+    file.write(codec->fromUnicode(outStr));
+
     QMessageBox::information(
         this, app_header,
         QString("База экспортированна в %1.inc").arg(filename));
@@ -233,17 +238,12 @@ void MainWindow::on_action_export_triggered()
 //==============================================================================
 void MainWindow::on_action_export_h_triggered()
 {
-    QString s;
-
     QString filename = current_file_name;
     if (filename.endsWith(".base")) filename.chop(5);
     QString basename = QFileInfo(filename).baseName();
-    QFile file(filename + ".h");
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate
-                   | QIODevice::Text))
-        return;
-    QTextStream out(&file);
-    out.setCodec(QTextCodec::codecForName("utf-8"));
+
+    QString outStr;
+    QTextStream out(&outStr);
 
     out << QString("#ifndef __BASE_%1__\n").arg(basename.toUpper());
     out << QString("#define __BASE_%1__\n").arg(basename.toUpper());
@@ -268,7 +268,7 @@ void MainWindow::on_action_export_h_triggered()
             out << QString::asprintf("\n  // 0x%4.4X", item.addr);
             out << part2 << Qt::endl;
         }
-        s = item.field.simplified();
+        QString s = item.field.simplified();
         if (!s.isEmpty())
         {
             if ((!s.contains("#")) && (!s.contains(";")) && (!s.endsWith(",")))
@@ -287,6 +287,13 @@ void MainWindow::on_action_export_h_triggered()
            "\n"
            "#endif\n"
            "\n";
+
+    QFile file(filename + ".h");
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate
+                   | QIODevice::Text))
+        return;
+
+    file.write(QTextCodec::codecForName("utf-8")->fromUnicode(outStr));
 
 
     QMessageBox::information(
@@ -317,8 +324,10 @@ void MainWindow::on_action_import_triggered()
     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) return;
 
-    QTextStream in(&file);
-    in.setCodec(QTextCodec::codecForName("Windows-1251"));
+    QString inStr
+        = QTextCodec::codecForName("Windows-1251")->toUnicode(file.readAll());
+
+    QTextStream in(&inStr, QIODeviceBase::ReadOnly);
 
     Item item;
     while (!in.atEnd())

@@ -16,6 +16,7 @@
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QMimeData>
+#include <QRegExp>
 #include <QShortcut>
 #include <QTextCodec>
 #include <QTextStream>
@@ -811,15 +812,19 @@ void MainWindow::on_action_link_triggered()
 
     QStringList sl;
     QString ss_str = te_settingssheet->toPlainText();
-    ss_str.remove(QRegExp("//[^\n]*"));
+    ss_str.remove(QRegularExpression("//[^\n]*"));
     ss_str = ss_str.simplified();
-    QRegExp rx = QRegExp("\\benum\\b\\s*(\\w+)\\b\\s*\\{");
+    QRegularExpression rx("\\benum\\b\\s*(\\w+)\\b\\s*\\{");
     pos = 0;
-    while ((pos = rx.indexIn(ss_str, pos)) != -1)
+    QRegularExpressionMatchIterator matches = rx.globalMatch(ss_str);
+
+    while (matches.hasNext())
     {
-        pos += rx.matchedLength();
-        sl << rx.cap(1);
+        QRegularExpressionMatch match = matches.next();
+        pos += match.capturedEnd(); // Use += to move the position forward
+        sl << match.captured(1);
     }
+
 
     // создание диалога
     QString posAddress;
@@ -1423,9 +1428,9 @@ void MainWindow::on_action_export_config_triggered()
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate
                    | QIODevice::Text))
         return;
-    QTextStream st(&file);
-    st.setCodec(QTextCodec::codecForName("Windows-1251"));
-    st << str;
+
+    QTextCodec *codec = QTextCodec::codecForName("Windows-1251");
+    file.write(codec->fromUnicode(str));
 }
 
 //==============================================================================

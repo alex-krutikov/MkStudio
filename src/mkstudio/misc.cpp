@@ -1,5 +1,7 @@
 #include "misc.h"
 
+#include <QRegularExpression>
+
 //#######################################################################################
 //
 //#######################################################################################
@@ -20,7 +22,7 @@ ScriptHighlighter::ScriptHighlighter(QTextDocument *parent)
     // =1:
     cf1.setForeground(Qt::darkBlue);
     cf1.setFontWeight(QFont::Bold);
-    rule.pattern = QRegExp("=-?\\d+:");
+    rule.pattern = QRegularExpression("=-?\\d+:");
     rule.format = cf1;
     highlightingRules << rule;
 
@@ -29,14 +31,14 @@ ScriptHighlighter::ScriptHighlighter(QTextDocument *parent)
     keywordFormat.setFontWeight(QFont::Bold);
     foreach (QString pattern, keywordPatterns)
     {
-        rule.pattern = QRegExp("\\b" + pattern + "\\b");
+        rule.pattern = QRegularExpression("\\b" + pattern + "\\b");
         rule.format = keywordFormat;
         highlightingRules << rule;
     }
 
     // однострочные комментарии
     singleLineCommentFormat.setForeground(Qt::darkGreen);
-    rule.pattern = QRegExp("//[^\n]*");
+    rule.pattern = QRegularExpression("//[^\n]*");
     rule.format = singleLineCommentFormat;
     highlightingRules << rule;
 }
@@ -46,17 +48,18 @@ ScriptHighlighter::ScriptHighlighter(QTextDocument *parent)
 //==============================================================================
 void ScriptHighlighter::highlightBlock(const QString &text)
 {
-    int index, length;
+    int index = 0;
 
-    foreach (HighlightingRule rule, highlightingRules)
+    for (const HighlightingRule &rule : highlightingRules)
     {
-        QRegExp expression(rule.pattern);
-        index = text.indexOf(expression);
-        while (index >= 0)
+        QRegularExpression expression(rule.pattern);
+        QRegularExpressionMatchIterator matches = expression.globalMatch(text);
+
+        while (matches.hasNext())
         {
-            length = expression.matchedLength();
-            setFormat(index, length, rule.format);
-            index = text.indexOf(expression, index + length);
+            QRegularExpressionMatch match = matches.next();
+            int length = match.capturedLength();
+            setFormat(match.capturedStart(), length, rule.format);
         }
     }
 }

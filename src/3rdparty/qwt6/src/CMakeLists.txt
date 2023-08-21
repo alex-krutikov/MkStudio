@@ -123,8 +123,8 @@ set(QWT_SOURCES
     qwt_plot_marker.h
     qwt_plot_multi_barchart.cpp
     qwt_plot_multi_barchart.h
-    qwt_plot_opengl_canvas.cpp
-    qwt_plot_opengl_canvas.h
+#   qwt_plot_opengl_canvas.cpp # opengl workaround
+#   qwt_plot_opengl_canvas.h   # opengl workaround
     qwt_plot_panner.cpp
     qwt_plot_panner.h
     qwt_plot_picker.cpp
@@ -256,7 +256,7 @@ set(QWT_SOURCES
     qwt_widget_overlay.h
 )
 
-find_package(Qt5 COMPONENTS Widgets Concurrent PrintSupport Svg REQUIRED)
+find_package(Qt6 COMPONENTS Widgets Concurrent PrintSupport Svg REQUIRED)
 
 add_library(qwt6)
 
@@ -275,8 +275,8 @@ target_sources(qwt6
 )
 
 target_link_libraries(qwt6
-    Qt5::Widgets
-    Qt5::Concurrent
-    Qt5::PrintSupport
-    Qt5::Svg
+    Qt6::Widgets
+    Qt6::Concurrent
+    Qt6::PrintSupport
+    Qt6::Svg
 )

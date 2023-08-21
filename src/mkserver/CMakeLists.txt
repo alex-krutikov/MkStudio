@@ -4,7 +4,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt5 COMPONENTS Widgets Xml REQUIRED)
+find_package(Qt6 COMPONENTS Widgets Xml REQUIRED)
 
 add_executable(mkserver WIN32)
 
@@ -22,8 +22,8 @@ target_sources(mkserver
 
 target_link_libraries(mkserver
     modbuslib
-    Qt5::Widgets
-    Qt5::Xml
+    Qt6::Widgets
+    Qt6::Xml
 )
 
 install(TARGETS mkserver DESTINATION .)

@@ -4,7 +4,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt6 COMPONENTS Widgets REQUIRED)
 
 
 add_executable(mkstudio WIN32)
@@ -29,7 +29,7 @@ target_sources(mkstudio
 target_link_libraries(mkstudio
     modbuslib
     mklib
-    Qt5::Widgets
+    Qt6::Widgets
 )
 
 install(TARGETS mkstudio DESTINATION .)

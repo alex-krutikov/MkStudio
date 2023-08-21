@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 
-find_package(Qt5 COMPONENTS Core Xml REQUIRED)
+find_package(Qt6 COMPONENTS Core Xml Core5Compat REQUIRED)
 
 add_executable(mksync)
 
@@ -13,8 +13,9 @@ target_sources(mksync
 
 target_link_libraries(mksync
     modbuslib
-    Qt5::Core
-    Qt5::Xml
+    Qt6::Core
+    Qt6::Xml
+    Qt6::Core5Compat
 )
 
 install(TARGETS mksync DESTINATION .)

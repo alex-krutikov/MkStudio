@@ -5,6 +5,7 @@
 #include <QDomElement>
 #include <QMenu>
 #include <QMessageBox>
+#include <QRegExp>
 
 #include "ui/ui_mbconfigwidget.h"
 

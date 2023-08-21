@@ -117,19 +117,19 @@ inline MMValue MMValue::fromString(const QString &str)
 inline MMValue MMValue::fromVariant(const QVariant &var)
 {
     MMValue ret;
-    switch (var.type())
+    switch (var.typeId())
     {
-    case (QVariant::Int):
+    case (QMetaType::Int):
         ret.type = Int;
         ret.st = Ok;
         ret.v.i = var.toInt();
         break;
-    case (QVariant::Double):
+    case (QMetaType::Double):
         ret.type = Double;
         ret.st = Ok;
         ret.v.d = var.toDouble();
         break;
-    case (QVariant::String):
+    case (QMetaType::QString):
         ret = MMValue::fromString(var.toString());
         break;
     default:
