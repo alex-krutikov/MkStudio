@@ -25,6 +25,7 @@ class QTextStream;
 class QwtPlotZoomer;
 class QwtPlotPicker;
 class MKPicker;
+class PlotRawSeriesData;
 
 //---------------------------------------------------------------------------
 //
@@ -98,6 +99,11 @@ private:
     std::unique_ptr<double[]> y_data2;
     std::unique_ptr<double[]> y_data3;
     std::unique_ptr<double[]> y_data4;
+
+    PlotRawSeriesData *plot_series_data1{nullptr};
+    PlotRawSeriesData *plot_series_data2{nullptr};
+    PlotRawSeriesData *plot_series_data3{nullptr};
+    PlotRawSeriesData *plot_series_data4{nullptr};
 
     double *y_data_stat;
 

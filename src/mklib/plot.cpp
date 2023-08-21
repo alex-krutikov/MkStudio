@@ -23,6 +23,63 @@
 #include "ui/ui_plot.h"
 #include "ui/ui_plotisrdialog.h"
 
+
+// ##############################################################################
+//
+// ##############################################################################
+class PlotRawSeriesData : public QwtSeriesData<QPointF>
+{
+public:
+    void setRawData(double *x, double *y, int len)
+    {
+        m_x = x;
+        m_y = y;
+        m_len = len;
+
+        updateBoundingRect();
+    }
+
+    virtual size_t size() const override { return m_len; }
+
+    virtual QPointF sample(size_t i) const override
+    {
+        if (i < 0 || i >= m_len) return QPointF{};
+
+        return QPointF{m_x[i], m_y[i]};
+    }
+
+    virtual QRectF boundingRect() const override { return cachedBoundingRect; }
+
+    void updateBoundingRect()
+    {
+        if (!m_len)
+        {
+            cachedBoundingRect = QRectF{};
+            return;
+        }
+
+        double x1 = m_x[0];
+        double x2 = m_x[m_len - 1];
+        double y1 = m_y[0];
+        double y2 = m_y[0];
+
+        for (int i = 1; i < m_len; ++i)
+        {
+            if (m_y[i] < y1) y1 = m_y[i];
+            if (m_y[i] > y2) y2 = m_y[i];
+        }
+
+        if (x2 < x1) std::swap(x1, x2);
+
+        cachedBoundingRect = QRectF{x1, y1, x2 - x1, y2 - y1};
+    }
+
+private:
+    double *m_x{nullptr};
+    double *m_y{nullptr};
+    int m_len{0};
+};
+
 //##############################################################################
 //
 //##############################################################################
@@ -144,9 +201,31 @@ Plot::Plot(QString title, QList<QTableWidgetItem *> mkItemList, bool min_flag,
         y_data1.reset(new double[y_data_len]);
         y_data_stat = y_data1.get();
 
-        if (plots_count > 1) y_data2.reset(new double[y_data_len]);
-        if (plots_count > 2) y_data3.reset(new double[y_data_len]);
-        if (plots_count > 3) y_data4.reset(new double[y_data_len]);
+        plot_series_data1 = new PlotRawSeriesData;
+        plot_series_data2 = new PlotRawSeriesData;
+        plot_series_data3 = new PlotRawSeriesData;
+        plot_series_data4 = new PlotRawSeriesData;
+
+        plot_series_data1->setRawData(x_data.get(), y_data1.get(), y_data_len);
+
+        if (plots_count > 1)
+        {
+            y_data2.reset(new double[y_data_len]);
+            plot_series_data2->setRawData(x_data.get(), y_data2.get(),
+                                          y_data_len);
+        }
+        if (plots_count > 2)
+        {
+            y_data3.reset(new double[y_data_len]);
+            plot_series_data3->setRawData(x_data.get(), y_data3.get(),
+                                          y_data_len);
+        }
+        if (plots_count > 3)
+        {
+            y_data4.reset(new double[y_data_len]);
+            plot_series_data4->setRawData(x_data.get(), y_data4.get(),
+                                          y_data_len);
+        }
 
         for (i = 0; i < y_data_len; i++)
         {
@@ -175,7 +254,7 @@ Plot::Plot(QString title, QList<QTableWidgetItem *> mkItemList, bool min_flag,
         plot_data1.reset(new QwtPlotCurve("Curve 1"));
         plot_data1->setPen(QPen(Qt::blue, 1));
         plot_data1->setYAxis(QwtPlot::yRight);
-        plot_data1->setRawSamples(x_data.get(), y_data1.get(), y_data_len);
+        plot_data1->setData(plot_series_data1);
         plot_data1->attach(ui->plot);
 
         if (plots_count > 1)
@@ -183,7 +262,7 @@ Plot::Plot(QString title, QList<QTableWidgetItem *> mkItemList, bool min_flag,
             plot_data2.reset(new QwtPlotCurve("Curve 2"));
             plot_data2->setPen(QPen(Qt::green, 1));
             plot_data2->setYAxis(QwtPlot::yRight);
-            plot_data2->setRawSamples(x_data.get(), y_data2.get(), y_data_len);
+            plot_data2->setData(plot_series_data2);
             plot_data2->attach(ui->plot);
         }
         if (plots_count > 2)
@@ -191,7 +270,7 @@ Plot::Plot(QString title, QList<QTableWidgetItem *> mkItemList, bool min_flag,
             plot_data3.reset(new QwtPlotCurve("Curve 3"));
             plot_data3->setPen(QPen(Qt::red, 1));
             plot_data3->setYAxis(QwtPlot::yRight);
-            plot_data3->setRawSamples(x_data.get(), y_data3.get(), y_data_len);
+            plot_data3->setData(plot_series_data3);
             plot_data3->attach(ui->plot);
         }
         if (plots_count > 3)
@@ -199,7 +278,7 @@ Plot::Plot(QString title, QList<QTableWidgetItem *> mkItemList, bool min_flag,
             plot_data4.reset(new QwtPlotCurve("Curve 4"));
             plot_data4->setPen(QPen(Qt::black, 1));
             plot_data4->setYAxis(QwtPlot::yRight);
-            plot_data4->setRawSamples(x_data.get(), y_data4.get(), y_data_len);
+            plot_data4->setData(plot_series_data4);
             plot_data4->attach(ui->plot);
         }
         //--------------------------------------------
@@ -754,22 +833,25 @@ void Plot::params_change()
         x_data.reset(new double[y_data_len]);
         y_data1.reset(new double[y_data_len]);
 
-        plot_data1->setRawSamples(x_data.get(), y_data1.get(), y_data_len);
+        plot_series_data1->setRawData(x_data.get(), y_data1.get(), y_data_len);
 
         if (plots_count > 1)
         {
             y_data2.reset(new double[y_data_len]);
-            plot_data2->setRawSamples(x_data.get(), y_data2.get(), y_data_len);
+            plot_series_data2->setRawData(x_data.get(), y_data2.get(),
+                                          y_data_len);
         }
         if (plots_count > 2)
         {
             y_data3.reset(new double[y_data_len]);
-            plot_data3->setRawSamples(x_data.get(), y_data3.get(), y_data_len);
+            plot_series_data3->setRawData(x_data.get(), y_data3.get(),
+                                          y_data_len);
         }
         if (plots_count > 3)
         {
             y_data4.reset(new double[y_data_len]);
-            plot_data4->setRawSamples(x_data.get(), y_data4.get(), y_data_len);
+            plot_series_data4->setRawData(x_data.get(), y_data4.get(),
+                                          y_data_len);
         }
         switch (ui->cb_plot_stat->currentIndex())
         {
@@ -1177,20 +1259,10 @@ void Plot::timerEvent(QTimerEvent *event)
         }
 
         // обновление графика
-        plot_data1->setRawSamples(x_data.get(), y_data1.get(), y_data_len);
-        if (plots_count > 1)
-        {
-            plot_data2->setRawSamples(x_data.get(), y_data2.get(), y_data_len);
-        }
-        if (plots_count > 2)
-        {
-            plot_data3->setRawSamples(x_data.get(), y_data3.get(), y_data_len);
-        }
-        if (plots_count > 3)
-        {
-            plot_data4->setRawSamples(x_data.get(), y_data4.get(), y_data_len);
-        }
-
+        plot_series_data1->updateBoundingRect();
+        plot_series_data2->updateBoundingRect();
+        plot_series_data3->updateBoundingRect();
+        plot_series_data4->updateBoundingRect();
         ui->plot->replot();
 
         picker->refresh();
