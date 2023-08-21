@@ -5,6 +5,7 @@
 #include "mbcommon.h"
 
 #include <QMap>
+#include <QRegularExpression>
 
 #include <dbt.h>
 #include <setupapi.h>
@@ -522,7 +523,7 @@ QStringList SerialPortPrivate::queryComPorts()
     }
 
     QString str;
-    QRegExp regexp("^COM([0-9]{1,2})");
+    QRegularExpression regexp("^COM([0-9]{1,2})");
     QMap<int, QString> map;
 
     const GUID GUID_DEVINTERFACE_COMPORT
@@ -624,7 +625,7 @@ QStringList SerialPortPrivate::queryComPorts()
                     {
                         str = QString::fromWCharArray(pszPortName);
                         // if( str.startsWith("COM") )
-                        if (regexp.exactMatch(str)) bAdded = TRUE;
+                        if (regexp.match(str).hasMatch()) bAdded = TRUE;
                     }
                 }
                 // Close the key now that we are finished with it
@@ -644,7 +645,8 @@ QStringList SerialPortPrivate::queryComPorts()
                         &dwSize)
                     && (dwType == REG_SZ))
                     str += ";" + QString::fromWCharArray(pszFriendlyName);
-                if (regexp.indexIn(str) > -1) map[regexp.cap(1).toInt()] = str;
+                if (auto match = regexp.match(str); match.hasMatch())
+                    map[match.captured(1).toInt()] = str;
             }
         }
         ++nIndex;

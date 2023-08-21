@@ -657,8 +657,10 @@ int main(int argc, char *argv[])
     QCoreApplication app(argc, argv);
 
 #ifdef Q_OS_WIN32
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     cout.setCodec(QTextCodec::codecForName("CP-866"));
     cerr.setCodec(QTextCodec::codecForName("CP-866"));
+#endif
 #endif
 
     int ret;
