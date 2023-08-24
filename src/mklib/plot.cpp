@@ -16,6 +16,7 @@
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_curve.h>
 #include <qwt_plot_marker.h>
+#include <qwt_plot_opengl_canvas.h>
 #include <qwt_plot_zoomer.h>
 #include <qwt_scale_draw.h>
 #include <qwt_scale_engine.h>
@@ -158,6 +159,8 @@ Plot::Plot(QString title, QList<QTableWidgetItem *> mkItemList, bool min_flag,
         avr_counter = 0;
         points_counter = 0;
         file_write_counter = 0;
+
+        ui->plot->setCanvas(new QwtPlotOpenGLCanvas);
 
         zoomer = new QwtPlotZoomer(ui->plot->canvas());
 
